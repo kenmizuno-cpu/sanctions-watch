@@ -184,16 +184,26 @@ def _latest_raw(key: str, cfg: dict) -> list:
 
 # ------------------------------------------------------------------ 経産省
 
-def run_meti(session, st, rows, hb, opts=None) -> list[dict]:
+def run_meti(session, st, rows, hb, opts=None) -> list:
+    """経産省の更新監視。**失敗してもワークフローは落とさない。**
+
+    経産省サイトは WAF で自動アクセスを拒否しており、弾かれるのが通常状態。
+    更新は年1〜3回しかないので監視が止まっても実害はないが、この監視のせいで
+    毎回ワークフローが赤くなると財務省や OFAC の本当の障害を見逃す。
+    """
     prev = st.get("meti", {})
-    res = meti.check(session=session)
+    try:
+        res = meti.check(session=session)
+    except Exception as e:  # noqa: BLE001
+        log("blocked", meti.NAME, f"取得できず: {e}")
+        hb.append(dict(source="meti", status="blocked"))
+        return []
+
     sig = res["signature"]
     changed = sig != prev.get("signature")
-
     hb.append(dict(source="meti", status="updated" if changed else "unchanged",
                    content_hash=res["fetched"].sha256,
                    source_updated=";".join(res["dates"][:3])))
-
     if not changed:
         log("unchanged", meti.NAME, "変更なし")
         return []
@@ -203,7 +213,6 @@ def run_meti(session, st, rows, hb, opts=None) -> list[dict]:
     archive(res["fetched"], "meti", ROOT)
     prune_raw("meti", ROOT)
     log("updated", meti.NAME, "更新検出（PDFのため要手動取込）")
-    # PDF はパースしない。マスターの経産省分は据え置き、人に通知だけする。
     return [dict(source=meti.SOURCE, pdfs=res["pdfs"], dates=res["dates"])]
 
 

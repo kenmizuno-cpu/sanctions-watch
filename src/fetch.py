@@ -54,10 +54,14 @@ def sha256(data: bytes) -> str:
 
 
 def fetch(url: str, *, prev: dict | None = None, session: requests.Session | None = None,
-          allow_conditional: bool = True) -> Fetched:
-    """URL を取得する。prev に前回の etag/last_modified があれば条件付きGETする。"""
+          allow_conditional: bool = True, user_agent: str | None = None) -> Fetched:
+    """URL を取得する。prev に前回の etag/last_modified があれば条件付きGETする。
+
+    user_agent: 提供元ごとに要求が食い違うため切り替えられるようにしてある。
+    OFAC は User-Agent 必須（無いと403）、経産省は逆に自動アクセスを拒否する。
+    """
     s = session or requests.Session()
-    headers = {"User-Agent": UA, "Accept": "*/*"}
+    headers = {"User-Agent": user_agent or UA, "Accept": "*/*"}
     prev = prev or {}
     if allow_conditional:
         if prev.get("etag"):
