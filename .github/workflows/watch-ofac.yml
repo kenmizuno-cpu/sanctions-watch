@@ -1,0 +1,29 @@
+name: watch-ofac
+
+# OFAC は決まったスケジュール無しに随時追加・削除を行うため毎時。
+# 17分にしているのは、毎時00分が GitHub 側で最も混んでスケジュール遅延・
+# スキップが起きやすいため。
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sanctions-watch-commit
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/run-watch
+        with:
+          sources: ofac
+          slack-webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          google-service-account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+          drive-folder-id: ${{ secrets.DRIVE_FOLDER_ID }}

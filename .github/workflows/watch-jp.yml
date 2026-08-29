@@ -1,0 +1,28 @@
+name: watch-jp
+
+# 財務省は月に数回、経産省は年1〜3回なので6時間で十分すぎる。
+# OFAC と分の位置をずらして、同じ concurrency グループでの待ちを減らす。
+on:
+  schedule:
+    - cron: "37 0,6,12,18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sanctions-watch-commit
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/run-watch
+        with:
+          sources: mof meti
+          slack-webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          google-service-account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+          drive-folder-id: ${{ secrets.DRIVE_FOLDER_ID }}

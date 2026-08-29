@@ -1,0 +1,36 @@
+name: bootstrap
+
+# 初回マスター作成用。手動実行のみ。
+# ただし初回はローカルで実行して件数を目視確認することを強く推奨する。
+# いきなり Actions で回すと、パース結果がおかしくてもそのまま確定してしまう。
+on:
+  workflow_dispatch:
+    inputs:
+      xlsx_path:
+        description: 既存の受取人名リスト(xlsx)のリポジトリ内パス
+        required: true
+        default: seed/black_receiver_name_all.xlsx
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m tests.test_offline
+      - run: python -m src.import_legacy --src "${{ inputs.xlsx_path }}"
+      - run: python -m src.export_excel
+      - name: コミット
+        run: |
+          git config user.name  "sanctions-watch[bot]"
+          git config user.email "sanctions-watch@users.noreply.github.com"
+          git add -A data/ dist/
+          git diff --cached --quiet || git commit -m "feat(master): 初回マスターを作成"
+          git push

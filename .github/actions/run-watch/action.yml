@@ -1,0 +1,104 @@
+name: run-watch
+description: 制裁リストを取得し、差分をマスターへ反映してコミット・通知・配布まで行う
+
+inputs:
+  sources:
+    description: 監視対象 (mof / ofac / meti / all)
+    required: true
+  slack-webhook:
+    required: false
+    default: ""
+  google-service-account:
+    required: false
+    default: ""
+  drive-folder-id:
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: pip
+
+    - name: 依存関係
+      shell: bash
+      run: pip install -r requirements.txt
+
+    - name: 自己テスト
+      shell: bash
+      run: python -m tests.test_offline
+
+    - name: 取得と差分抽出
+      id: watch
+      shell: bash
+      run: python -m src.watch --sources ${{ inputs.sources }}
+
+    - name: Excel を再生成
+      # マスターに実変更があった回だけ作り直す。毎時バイナリをコミットすると
+      # リポジトリが膨らむため。
+      if: steps.watch.outputs.has_diff == 'true'
+      shell: bash
+      run: python -m src.export_excel
+
+    - name: コミット
+      shell: bash
+      env:
+        HAS_DIFF: ${{ steps.watch.outputs.has_diff }}
+      run: |
+        git config user.name  "sanctions-watch[bot]"
+        git config user.email "sanctions-watch@users.noreply.github.com"
+        git add -A data/
+        if git diff --cached --quiet; then
+          echo "コミットするものが無い"
+          exit 0
+        fi
+        # 意味のある履歴だけ後から追えるよう、メッセージを3種に分ける
+        if [ "$HAS_DIFF" = "true" ]; then
+          MSG="feat(diff): 制裁リスト差分 追加${{ steps.watch.outputs.added }} 削除${{ steps.watch.outputs.removed }} 変更${{ steps.watch.outputs.changed }}"
+        elif git diff --cached --name-only | grep -qv '^data/heartbeat/'; then
+          MSG="chore(state): 取得状態を更新"
+        else
+          MSG="chore(heartbeat): 定期チェック記録"
+        fi
+        git commit -m "$MSG"
+        for i in 1 2 3; do
+          git pull --rebase --autostash && git push && exit 0
+          sleep $((i * 5))
+        done
+        exit 1
+
+    - name: Google Drive へ配布
+      if: steps.watch.outputs.has_diff == 'true'
+      shell: bash
+      env:
+        GOOGLE_SERVICE_ACCOUNT: ${{ inputs.google-service-account }}
+        DRIVE_FOLDER_ID: ${{ inputs.drive-folder-id }}
+      run: python -m src.drive dist/black_receiver_name_all.xlsx
+
+    - name: 差分を通知
+      if: steps.watch.outputs.has_diff == 'true'
+      shell: bash
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook }}
+      run: |
+        python -m src.notify --kind diff \
+          --added   "${{ steps.watch.outputs.added }}" \
+          --removed "${{ steps.watch.outputs.removed }}" \
+          --changed "${{ steps.watch.outputs.changed }}"
+
+    - name: 経産省の更新を通知
+      if: steps.watch.outputs.meti_updated == 'true'
+      shell: bash
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook }}
+      run: python -m src.notify --kind meti
+
+    - name: 失敗を通知
+      if: failure()
+      shell: bash
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook }}
+      run: python -m src.notify --kind failure
