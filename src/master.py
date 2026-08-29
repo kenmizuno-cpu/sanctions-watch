@@ -97,7 +97,7 @@ class Diff:
 
 
 def merge(master: dict[str, dict], records: list[dict], source: str,
-          ts: int | None = None) -> Diff:
+          ts: int | None = None, delist: bool = True) -> Diff:
     """1ソース分の取得結果をマスターに反映し、差分を返す。
 
     records: [{source, category, name, source_id, ...}, ...]
@@ -166,6 +166,12 @@ def merge(master: dict[str, dict], records: list[dict], source: str,
         srcs = [s for s in _split(row["sources"]) if s != source]
         cats = [c for c in _split(row["categories"]) if not c.startswith(f"{source}:")]
         before = {c: row.get(c, "") for c in ("status", "sources", "categories", "remark")}
+        if not delist:
+            # 初回同期。掲載終了の可能性として報告だけして、行は触らない。
+            diff.removed.append(dict(key=k, name=row["display_name"],
+                                     before=before, after=before,
+                                     delisted=False))
+            continue
         row["sources"] = _join(srcs)
         row["categories"] = _join(cats)
         if not srcs:
@@ -175,7 +181,7 @@ def merge(master: dict[str, dict], records: list[dict], source: str,
         row["last_updated_ms"] = ts
         after = {c: row.get(c, "") for c in ("status", "sources", "categories", "remark")}
         diff.removed.append(dict(key=k, name=row["display_name"],
-                                 before=before, after=after))
+                                 before=before, after=after, delisted=True))
 
     return diff
 
@@ -199,7 +205,9 @@ def render_markdown(diffs: list[Diff]) -> str:
                 out.append(f"- …他 {len(d.added) - 200} 件")
             out.append("")
         if d.removed:
-            out.append("### 掲載終了（行は無効化して残す）")
+            held = any(not r.get("delisted", True) for r in d.removed)
+            out.append("### 掲載終了の候補（初回のため無効化せず保留）" if held
+                       else "### 掲載終了（行は無効化して残す）")
             for r in d.removed[:200]:
                 out.append(f"- `{r['name']}` — {r['after']['status']}")
             if len(d.removed) > 200:

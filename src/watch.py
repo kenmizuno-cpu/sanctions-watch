@@ -35,7 +35,8 @@ def log(status: str, name: str, msg: str = "") -> None:
 
 # ------------------------------------------------------------------ 財務省
 
-def run_mof(session, st, rows, hb) -> list[M.Diff]:
+def run_mof(session, st, rows, hb, opts=None) -> list[M.Diff]:
+    opts = opts or {}
     prev = st.get("mof", {})
     url, asof, _ = mof.discover(session=session)
     f = fetch(url, prev=prev, session=session)
@@ -50,10 +51,24 @@ def run_mof(session, st, rows, hb) -> list[M.Diff]:
     archive(f, "mof", ROOT)
     prune_raw("mof", ROOT)
     records = mof.parse(f)
-    d = M.merge(rows, records, mof.SOURCE)
+
+    # 区分番号の繰り下がり検査。初回はマスターが別パイプライン由来で
+    # カテゴリ表記が揃っていないため警告に留め、2回目以降は止める。
+    baseline = bool(prev.get("baseline_synced"))
+    problems = mof.detect_drift(records, rows)
+    if problems:
+        for p_ in problems:
+            log("DRIFT", mof.NAME, p_)
+        if baseline and not opts.get("ignore_drift"):
+            raise mof.SchemaError(
+                "区分番号のずれを検出した。data/kubun_map.json を更新すること:\n  "
+                + "\n  ".join(problems))
+
+    d = M.merge(rows, records, mof.SOURCE,
+                delist=baseline and not opts.get("no_delist"))
     st["mof"] = dict(sha256=f.sha256, etag=f.etag, last_modified=f.last_modified,
                      filename=f.filename, url=url, asof=asof,
-                     record_count=len(records))
+                     record_count=len(records), baseline_synced=True)
     hb.append(dict(source="mof", status="changed" if d else "no_effective_change",
                    content_hash=f.sha256, source_updated=asof,
                    record_count=len(records), raw_path=f.raw_path))
@@ -65,45 +80,106 @@ def run_mof(session, st, rows, hb) -> list[M.Diff]:
 
 # ------------------------------------------------------------------ OFAC
 
-def run_ofac(session, st, rows, hb) -> list[M.Diff]:
-    diffs = []
+def run_ofac(session, st, rows, hb, opts=None) -> list:
+    """SDN と Consolidated をまとめて1回でマージする。
+
+    どちらも source は "OFAC" なので、別々に merge を呼ぶと
+    「SDN に無い OFAC 行」を消した直後に「Consolidated に無い行」を
+    消すことになり、互いの分を削除し合う。実データで
+    Consolidated の削除がマスターの OFAC 全件を超えて発覚した。
+    """
+    opts = opts or {}
+    records: list = []
+    fetched_any = False
+    baseline = True
+
     for key, cfg in ofac.LISTS.items():
         prev = st.get(key, {})
+        baseline = baseline and bool(prev.get("baseline_synced"))
         prim = fetch(cfg["prim"], prev=prev, session=session)
 
         if prim.not_modified or prim.sha256 == prev.get("sha256"):
             log("unchanged", cfg["name"],
-                "変更なし" + (" — 304 Not Modified（ダウンロードなし）" if prim.not_modified else ""))
+                "変更なし" + (" — 304 Not Modified（ダウンロードなし）"
+                            if prim.not_modified else ""))
             hb.append(dict(source=key, status="unchanged",
                            content_hash=prev.get("sha256", ""),
                            source_updated=prev.get("source_updated", ""),
                            record_count=prev.get("record_count", "")))
+            # 変更が無くても、片方だけ更新された場合に他方を
+            # 掲載終了と誤判定しないよう、保存済みの生ファイルから読み直す。
+            cached = _latest_raw(key, cfg)
+            if cached:
+                records += cached
             continue
 
+        fetched_any = True
         alt = fetch(cfg["alt"], session=session, allow_conditional=False)
         archive(prim, key, ROOT)
         archive(alt, key, ROOT)
         prune_raw(key, ROOT)
 
-        records = ofac.parse(prim, alt, cfg["label"])
-        d = M.merge(rows, records, ofac.SOURCE)
+        part = ofac.parse(prim, alt, cfg["label"])
+        records += part
         st[key] = dict(sha256=prim.sha256, etag=prim.etag,
                        last_modified=prim.last_modified,
                        source_updated=prim.last_modified,
-                       record_count=len(records))
-        hb.append(dict(source=key, status="changed" if d else "no_effective_change",
-                       content_hash=prim.sha256, source_updated=prim.last_modified,
-                       record_count=len(records), raw_path=prim.raw_path))
-        log("changed" if d else "no_effective_change", cfg["name"],
-            " ".join(f"{k}{v}" for k, v in d.counts.items()) if d else "実質変更なし")
-        if d:
-            diffs.append(d)
-    return diffs
+                       record_count=len(part), baseline_synced=True,
+                       raw_prim=prim.raw_path, raw_alt=alt.raw_path)
+        hb.append(dict(source=key, status="fetched", content_hash=prim.sha256,
+                       source_updated=prim.last_modified,
+                       record_count=len(part), raw_path=prim.raw_path))
+
+    if not fetched_any:
+        return []
+
+    d = M.merge(rows, records, ofac.SOURCE,
+                delist=baseline and not opts.get("no_delist"))
+    log("changed" if d else "no_effective_change", "OFAC",
+        " ".join(f"{k}{v}" for k, v in d.counts.items()) if d else "実質変更なし")
+    return [d] if d else []
+
+
+def _latest_raw(key: str, cfg: dict) -> list:
+    """保存済みの生ファイルから再パースする。
+
+    片方のリストだけが更新された回に、もう片方を取り直さずに済ませると
+    そのリストの全件が「掲載終了」と判定される。304 のときは
+    アーカイブから読み戻して突合対象に含める。
+    """
+    d = ROOT / "data" / "raw" / key
+    if not d.exists():
+        return []
+    prim = sorted(d.glob("*SDN.CSV"), reverse=True) or \
+        sorted(d.glob("*PRIM.CSV"), reverse=True)
+    alt = sorted(d.glob("*ALT.CSV"), reverse=True)
+    if not prim:
+        return []
+
+    class _Raw:
+        def __init__(self, path):
+            self.body = path.read_bytes()
+
+        @property
+        def text(self):
+            for enc in ("utf-8-sig", "utf-8", "cp1252"):
+                try:
+                    return self.body.decode(enc)
+                except UnicodeDecodeError:
+                    continue
+            return self.body.decode("utf-8", errors="replace")
+
+    try:
+        return ofac.parse(_Raw(prim[0]), _Raw(alt[0]) if alt else None,
+                          cfg["label"])
+    except Exception as e:  # noqa: BLE001
+        print(f"  警告: {key} の生ファイル再パースに失敗: {e}", flush=True)
+        return []
 
 
 # ------------------------------------------------------------------ 経産省
 
-def run_meti(session, st, rows, hb) -> list[dict]:
+def run_meti(session, st, rows, hb, opts=None) -> list[dict]:
     prev = st.get("meti", {})
     res = meti.check(session=session)
     sig = res["signature"]
@@ -137,7 +213,12 @@ def main() -> int:
                     choices=["all", "mof", "ofac", "meti"])
     ap.add_argument("--dry-run", action="store_true",
                     help="マスターとstateを書き換えずに差分だけ表示する")
+    ap.add_argument("--no-delist", action="store_true",
+                    help="取得結果から消えた行を無効化しない（初回同期用）")
+    ap.add_argument("--ignore-drift", action="store_true",
+                    help="区分番号のずれを検出しても止めない")
     args = ap.parse_args()
+    opts = dict(no_delist=args.no_delist, ignore_drift=args.ignore_drift)
 
     targets = list(RUNNERS) if "all" in args.sources else args.sources
 
@@ -156,7 +237,7 @@ def main() -> int:
 
     for t in targets:
         try:
-            out = RUNNERS[t](session, st, rows, hb)
+            out = RUNNERS[t](session, st, rows, hb, opts)
             if t == "meti":
                 meti_notice += out
             else:

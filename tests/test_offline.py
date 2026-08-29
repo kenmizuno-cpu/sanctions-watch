@@ -7,6 +7,7 @@ Actions では取得の前に必ず走らせる。正規化ロジックが壊れ
 """
 from __future__ import annotations
 
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -16,7 +17,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src import master as M                      # noqa: E402
 from src.normalize import (canonical_category, clean_name, match_key,  # noqa: E402
                            needs_review, parse_remark, parse_remark_multi,
-                           render_remark, split_aliases, validate)
+                           render_remark, split_aliases,
+                           swap_surname_first, validate)
 from src.sources import meti, mof, ofac          # noqa: E402
 
 PASS, FAIL = [], []
@@ -29,6 +31,31 @@ def check(label: str, got, want) -> None:
 
 
 # ---------------------------------------------------------------- 正規化
+def test_surname_order() -> None:
+    """OFAC の `姓, 名` と自然順を同一視すること。
+
+    実データで OFAC の CSV は `HANIYAH, Ismail Abdul Salah`、
+    既存マスターは `Ismail Abdul Salah Haniyah` と判明。揃えないと
+    同一人物が削除+追加として二重に出る。
+    """
+    check("語順違いを吸収",
+          match_key("HANIYAH, Ismail Abdul Salah")
+          == match_key("Ismail Abdul Salah Haniyah"), True)
+    check("語順違いを吸収(2)",
+          match_key("GUZMAN SALAZAR, Archivaldo Ivan")
+          == match_key("Archivaldo Ivan Guzman Salazar"), True)
+    # 団体名の読点は語順ではなく法人格の区切り
+    check("法人格は入れ替えない",
+          swap_surname_first("7 MAKARA PHARY CO., LTD."), "7 MAKARA PHARY CO., LTD.")
+    check("法人格は入れ替えない(2)",
+          swap_surname_first("A&A ESTUDIO, S. DE R.L. DE C.V."),
+          "A&A ESTUDIO, S. DE R.L. DE C.V.")
+    check("読点3つ以上は触らない",
+          swap_surname_first("A, B, C"), "A, B, C")
+    check("別人は一致しない",
+          match_key("SMITH, John") == match_key("SMITH, Jane"), False)
+
+
 def test_match_key() -> None:
     check("大文字小文字を吸収",
           match_key("'ABD AL-MALIK") == match_key("'Abd al-Malik"), True)
@@ -132,10 +159,30 @@ def test_remark_roundtrip() -> None:
 
 
 # ---------------------------------------------------------------- パーサ
-MOF_CSV = """区分,番号,告示日付,告示番号,個人・団体,氏名（日本語）,氏名（英語）,別名
-2.タリバーン関係者等,001-000001,2022-03-31,1,個人,モハンマド・ハッサン,MOHAMMAD HASSAN,Mohammad Hasan;Hassan M
-29.ロシア連邦(個人),002-000002,2024-01-05,7,個人,イワン・イワノフ,IVAN IVANOV,
-"""
+# 実データ (shisantouketsu20260828.csv) と同じ32列構成の抜粋。
+# 別名の区切りは全角 `；`。括弧の内側にも `；` が出るのが罠。
+_MOF_HEADER = (
+    "区分,番号,告示日付,告示番号,個人・団体,氏名（日本語）,氏名（英語）,"
+    "別名・別称（日本語）,別名・別称（英語）,旧称（日本語）,旧称（英語）,"
+    "確定に十分でない別名（日本語）,確定に十分でない別名（英語）,"
+    "称号（日本語）,称号（英語）,役職（日本語）,役職（英語）,生年月日,"
+    "出生地（日本語）,出生地（英語）,国籍（日本語）,国籍（英語）,旅券番号,"
+    "身分証番号,住所・所在地（国）（日本語）,住所・所在地（都市その他の情報）（日本語）,"
+    "住所・所在地（国）（英語）,住所・所在地（都市その他の情報）（英語）,"
+    "国連参照番号,リスト掲載日,その他の情報,外務省告示情報")
+
+MOF_CSV = _MOF_HEADER + "\n" + "\n".join([
+    # 別名に説明文が付き、括弧の内側に ； がある実例
+    ('2,002-000160,2001.9.22,160,個人,モハンメド・ジダン,Mohammed Zidane,'
+     '"サイフ・アル・アドル（生年月日1963/4/11、出生地エジプト、国籍エジプト）；'
+     ' ムハマド・マッカウィ(生年月日1960/4/11； 1963/4/11、国籍エジプト)",'
+     '"Sayf-Al Adl (DOB: 11 Apr. 1963. POB: Egypt.)",,,'
+     'イブラヒム・アル・マダニ,Ibrahim al-Madani,'
+     'ムラー; ハッジ,Mullah; Haji,閣僚評議会第一副議長,First Deputy,'
+     '1963/4/11,,,エジプト,Egypt,,,,,,,QDi.001,,,'),
+    # 引用符付きの団体名
+    '28,028-000001,2022.3.1,1,団体,,"150 Aircraft Repair Plant",,,,,,,,,,,,,,,,,,,,,,,,,',
+]) + "\n"
 
 OFAC_SDN = """1,"AEROCARIBBEAN AIRLINES","-0- ","CUBA","-0- ","-0- ","-0- ","-0- ","-0- ","-0- ","-0- ","-0- "
 2,"ANGLO-CARIBBEAN CO., LTD.","-0- ","CUBA","-0- ","-0- ","-0- ","-0- ","-0- ","-0- ","-0- ","-0- "
@@ -155,21 +202,46 @@ class _F:
         return self._t
 
 
-def test_parsers() -> None:
-    recs = mof.parse(_F(MOF_CSV))
+def test_mof_parser() -> None:
+    kmap = {"2": "タリバーン関係者等", "28": "ロシア連邦(団体)"}
+    recs = mof.parse(_F(MOF_CSV), kubun_map=kmap)
     names = {r["name"] for r in recs}
-    check("財務省: 日英別名を全て展開",
-          {"モハンマド・ハッサン", "MOHAMMAD HASSAN", "Mohammad Hasan",
-           "Hassan M", "イワン・イワノフ", "IVAN IVANOV"} <= names, True)
-    check("財務省: 区分番号を落とす",
-          {r["category"] for r in recs},
-          {"タリバーン関係者等", "ロシア連邦(個人)"})
+
+    # 括弧の内側の ； で名前が割れないこと
+    check("財務省: 説明文を落として名前だけ取る",
+          {"サイフ・アル・アドル", "ムハマド・マッカウィ", "Sayf-Al Adl"} <= names, True)
+    check("財務省: 生年月日の断片を作らない",
+          any(re.search(r"^\d{4}/", n) or "国籍" in n or "DOB" in n for n in names),
+          False)
+    check("財務省: 確定に十分でない別名も取り込む",
+          {"イブラヒム・アル・マダニ", "Ibrahim al-Madani"} <= names, True)
+    # 称号と役職は敬称・肩書きであって名前ではない
+    check("財務省: 称号を名前にしない", "ムラー" in names or "Mullah" in names, False)
+    check("財務省: 役職を名前にしない", "閣僚評議会第一副議長" in names, False)
+    check("財務省: 区分番号をカテゴリ名に変換",
+          {r["category"] for r in recs}, {"タリバーン関係者等", "ロシア連邦(団体)"})
+
+    # 引用符の有無で同一実体が別物にならないこと
+    check("財務省: 引用符付き団体名と素の名前が同一キー",
+          match_key("“150 Aircraft Repair Plant”") == match_key("150 Aircraft Repair Plant"),
+          True)
 
     try:
-        mof.parse(_F("foo,bar\n1,2\n"))
+        mof.parse(_F("foo,bar\n1,2\n"), kubun_map={})
         check("財務省: 列構成変更で例外", False, True)
     except mof.SchemaError:
         check("財務省: 列構成変更で例外", True, True)
+
+    check("財務省: 深さ0の；でだけ分割",
+          mof.split_top_level("A（x；y）；B"), ["A（x；y）", "B"])
+    check("財務省: 説明括弧を除去",
+          mof.strip_descriptor("名前（生年月日1963/4/11、国籍エジプト）"), "名前")
+    check("財務省: 通常の括弧は残す",
+          mof.strip_descriptor("ABDALLAH AZZAM BRIGADES (AAB)"),
+          "ABDALLAH AZZAM BRIGADES (AAB)")
+
+
+def test_parsers() -> None:
 
     o = ofac.parse(_F(OFAC_SDN), _F(OFAC_ALT), "SDN")
     on = {r["name"] for r in o}
@@ -251,8 +323,8 @@ def test_roundtrip() -> None:
 
 
 def main() -> int:
-    for fn in (test_match_key, test_clean_name, test_split_aliases, test_validate,
-               test_remark, test_remark_roundtrip, test_parsers, test_merge,
+    for fn in (test_surname_order, test_match_key, test_clean_name, test_split_aliases, test_validate,
+               test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
                test_roundtrip):
         fn()
     total = len(PASS) + len(FAIL)

@@ -27,6 +27,10 @@ _PUNCT = str.maketrans({
 
 _WS = re.compile(r"[\s\u3000\u200b\ufeff]+")
 
+# 名前を囲む引用符。財務省CSVは素の名前、既存マスターは “…” で囲んだ形で
+# 持っており、そのままだと同一実体が別物と判定されて偽の削除が出る。
+_QUOTES = "\u201c\u201d\u2018\u2019\u300c\u300d\u300e\u300f\u00ab\u00bb\uff02'\"`"
+
 
 def match_key(name: str) -> str:
     """名寄せ用キー. 表示には使わない.
@@ -35,8 +39,36 @@ def match_key(name: str) -> str:
     空白を全除去して casefold する.
     実データ検証では 83,733 件 -> 74,792 件に統合され, 誤統合は 0 件だった.
     """
-    s = unicodedata.normalize("NFKC", str(name)).translate(_PUNCT)
-    return _WS.sub("", s).casefold()
+    s = swap_surname_first(clean_name(name))
+    s = unicodedata.normalize("NFKC", s).translate(_PUNCT)
+    s = _WS.sub("", s)
+    # 囲みの引用符は実体の違いを表さないので落とす。
+    # 内側のアポストロフィ ('Abd al-Malik) は残す必要があるため端だけ。
+    return s.strip(_QUOTES).casefold()
+
+
+# 「姓, 名」形式。OFAC の CSV は `HANIYAH, Ismail Abdul Salah` の順で持つが、
+# 既存マスターや財務省は `Ismail Abdul Salah Haniyah` の自然順。
+# 同一人物を別物と判定しないよう、キー生成時に語順を揃える。
+# 団体名にも読点は出る (`7 MAKARA PHARY CO., LTD.`) ので、法人格の
+# 接尾辞が続く場合は入れ替えない。
+_ORG_SUFFIX = re.compile(
+    r"^(?:LTD|LTD\.|INC|INC\.|LLC|L\.L\.C\.|CORP|CORP\.|CO|CO\.|PLC|GMBH|"
+    r"S\.A\.|S\.A\.S\.|S\.R\.L\.|SA|SARL|AG|NV|BV|AB|AS|OY|PTE|PTY|"
+    r"S\. DE R\.L\.|DE C\.V\.|LLP|LP|JSC|OAO|OOO|PAO|ZAO|A\.S\.|D\.O\.O\.)",
+    re.I)
+_SURNAME_FIRST = re.compile(r"^([^,]{2,60}),\s+([^,]{2,60})$")
+
+
+def swap_surname_first(name: str) -> str:
+    """`姓, 名` を `名 姓` に直す。該当しなければ原文をそのまま返す。"""
+    m = _SURNAME_FIRST.match(str(name).strip())
+    if not m:
+        return name
+    head, tail = m.group(1).strip(), m.group(2).strip()
+    if _ORG_SUFFIX.match(tail):
+        return name
+    return f"{tail} {head}"
 
 
 def clean_name(name: str) -> str:
