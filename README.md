@@ -1,5 +1,8 @@
 # sanctions-watch
 
+[![watch-ofac](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-ofac.yml/badge.svg)](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-ofac.yml)
+[![watch-jp](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-jp.yml/badge.svg)](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-jp.yml)
+
 財務省・OFAC・経産省の制裁リストを定期監視し、差分を抽出してマスターを更新する。
 
 真のマスターは `data/master/master.csv`。Excel は毎回そこから生成し直す派生物で、
