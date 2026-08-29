@@ -133,8 +133,13 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     if not fetched_any:
         return []
 
-    d = M.merge(rows, records, ofac.SOURCE,
-                delist=baseline and not opts.get("no_delist"))
+    # OFAC は classic CSV (SDN.CSV + ALT.CSV) から取っているが、既存マスターは
+    # 別名がより充実した Advanced XML 由来とみられ、約11,000件の粒度差がある。
+    # SDN+ALT から取れる名前は39,468件、マスターのOFAC分は50,566件。
+    # この差を掲載終了として無効化すると制裁対象の別名が照合から消える。
+    # 取りこぼしは誤検知よりはるかに重大なので、削除は報告のみに留める。
+    # Advanced XML パーサに移行したら delist を有効化してよい。
+    d = M.merge(rows, records, ofac.SOURCE, delist=False)
     log("changed" if d else "no_effective_change", "OFAC",
         " ".join(f"{k}{v}" for k, v in d.counts.items()) if d else "実質変更なし")
     return [d] if d else []

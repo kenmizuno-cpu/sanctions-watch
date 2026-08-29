@@ -8,5 +8,25 @@
     "record_count": 14743,
     "sha256": "ba532e9563b85344a008a3b5b897d2418c36d46166306ab3639021fcb18fadd2",
     "url": "https://www.mof.go.jp/policy/international_policy/gaitame_kawase/gaitame/economic_sanctions/shisantouketsu20260828.csv"
+  },
+  "ofac_cons": {
+    "baseline_synced": true,
+    "etag": "\"820a4dd041bdd70bf35aca6e425ab108\"",
+    "last_modified": "Fri, 28 Aug 2026 14:02:55 GMT",
+    "raw_alt": "data/raw/ofac_cons/20260829T215217Z__cons_alt.csv",
+    "raw_prim": "data/raw/ofac_cons/20260829T215217Z__cons_prim.csv",
+    "record_count": 1591,
+    "sha256": "fa681487dfd865c189177b478a171178ab8e7133402342acc51f638a7bc121de",
+    "source_updated": "Fri, 28 Aug 2026 14:02:55 GMT"
+  },
+  "ofac_sdn": {
+    "baseline_synced": true,
+    "etag": "\"0953154d0fb5aff918c5ec1daf6e9c0e\"",
+    "last_modified": "Fri, 28 Aug 2026 14:02:55 GMT",
+    "raw_alt": "data/raw/ofac_sdn/20260829T215216Z__alt.csv",
+    "raw_prim": "data/raw/ofac_sdn/20260829T215216Z__sdn.csv",
+    "record_count": 39468,
+    "sha256": "a2ccea04237a13459009bc527502bb6a08d4e84fe97b46fcce1ed621e9a8301e",
+    "source_updated": "Fri, 28 Aug 2026 14:02:55 GMT"
   }
 }
