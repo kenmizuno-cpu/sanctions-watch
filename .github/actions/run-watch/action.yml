@@ -97,6 +97,10 @@ runs:
 
         if [ "$HAS_ACTIONABLE" = "true" ]; then
           FILES+=("dist/internal_import_latest.xlsx")
+        else
+          # 今回の差分に社内反映対象が無い場合、
+          # 前回のファイルを最新と誤認して再取込しないよう削除する。
+          gh release delete-asset latest internal_import_latest.xlsx             --yes             --repo "$GITHUB_REPOSITORY"             2>/dev/null || true
         fi
 
         gh release upload latest "${FILES[@]}"           --clobber           --repo "$GITHUB_REPOSITORY"
