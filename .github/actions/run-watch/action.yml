@@ -8,12 +8,6 @@ inputs:
   slack-webhook:
     required: false
     default: ""
-  google-service-account:
-    required: false
-    default: ""
-  drive-folder-id:
-    required: false
-    default: ""
 
 runs:
   using: composite
@@ -43,6 +37,25 @@ runs:
       shell: bash
       run: python -m src.export_excel
 
+    - name: 社内取込用差分 Excel を生成
+      id: internal_diff
+      if: steps.watch.outputs.has_diff == 'true'
+      shell: bash
+      run: |
+        TS="$(TZ=Asia/Tokyo date +'%Y%m%d_%H%M%S')"
+        OUT="dist/internal_import_${TS}.xlsx"
+
+        python -m src.export_diff_excel --out "$OUT"
+
+        if [ -f "$OUT" ]; then
+          cp "$OUT" dist/internal_import_latest.xlsx
+          echo "has_actionable=true" >> "$GITHUB_OUTPUT"
+          echo "path=$OUT" >> "$GITHUB_OUTPUT"
+          echo "artifact_name=internal-import-${TS}" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_actionable=false" >> "$GITHUB_OUTPUT"
+        fi
+
     - name: コミット
       shell: bash
       env:
@@ -70,13 +83,32 @@ runs:
         done
         exit 1
 
-    - name: Google Drive へ配布
+    - name: GitHub Release の最新版を更新
       if: steps.watch.outputs.has_diff == 'true'
       shell: bash
       env:
-        GOOGLE_SERVICE_ACCOUNT: ${{ inputs.google-service-account }}
-        DRIVE_FOLDER_ID: ${{ inputs.drive-folder-id }}
-      run: python -m src.drive dist/black_receiver_name_all.xlsx
+        GH_TOKEN: ${{ github.token }}
+        HAS_ACTIONABLE: ${{ steps.internal_diff.outputs.has_actionable }}
+      run: |
+        FILES=(
+          "dist/black_receiver_name_all.xlsx"
+          "data/diff/latest.csv"
+        )
+
+        if [ "$HAS_ACTIONABLE" = "true" ]; then
+          FILES+=("dist/internal_import_latest.xlsx")
+        fi
+
+        gh release upload latest "${FILES[@]}"           --clobber           --repo "$GITHUB_REPOSITORY"
+
+    - name: 社内取込差分を Actions Artifact に保存
+      if: steps.internal_diff.outputs.has_actionable == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.internal_diff.outputs.artifact_name }}
+        path: ${{ steps.internal_diff.outputs.path }}
+        retention-days: 90
+        if-no-files-found: error
 
     - name: 差分を通知
       if: steps.watch.outputs.has_diff == 'true'

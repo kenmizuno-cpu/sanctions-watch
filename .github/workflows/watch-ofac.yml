@@ -25,5 +25,3 @@ jobs:
         with:
           sources: ofac
           slack-webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          google-service-account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-          drive-folder-id: ${{ secrets.DRIVE_FOLDER_ID }}

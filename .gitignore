@@ -3,3 +3,4 @@ __pycache__/
 .venv/
 seed/
 .DS_Store
+dist/internal_import_*.xlsx

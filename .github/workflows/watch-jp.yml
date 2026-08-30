@@ -24,5 +24,3 @@ jobs:
         with:
           sources: mof meti
           slack-webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          google-service-account: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-          drive-folder-id: ${{ secrets.DRIVE_FOLDER_ID }}
