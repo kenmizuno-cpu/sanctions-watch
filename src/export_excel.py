@@ -19,7 +19,6 @@ from openpyxl.utils import get_column_letter
 JST = timezone(timedelta(hours=9))
 SHEET_MAIN = "Sheet1"
 SHEET_LOG = "クリーンアップ履歴"
-SHEET_REVIEW = "要確認"
 SHEET_INFO = "ビルド情報"
 
 HEADERS = ["受取人名", "リスクタイプ", "有効なのか", "リスクレベル",
@@ -84,17 +83,6 @@ def build_workbook(master: list[dict], log: list[dict]) -> Workbook:
         wl.append([e.get("行", ""), e.get("種別", ""),
                    e.get("元の値", ""), e.get("変更後", ""), e.get("理由", "")])
     for row in wl.iter_rows(min_row=2, max_row=wl.max_row):
-        for c in row:
-            c.font = BODY_FONT
-
-    # ---- 要確認（人の判断が要るもの）--------------------------------
-    wr = wb.create_sheet(SHEET_REVIEW)
-    rh = ["受取人名", "備考", "確認理由", "対応状況", "対応者", "メモ"]
-    _style_header(wr, rh, [60, 46, 56, 14, 14, 40])
-    for r in master:
-        if r.get("review_flag"):
-            wr.append([r["display_name"], r["remark"], r["review_flag"], "", "", ""])
-    for row in wr.iter_rows(min_row=2, max_row=wr.max_row):
         for c in row:
             c.font = BODY_FONT
 
