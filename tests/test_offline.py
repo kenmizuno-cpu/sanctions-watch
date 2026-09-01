@@ -513,6 +513,12 @@ def test_dashboard() -> None:
         check("ハッシュは短縮", len(rows[1][5]), 12)
         check("財務省の行もある", rows[2][0], "財務省")
 
+        # 差分が無くても見出しだけのファイルを作る。
+        # 存在しないとシート設定時に404で詰まる。
+        pe = D.append_changes(root, [])
+        rows = list(csv.reader(pe.open(encoding="utf-8")))
+        check("差分ゼロでも生成される", rows, [D.CHANGE_COLS])
+
         # 変更履歴は新しいものが上、見出しは1回だけ
         D.append_changes(root, [["OFAC", "追加", "ALPHA", "", "x"]], when="2026-01-01 00:00:00")
         pc = D.append_changes(root, [["OFAC", "掲載終了", "BETA", "y", "z"]],

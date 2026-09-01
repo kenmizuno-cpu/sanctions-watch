@@ -340,8 +340,12 @@ def main() -> int:
     # スプレッドシート取込用。status は変更が無い回も必ず書く。
     # ここが古いままなら Actions が止まっていると判断できるため。
     D.write_status(ROOT, hb, st)
-    if diffs:
-        D.append_changes(ROOT, M.diff_rows(diffs))
+
+    # changes と list は差分が無くても、無ければ作る。差分が出るまで
+    # ファイルが存在しないと、シート側の設定時に404で詰まる。
+    # 内容が変わらなければ git 上は差分にならないので毎回書いてよい。
+    D.append_changes(ROOT, M.diff_rows(diffs) if diffs else [])
+    if diffs or not (ROOT / D.DASH / "list.csv").exists():
         D.write_list(ROOT, rows)
 
     # 後続ステップ用の出力
