@@ -3,7 +3,7 @@
 Excel はマスターではなく派生物。毎回ここで作り直す。
 既存ファイルの仕様に合わせる:
   - シート1 は A〜G の7列のみ、ヘッダー名も既存と同一
-  - 登録時間/更新時間は Unix epoch ミリ秒を「文字列」として書く（既存が文字列型）
+  - 登録時間/更新時間は Unix epoch ミリ秒から JST の日時文字列へ変換して書く
 """
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ BODY_FONT = Font(name="Arial", size=11)
 
 def _jst(ms: str | int) -> str:
     try:
-        return datetime.fromtimestamp(int(ms) / 1000, JST).strftime("%Y-%m-%d %H:%M")
+        return datetime.fromtimestamp(int(ms) / 1000, JST).strftime("%Y-%m-%d %H:%M:%S")
     except (ValueError, TypeError):
         return ""
 
@@ -66,12 +66,12 @@ def build_workbook(master: list[dict], log: list[dict]) -> Workbook:
     for r in master:
         ws.append([
             r["display_name"], r["risk_type"], r["status"], r["risk_level"],
-            str(r["first_seen_ms"]), str(r["last_updated_ms"]), r["remark"],
+            _jst(r["first_seen_ms"]), _jst(r["last_updated_ms"]), r["remark"],
         ])
     for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
         for c in row:
             c.font = BODY_FONT
-    # 登録時間/更新時間は文字列のまま保持する（既存ファイルと同じ型）
+    # 登録時間/更新時間は JST の日時文字列として保持する
     for col in ("E", "F"):
         for c in ws[col][1:]:
             c.number_format = "@"

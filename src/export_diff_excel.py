@@ -28,6 +28,18 @@ DIFF = ROOT / "data" / "diff" / "latest.csv"
 
 JST = timezone(timedelta(hours=9))
 
+
+def _jst(ms: str | int) -> str:
+    """Unix epoch ミリ秒を JST の日時文字列へ変換する。"""
+    try:
+        return datetime.fromtimestamp(
+            int(ms) / 1000,
+            JST,
+        ).strftime("%Y-%m-%d %H:%M:%S")
+    except (ValueError, TypeError):
+        return ""
+
+
 HEADERS = [
     "受取人名",
     "リスクタイプ",
@@ -180,8 +192,8 @@ def build_workbook(
                 row.get("risk_type", ""),
                 row.get("status", ""),
                 row.get("risk_level", ""),
-                row.get("first_seen_ms", ""),
-                row.get("last_updated_ms", ""),
+                _jst(row.get("first_seen_ms", "")),
+                _jst(row.get("last_updated_ms", "")),
                 row.get("remark", ""),
             ],
         )
