@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src import master as M                      # noqa: E402
 from src.normalize import (canonical_category, clean_name, match_key,  # noqa: E402
                            needs_review, parse_remark, parse_remark_multi,
-                           render_remark, split_aliases,
+                           render_remark, split_aliases, SRC_UNKNOWN,
                            swap_surname_first, validate)
 from src.sources import meti, mof, ofac          # noqa: E402
 
@@ -105,7 +105,7 @@ def test_validate() -> None:
     check("Excelシリアルは無効", bool(validate("45866")), True)
     check("空は無効", bool(validate("   ")), True)
     check("通常名は有効", validate("ABDULMALIK AL-HOUTHI"), None)
-    # 別名や短い名前は「無効化」ではなく「要確認」に回す。
+    # 別名や短い名前は「無効化」ではなく review_flag に回す。
     # 取りこぼしは誤検知より重大なため。
     check("短い名は無効化しない", validate("ADF"), None)
     check("短い名は要確認", bool(needs_review("ADF")), True)
@@ -146,7 +146,7 @@ def test_remark_roundtrip() -> None:
                   [("財務省", "タリバーン関係者等"), ("OFAC", "")],
                   [("経産省", ""), ("OFAC", "SDN")],
                   [("OFAC", "")],
-                  [("出所不明", "令和5年12月15日外為法")],
+                  [(SRC_UNKNOWN, "令和5年12月15日外為法")],
                   [("UK FCDO", "")]):
         rendered = render_remark(pairs)
         check(f"往復: {rendered}", sorted(parse_remark_multi(rendered)), sorted(pairs))

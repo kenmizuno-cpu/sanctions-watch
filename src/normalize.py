@@ -238,7 +238,11 @@ SRC_OFAC = "OFAC"
 SRC_METI = "経産省"
 SRC_MOFA = "外務省"
 SRC_UK = "UK FCDO"
-SRC_UNKNOWN = "出所不明"
+# 出所を特定できない行（2023年の一括取込分）の内部識別子。
+# 突合はソース単位で行うため、キー自体は捨てられない（捨てると財務省と
+# 併記の行が財務省リストから落ちた時点で誤って自動無効化される）。
+# 表示には一切出さない。備考にはカテゴリ（外為法の日付など）だけを書く。
+SRC_UNKNOWN = "legacy"
 
 # 先頭の "N." を落とす. 財務省は新カテゴリ挿入のたびに以降を繰り下げるため,
 # 番号を保持すると再採番のたびに数千行が偽の「変更」判定になる.
@@ -381,8 +385,12 @@ def parse_remark_multi(remark: str) -> list[tuple[str, str]]:
         out: list[tuple[str, str]] = []
         ok = bool(parts)
         for p in parts:
-            src, _, cats = p.partition("：")
+            src, sep, cats = p.partition("：")
             src = src.strip()
+            if not sep:
+                # ラベルなしの部分。旧書式の可能性もあるので個別に判定する。
+                out.append(parse_remark(p))
+                continue
             if src not in KNOWN_SOURCES:
                 ok = False
                 break
@@ -411,5 +419,9 @@ def render_remark(pairs) -> str:
     parts = []
     for src in sorted(bucket, key=lambda s: (_SRC_ORDER.get(s, 8), s)):
         cats = bucket[src]
+        if src == SRC_UNKNOWN:
+            # ラベルは出さない。カテゴリだけを裸で並べる。
+            parts += cats
+            continue
         parts.append(f"{src}：{'、'.join(cats)}" if cats else src)
     return f"制裁リスト（{'／'.join(parts)}）" if parts else "制裁リスト"

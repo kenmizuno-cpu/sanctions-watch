@@ -16,6 +16,8 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+from .normalize import SRC_UNKNOWN
+
 JST = timezone(timedelta(hours=9))
 SHEET_MAIN = "Sheet1"
 SHEET_LOG = "クリーンアップ履歴"
@@ -99,7 +101,8 @@ def build_workbook(master: list[dict], log: list[dict]) -> Workbook:
         "最古の登録": _jst(min((r["first_seen_ms"] for r in master), default=0)),
         "最新の更新": _jst(max((r["last_updated_ms"] for r in master), default=0)),
     }
-    for src in sorted({s for r in master for s in r["sources"].split(";") if s}):
+    for src in sorted({s for r in master for s in r["sources"].split(";")
+                       if s and s != SRC_UNKNOWN}):
         stats[f"出所: {src}"] = sum(1 for r in master
                                    if src in r["sources"].split(";"))
     for k, v in stats.items():
