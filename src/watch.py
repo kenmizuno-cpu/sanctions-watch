@@ -18,6 +18,7 @@ from pathlib import Path
 
 import requests
 
+from . import dashboard as D
 from . import master as M
 from . import state as S
 from .fetch import archive, fetch, prune_raw, read_raw
@@ -335,6 +336,17 @@ def main() -> int:
         DIFF_MD.write_text(M.render_markdown(diffs), encoding="utf-8")
         M.write_diff_csv(diffs, DIFF_CSV)
     S.save_state(ROOT, st)
+
+    # スプレッドシート取込用。status は変更が無い回も必ず書く。
+    # ここが古いままなら Actions が止まっていると判断できるため。
+    D.write_status(ROOT, hb, st)
+
+    # changes と list は差分が無くても、無ければ作る。差分が出るまで
+    # ファイルが存在しないと、シート側の設定時に404で詰まる。
+    # 内容が変わらなければ git 上は差分にならないので毎回書いてよい。
+    D.append_changes(ROOT, M.diff_rows(diffs) if diffs else [])
+    if diffs or not (ROOT / D.DASH / "list.csv").exists():
+        D.write_list(ROOT, rows)
 
     # 後続ステップ用の出力
     gh = os.environ.get("GITHUB_OUTPUT")

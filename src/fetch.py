@@ -138,14 +138,67 @@ def read_raw(path: Path | str) -> bytes:
     return body
 
 
-def prune_raw(source: str, root: Path, keep: int = 30) -> list[str]:
-    """生ファイルの保管数を制限する。最新 keep 件を残す。"""
+RAW_STAMP = re.compile(r"^(\d{8}T\d{6}Z)__")
+
+
+def raw_generations(d: Path) -> list[tuple[str, list[Path]]]:
+    """保存済み生ファイルを取得時刻ごとにまとめて返す。新しい順。
+
+    ドット始まりと、時刻で始まらないファイルは対象外。archive() が付ける
+    命名規則に合わないものを prune が消してしまわないようにする。
+    """
+    groups: dict[str, list[Path]] = {}
+    for p in sorted(d.iterdir()):
+        if not p.is_file() or p.name.startswith("."):
+            continue
+        m = RAW_STAMP.match(p.name)
+        if m:
+            groups.setdefault(m.group(1), []).append(p)
+    return sorted(groups.items(), reverse=True)
+
+
+MAX_RAW_BYTES = 16 * 1024 * 1024
+
+
+def prune_raw(source: str, root: Path, keep: int = 30,
+              max_bytes: int = MAX_RAW_BYTES) -> list[str]:
+    """生ファイルの保管量を制限する。世代数と合計容量の厳しい方で切る。
+
+    ファイル数ではなく世代数で数える。OFAC は1回の取得で prim と alt の
+    2本を書き、財務省は1本しか書かないため、ファイル数で切ると同じ keep でも
+    OFAC の保持期間が半分になっていた。
+
+    世代の途中で切らないのも重要。alt を失った prim だけが残ると
+    _latest_raw() が別名なしでパースし、39,468件が10,000件程度まで
+    静かに減る。例外は出ないので気付けない。
+
+    容量上限を併用するのは、世代数だけだとソースごとに実容量が桁違いに
+    なるため。1世代あたり ofac_sdn は約1.2MB、ofac_cons は約0.04MB で
+    30倍違う。容量で切れば大きいソースは自動的に世代数が減り、
+    小さいソースは長く残る。ソース別に数字を決め打ちする必要がない。
+
+    生ファイルはコミットされるので prune は git 履歴を縮めない。ここで
+    決まるのは作業ツリーの量と、git 操作なしで遡れる範囲だけ。
+
+    最新1世代は容量上限を超えていても必ず残す。消すと _latest_raw() が
+    読み戻せなくなる。
+    """
     d = root / "data" / "raw" / source
     if not d.exists():
         return []
-    files = sorted(d.iterdir(), key=lambda p: p.name, reverse=True)
+
+    gens = raw_generations(d)
+    total = 0
+    cut = len(gens)
+    for i, (_, paths) in enumerate(gens):
+        total += sum(p.stat().st_size for p in paths)
+        if i >= keep or (total > max_bytes and i > 0):
+            cut = i
+            break
+
     removed = []
-    for p in files[keep:]:
-        removed.append(p.name)
-        p.unlink()
+    for _, paths in gens[cut:]:
+        for p in paths:
+            removed.append(p.name)
+            p.unlink()
     return removed
