@@ -396,10 +396,100 @@ def test_resolve_raw() -> None:
             W.ROOT = orig
 
 
+def test_prune_raw() -> None:
+    """保管数の制限は世代単位で数えること。
+
+    世代 = 同じ取得時刻に書かれたファイルの組。ファイル数で切ると
+    OFAC (1回2本) の保持期間が財務省 (1回1本) の半分になり、さらに
+    世代の途中で切れて alt を失った prim だけが残ることがある。
+    その状態で _latest_raw() が走ると別名なしでパースされ、39,468件が
+    静かに1万件程度まで減る。
+    """
+    from src.fetch import prune_raw, raw_generations
+
+    def put(d: Path, gens: int, names) -> None:
+        for i in range(gens):
+            for n in names:
+                (d / f"202601{i + 1:02d}T000000Z__{n}").write_bytes(b"x")
+
+    def gens_of(d: Path) -> int:
+        return len({p.name.split("__")[0] for p in d.iterdir()
+                    if not p.name.startswith(".")})
+
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        mof = root / "data" / "raw" / "mof"
+        sdn = root / "data" / "raw" / "ofac_sdn"
+        mof.mkdir(parents=True)
+        sdn.mkdir(parents=True)
+        put(mof, 20, ["shisantouketsu.csv.gz"])
+        put(sdn, 20, ["sdn.csv.gz", "alt.csv.gz"])
+
+        prune_raw("mof", root, keep=5)
+        prune_raw("ofac_sdn", root, keep=5)
+        check("財務省が5世代残る", gens_of(mof), 5)
+        check("OFACも5世代残る", gens_of(sdn), 5)
+        check("OFACは1世代2本なので10ファイル", len(list(sdn.iterdir())), 10)
+
+        # どの世代も prim と alt が揃っていること
+        pairs: dict[str, set] = {}
+        for p in sdn.iterdir():
+            pairs.setdefault(p.name.split("__")[0], set()).add(p.name.split("__")[1])
+        check("全世代でaltが揃っている",
+              all(v == {"sdn.csv.gz", "alt.csv.gz"} for v in pairs.values()), True)
+
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        d = root / "data" / "raw" / "meti"
+        d.mkdir(parents=True)
+        put(d, 3, ["page.html.gz"])
+        (d / ".gitkeep").write_bytes(b"")
+        (d / "README.txt").write_bytes(b"x")
+
+        removed = prune_raw("meti", root, keep=3)
+        check("keep以内なら何も消えない", removed, [])
+        check(".gitkeep が残る", (d / ".gitkeep").exists(), True)
+        check("命名規則外のファイルは触らない", (d / "README.txt").exists(), True)
+        check("世代の抽出に混ざらない", len(raw_generations(d)), 3)
+
+        removed = prune_raw("meti", root, keep=1)
+        check("古い2世代だけ消える", len(removed), 2)
+        check(".gitkeep はまだ残る", (d / ".gitkeep").exists(), True)
+
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        check("ディレクトリが無ければ空", prune_raw("nope", root), [])
+
+    # 容量上限。世代数に余裕があっても合計容量で切る。
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        d = root / "data" / "raw" / "ofac_sdn"
+        d.mkdir(parents=True)
+        for i in range(20):
+            (d / f"202601{i + 1:02d}T000000Z__sdn.csv.gz").write_bytes(b"x" * 900_000)
+            (d / f"202601{i + 1:02d}T000000Z__alt.csv.gz").write_bytes(b"x" * 300_000)
+        prune_raw("ofac_sdn", root, keep=30, max_bytes=6_000_000)
+        kept = len({p.name.split("__")[0] for p in d.iterdir()})
+        size = sum(p.stat().st_size for p in d.iterdir())
+        check("容量上限で世代数が決まる", kept, 5)
+        check("上限を超えない", size <= 6_000_000, True)
+
+    # 1世代が上限を超えていても最新だけは残す
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        d = root / "data" / "raw" / "mof"
+        d.mkdir(parents=True)
+        for i in range(3):
+            (d / f"202601{i + 1:02d}T000000Z__x.csv.gz").write_bytes(b"x" * 5_000_000)
+        prune_raw("mof", root, keep=30, max_bytes=1_000_000)
+        check("最新1世代は必ず残る", len(list(d.iterdir())), 1)
+        check("残るのは最新", next(d.iterdir()).name, "20260103T000000Z__x.csv.gz")
+
+
 def main() -> int:
     for fn in (test_surname_order, test_match_key, test_clean_name, test_split_aliases, test_validate,
                test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
-               test_roundtrip, test_archive_roundtrip, test_resolve_raw):
+               test_roundtrip, test_archive_roundtrip, test_resolve_raw, test_prune_raw):
         fn()
     total = len(PASS) + len(FAIL)
     print(f"\n{len(PASS)}/{total} 項目通過")

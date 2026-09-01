@@ -29,7 +29,7 @@ Public リポジトリ前提。Actions の実行時間が無制限なので毎�
 
 ```bash
 pip install -r requirements.txt
-python -m tests.test_offline    # 正規化ロジックの自己テスト（93項目）
+python -m tests.test_offline    # 正規化ロジックの自己テスト（108項目）
 python -m tests.test_e2e        # 取得をモックした通しテスト（9項目）
 ```
 
