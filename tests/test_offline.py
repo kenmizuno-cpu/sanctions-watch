@@ -322,10 +322,84 @@ def test_roundtrip() -> None:
     check("列が揃っている", set(back[match_key("ALPHA CORP")]), set(M.FIELDS))
 
 
+# ---------------------------------------------------------------- 生ファイル
+def test_archive_roundtrip() -> None:
+    """gzip 保存した生ファイルが元のバイト列に戻ること。
+
+    生データは git 履歴に永久に残るので圧縮して保存する。展開できなければ
+    片方だけ更新された回に相手側を読み戻せず、全件が掲載終了と誤判定される。
+    """
+    from src.fetch import Fetched, archive, read_raw
+
+    body = "ent_num,name\n1,ALPHA CORP\n".encode()
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        f = Fetched(url="http://x/sdn.csv", body=body, filename="sdn.csv")
+        rel = archive(f, "ofac_sdn", root)
+        check("gzip で保存される", rel.endswith(".csv.gz"), True)
+        check("gzip 往復で一致", read_raw(root / rel), body)
+        check("raw_path が記録される", f.raw_path, rel)
+
+        # 圧縮導入前に保存された非圧縮ファイルも読めること
+        f2 = Fetched(url="http://x/old.csv", body=body, filename="old.csv")
+        rel2 = archive(f2, "ofac_sdn", root, compress=False)
+        check("非圧縮も読める", read_raw(root / rel2), body)
+
+
+def test_resolve_raw() -> None:
+    """保存済み生ファイルの特定。
+
+    SLS は Content-Disposition で小文字のファイル名を返すため実体は
+    `..__sdn.csv` になる。以前は `*SDN.CSV` で glob していて Linux では
+    常に何もマッチせず、この読み戻しが丸ごと機能していなかった。
+    """
+    import src.watch as W
+
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        d = root / "data" / "raw" / "ofac_sdn"
+        d.mkdir(parents=True)
+        for n in ("20260101T000000Z__sdn.csv.gz", "20260101T000000Z__alt.csv.gz",
+                  "20250101T000000Z__sdn.csv.gz", "20250101T000000Z__alt.csv.gz"):
+            (d / n).write_bytes(b"x")
+
+        orig, W.ROOT = W.ROOT, root
+        try:
+            prim, alt = W.resolve_raw("ofac_sdn", {})
+            check("小文字 sdn.csv.gz を拾う", prim.name if prim else None,
+                  "20260101T000000Z__sdn.csv.gz")
+            check("小文字 alt.csv.gz を拾う", alt.name if alt else None,
+                  "20260101T000000Z__alt.csv.gz")
+
+            # state.json の記録が優先されること
+            prim2, _ = W.resolve_raw("ofac_sdn", {
+                "raw_prim": "data/raw/ofac_sdn/20250101T000000Z__sdn.csv.gz",
+                "raw_alt": "data/raw/ofac_sdn/20250101T000000Z__alt.csv.gz"})
+            check("state の raw_prim が優先される", prim2.name,
+                  "20250101T000000Z__sdn.csv.gz")
+
+            # state が壊れた参照を持っていても glob に落ちること
+            prim3, _ = W.resolve_raw("ofac_sdn", {"raw_prim": "data/raw/ofac_sdn/nope.gz"})
+            check("消えた参照は glob に落ちる", prim3.name if prim3 else None,
+                  "20260101T000000Z__sdn.csv.gz")
+
+            cons = root / "data" / "raw" / "ofac_cons"
+            cons.mkdir(parents=True)
+            (cons / "20260101T000000Z__cons_prim.csv.gz").write_bytes(b"x")
+            (cons / "20260101T000000Z__cons_alt.csv.gz").write_bytes(b"x")
+            p4, a4 = W.resolve_raw("ofac_cons", {})
+            check("cons_prim を拾う", p4.name if p4 else None,
+                  "20260101T000000Z__cons_prim.csv.gz")
+            check("cons_alt を拾う", a4.name if a4 else None,
+                  "20260101T000000Z__cons_alt.csv.gz")
+        finally:
+            W.ROOT = orig
+
+
 def main() -> int:
     for fn in (test_surname_order, test_match_key, test_clean_name, test_split_aliases, test_validate,
                test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
-               test_roundtrip):
+               test_roundtrip, test_archive_roundtrip, test_resolve_raw):
         fn()
     total = len(PASS) + len(FAIL)
     print(f"\n{len(PASS)}/{total} 項目通過")

@@ -20,13 +20,17 @@ import requests
 
 from . import master as M
 from . import state as S
-from .fetch import archive, fetch, prune_raw
+from .fetch import archive, fetch, prune_raw, read_raw
 from .sources import meti, mof, ofac
 
 ROOT = Path(__file__).resolve().parent.parent
 MASTER = ROOT / "data" / "master" / "master.csv"
 DIFF_MD = ROOT / "data" / "diff" / "latest.md"
 DIFF_CSV = ROOT / "data" / "diff" / "latest.csv"
+
+# OFAC の掲載終了判定。classic CSV では既存マスターと粒度が合わないため無効。
+# Advanced XML パーサに移行したら True にする。詳細は run_ofac 内のコメント。
+OFAC_DELIST = False
 
 
 def log(status: str, name: str, msg: str = "") -> None:
@@ -90,6 +94,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     """
     opts = opts or {}
     records: list = []
+    unchanged: list[tuple[str, dict]] = []
     fetched_any = False
     baseline = True
 
@@ -106,11 +111,10 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                            content_hash=prev.get("sha256", ""),
                            source_updated=prev.get("source_updated", ""),
                            record_count=prev.get("record_count", "")))
-            # 変更が無くても、片方だけ更新された場合に他方を
-            # 掲載終了と誤判定しないよう、保存済みの生ファイルから読み直す。
-            cached = _latest_raw(key, cfg)
-            if cached:
-                records += cached
+            # ここでは読まない。全リストが変更なしなら突合そのものを行わないので、
+            # 再パースした結果は捨てられる。実測で 7MB / 41,059 レコードを
+            # 毎時展開して破棄していた。必要になった場合のみ後段で読み込む。
+            unchanged.append((key, prev))
             continue
 
         fetched_any = True
@@ -133,50 +137,108 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     if not fetched_any:
         return []
 
+    # 片方だけ更新された回。更新されなかったリストを突合対象に含めないと、
+    # そのリストの全件が「掲載終了」と判定される。ここで初めて読み戻す。
+    cache_ok = True
+    for key, prev in unchanged:
+        cached = _latest_raw(key, ofac.LISTS[key], prev)
+        if cached:
+            records += cached
+            log("cached", ofac.LISTS[key]["name"], f"保存済みから {len(cached)} 件")
+        else:
+            cache_ok = False
+            log("WARN", ofac.LISTS[key]["name"],
+                "保存済み生ファイルを読めなかった。掲載終了の誤判定を避けるため"
+                "このリスト分は突合対象から外れる")
+
     # OFAC は classic CSV (SDN.CSV + ALT.CSV) から取っているが、既存マスターは
     # 別名がより充実した Advanced XML 由来とみられ、約11,000件の粒度差がある。
     # SDN+ALT から取れる名前は39,468件、マスターのOFAC分は50,566件。
     # この差を掲載終了として無効化すると制裁対象の別名が照合から消える。
     # 取りこぼしは誤検知よりはるかに重大なので、削除は報告のみに留める。
-    # Advanced XML パーサに移行したら delist を有効化してよい。
-    d = M.merge(rows, records, ofac.SOURCE, delist=False)
+    # Advanced XML パーサに移行したら OFAC_DELIST を True にしてよい。
+    #
+    # cache_ok を条件に入れているのは、更新されなかったリストを読み戻せなかった
+    # 回に delist すると、そのリストの全件が一斉に無効化されるため。
+    # 将来 delist を有効化したとき、この保険が無いと静かに大量削除が起きる。
+    delist = OFAC_DELIST and cache_ok
+    if OFAC_DELIST and not cache_ok:
+        log("WARN", "OFAC", "生ファイルを読み戻せなかったため今回は delist を抑止する")
+    d = M.merge(rows, records, ofac.SOURCE, delist=delist)
     log("changed" if d else "no_effective_change", "OFAC",
         " ".join(f"{k}{v}" for k, v in d.counts.items()) if d else "実質変更なし")
     return [d] if d else []
 
 
-def _latest_raw(key: str, cfg: dict) -> list:
+class _Raw:
+    """保存済み生ファイルを Fetched と同じインターフェースで読ませる殻。"""
+
+    def __init__(self, path: Path):
+        self.body = read_raw(path)
+
+    @property
+    def text(self) -> str:
+        for enc in ("utf-8-sig", "utf-8", "cp1252"):
+            try:
+                return self.body.decode(enc)
+            except UnicodeDecodeError:
+                continue
+        return self.body.decode("utf-8", errors="replace")
+
+
+def resolve_raw(key: str, prev: dict) -> tuple[Path | None, Path | None]:
+    """保存済み生ファイルの (prim, alt) を特定する。
+
+    まず state.json が記録している raw_prim / raw_alt をそのまま使う。
+    以前はディレクトリを `*SDN.CSV` で glob していたが、SLS は
+    Content-Disposition で小文字のファイル名を返すため実ファイルは
+    `..__sdn.csv` になり、大文字小文字を区別する Linux では
+    **常に何もマッチしなかった**。glob は state が無い場合の保険として残し、
+    大文字小文字と .gz を無視して照合する。
+    """
+    prim = alt = None
+    for field_, slot in (("raw_prim", "prim"), ("raw_alt", "alt")):
+        rel = prev.get(field_)
+        if not rel:
+            continue
+        p = ROOT / rel
+        if p.exists():
+            if slot == "prim":
+                prim = p
+            else:
+                alt = p
+
+    if prim and alt:
+        return prim, alt
+
+    d = ROOT / "data" / "raw" / key
+    if not d.exists():
+        return prim, alt
+    files = sorted((p for p in d.iterdir() if p.is_file()),
+                   key=lambda p: p.name, reverse=True)
+
+    def pick(*needles: str) -> Path | None:
+        for p in files:
+            name = p.name.lower()
+            if any(n in name for n in needles):
+                return p
+        return None
+
+    return prim or pick("sdn.csv", "prim.csv"), alt or pick("alt.csv")
+
+
+def _latest_raw(key: str, cfg: dict, prev: dict | None = None) -> list:
     """保存済みの生ファイルから再パースする。
 
     片方のリストだけが更新された回に、もう片方を取り直さずに済ませると
     そのリストの全件が「掲載終了」と判定される。304 のときは
     アーカイブから読み戻して突合対象に含める。
     """
-    d = ROOT / "data" / "raw" / key
-    if not d.exists():
-        return []
-    prim = sorted(d.glob("*SDN.CSV"), reverse=True) or \
-        sorted(d.glob("*PRIM.CSV"), reverse=True)
-    alt = sorted(d.glob("*ALT.CSV"), reverse=True)
+    prim, alt = resolve_raw(key, prev or {})
     if not prim:
         return []
-
-    class _Raw:
-        def __init__(self, path):
-            self.body = path.read_bytes()
-
-        @property
-        def text(self):
-            for enc in ("utf-8-sig", "utf-8", "cp1252"):
-                try:
-                    return self.body.decode(enc)
-                except UnicodeDecodeError:
-                    continue
-            return self.body.decode("utf-8", errors="replace")
-
     try:
-        return ofac.parse(_Raw(prim[0]), _Raw(alt[0]) if alt else None,
-                          cfg["label"])
+        return ofac.parse(_Raw(prim), _Raw(alt) if alt else None, cfg["label"])
     except Exception as e:  # noqa: BLE001
         print(f"  警告: {key} の生ファイル再パースに失敗: {e}", flush=True)
         return []

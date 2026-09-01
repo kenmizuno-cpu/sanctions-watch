@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import gzip
 import hashlib
 import re
 from dataclasses import dataclass, field
@@ -95,20 +96,46 @@ def _filename_from(url: str, headers) -> str:
     return url.rstrip("/").split("/")[-1].split("?")[0] or "download"
 
 
-def archive(f: Fetched, source: str, root: Path) -> str:
+GZIP_LEVEL = 6
+
+
+def archive(f: Fetched, source: str, root: Path, *, compress: bool = True) -> str:
     """生ファイルを日時付きで保存する。
 
     外為法の検査で「いつ時点のリストで照合したか」を聞かれたときに
     そのまま出せる形にしておく。
+
+    既定で gzip 圧縮する。生データはコミットされ git 履歴に永久に残るため、
+    非圧縮だと OFAC 更新1回ごとに約 6.7MB がリポジトリに積み上がる。
+    実測で CSV は 17% まで縮み、圧縮 0.10 秒・展開 0.02 秒。
+    mtime=0 にしているのは、同一内容なら同一バイト列になるようにするため。
     """
     if f.body is None:
         return ""
     d = root / "data" / "raw" / source
     d.mkdir(parents=True, exist_ok=True)
-    p = d / f"{utc_stamp()}__{f.filename}"
-    p.write_bytes(f.body)
+    name = f"{utc_stamp()}__{f.filename}"
+    if compress:
+        p = d / f"{name}.gz"
+        p.write_bytes(gzip.compress(f.body, GZIP_LEVEL, mtime=0))
+    else:
+        p = d / name
+        p.write_bytes(f.body)
     f.raw_path = str(p.relative_to(root))
     return f.raw_path
+
+
+def read_raw(path: Path | str) -> bytes:
+    """保存済みの生ファイルを読む。gzip なら透過的に展開する。
+
+    拡張子ではなくマジックナンバーでも判定するので、圧縮を入れる前に
+    保存された非圧縮ファイルもそのまま読める。
+    """
+    p = Path(path)
+    body = p.read_bytes()
+    if body[:2] == b"\x1f\x8b":
+        return gzip.decompress(body)
+    return body
 
 
 def prune_raw(source: str, root: Path, keep: int = 30) -> list[str]:
