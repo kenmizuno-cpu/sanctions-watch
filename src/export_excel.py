@@ -96,7 +96,6 @@ def build_workbook(master: list[dict], log: list[dict]) -> Workbook:
         "総行数": len(master),
         "うち有効": sum(1 for r in master if r["status"] == "有効"),
         "うち無効": sum(1 for r in master if r["status"] == "無効"),
-        "要確認": sum(1 for r in master if r.get("review_flag")),
         "クリーンアップ件数": len(log),
         "最古の登録": _jst(min((r["first_seen_ms"] for r in master), default=0)),
         "最新の更新": _jst(max((r["last_updated_ms"] for r in master), default=0)),
