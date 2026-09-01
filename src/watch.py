@@ -18,6 +18,7 @@ from pathlib import Path
 
 import requests
 
+from . import dashboard as D
 from . import master as M
 from . import state as S
 from .fetch import archive, fetch, prune_raw, read_raw
@@ -335,6 +336,13 @@ def main() -> int:
         DIFF_MD.write_text(M.render_markdown(diffs), encoding="utf-8")
         M.write_diff_csv(diffs, DIFF_CSV)
     S.save_state(ROOT, st)
+
+    # スプレッドシート取込用。status は変更が無い回も必ず書く。
+    # ここが古いままなら Actions が止まっていると判断できるため。
+    D.write_status(ROOT, hb, st)
+    if diffs:
+        D.append_changes(ROOT, M.diff_rows(diffs))
+        D.write_list(ROOT, rows)
 
     # 後続ステップ用の出力
     gh = os.environ.get("GITHUB_OUTPUT")

@@ -7,6 +7,7 @@ Actions では取得の前に必ず走らせる。正規化ロジックが壊れ
 """
 from __future__ import annotations
 
+import csv
 import re
 import sys
 import tempfile
@@ -486,10 +487,72 @@ def test_prune_raw() -> None:
         check("残るのは最新", next(d.iterdir()).name, "20260103T000000Z__x.csv.gz")
 
 
+def test_dashboard() -> None:
+    """スプレッドシート取込用CSV。
+
+    IMPORTDATA で直接読ませるため、小さいことと列見出しが日本語であることが要件。
+    status は変更が無い回も必ず書く。ここが古いままなら Actions が止まったと
+    判断できるようにするため。
+    """
+    from src import dashboard as D
+
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        hb = [dict(source="ofac_sdn", status="unchanged", content_hash="a" * 64,
+                   source_updated="Fri, 29 Aug 2026 12:00:00 GMT", record_count=39468),
+              dict(source="mof", status="fetched", content_hash="b" * 64,
+                   source_updated="", record_count=1200)]
+        st = {"ofac_sdn": dict(sha256="a" * 64, record_count=39468)}
+
+        p = D.write_status(root, hb, st)
+        rows = list(csv.reader(p.open(encoding="utf-8")))
+        check("status の見出し", rows[0], D.STATUS_COLS)
+        check("出所が日本語ラベル", rows[1][0], "OFAC SDN")
+        check("状態が日本語ラベル", rows[1][1], "変更なし")
+        check("最終更新がJST", rows[1][3], "2026-08-29 21:00:00")
+        check("ハッシュは短縮", len(rows[1][5]), 12)
+        check("財務省の行もある", rows[2][0], "財務省")
+
+        # 変更履歴は新しいものが上、見出しは1回だけ
+        D.append_changes(root, [["OFAC", "追加", "ALPHA", "", "x"]], when="2026-01-01 00:00:00")
+        pc = D.append_changes(root, [["OFAC", "掲載終了", "BETA", "y", "z"]],
+                              when="2026-01-02 00:00:00")
+        rows = list(csv.reader(pc.open(encoding="utf-8")))
+        check("changes の見出し", rows[0], D.CHANGE_COLS)
+        check("見出しは1行だけ", sum(1 for r in rows if r == D.CHANGE_COLS), 1)
+        check("新しいものが上", rows[1][3], "BETA")
+        check("古い行も残る", rows[2][3], "ALPHA")
+        check("検知日時が入る", rows[1][0], "2026-01-02 00:00:00")
+
+        # 上限を超えたら古いものから落ちる
+        D.MAX_CHANGES, keep = 3, D.MAX_CHANGES
+        try:
+            D.append_changes(root, [["X", "追加", f"N{i}", "", ""] for i in range(5)],
+                             when="2026-01-03 00:00:00")
+            rows = list(csv.reader((root / D.DASH / "changes.csv").open(encoding="utf-8")))
+            check("上限で打ち切る", len(rows) - 1, 3)
+            check("残るのは新しい方", rows[1][3], "N0")
+        finally:
+            D.MAX_CHANGES = keep
+
+        entry = dict(display_name="ALPHA", risk_type="t", status="有効",
+                     risk_level="高", remark="消えるべき列")
+        pl = D.write_list(root, [entry])
+        rows = list(csv.reader(pl.open(encoding="utf-8")))
+        check("list は4列だけ", rows[0], D.LIST_COLS)
+        check("余分な列を含まない", len(rows[1]), 4)
+
+        # M.load() は dict を返すのでそちらでも動くこと
+        pl = D.write_list(root, {"k": entry})
+        rows = list(csv.reader(pl.open(encoding="utf-8")))
+        check("dict を渡しても動く", rows[1][0], "ALPHA")
+
+
 def main() -> int:
     for fn in (test_surname_order, test_match_key, test_clean_name, test_split_aliases, test_validate,
                test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
-               test_roundtrip, test_archive_roundtrip, test_resolve_raw, test_prune_raw):
+               test_roundtrip, test_archive_roundtrip, test_resolve_raw, test_prune_raw,
+               test_dashboard):
         fn()
     total = len(PASS) + len(FAIL)
     print(f"\n{len(PASS)}/{total} 項目通過")

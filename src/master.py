@@ -230,22 +230,30 @@ def render_markdown(diffs: list[Diff]) -> str:
     return "\n".join(out) + "\n"
 
 
+def diff_rows(diffs: list[Diff]) -> list[list]:
+    """差分を [出所, 種別, 受取人名, 変更前, 変更後] の行に展開する。
+
+    write_diff_csv とダッシュボードの変更履歴で同じ行を使うため切り出した。
+    片方だけ列が変わって食い違うのを防ぐ。
+    """
+    out: list[list] = []
+    for d in diffs:
+        for a in d.added:
+            out.append([d.source, "追加", a["name"], "", a["remark"]])
+        for r in d.removed:
+            out.append([d.source, "掲載終了", r["name"],
+                        r["before"]["remark"], r["after"]["remark"]])
+        for c in d.changed:
+            out.append([d.source, "変更", c["name"],
+                        c["before"]["remark"], c["after"]["remark"]])
+    return out
+
+
 def write_diff_csv(diffs: list[Diff], path: Path) -> int:
     path.parent.mkdir(parents=True, exist_ok=True)
-    n = 0
+    rows = diff_rows(diffs)
     with path.open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f)
         w.writerow(["出所", "種別", "受取人名", "変更前", "変更後"])
-        for d in diffs:
-            for a in d.added:
-                w.writerow([d.source, "追加", a["name"], "", a["remark"]])
-                n += 1
-            for r in d.removed:
-                w.writerow([d.source, "掲載終了", r["name"],
-                            r["before"]["remark"], r["after"]["remark"]])
-                n += 1
-            for c in d.changed:
-                w.writerow([d.source, "変更", c["name"],
-                            c["before"]["remark"], c["after"]["remark"]])
-                n += 1
-    return n
+        w.writerows(rows)
+    return len(rows)
