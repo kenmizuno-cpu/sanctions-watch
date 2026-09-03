@@ -14,7 +14,8 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .normalize import match_key, needs_review, render_remark, validate
+from .normalize import (canonical_display_name, is_trailing_unknown_artifact,
+                        match_key, needs_review, render_remark, validate)
 
 FIELDS = [
     "match_key", "display_name", "status", "risk_type", "risk_level",
@@ -40,7 +41,14 @@ def load(path: Path) -> dict[str, dict]:
     if not path.exists():
         return {}
     with path.open(encoding="utf-8", newline="") as f:
-        return {r["match_key"]: r for r in csv.DictReader(f)}
+        out = {}
+        for row in csv.DictReader(f):
+            name = canonical_display_name(row.get("display_name", ""))
+            if is_trailing_unknown_artifact(name):
+                continue
+            row["display_name"] = name
+            out[row["match_key"]] = row
+        return out
 
 
 def save(rows: dict[str, dict], path: Path) -> None:
@@ -49,7 +57,12 @@ def save(rows: dict[str, dict], path: Path) -> None:
         w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()
         for k in sorted(rows):
-            w.writerow({c: rows[k].get(c, "") for c in FIELDS})
+            row = dict(rows[k])
+            name = canonical_display_name(row.get("display_name", ""))
+            if is_trailing_unknown_artifact(name):
+                continue
+            row["display_name"] = name
+            w.writerow({c: row.get(c, "") for c in FIELDS})
 
 
 def _split(v: str) -> list[str]:
@@ -108,10 +121,13 @@ def merge(master: dict[str, dict], records: list[dict], source: str,
     # 取得結果を match_key に畳む
     incoming: dict[str, dict] = {}
     for r in records:
-        k = match_key(r["name"])
+        name = canonical_display_name(r["name"])
+        if is_trailing_unknown_artifact(name):
+            continue
+        k = match_key(name)
         if not k:
             continue
-        e = incoming.setdefault(k, dict(name=r["name"], cats=set(), ids=set()))
+        e = incoming.setdefault(k, dict(name=name, cats=set(), ids=set()))
         if r.get("category"):
             e["cats"].add(r["category"])
         if r.get("source_id"):

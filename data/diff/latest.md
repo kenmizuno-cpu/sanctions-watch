@@ -1,6 +1,6 @@
 # 制裁リスト差分レポート
 
-## 財務省　追加 0 / 削除 2548 / 変更 0
+## 財務省　追加 0 / 削除 2543 / 変更 0
 
 ### 掲載終了（行は無効化して残す）
 - `（a)Bilal （b)Adel （c)Fodhil` — 無効
@@ -53,7 +53,6 @@
 - `Abdul Haq son of M. Anwar Khan, Afghan passport number OA462456, issued on 31 Jan. 2012 by the Afghan Consulate General in Peshawar, Pakistan)` — 無効
 - `Abdul Rahman Makki` — 有効
 - `ABDUL REHMAN MAKKI` — 無効
-- `ABDUL REHMAN MAKKI不明` — 無効
 - `Abdul Salam Bhattwi` — 有効
 - `Abdul Salam Bhutvi` — 有効
 - `Abdul Salam Budvi` — 有効
@@ -203,5 +202,4 @@
 - `Aleksandr (Alexander) Skachkov` — 無効
 - `Aleksandr (Alexander) Spiridonov` — 無効
 - `Aleksandr (Alexander) Strelyukhin` — 無効
-- …他 2348 件
-
+- …他 2344 件

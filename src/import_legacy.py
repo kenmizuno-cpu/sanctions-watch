@@ -16,8 +16,9 @@ from pathlib import Path
 import pandas as pd
 
 from . import master as M
-from .normalize import (clean_name, match_key, needs_review, parse_remark_multi,
-                        render_remark, split_aliases, validate)
+from .normalize import (canonical_display_name, clean_name,
+                        is_trailing_unknown_artifact, match_key, needs_review,
+                        parse_remark_multi, render_remark, split_aliases, validate)
 
 ROOT = Path(__file__).resolve().parent.parent
 LOG_COLS = ["行", "種別", "元の値", "変更後", "理由"]
@@ -49,6 +50,17 @@ def build(src_xlsx: str, ts: int) -> tuple[list[dict], list[dict]]:
                             理由="前後の空白・全角スペース・連続空白を整理"))
 
         for name in pieces:
+            display = canonical_display_name(name)
+            if display != name:
+                log.append(dict(
+                    行=excel_row, 種別="引用符除去", 元の値=name, 変更後=display,
+                    理由="外側の引用符は別名を示す書式であり、名称の一部ではないため除去"))
+            name = display
+            if is_trailing_unknown_artifact(name):
+                log.append(dict(
+                    行=excel_row, 種別="削除", 元の値=name, 変更後="（削除）",
+                    理由="original script等のメタ情報「不明」が名称末尾に混入した旧データ"))
+                continue
             reason = validate(name)
             review = None if reason else needs_review(name)
             if reason:
