@@ -29,8 +29,11 @@ MASTER = ROOT / "data" / "master" / "master.csv"
 DIFF_MD = ROOT / "data" / "diff" / "latest.md"
 DIFF_CSV = ROOT / "data" / "diff" / "latest.csv"
 
-# OFAC の掲載終了判定。classic CSV では既存マスターと粒度が合わないため無効。
-# Advanced XML パーサに移行したら True にする。詳細は run_ofac 内のコメント。
+# OFAC の掲載終了判定。
+#
+# Advanced XML Version 3 を正式突合元へ移行した後も、初回は False のままにする。
+# 既存マスターとの差を「掲載終了候補」として1回監査し、その結果が妥当と
+# 確認できた後にだけ True へ変更する。
 OFAC_DELIST = False
 
 
@@ -86,88 +89,243 @@ def run_mof(session, st, rows, hb, opts=None) -> list[M.Diff]:
 # ------------------------------------------------------------------ OFAC
 
 def run_ofac(session, st, rows, hb, opts=None) -> list:
-    """SDN と Consolidated をまとめて1回でマージする。
+    """SDN と Consolidated の Advanced XML をまとめて1回でマージする。
 
-    どちらも source は "OFAC" なので、別々に merge を呼ぶと
-    「SDN に無い OFAC 行」を消した直後に「Consolidated に無い行」を
-    消すことになり、互いの分を削除し合う。実データで
-    Consolidated の削除がマスターの OFAC 全件を超えて発覚した。
+    Classic primary CSV:
+        - ETag / Last-Modified による更新検知
+        - DistinctParty.FixedRef との Party ID 完全一致監査
+
+    Advanced XML:
+        - 名称・別名・非Latin名称の正式な取込元
+
+    どちらか一方しか取得できない状態では OFAC 全体を merge しない。
+    不完全スナップショットで大量の偽「掲載終了候補」を出さないため。
     """
     opts = opts or {}
     records: list = []
     unchanged: list[tuple[str, dict]] = []
     fetched_any = False
-    baseline = True
 
     for key, cfg in ofac.LISTS.items():
         prev = st.get(key, {})
-        baseline = baseline and bool(prev.get("baseline_synced"))
-        prim = fetch(cfg["prim"], prev=prev, session=session)
 
-        if prim.not_modified or prim.sha256 == prev.get("sha256"):
-            log("unchanged", cfg["name"],
-                "変更なし" + (" — 304 Not Modified（ダウンロードなし）"
-                            if prim.not_modified else ""))
-            hb.append(dict(source=key, status="unchanged",
-                           content_hash=prev.get("sha256", ""),
-                           source_updated=prev.get("source_updated", ""),
-                           record_count=prev.get("record_count", "")))
-            # ここでは読まない。全リストが変更なしなら突合そのものを行わないので、
-            # 再パースした結果は捨てられる。実測で 7MB / 41,059 レコードを
-            # 毎時展開して破棄していた。必要になった場合のみ後段で読み込む。
+        # Advanced XML 導入前の state には advanced_* が無い。
+        # Classic が304でも初回だけ強制的にAdvanced XMLを取得する。
+        bootstrap_advanced = not (
+            prev.get("advanced_sha256")
+            and prev.get("raw_advanced")
+            and prev.get("advanced_baseline_synced")
+        )
+
+        prim = fetch(
+            cfg["prim"],
+            prev=prev,
+            session=session,
+        )
+
+        classic_unchanged = (
+            prim.not_modified
+            or (
+                bool(prev.get("sha256"))
+                and prim.sha256 == prev.get("sha256")
+            )
+        )
+
+        if classic_unchanged and not bootstrap_advanced:
+            log(
+                "unchanged",
+                cfg["name"],
+                "変更なし"
+                + (
+                    " — 304 Not Modified（ダウンロードなし）"
+                    if prim.not_modified
+                    else ""
+                ),
+            )
+
+            hb.append(
+                dict(
+                    source=key,
+                    status="unchanged",
+                    content_hash=(
+                        prev.get("advanced_sha256")
+                        or prev.get("sha256", "")
+                    ),
+                    source_updated=prev.get(
+                        "source_updated", ""
+                    ),
+                    record_count=prev.get(
+                        "record_count", ""
+                    ),
+                )
+            )
+
             unchanged.append((key, prev))
             continue
 
         fetched_any = True
-        alt = fetch(cfg["alt"], session=session, allow_conditional=False)
+
+        # 304 で body が無いが Advanced bootstrap が必要な場合。
+        # 最新ClassicのParty ID照合が必要なので無条件GETを1回だけ行う。
+        if prim.not_modified or prim.body is None:
+            prim = fetch(
+                cfg["prim"],
+                session=session,
+                allow_conditional=False,
+            )
+
+        alt = fetch(
+            cfg["alt"],
+            session=session,
+            allow_conditional=False,
+        )
+
+        advanced = fetch(
+            cfg["advanced"],
+            session=session,
+            allow_conditional=False,
+        )
+
+        # Classic と Advanced は別ディレクトリで世代管理する。
+        # 121MB級XMLをClassicのprim/alt世代と混ぜると、
+        # prune時の「1世代」の意味が壊れるため。
         archive(prim, key, ROOT)
         archive(alt, key, ROOT)
-        prune_raw(key, ROOT)
+        archive(advanced, f"{key}_advanced", ROOT)
 
-        part = ofac.parse(prim, alt, cfg["label"])
+        prune_raw(key, ROOT)
+        prune_raw(f"{key}_advanced", ROOT)
+
+        classic_ids = ofac.classic_party_ids(
+            prim,
+            cfg["label"],
+        )
+
+        part, advanced_ids = ofac.parse_advanced(
+            advanced,
+            cfg["label"],
+        )
+
+        # ここが自動掲載終了より前の最重要安全弁。
+        # ClassicとAdvancedのParty IDが1件でも違えば停止する。
+        ofac.validate_party_coverage(
+            classic_ids,
+            advanced_ids,
+            cfg["label"],
+        )
+
         records += part
-        st[key] = dict(sha256=prim.sha256, etag=prim.etag,
-                       last_modified=prim.last_modified,
-                       source_updated=prim.last_modified,
-                       record_count=len(part), baseline_synced=True,
-                       raw_prim=prim.raw_path, raw_alt=alt.raw_path)
-        hb.append(dict(source=key, status="fetched", content_hash=prim.sha256,
-                       source_updated=prim.last_modified,
-                       record_count=len(part), raw_path=prim.raw_path))
+
+        source_updated = (
+            advanced.last_modified
+            or prim.last_modified
+        )
+
+        st[key] = dict(
+            sha256=prim.sha256,
+            etag=prim.etag,
+            last_modified=prim.last_modified,
+            filename=prim.filename,
+            url=cfg["prim"],
+            source_updated=source_updated,
+            record_count=len(part),
+            party_count=len(advanced_ids),
+            classic_party_count=len(classic_ids),
+            baseline_synced=True,
+            advanced_baseline_synced=True,
+            advanced_sha256=advanced.sha256,
+            advanced_etag=advanced.etag,
+            advanced_last_modified=advanced.last_modified,
+            advanced_url=cfg["advanced"],
+            raw_prim=prim.raw_path,
+            raw_alt=alt.raw_path,
+            raw_advanced=advanced.raw_path,
+        )
+
+        hb.append(
+            dict(
+                source=key,
+                status="fetched",
+                content_hash=advanced.sha256,
+                source_updated=source_updated,
+                record_count=len(part),
+                raw_path=advanced.raw_path,
+            )
+        )
+
+        log(
+            "fetched",
+            cfg["name"],
+            (
+                f"Party {len(advanced_ids)}件 / "
+                f"名称 {len(part)}件 / "
+                "Classic ID coverage完全一致"
+            ),
+        )
 
     if not fetched_any:
         return []
 
-    # 片方だけ更新された回。更新されなかったリストを突合対象に含めないと、
-    # そのリストの全件が「掲載終了」と判定される。ここで初めて読み戻す。
-    cache_ok = True
-    for key, prev in unchanged:
-        cached = _latest_raw(key, ofac.LISTS[key], prev)
-        if cached:
-            records += cached
-            log("cached", ofac.LISTS[key]["name"], f"保存済みから {len(cached)} 件")
-        else:
-            cache_ok = False
-            log("WARN", ofac.LISTS[key]["name"],
-                "保存済み生ファイルを読めなかった。掲載終了の誤判定を避けるため"
-                "このリスト分は突合対象から外れる")
-
-    # OFAC は classic CSV (SDN.CSV + ALT.CSV) から取っているが、既存マスターは
-    # 別名がより充実した Advanced XML 由来とみられ、約11,000件の粒度差がある。
-    # SDN+ALT から取れる名前は39,468件、マスターのOFAC分は50,566件。
-    # この差を掲載終了として無効化すると制裁対象の別名が照合から消える。
-    # 取りこぼしは誤検知よりはるかに重大なので、削除は報告のみに留める。
-    # Advanced XML パーサに移行したら OFAC_DELIST を True にしてよい。
+    # 片方だけ更新された場合、もう片方の最新Advanced XMLを
+    # stateで記録したrawから復元する。
     #
-    # cache_ok を条件に入れているのは、更新されなかったリストを読み戻せなかった
-    # 回に delist すると、そのリストの全件が一斉に無効化されるため。
-    # 将来 delist を有効化したとき、この保険が無いと静かに大量削除が起きる。
-    delist = OFAC_DELIST and cache_ok
-    if OFAC_DELIST and not cache_ok:
-        log("WARN", "OFAC", "生ファイルを読み戻せなかったため今回は delist を抑止する")
-    d = M.merge(rows, records, ofac.SOURCE, delist=delist)
-    log("changed" if d else "no_effective_change", "OFAC",
-        " ".join(f"{k}{v}" for k, v in d.counts.items()) if d else "実質変更なし")
+    # 読めない場合は部分スナップショットでmergeせず、
+    # workflow自体を失敗させる。
+    for key, prev in unchanged:
+        cached = _latest_advanced(
+            key,
+            ofac.LISTS[key],
+            prev,
+        )
+
+        if cached is None:
+            raise ofac.SchemaError(
+                f"{ofac.LISTS[key]['name']} の保存済みAdvanced XMLを"
+                "読み戻せない。不完全なOFACスナップショットでの"
+                "掲載終了判定を防ぐため処理を停止する"
+            )
+
+        part, party_count = cached
+        records += part
+
+        log(
+            "cached",
+            ofac.LISTS[key]["name"],
+            f"Party {party_count}件 / 名称 {len(part)}件",
+        )
+
+    # Advanced XMLへ移行しても初回は自動無効化しない。
+    # 既存masterとの差を「掲載終了候補（要確認）」として出し、
+    # 実差分の監査後に OFAC_DELIST=True を解禁する。
+    delist = bool(OFAC_DELIST)
+
+    if not OFAC_DELIST:
+        log(
+            "safe-mode",
+            "OFAC",
+            "Advanced XML初回監査モード: 掲載終了は候補表示のみ",
+        )
+
+    d = M.merge(
+        rows,
+        records,
+        ofac.SOURCE,
+        delist=delist,
+    )
+
+    log(
+        "changed" if d else "no_effective_change",
+        "OFAC",
+        (
+            " ".join(
+                f"{k}{v}"
+                for k, v in d.counts.items()
+            )
+            if d
+            else "実質変更なし"
+        ),
+    )
+
     return [d] if d else []
 
 
@@ -186,6 +344,55 @@ class _Raw:
                 continue
         return self.body.decode("utf-8", errors="replace")
 
+
+
+def _latest_advanced(
+    key: str,
+    cfg: dict,
+    prev: dict,
+) -> tuple[list, int] | None:
+    """保存済みAdvanced XMLをClassic Party IDで再検証して読み戻す。"""
+    raw_advanced = prev.get("raw_advanced", "")
+    raw_prim = prev.get("raw_prim", "")
+
+    if not raw_advanced or not raw_prim:
+        return None
+
+    advanced_path = ROOT / raw_advanced
+    prim_path = ROOT / raw_prim
+
+    if not advanced_path.exists() or not prim_path.exists():
+        return None
+
+    try:
+        advanced = _Raw(advanced_path)
+        prim = _Raw(prim_path)
+
+        part, advanced_ids = ofac.parse_advanced(
+            advanced,
+            cfg["label"],
+        )
+
+        classic_ids = ofac.classic_party_ids(
+            prim,
+            cfg["label"],
+        )
+
+        ofac.validate_party_coverage(
+            classic_ids,
+            advanced_ids,
+            cfg["label"],
+        )
+
+        return part, len(advanced_ids)
+
+    except Exception as exc:  # noqa: BLE001
+        print(
+            f"  警告: {key} のAdvanced XML再パースに失敗: "
+            f"{exc}",
+            flush=True,
+        )
+        return None
 
 def resolve_raw(key: str, prev: dict) -> tuple[Path | None, Path | None]:
     """保存済み生ファイルの (prim, alt) を特定する。

@@ -222,7 +222,7 @@ def render_markdown(diffs: list[Diff]) -> str:
             out.append("")
         if d.removed:
             held = any(not r.get("delisted", True) for r in d.removed)
-            out.append("### 掲載終了の候補（初回のため無効化せず保留）" if held
+            out.append("### 掲載終了候補（要確認・無効化せず保留）" if held
                        else "### 掲載終了（行は無効化して残す）")
             for r in d.removed[:200]:
                 out.append(f"- `{r['name']}` — {r['after']['status']}")
@@ -257,7 +257,10 @@ def diff_rows(diffs: list[Diff]) -> list[list]:
         for a in d.added:
             out.append([d.source, "追加", a["name"], "", a["remark"]])
         for r in d.removed:
-            out.append([d.source, "掲載終了", r["name"],
+            kind = ("掲載終了"
+                    if r.get("delisted", True)
+                    else "掲載終了候補（要確認）")
+            out.append([d.source, kind, r["name"],
                         r["before"]["remark"], r["after"]["remark"]])
         for c in d.changed:
             out.append([d.source, "変更", c["name"],

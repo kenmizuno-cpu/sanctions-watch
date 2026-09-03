@@ -205,6 +205,126 @@ OFAC_ALT = """1,101,"aka","AERO-CARIBBEAN","-0- "
 """
 
 
+OFAC_ADVANCED = """<?xml version="1.0" encoding="UTF-8"?>
+<Sanctions
+ xmlns="https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ADVANCED_XML"
+ Version="3">
+ <ReferenceValueSets>
+  <NamePartTypes>
+   <NamePartType ID="1520"><Name>Last Name</Name></NamePartType>
+   <NamePartType ID="1521"><Name>First Name</Name></NamePartType>
+   <NamePartType ID="1522"><Name>Middle Name</Name></NamePartType>
+   <NamePartType ID="1525"><Name>Entity Name</Name></NamePartType>
+  </NamePartTypes>
+ </ReferenceValueSets>
+
+ <DistinctParties>
+  <DistinctParty FixedRef="1">
+   <Profile ID="1" PartySubTypeID="1"/>
+   <Identity ID="1" FixedRef="1" Primary="true" False="false">
+    <Alias FixedRef="1" AliasTypeID="1403"
+           Primary="true" LowQuality="false">
+     <DocumentedName ID="1" FixedRef="1" DocNameStatusID="1">
+      <DocumentedNamePart>
+       <NamePartValue
+        NamePartGroupID="100"
+        ScriptID="215"
+        ScriptStatusID="1"
+        Acronym="false">AEROCARIBBEAN AIRLINES</NamePartValue>
+      </DocumentedNamePart>
+     </DocumentedName>
+    </Alias>
+    <Alias FixedRef="1" AliasTypeID="1400"
+           Primary="false" LowQuality="false">
+     <DocumentedName ID="2" FixedRef="1" DocNameStatusID="2">
+      <DocumentedNamePart>
+       <NamePartValue
+        NamePartGroupID="101"
+        ScriptID="215"
+        ScriptStatusID="1"
+        Acronym="false">AERO-CARIBBEAN</NamePartValue>
+      </DocumentedNamePart>
+     </DocumentedName>
+    </Alias>
+    <NamePartGroups>
+     <MasterNamePartGroup>
+      <NamePartGroup ID="100" NamePartTypeID="1525"/>
+     </MasterNamePartGroup>
+     <MasterNamePartGroup>
+      <NamePartGroup ID="101" NamePartTypeID="1525"/>
+     </MasterNamePartGroup>
+    </NamePartGroups>
+   </Identity>
+  </DistinctParty>
+
+  <DistinctParty FixedRef="2">
+   <Profile ID="2" PartySubTypeID="2"/>
+   <Identity ID="2" FixedRef="2" Primary="true" False="false">
+    <Alias FixedRef="2" AliasTypeID="1403"
+           Primary="true" LowQuality="false">
+     <DocumentedName ID="3" FixedRef="2" DocNameStatusID="1">
+      <DocumentedNamePart>
+       <NamePartValue
+        NamePartGroupID="200"
+        ScriptID="215"
+        ScriptStatusID="1"
+        Acronym="false">DOE</NamePartValue>
+      </DocumentedNamePart>
+      <DocumentedNamePart>
+       <NamePartValue
+        NamePartGroupID="201"
+        ScriptID="215"
+        ScriptStatusID="1"
+        Acronym="false">John</NamePartValue>
+      </DocumentedNamePart>
+      <DocumentedNamePart>
+       <NamePartValue
+        NamePartGroupID="202"
+        ScriptID="215"
+        ScriptStatusID="1"
+        Acronym="false">Paul</NamePartValue>
+      </DocumentedNamePart>
+     </DocumentedName>
+    </Alias>
+
+    <Alias FixedRef="2" AliasTypeID="1400"
+           Primary="false" LowQuality="false">
+     <DocumentedName ID="4" FixedRef="2" DocNameStatusID="2">
+      <DocumentedNamePart>
+       <NamePartValue
+        NamePartGroupID="200"
+        ScriptID="999"
+        ScriptStatusID="1"
+        Acronym="false">张</NamePartValue>
+      </DocumentedNamePart>
+      <DocumentedNamePart>
+       <NamePartValue
+        NamePartGroupID="201"
+        ScriptID="999"
+        ScriptStatusID="1"
+        Acronym="false">伟</NamePartValue>
+      </DocumentedNamePart>
+     </DocumentedName>
+    </Alias>
+
+    <NamePartGroups>
+     <MasterNamePartGroup>
+      <NamePartGroup ID="200" NamePartTypeID="1520"/>
+     </MasterNamePartGroup>
+     <MasterNamePartGroup>
+      <NamePartGroup ID="201" NamePartTypeID="1521"/>
+     </MasterNamePartGroup>
+     <MasterNamePartGroup>
+      <NamePartGroup ID="202" NamePartTypeID="1522"/>
+     </MasterNamePartGroup>
+    </NamePartGroups>
+   </Identity>
+  </DistinctParty>
+ </DistinctParties>
+</Sanctions>
+"""
+
+
 class _F:
     def __init__(self, text: str):
         self._t = text
@@ -263,6 +383,88 @@ def test_parsers() -> None:
            "ANGLO-CARIBBEAN CO., LTD.", "ANGLO CARIBBEAN"} <= on, True)
     check("OFAC: -0- を名前にしない", any("-0-" in n for n in on), False)
 
+    advanced, party_ids = ofac.parse_advanced(
+        _F(OFAC_ADVANCED),
+        "SDN",
+    )
+    advanced_names = {r["name"] for r in advanced}
+
+    check(
+        "OFAC Advanced: Party ID",
+        party_ids,
+        {"1", "2"},
+    )
+    check(
+        "OFAC Advanced: 団体主名称",
+        "AEROCARIBBEAN AIRLINES" in advanced_names,
+        True,
+    )
+    check(
+        "OFAC Advanced: 団体別名",
+        "AERO-CARIBBEAN" in advanced_names,
+        True,
+    )
+    check(
+        "OFAC Advanced: Latin個人名をClassic順へ",
+        "DOE, John Paul" in advanced_names,
+        True,
+    )
+    check(
+        "OFAC Advanced: 非Latin名はXML順を維持",
+        "张 伟" in advanced_names,
+        True,
+    )
+
+    classic_with_eof = _F(
+        OFAC_SDN + "\x1a\n"
+    )
+    classic_ids = ofac.classic_party_ids(
+        classic_with_eof,
+        "SDN",
+    )
+
+    check(
+        "OFAC Classic: DOS EOFをParty IDにしない",
+        classic_ids,
+        {"1", "2"},
+    )
+
+    try:
+        ofac.validate_party_coverage(
+            {"1", "2"},
+            {"1", "2"},
+            "SDN",
+        )
+        check(
+            "OFAC coverage: 完全一致",
+            True,
+            True,
+        )
+    except ofac.SchemaError:
+        check(
+            "OFAC coverage: 完全一致",
+            False,
+            True,
+        )
+
+    try:
+        ofac.validate_party_coverage(
+            {"1", "2"},
+            {"1"},
+            "SDN",
+        )
+        check(
+            "OFAC coverage: 不一致で停止",
+            False,
+            True,
+        )
+    except ofac.SchemaError:
+        check(
+            "OFAC coverage: 不一致で停止",
+            True,
+            True,
+        )
+
     sig = meti.signature('<a href="/x/user_list.pdf">令和7年10月9日</a>')
     check("経産省: 署名にPDFと日付が入る",
           "user_list.pdf" in sig and "令和7年10月9日" in sig, True)
@@ -311,6 +513,39 @@ def test_merge() -> None:
           rows[match_key("BETA LTD")]["status"], "無効")
     check("無効化理由を残す",
           rows[match_key("BETA LTD")]["invalid_reason"], M.DELISTED)
+
+    # delist=False のときはマスターを触らず候補表示だけにする。
+    hold_rows: dict[str, dict] = {}
+    M.merge(
+        hold_rows,
+        [_rec("HOLD CORP")],
+        "OFAC",
+        ts=1000,
+    )
+    held = M.merge(
+        hold_rows,
+        [],
+        "OFAC",
+        ts=2000,
+        delist=False,
+    )
+
+    check(
+        "掲載終了候補は有効のまま",
+        hold_rows[match_key("HOLD CORP")]["status"],
+        "有効",
+    )
+    check(
+        "掲載終了候補のCSVラベル",
+        M.diff_rows([held])[0][1],
+        "掲載終了候補（要確認）",
+    )
+    check(
+        "掲載終了候補のMarkdownラベル",
+        "掲載終了候補（要確認・無効化せず保留）"
+        in M.render_markdown([held]),
+        True,
+    )
 
     # 複数ソースに載る対象は、片方から消えても有効のまま
     M.merge(rows, [_rec("ALPHA CORP", cat="タリバーン関係者等", src="財務省")],
