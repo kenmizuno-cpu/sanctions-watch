@@ -21,12 +21,12 @@
   },
   "ofac_sdn": {
     "baseline_synced": true,
-    "etag": "\"0953154d0fb5aff918c5ec1daf6e9c0e\"",
-    "last_modified": "Fri, 28 Aug 2026 14:02:55 GMT",
-    "raw_alt": "data/raw/ofac_sdn/20260829T214252Z__alt.csv.gz",
-    "raw_prim": "data/raw/ofac_sdn/20260829T214252Z__sdn.csv.gz",
-    "record_count": 39468,
-    "sha256": "a2ccea04237a13459009bc527502bb6a08d4e84fe97b46fcce1ed621e9a8301e",
-    "source_updated": "Fri, 28 Aug 2026 14:02:55 GMT"
+    "etag": "\"c9275f893e81cd5ebb336b1537eed8cd\"",
+    "last_modified": "Thu, 03 Sep 2026 15:37:44 GMT",
+    "raw_alt": "data/raw/ofac_sdn/20260903T163043Z__alt.csv.gz",
+    "raw_prim": "data/raw/ofac_sdn/20260903T163043Z__sdn.csv.gz",
+    "record_count": 39470,
+    "sha256": "447d09384cf840252569a30b5db51d8cc4aefb396c085168246ee04e7ba2693c",
+    "source_updated": "Thu, 03 Sep 2026 15:37:44 GMT"
   }
 }

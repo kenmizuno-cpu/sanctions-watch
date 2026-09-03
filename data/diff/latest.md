@@ -1,205 +1,222 @@
 # 制裁リスト差分レポート
 
-## 財務省　追加 0 / 削除 2543 / 変更 0
+## OFAC　追加 6 / 削除 13662 / 変更 1
 
-### 掲載終了（行は無効化して残す）
-- `（a)Bilal （b)Adel （c)Fodhil` — 無効
-- `（a)Hamroui Kamel ben Mouldi` — 無効
-- `（a)アブー・サーカル・ザービン（Abu Saqar Zabin）` — 無効
-- `（ａ）アブドゥラフマン・サレム・イブラヒム・ミラッド（Abdurahman Salem Ibrahim Milad）（ｂ）アブドゥラフマン・サリム・ミラッド・カシュラフ（Abdulrahman Salim Milad Kashlaf）` — 無効
-- `（ａ）カシュラフ（Kashlaf）` — 無効
-- `（a)ダウード・エブラヒム` — 無効
-- `（a)ドール・ナドル、1974年1月15日にモロッコにて出生` — 無効
-- `(ａ)ドルダ・アブゼッド・オエ（Dorda Abuzed OE）` — 無効
-- `（a)ハムロウィ・カメル・ベン・モウルディ` — 無効
-- `（a)ビラール` — 無効
-- `(Ansar al Charia in Libya` — 無効
-- `(Ansar al Charia in Libya (ASL)` — 無効
-- `（b)アブー・サーガル・ザービン（Abu Sagar Zabin）` — 無効
-- `(ｂ)アブ・ゼイド・オマル・ハメイド・ドルダ（Abu Zayd Umar Hmeid Dorda）` — 無効
-- `（ｂ）コシュラフ（Koshlaf）` — 無効
-- `（ｃ）アルカサブ（al-Qasab）` — 無効
-- `(f.k.a.:` — 無効
-- `(Joint Stock Company Nevskoye Project and Design Bureau` — 無効
-- `(Yunis al-Mauritani` — 無効
-- `（シェイク）ムーサ・ヒラール（(Sheikh) Musa Hilal）` — 無効
-- `-JSC Scientific Research Institute for Mechanical Engineering;` — 無効
-- `. فلسيانو سمبوريو ديلوس رييس الإبن` — 無効
-- `「１・Ｐ」（“1-P”）` — 無効
-- `378 アレクサンドル・シェルバコフ` — 無効
-- `3月23日運動（Mouvement du 23 mars）` — 無効
-- `400 Mawozo` — 無効
-- `5 Segond` — 無効
-- `：VNIITF` — 無効
-- `：ノセンコ` — 無効
-- `A.A. Raspletin` — 無効
-- `AA (initials)` — 無効
-- `Aamir Ali Chaudary` — 有効
-- `AAMIR ALI CHAUDHRY` — 有効
-- `Aamir Ali Choudry` — 有効
-- `Ab Ayyub` — 無効
-- `Abd-al-Baqi Abd-al-Karim Abdallah Al-Sa'dun` — 無効
-- `ABD AL-AZIZ ADAY ZIMIN AL-FADHIL` — 有効
-- `'ABD AL-MALIK MUHAMMAD YUSUF 'UTHMAN 'ABD AL-SALAM` — 有効
-- `Abd Al-Rahman al-Milad` — 無効
-- `ABDALLAH AZZAM BRIGADES (AAB)` — 無効
-- `Abdelali Abou Dher (عبد العالي ابو ذر)` — 無効
-- `ABDELHAFIZ ZLITNI` — 無効
-- `Abdelhamid Al Kurdi）` — 無効
-- `Abdel Ilah Sabri（false identity related to fraudulent South African identification number 6910275240086 ｌinked to South African passport number 434021161,both documents have been confiscated）` — 無効
-- `Abdel Khader Mahmoud Mohamed el Sayed）` — 無効
-- `Abdul Aziz Абул Азиз` — 無効
-- `Abdul Haq son of M. Anwar Khan, Afghan passport number OA462456, issued on 31 Jan. 2012 (11-11-1390) by the Afghan Consulate General in Peshawar, Pakistan)` — 無効
-- `Abdul Haq son of M. Anwar Khan, Afghan passport number OA462456, issued on 31 Jan. 2012 by the Afghan Consulate General in Peshawar, Pakistan)` — 無効
-- `Abdul Rahman Makki` — 有効
-- `ABDUL REHMAN MAKKI` — 無効
-- `Abdul Salam Bhattwi` — 有効
-- `Abdul Salam Bhutvi` — 有効
-- `Abdul Salam Budvi` — 有効
-- `Abdur Rahman Makki` — 無効
-- `Abdur Rehman Makki` — 無効
-- `Abid Hamid Bid Hamid Mahmud, Col Abdel Hamid Mahmoud, Abed Mahmoud Hammud` — 無効
-- `Abou Fares al Libi` — 無効
-- `Abou Hamza` — 無効
-- `Abou Mouhadjir (ابو مهاجر)` — 無効
-- `Abou Omar Al Tounisi）` — 無効
-- `Abu-Ahmad Al-Amriki` — 有効
-- `Abu-Ahmad Hadud` — 無効
-- `Abu-Julaybib）` — 無効
-- `Abu-Shaima` — 有効
-- `Abu-Shaima أبو شيماء` — 無効
-- `Abu-Shaima أبو شیماء` — 無効
-- `Abu- Shayma` — 有効
-- `Abu- Shayma أبو شيماء` — 無効
-- `Abu- Shayma أبو شیماء` — 無効
-- `Abu Abdurrahman the Moroccan)` — 無効
-- `Abu Ahmad (nom de guerre)` — 無効
-- `Abu Ahmad al-Shami）` — 無効
-- `Abu al Banat Абу аль Банат` — 無効
-- `Abu al Banat Абу аль Банат))` — 無効
-- `Abu Ashraf` — 無効
-- `Abu Ashraf））` — 無効
-- `Abu Asim Абу Ясим` — 無効
-- `Abu Bakar Baasyir, born 17 Aug. 1938 in Jombang, East Java, Indonesia` — 無効
-- `Abu Bakar Bashir, born 17 Aug. 1938 in Jombang, East Java, Indonesia` — 無効
-- `Abubakar Абубакар` — 無効
-- `Abu Bakr al-Jaziri(Previously listed as. In Arabic: أبوبكر الجزائري )` — 無効
-- `Abu Banat Абу Банат` — 無効
-- `Abu Banat Абу Банат)` — 無効
-- `Abu Bilal Абу-Билал` — 無効
-- `Abu Brays, Abu Ahmad` — 無効
-- `Abu Du’a； Abu Duaa’` — 無効
-- `Abu Gharib al-Madani` — 有効
-- `Abu Hamzah` — 有効
-- `Abu Hanifa Абу Ханифа` — 無効
-- `Abu Hurayah al-Sana'ai` — 無効
-- `Abu Jamal (nom de guerre)` — 無効
-- `Abu Jihad）` — 無効
-- `Abu Jihad Абу Джихад` — 無効
-- `Abu Mohamed al-Jawlani` — 無効
-- `Abu Mohamed al-Jawlani (Abu Muhammad al-Jawlani, Abu Mohammed al-Julani, Abu Mohammed al-Golani, Abu Muhammad al-Golani, Abu Muhammad Aljawlani, Muhammad al-Jawlani` — 無効
-- `Abu Mohamed al-Jawlani (Abu Muhammad al-Jawlani, Abu Mohammed al-Julani, Abu Mohammed al-Golani, Abu Muhammad al-Golani, Abu Muhammad Aljawlani, Muhammad al-Jawlani (transiliterations of original script name)` — 無効
-- `Abu Mohammed al-Golani` — 無効
-- `ABU MOHAMMED AL-JAWLANI` — 無効
-- `Abu Mohammed al-Julani` — 無効
-- `Abu Muath al-Juaitni）` — 無効
-- `Abu Muhammad al-Golani` — 有効
-- `Abu Muhammad al-Jawlani` — 有効
-- `Abu Muhammad Al-Kadari Абу Мухаммад Аль-Кадари` — 無効
-- `Abu Muhammad Aljawlani` — 無効
-- `Abu Muhammad Абу Мухаммад` — 無効
-- `Abu Nidal Organisation（ANO）` — 無効
-- `Abu Suad)` — 無効
-- `Abu Usama）` — 無効
-- `Abu Yasir Абу Ясир` — 無効
-- `ABZAR BORESH KAVEH CO. (BK CO.)` — 無効
-- `Academician E.I. Zababakhin` — 無効
-- `Adaljbi (Adalby) Shkhagoshev` — 無効
-- `Adel ben al-Azhar ben Youssef ben Soltane, born 14 Jul. 1970 in Tunis, Tunisia` — 無効
-- `Dr. Adib Sha'ban, Adib Shaban` — 無効
-- `Igor Afanasiev (Afanasyev, Afanasev)` — 無効
-- `Afghan Support Committee` — 有効
-- `Agricultural Cooperative Bank` — 有効
-- `AHMAD HUSSAIN AL-SHARAA` — 無効
-- `Ahmad Shahji` — 有効
-- `AHMED AG ALBACHAR` — 有効
-- `AHMED ALI ABDULLAH SALEH` — 有効
-- `Ahmed Al Saadi` — 無効
-- `Ahmed Al Saadi）` — 無効
-- `Ahmed Garbaya, Sa-id, Samir Salwwan` — 無効
-- `Abu Omran, Ahmed Ibrahim al-Mughassil）` — 無効
-- `Abu Omran, Ahmed Ibrahim al-Mughassil` — 無効
-- `Hasan Ahmed S. Adnan, Ahmed Sultan` — 無効
-- `Aid Organization of the Ulema` — 無効
-- `Aidyn (Aidin) Saryglar (Sariglar)` — 無効
-- `AIMAN MUHAMMED RABI Al-ZAWAHIRIأيمن محمد ربيع الظواهري` — 無効
-- `AIMAN MUHAMMED RABI Al-ZAWAHIRI أيمن محمد ربيع الظواهري)` — 無効
-- `Aiman Sabawi Ibrahim Hasan Al-Tikriti, Ayman Sab'awi Ibrahim Hasan Al-Tikriti, Ayman Sabawi Ibrahim Hassan Al-Tikriti, Qais Muhammad Salman` — 無効
-- `Airat (Ayrat) Farrakhov` — 無効
-- `Ajaj Ajami` — 無効
-- `Akadem. E.I. Zababakhina` — 無効
-- `Akhmad Shishani Ахмад Шишани` — 無効
-- `Akhmed (Ahmed) Dogaev` — 無効
-- `Akhter Mohmad son of Noor Mohmad` — 無効
-- `Akhter Mohmad son of Noor Mohmad, born in 1965 in Kandahar, Afghanistan passport number OR1961825 issued on 4 Feb.2003 by the Afghan Consulate in Quetta, Pakistan, expired 2 Feb. 2006` — 無効
-- `Aktsionernoe Obshchestvo` — 無効
-- `Aktsionernoe Obshchestvo Kontsern “Morinformsistema – Agat”` — 無効
-- `Aktsionernoye Obshchestvo Gosudarstvennaya Transportnaya Lizingovaya Kompaniya）` — 無効
-- `Al-As’ad Ben Hani, born 5 Feb. 1969 in Tripoli, Libyan Arab Jamahiriya` — 無効
-- `AL-BASHA'IR TRADING COMPANY, LTD` — 有効
-- `AL-BASHAER TRADING COMPANY, LTD` — 有効
-- `AL-BASHAER TRADING COMPANY, LTD, AL-BASHIR TRADING COMPANY, LTD, AL-BASHA'IR TRADING COMPANY, LTD, AL-BASHAAIR TRADING COMPANY, LTD, AL-BUSHAIR TRADING COMPANY, LTD` — 無効
-- `Al-Gama'a al-Islamiyya）` — 無効
-- `AL-HARAMAIN FOUNDATION（UNION OF COMOROS）` — 無効
-- `AL-HARAMAYN FOUNDATION` — 有効
-- `AL-ITIHAAD AL-ISLAMIYA / AIAI` — 無効
-- `Al-Nusra Front` — 無効
-- `Al-Nusrah Front` — 有効
-- `AL-NUSRAH FRONT FOR THE PEOPLE OF THE LEVANT` — 無効
-- `al-Qa’ida in the Indian Subcontinent (AQIS)` — 無効
-- `Al-Ｑaida in Egypt(AQE)` — 無効
-- `AL-QAIDA IN THE ARABIAN PENINSULA` — 無効
-- `Al-Qaida in Yemen` — 無効
-- `Al-Qaida Organization in the Arabian Peninsula` — 無効
-- `AL-QAIDA القاعدة` — 無効
-- `ALBU KAMAL支店` — 無効
-- `Aleksander(Alexander) Kochkin` — 無効
-- `Aleksander（Alexander）Mikheev` — 無効
-- `Aleksandr` — 無効
-- `Aleksandr (Alexander) Aksenenko (Aksyonenko)` — 無効
-- `Aleksandr (Alexander) AVDEEV` — 無効
-- `Aleksandr (Alexander) Babakov` — 無効
-- `Aleksandr (Alexander) BANAKH` — 無効
-- `Aleksandr (Alexander) BONDARENKO` — 無効
-- `Aleksandr (Alexander) Borisov` — 無効
-- `Aleksandr (Alexander) BYKADOROV` — 無効
-- `Aleksandr (Alexander) Demin (Dyomin)` — 無効
-- `Aleksandr (Alexander) Drozdov` — 無効
-- `Aleksandr (Alexander) Dugin` — 無効
-- `Aleksandr (Alexander) DYAGOVETS` — 無効
-- `Aleksandr (Alexander) Iljtyakov` — 無効
-- `Aleksandr (Alexander) KAMISHOV (KAMYSHOV)` — 無効
-- `Aleksandr (Alexander) Khinshtein` — 無効
-- `Aleksandr (Alexander) Kogan` — 無効
-- `Aleksandr (Alexander) KOROTKII (KOROTKIY)` — 無効
-- `Aleksandr (Alexander) KOVTYRIN` — 無効
-- `Aleksandr (Alexander) Kozlovskii (Kozlovsky)` — 無効
-- `Aleksandr（Alexander） Kurdiumov（Kurdyumov）` — 無効
-- `Aleksandr (Alexander) KURENKOV` — 無効
-- `Aleksandr (Alexander) Maksimov (Maximov)` — 無効
-- `Aleksandr (Alexander) MALKOV` — 無効
-- `Aleksandr (Alexander) Mazhuga` — 無効
-- `Aleksandr (Alexander) Mishustin` — 無効
-- `Aleksandr (Alexander) Petrov` — 無効
-- `Aleksandr (Alexander) Polyakov` — 無効
-- `Aleksandr (Alexander) Prokopjev (Prokopyev)` — 無効
-- `Aleksandr (Alexander) Remezkov` — 無効
-- `Aleksandr (Alexander) Rumyantsev` — 無効
-- `Aleksandr (Alexander) Samokutyaev` — 無効
-- `Aleksandr (Alexander) SERYOZHENKO` — 無効
-- `Aleksandr (Alexander) Shcherbakov` — 無効
-- `Aleksandr (Alexander) Sholokhov` — 無効
-- `Aleksandr (Alexander) Skachkov` — 無効
-- `Aleksandr (Alexander) Spiridonov` — 無効
-- `Aleksandr (Alexander) Strelyukhin` — 無効
-- …他 2344 件
+### 追加
+- `EMPRESA DE SERVICIOS COMANDANTE RENE RAMOS LATOUR` — 制裁リスト（OFAC：SDN）
+- `EMPRESA IMPORTADORA Y ABASTECEDORA DEL NIQUEL` — 制裁リスト（OFAC：SDN）
+- `COMERCIAL CUPET S.A.` — 制裁リスト（OFAC：SDN）
+- `EMPRESA IMPORTADORA DE ABASTECIMIENTO PARA EL PETROLEO` — 制裁リスト（OFAC：SDN）
+- `BANCO EXTERIOR DE CUBA` — 制裁リスト（OFAC：SDN）
+- `CASTRO CALIS, Fidel Ernesto` — 制裁リスト（OFAC：SDN）
+
+### 掲載終了の候補（初回のため無効化せず保留）
+- `#66 Division` — 有効
+- `108 Institute` — 有効
+- `148SH LTD` — 有効
+- `179 SRZ AO` — 有効
+- `1st Armored Division` — 有効
+- `223rd Flight Detachment` — 有効
+- `223rd Flight Unit` — 有効
+- `27` — 無効
+- `27th NTs` — 有効
+- `30 SRZ AO` — 有効
+- `33rd TsNIII` — 有効
+- `356 Aircraft Repair Plant` — 有効
+- `356 ARZ PAO` — 有効
+- `365 DAYS FREIGHT SERVICES FZCO` — 有効
+- `3D Format` — 有効
+- `3DMall` — 有効
+- `3D Moll` — 有効
+- `3E2357` — 有効
+- `3E2647` — 有効
+- `3E2651` — 有効
+- `3E5918` — 有効
+- `3E5919` — 有効
+- `3E5924` — 有効
+- `3E6091` — 有効
+- `3E7518` — 有効
+- `3FSO7` — 有効
+- `3zed` — 有効
+- `419 ARZ` — 有効
+- `48TH CENTRAL RESEARCH INSTITUTE` — 有効
+- `4 TSNII` — 有効
+- `558 ARZ OAO` — 有効
+- `5 Energy` — 有効
+- `6-78` — 有効
+- `66 LID` — 有効
+- `711 ARZ AO` — 有効
+- `7th Brigade` — 有効
+- `810 Aircraft Repair Plant` — 有効
+- `8P2428` — 有効
+- `8P2435` — 有効
+- `924 GTSBA` — 有効
+- `929-й Государственный Лётно-испытательный Центр` — 有効
+- `9th Brigade` — 有効
+- `9V9100` — 有効
+- `9V9102` — 有効
+- `@AL3XL7` — 有効
+- `@BASSTERLORD` — 有効
+- `@BASSTERLORD 0170742922` — 有効
+- `@SINNER6546` — 有効
+- `@SINNER911` — 有効
+- `A. AHMED` — 有効
+- `A.R. CHATAEV` — 有効
+- `A.S. MUJEL` — 有効
+- `A.T.E. INTERNATIONAL LTD.` — 有効
+- `A. Tontarhovnov` — 有効
+- `A.W.A. ENGINEERING LIMITED` — 有効
+- `A1 OOO` — 有効
+- `A4SI` — 有効
+- `A71 LLC` — 有効
+- `A7 Agent LLC` — 有効
+- `A7 LLC` — 有効
+- `aaelbas` — 有効
+- `Aam Peijnenburg` — 有効
+- `AARI` — 有効
+- `AAT Belaruskaliy` — 有効
+- `AAT Belaruskaya Kaliynaya Kampaniya` — 有効
+- `ABADEH` — 有効
+- `ABAKUMOV Dmytro` — 有効
+- `Abanshuk` — 有効
+- `ABAR PETROLEUM SERVICE SAL` — 有効
+- `Abar Petroleum Service SAL (Offshore)` — 有効
+- `Abar Petroleum Services Ltd Sal (OFFSHORE)` — 有効
+- `Abas Sartaji` — 有効
+- `Abass Hussein HARB` — 有効
+- `Abbas'Ali Mohammadian Musaabadi` — 有効
+- `Abbas-Ali Mohammadian` — 有効
+- `Abbas Abdi Asjard` — 有効
+- `Abbas Abdi Asjerd` — 有効
+- `Abbas Abdi Esjerd` — 有効
+- `Abbas Ali Kadkhoda'i` — 有効
+- `Abbas Ali Kadkhodaee` — 有効
+- `Abbasali kadkhodaei` — 有効
+- `Abbas Ali Kadkhodaei Elyaderani` — 有効
+- `Abbas Ali Kadkhodai` — 有効
+- `Abbas Ali Mohammadian` — 有効
+- `Abbasali Mohammadian Mousaabadi` — 有効
+- `Abbas asadruz` — 有効
+- `Abbas Asdruz` — 有効
+- `Abbas DJUMA` — 有効
+- `Abbas Dzhuma` — 有効
+- `Abbas EBERAHIM` — 有効
+- `Abbas FOUAZ` — 有効
+- `Abbas Gholamshahi` — 有効
+- `Abbas Hassan Gharib` — 有効
+- `Abbas Hussein HARB` — 有効
+- `Abbas JA'AFARI DOLATABADI` — 有効
+- `Abbas JA'FARI-DOLATABADI` — 有効
+- `Abbas JA'FARI-DOWLATABADI` — 有効
+- `Abbas JAFARI-DOLATABADI` — 有効
+- `Abbas JAFARI DOLAT-ABADI` — 有効
+- `Abbas JAFARI DOLATABADI` — 有効
+- `Abbas JAFARI DOVLATABADI` — 有効
+- `Abbas JAFARI DOWLATABADI` — 有効
+- `Abbas JEGA` — 有効
+- `Abbas Khalaf KUNFUTH` — 有効
+- `Abbas Loutfe FAWAZ` — 有効
+- `Abbas Mokhammadovich Dzhuma` — 有効
+- `Abbas Mortaza Nilfrushan Dardashti` — 有効
+- `Abbas Nilforoushan` — 有効
+- `Abbas Nilforoushan Dardashti` — 有効
+- `Abbas Nilforushan` — 有効
+- `Abbas Porkazemi` — 有効
+- `Abbas Pour Kazemi` — 有効
+- `Abbas Purkazemi` — 有効
+- `Abbas Qolamshahi` — 有効
+- `Abbas Sartaji` — 有効
+- `Abbass Asadrouz` — 有効
+- `Abbass Gharib` — 有効
+- `Abbas Sidiki` — 有効
+- `Abbas Yosefnejad` — 有効
+- `Abbas Yousefnejad` — 有効
+- `Abbas Yusofnezhad` — 有効
+- `Abbas Yusofnezhad Shulami` — 有効
+- `Abbas Yusuf Nezhad` — 有効
+- `Abboud Abdul Latif Hassan Al-Zamur` — 有効
+- `Abboud Abdul Latif Hassan Al-Zomor` — 有効
+- `Abbud AL-Zumar` — 有効
+- `Abbud ZUMAR` — 有効
+- `ABC LLC` — 有効
+- `Abd' al-Baki MOHAMMED` — 有効
+- `Abd' Al-Rahim Hamad AL-TALHI` — 有効
+- `ABD'RABBAH` — 有効
+- `AL-BAKKUR, 'Abd-al-'Azim` — 有効
+- `Abd-al-'Aziz 'Abd-al-Qadir` — 有効
+- `'ABD-AL-'IZ` — 有効
+- `Abd-al-Baqi abd-al-Karim Abdallah AL-SAD'UN` — 有効
+- `Abd-al-Basit Al-Hadj HASAN` — 有効
+- `Abd-al-Fatah QUDSIYAH` — 有効
+- `Abd-al-Hadi Al Husayn Al Shabani Zarqun` — 有効
+- `Abd-al-Hadi Zargun` — 有効
+- `Abd-Al-Hafid Mahmud AL-ZULAYTINI` — 有効
+- `Abd-al-Hai Ahmad ABD-AL-WAHAB` — 有効
+- `Abd-al-Hakim al-Qayrawani` — 有効
+- `SHURUF, 'Abd-al-Hakim` — 有効
+- `Abd-al-Karim Group` — 有効
+- `Abd-al-Latif al-Najdi` — 有効
+- `KITU', 'Abd-al-Latif` — 有効
+- `Abd-al-Latif Sad` — 有効
+- `Abd-Al-Malik Al-Ajri` — 有効
+- `Abd-al-Malik DRIDQAL` — 有効
+- `Abd-al-Mu'ayyid Ridha Hassan al-Banai` — 有効
+- `Abd-al-Muhsin Abdallah al-Sharikh` — 有効
+- `Abd-al-Munim AL-QUBAYSI` — 有効
+- `ZAMR, 'Abd-al-Nasir Ibbi` — 有効
+- `'ABD-AL-QADIR` — 有効
+- `'ABD-AL-QADIR, Abd-al-'Aziz` — 有効
+- `Abd-al-Ra'uf Abu Zayd MUHAMMAD HAMZA` — 有効
+- `Abd-al-Rahman 'Ali Husayn al-Ahmad al-Rawi` — 有効
+- `Abd-al-Rahman al-Rawi` — 有効
+- `Abd-al-Rahman Basal` — 有効
+- `Abd-al-Rahman Fahiye 'Isa` — 有効
+- `Abd-al-Salam al-Raslan` — 有効
+- `Abd-al-Salam Ma'ruf` — 有効
+- `SHURAYQI, 'Abd-al-Salam` — 有効
+- `Abd-al-Tawab Mullah HUWAYSH` — 有効
+- `ABD-AL-WADUD Wail Muhammad Said` — 有効
+- `Abd-Al-Wali Al-Jabri` — 有効
+- `Abd al-'Aziz` — 有効
+- `Abd Al-Aziz Al-Masri` — 有効
+- `Abd al-Aziz Malluh Mirjirash al-Muhammadawi` — 有効
+- `ABD AL-BASET AZZOUZ` — 有効
+- `Abd AL-BASIT` — 有効
+- `Abd al-Basit Hamza` — 有効
+- `Abd Al-Hadi` — 有効
+- `Abd Al-Hadi Al- Iraqi` — 有効
+- `Abd al-Hadi Zarqun al-Warfalli` — 有効
+- `Abd AL-HAMID` — 有効
+- `Abd al-Hamid MU'JIL` — 有効
+- `Abd al-Hamid Sulaiman AL MU'JIL` — 有効
+- `’Abd Al-Haq` — 有効
+- `Abd al-Khaliq Badr al-Din AL-HOUTHI` — 有効
+- `Abd al-Latif SALIH` — 有効
+- `Abd Al-Man'am SAIYID` — 有効
+- `Abd al-Mu'in 'Abd Ismail Hirzallah` — 有効
+- `Abd al-Muayyid al-Banai` — 有効
+- `’Abd al-Muhsi` — 有効
+- `Abd al-Muhsin AL-LIBI` — 有効
+- `'Abd al-Muhsin al-Mutairi` — 有効
+- `'Abd al-Muhsin al-Mutayyri` — 有効
+- `'Abd al-Muhsin Zaban al-Mutayri` — 有効
+- `'Abd al-Muhsin Zabin Mut'ab al-Mutayri` — 有効
+- `'Abd al-Muhsin Zabin Mutab Nayif al-Mutayyiri` — 有効
+- `Abd al-Muhsin Zabin Mutib Naif al-Mutayri` — 有効
+- `'Abd al-Muhsin Zabin Naif al-Mutayri` — 有効
+- `'Abd al-Muhsin Zabn al-Mutayyiri` — 有効
+- `'Abd al-Muhsin Zayn Mun'ib Nayif` — 有効
+- `'Abd al-Muhsin Zibin Mut'ib Nayif al-Mutayri` — 有効
+- `'Abd al-Muhsin Zibn Muta'ab al-Mutayri` — 有効
+- `'Abd al-Muhsin Zubin al-Mutayri` — 有効
+- `'Abd al-Muhsin Zubyn al-Mutayyiri` — 有効
+- `'Abd AL-MULAY` — 有効
+- …他 13462 件
+
+### 変更
+#### `CHERNOMORSKI BANK RAZVITIYA I REKONSTRUKTSII, OTKRYTOE AKTSIONERNOE OBSHCHESTVO`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| categories | — | OFAC:SDN |
+| remark | 制裁リスト（OFAC） | 制裁リスト（OFAC：SDN） |
+
