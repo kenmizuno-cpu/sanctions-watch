@@ -151,3 +151,5 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-09-03T17:29:36Z,ofac_cons,unchanged,fa681487dfd865c189177b478a171178ab8e7133402342acc51f638a7bc121de,"Fri, 28 Aug 2026 14:02:55 GMT",1591,
 2026-09-03T18:34:00Z,ofac_sdn,unchanged,447d09384cf840252569a30b5db51d8cc4aefb396c085168246ee04e7ba2693c,"Thu, 03 Sep 2026 15:37:44 GMT",39470,
 2026-09-03T18:34:00Z,ofac_cons,unchanged,fa681487dfd865c189177b478a171178ab8e7133402342acc51f638a7bc121de,"Fri, 28 Aug 2026 14:02:55 GMT",1591,
+2026-09-03T18:49:14Z,mof,unchanged,25fe3658295bb7010dd37ccf3d03d681abf47080dd1c5c8712f5bbad0c9ba7a9,令和8年9月2日,14743,
+2026-09-03T18:49:14Z,meti,blocked,,,,
