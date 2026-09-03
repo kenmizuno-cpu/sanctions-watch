@@ -38,8 +38,26 @@ SOURCE_LABEL = {
 }
 
 STATUS_LABEL = {
-    "fetched": "更新あり",
+    # OFAC: 元ファイルを新規取得できた状態。
+    # 実質的な名簿差分があるとは限らないので「更新あり」と断定しない。
+    "fetched": "取得あり",
+
+    # 財務省: 正規化後のマスターにも実質差分あり。
+    "changed": "更新あり",
+
+    # 元ファイル自体は更新されたが、正規化後の名簿内容は同一。
+    "no_effective_change": "元データ更新・実質変更なし",
+
+    # ETag / Last-Modified / ハッシュ等で変更なし。
     "unchanged": "変更なし",
+
+    # 経産省: PDF等の更新を検出。手動取込対象。
+    "updated": "更新あり（要手動確認）",
+
+    # 経産省WAF等。想定される状態なので通常のシステム障害とは分離する。
+    "blocked": "自動取得不可",
+
+    # 取得失敗・書式変更などの異常。
     "error": "エラー",
 }
 
@@ -68,33 +86,145 @@ def _http_date_to_jst(value: str) -> str:
     return value
 
 
-def write_status(root: Path, hb: list[dict], st: dict) -> Path:
-    """各ソースの稼働状況。1ソース1行なので数百バイトにしかならない。
+def _latest_heartbeat_by_source(root: Path) -> dict[str, dict]:
+    """heartbeat 全履歴から、各ソースの最新1行だけを返す。
 
-    「動いているか」を見るためのシートなので、チェックできた時刻を必ず出す。
-    変更が無い回でも heartbeat には行が入るため、ここが古いままなら
-    Actions が止まっていると判断できる。
+    status.csv は「今回実行したソース」ではなく、
+    OFAC / 財務省 / 経産省の現在状態を常に一覧表示する必要がある。
+
+    月替わり直後は当月CSVにまだ一部ソースしか存在しない可能性があるため、
+    新しい月から過去へ遡って、全ソースが揃うまで読む。
+    """
+    hb_dir = root / "data" / "heartbeat"
+    latest: dict[str, dict] = {}
+
+    if not hb_dir.exists():
+        return latest
+
+    # YYYY-MM.csv なのでファイル名の逆順 = 新しい月から。
+    files = sorted(hb_dir.glob("*.csv"), reverse=True)
+
+    for p in files:
+        try:
+            with p.open(encoding="utf-8", newline="") as f:
+                for row in csv.DictReader(f):
+                    key = str(row.get("source", "")).strip()
+
+                    # dashboardで管理しているソースだけを対象にする。
+                    if key not in SOURCE_LABEL:
+                        continue
+
+                    checked_at = str(row.get("checked_at", "")).strip()
+                    current = latest.get(key)
+
+                    if (
+                        current is None
+                        or checked_at > str(current.get("checked_at", ""))
+                    ):
+                        latest[key] = dict(row)
+
+        except (OSError, csv.Error):
+            # 1ファイルの破損でダッシュボード生成全体を壊さない。
+            # 本体の取得・監視異常は watch.py 側で別途失敗扱いになる。
+            continue
+
+        if len(latest) == len(SOURCE_LABEL):
+            break
+
+    return latest
+
+
+def _state_source_updated(key: str, prev: dict) -> str:
+    """state.json から元データの更新日時を可能な範囲で補完する。"""
+    value = prev.get("source_updated")
+    if value:
+        return str(value)
+
+    # 財務省は state.json 上では asof。
+    value = prev.get("asof")
+    if value:
+        return str(value)
+
+    # 経産省は dates の配列。
+    dates = prev.get("dates")
+    if isinstance(dates, list) and dates:
+        return ";".join(str(x) for x in dates[:3])
+
+    return ""
+
+
+def write_status(root: Path, hb: list[dict], st: dict) -> Path:
+    """全監視ソースの最新稼働状況を status.csv に書き出す。
+
+    以前は引数 hb（= 今回実行した監視対象）だけを書いていたため、
+
+      watch-ofac → OFAC だけ
+      watch-jp   → 財務省・経産省だけ
+
+    と status.csv が交互に上書きされていた。
+
+    heartbeat は変更なしでも毎回記録されるため、そこから各ソースの
+    最新1行を取得することで、常に全ソースの状態を表示する。
     """
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    latest = _latest_heartbeat_by_source(root)
+
+    # 通常は S.heartbeat() が先に実行されるので latest に今回分も入っている。
+    # 単体テストや手動呼出しなど heartbeat 未書込のケースだけ hb で補完する。
+    for e in hb:
+        key = str(e.get("source", "")).strip()
+        if key not in SOURCE_LABEL or key in latest:
+            continue
+
+        current = dict(e)
+        current["checked_at"] = now
+        latest[key] = current
+
     d = root / DASH
     d.mkdir(parents=True, exist_ok=True)
     p = d / "status.csv"
 
     with p.open("w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(STATUS_COLS)
-        for e in hb:
-            key = e.get("source", "")
+
+        # 順序を毎回固定する。
+        for key, source_label in SOURCE_LABEL.items():
+            e = latest.get(key, {})
             prev = st.get(key, {})
+
+            raw_status = str(e.get("status", "")).strip()
+            status_label = (
+                STATUS_LABEL.get(raw_status, raw_status)
+                if raw_status
+                else "未確認"
+            )
+
+            source_updated = (
+                e.get("source_updated")
+                or _state_source_updated(key, prev)
+                or ""
+            )
+
+            record_count = e.get("record_count")
+            if record_count in ("", None):
+                record_count = prev.get("record_count", "")
+
+            content_hash = (
+                e.get("content_hash")
+                or prev.get("sha256")
+                or ""
+            )
+
             w.writerow([
-                SOURCE_LABEL.get(key, key),
-                STATUS_LABEL.get(e.get("status", ""), e.get("status", "")),
-                _jst(now),
-                _http_date_to_jst(str(e.get("source_updated")
-                                      or prev.get("source_updated") or "")),
-                e.get("record_count", "") or prev.get("record_count", ""),
-                (str(e.get("content_hash") or prev.get("sha256") or ""))[:12],
+                source_label,
+                status_label,
+                _jst(str(e.get("checked_at", ""))),
+                _http_date_to_jst(str(source_updated)),
+                record_count,
+                str(content_hash)[:12],
             ])
+
     return p
 
 
@@ -136,7 +266,7 @@ def append_changes(root: Path, diff_rows: list[list], when: str = "") -> Path:
     keep = (new + old)[:MAX_CHANGES]
 
     with p.open("w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(CHANGE_COLS)
         w.writerows(keep)
     return p
@@ -157,7 +287,7 @@ def write_list(root: Path, rows) -> Path:
     d.mkdir(parents=True, exist_ok=True)
     p = d / "list.csv"
     with p.open("w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(LIST_COLS)
         for r in values:
             name = canonical_display_name(r.get("display_name", ""))

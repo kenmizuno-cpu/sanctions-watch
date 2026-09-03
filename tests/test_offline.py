@@ -539,11 +539,32 @@ def test_dashboard() -> None:
         p = D.write_status(root, hb, st)
         rows = list(csv.reader(p.open(encoding="utf-8")))
         check("status の見出し", rows[0], D.STATUS_COLS)
-        check("出所が日本語ラベル", rows[1][0], "OFAC SDN")
-        check("状態が日本語ラベル", rows[1][1], "変更なし")
-        check("最終更新がJST", rows[1][3], "2026-08-29 21:00:00")
-        check("ハッシュは短縮", len(rows[1][5]), 12)
-        check("財務省の行もある", rows[2][0], "財務省")
+
+        # status.csv は今回実行したソースだけではなく、
+        # 全4監視対象を常時固定表示する。
+        by_source = {r[0]: r for r in rows[1:]}
+
+        check(
+            "status は全4ソースを常時表示",
+            set(by_source),
+            {"財務省", "経済産業省", "OFAC SDN", "OFAC Consolidated"},
+        )
+        check("status は4行", len(rows) - 1, 4)
+
+        ofac_row = by_source["OFAC SDN"]
+        check("出所が日本語ラベル", ofac_row[0], "OFAC SDN")
+        check("状態が日本語ラベル", ofac_row[1], "変更なし")
+        check("最終更新がJST", ofac_row[3], "2026-08-29 21:00:00")
+        check("ハッシュは短縮", len(ofac_row[5]), 12)
+
+        mof_row = by_source["財務省"]
+        check("財務省の行もある", mof_row[0], "財務省")
+        check("財務省 fetched 表示", mof_row[1], "取得あり")
+
+        # 今回のhbに無いソースも行自体は消さない。
+        check("未監視ソースも表示", by_source["経済産業省"][1], "未確認")
+        check("未監視OFAC CONSも表示",
+              by_source["OFAC Consolidated"][1], "未確認")
 
         # 差分が無くても見出しだけのファイルを作る。
         # 存在しないとシート設定時に404で詰まる。
