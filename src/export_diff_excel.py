@@ -18,7 +18,8 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
-from .normalize import match_key
+from .normalize import (canonical_display_name, is_trailing_unknown_artifact,
+                        match_key)
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -134,9 +135,11 @@ def select_actionable(
             held += 1
             continue
 
-        key = match_key(
-            diff.get("受取人名", "")
-        )
+        diff_name = canonical_display_name(diff.get("受取人名", ""))
+        if is_trailing_unknown_artifact(diff_name):
+            continue
+
+        key = match_key(diff_name)
 
         if not key:
             continue
@@ -148,6 +151,11 @@ def select_actionable(
                 "差分に対応するマスター行がありません: "
                 + diff.get("受取人名", "")
             )
+
+        row_name = canonical_display_name(row.get("display_name", ""))
+        if is_trailing_unknown_artifact(row_name):
+            continue
+        row = {**row, "display_name": row_name}
 
         # 同じ対象が複数ソースから同時更新されても
         # 社内取込は現在状態の1行だけ。

@@ -17,6 +17,8 @@ import csv
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from .normalize import canonical_display_name, is_trailing_unknown_artifact
+
 JST = timezone(timedelta(hours=9))
 
 DASH = Path("data") / "dashboard"
@@ -112,9 +114,25 @@ def append_changes(root: Path, diff_rows: list[list], when: str = "") -> Path:
     if p.exists():
         with p.open(encoding="utf-8", newline="") as f:
             rows = list(csv.reader(f))
-        old = rows[1:] if rows and rows[0] == CHANGE_COLS else rows
+        existing = rows[1:] if rows and rows[0] == CHANGE_COLS else rows
+        for row in existing:
+            if len(row) >= 4:
+                name = canonical_display_name(row[3])
+                if is_trailing_unknown_artifact(name):
+                    continue
+                row[3] = name
+            old.append(row)
 
-    new = [[stamp] + list(r) for r in diff_rows]
+    clean_rows = []
+    for row in diff_rows:
+        row = list(row)
+        if len(row) >= 3:
+            name = canonical_display_name(row[2])
+            if is_trailing_unknown_artifact(name):
+                continue
+            row[2] = name
+        clean_rows.append(row)
+    new = [[stamp] + row for row in clean_rows]
     keep = (new + old)[:MAX_CHANGES]
 
     with p.open("w", encoding="utf-8", newline="") as f:
@@ -142,6 +160,9 @@ def write_list(root: Path, rows) -> Path:
         w = csv.writer(f)
         w.writerow(LIST_COLS)
         for r in values:
-            w.writerow([r.get("display_name", ""), r.get("risk_type", ""),
+            name = canonical_display_name(r.get("display_name", ""))
+            if is_trailing_unknown_artifact(name):
+                continue
+            w.writerow([name, r.get("risk_type", ""),
                         r.get("status", ""), r.get("risk_level", "")])
     return p

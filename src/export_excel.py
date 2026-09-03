@@ -16,7 +16,8 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
-from .normalize import SRC_UNKNOWN
+from .normalize import (SRC_UNKNOWN, canonical_display_name,
+                        is_trailing_unknown_artifact)
 
 JST = timezone(timedelta(hours=9))
 SHEET_MAIN = "Sheet1"
@@ -58,6 +59,14 @@ def _read(path: Path) -> list[dict]:
 
 
 def build_workbook(master: list[dict], log: list[dict]) -> Workbook:
+    cleaned = []
+    for row in master:
+        name = canonical_display_name(row.get("display_name", ""))
+        if is_trailing_unknown_artifact(name):
+            continue
+        cleaned.append({**row, "display_name": name})
+    master = cleaned
+
     wb = Workbook()
 
     # ---- Sheet1: 既存仕様の7列 -------------------------------------
@@ -129,7 +138,7 @@ def main() -> None:
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     wb.save(out)
-    print(f"wrote {out} ({len(master)} 行)")
+    print(f"wrote {out} ({wb[SHEET_MAIN].max_row - 1} 行)")
 
 
 if __name__ == "__main__":

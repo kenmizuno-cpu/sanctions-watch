@@ -16,10 +16,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src import master as M                      # noqa: E402
-from src.normalize import (canonical_category, clean_name, match_key,  # noqa: E402
-                           needs_review, parse_remark, parse_remark_multi,
-                           render_remark, split_aliases, SRC_UNKNOWN,
-                           swap_surname_first, validate)
+from src.normalize import (canonical_category, canonical_display_name, clean_name,  # noqa: E402
+                           is_trailing_unknown_artifact, match_key, needs_review,
+                           parse_remark, parse_remark_multi, render_remark,
+                           split_aliases, SRC_UNKNOWN, swap_surname_first, validate)
 from src.sources import meti, mof, ofac          # noqa: E402
 
 PASS, FAIL = [], []
@@ -73,6 +73,18 @@ def test_clean_name() -> None:
     check("全角スペース", clean_name("A\u3000B"), "A B")
     check("連続空白", clean_name("A    B"), "A B")
     check("ローマ数字を壊さない", clean_name("リビア (Ⅱ)"), "リビア (Ⅱ)")
+    check("和文の外側引用符を除去",
+          canonical_display_name("「株式会社SRIEMI」"), "株式会社SRIEMI")
+    check("英文の外側引用符を除去",
+          canonical_display_name("“JSC SRIEMI”"), "JSC SRIEMI")
+    check("名称内のアポストロフィは維持",
+          canonical_display_name("O'BRIEN TRADING"), "O'BRIEN TRADING")
+    check("片側だけの引用符は維持",
+          canonical_display_name("'ABD AL-MALIK"), "'ABD AL-MALIK")
+    check("末尾不明の混入を検出",
+          is_trailing_unknown_artifact("ABDUL REHMAN MAKKI不明"), True)
+    check("通常の日本語名を誤検出しない",
+          is_trailing_unknown_artifact("株式会社不明堂"), False)
 
 
 def test_split_aliases() -> None:
@@ -267,6 +279,13 @@ def _rec(name, cat="SDN", src="OFAC"):
 def test_merge() -> None:
     rows: dict[str, dict] = {}
 
+    d = M.merge(rows, [_rec("“QUOTED CORP”"), _rec("GAMMA LTD不明")], "OFAC", ts=500)
+    check("新規名の外側引用符を除去",
+          rows[match_key("QUOTED CORP")]["display_name"], "QUOTED CORP")
+    check("末尾不明の旧データを登録しない",
+          match_key("GAMMA LTD不明") in rows, False)
+    rows.clear()
+
     d = M.merge(rows, [_rec("ALPHA CORP"), _rec("BETA LTD")], "OFAC", ts=1000)
     check("新規追加", (len(d.added), len(d.removed), len(d.changed)), (2, 0, 0))
     check("初回登録時間", rows[match_key("ALPHA CORP")]["first_seen_ms"], 1000)
@@ -321,6 +340,19 @@ def test_roundtrip() -> None:
         back = M.load(p)
     check("保存して読み直しても同じ", set(back), set(rows))
     check("列が揃っている", set(back[match_key("ALPHA CORP")]), set(M.FIELDS))
+
+    dirty = dict(rows[match_key("ALPHA CORP")])
+    dirty["match_key"] = match_key("DIRTY CORP不明")
+    dirty["display_name"] = "DIRTY CORP不明"
+    quoted = dict(rows[match_key("ベータ商事")])
+    quoted["display_name"] = "「ベータ商事」"
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "master.csv"
+        M.save({dirty["match_key"]: dirty, quoted["match_key"]: quoted}, p)
+        back = M.load(p)
+    check("保存時に末尾不明を削除", dirty["match_key"] in back, False)
+    check("保存時に外側引用符を除去",
+          back[quoted["match_key"]]["display_name"], "ベータ商事")
 
 
 # ---------------------------------------------------------------- 生ファイル
@@ -521,6 +553,12 @@ def test_dashboard() -> None:
 
         # 変更履歴は新しいものが上、見出しは1回だけ
         D.append_changes(root, [["OFAC", "追加", "ALPHA", "", "x"]], when="2026-01-01 00:00:00")
+        # 旧ファイル側に残る汚れも、次回追記時に除去・正規化する。
+        with (root / D.DASH / "changes.csv").open("a", encoding="utf-8", newline="") as f:
+            csv.writer(f).writerows([
+                ["2025-12-31 00:00:00", "財務省", "掲載終了", "OLD CORP不明", "x", "y"],
+                ["2025-12-30 00:00:00", "財務省", "追加", "「QUOTED CORP」", "", "x"],
+            ])
         pc = D.append_changes(root, [["OFAC", "掲載終了", "BETA", "y", "z"]],
                               when="2026-01-02 00:00:00")
         rows = list(csv.reader(pc.open(encoding="utf-8")))
@@ -529,6 +567,10 @@ def test_dashboard() -> None:
         check("新しいものが上", rows[1][3], "BETA")
         check("古い行も残る", rows[2][3], "ALPHA")
         check("検知日時が入る", rows[1][0], "2026-01-02 00:00:00")
+        check("既存changesの末尾不明を削除",
+              any("OLD CORP不明" in r for r in rows), False)
+        check("既存changesの外側引用符を除去",
+              any(len(r) > 3 and r[3] == "QUOTED CORP" for r in rows), True)
 
         # 上限を超えたら古いものから落ちる
         D.MAX_CHANGES, keep = 3, D.MAX_CHANGES
@@ -552,6 +594,13 @@ def test_dashboard() -> None:
         pl = D.write_list(root, {"k": entry})
         rows = list(csv.reader(pl.open(encoding="utf-8")))
         check("dict を渡しても動く", rows[1][0], "ALPHA")
+
+        dirty = dict(entry, display_name="ALPHA不明")
+        quoted = dict(entry, display_name="「株式会社SRIEMI」")
+        pl = D.write_list(root, [dirty, quoted])
+        rows = list(csv.reader(pl.open(encoding="utf-8")))
+        check("list は末尾不明を削除", len(rows), 2)
+        check("list は外側引用符を除去", rows[1][0], "株式会社SRIEMI")
 
 
 def main() -> int:

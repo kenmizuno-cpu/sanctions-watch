@@ -83,6 +83,40 @@ def clean_name(name: str) -> str:
     return s.strip()
 
 
+# 財務省の告示文では、別名を `「株式会社SRIEMI」` / `“JSC SRIEMI”` の
+# ように引用符で囲むことがある。引用符は名称の一部ではないため、照合用の
+# 表示名からは外す。ただし O'BRIEN や先頭だけに付く 'Abd のような内部・片側の
+# アポストロフィは名称の一部なので、対応する引用符が両端にある場合だけ外す。
+_OUTER_QUOTE_PAIRS = {
+    "「": "」", "『": "』", "“": "”", "‘": "’", "«": "»",
+    '"': '"', "'": "'", "＂": "＂", "`": "`",
+}
+
+
+def canonical_display_name(name: str) -> str:
+    """完全一致照合へ出す名称から、外側だけの引用符を除去する。"""
+    s = clean_name(name)
+    while len(s) >= 2 and _OUTER_QUOTE_PAIRS.get(s[0]) == s[-1]:
+        inner = clean_name(s[1:-1])
+        if not inner:
+            break
+        s = inner
+    return s
+
+
+# 旧取込処理が `NAME(original script：不明)` から説明ラベルだけを落とし、
+# `NAME不明` を作った実例がある。直前が英数字または閉じ括弧のものに限定し、
+# 日本語の正規名称を広く削除しない。
+_TRAILING_UNKNOWN_ARTIFACT = re.compile(
+    r"(?:[A-Za-z0-9]|[)\]}>）］】])\s*不明$"
+)
+
+
+def is_trailing_unknown_artifact(name: str) -> bool:
+    """末尾へメタ情報の「不明」が混入した旧データなら True。"""
+    return bool(_TRAILING_UNKNOWN_ARTIFACT.search(canonical_display_name(name)))
+
+
 # ---------------------------------------------------------------- 検証
 
 # Excel の日付シリアル値が漏れたもの
@@ -102,6 +136,8 @@ def validate(name: str) -> str | None:
     s = clean_name(name)
     if not s:
         return "空文字または空白のみ"
+    if is_trailing_unknown_artifact(s):
+        return "original script等のメタ情報「不明」が名称末尾に混入した旧データ"
     if _EXCEL_SERIAL.fullmatch(s):
         return f"Excelの日付シリアル値が名前として混入した疑い（{s}）"
     if re.fullmatch(r"[0-9]+", s):
