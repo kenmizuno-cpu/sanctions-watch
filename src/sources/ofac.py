@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import csv
 import io
-import unicodedata
 import xml.etree.ElementTree as ET
 
 from ..fetch import Fetched
@@ -128,70 +127,49 @@ def _element_label(elem) -> str:
     return ""
 
 
-def _is_latin_text(value: str) -> bool:
-    """文字列中の英字がすべて Latin script なら True。"""
-    letters = [c for c in value if c.isalpha()]
-    if not letters:
-        return False
-    return all(
-        "LATIN" in unicodedata.name(c, "")
-        for c in letters
-    )
-
-
 def _render_advanced_name(parts: list[tuple[str, str]]) -> str:
-    """Advanced XML の name parts を1つの表示名に復元する。
+    """Advanced XML の DocumentedNamePart 順をそのまま名称化する。
 
-    Latin script の個人名は Classic CSV と同じ
-    `LAST, First Middle` 形式へ寄せる。
+    重要:
+    - OFACが記載していないカンマを追加しない。
+    - 姓名を独自ルールで並べ替えない。
+    - Patronymic / Matronymic 等もXML記載順を変更しない。
+    - Classic CSVの `SURNAME, Given` 表記は別レコードとしてunionする。
 
-    非Latin名・団体名・船舶名等は XML の記載順を維持する。
-    存在しない語順や別名を生成しないことを優先する。
+    制裁名簿では「より自然に見える名称」を生成するより、
+    一次ソースに存在する文字列を忠実に保持することを優先する。
     """
-    parts = [(t, clean_name(v)) for t, v in parts if clean_name(v)]
-    if not parts:
-        return ""
+    values = [
+        clean_name(value)
+        for _, value in parts
+        if clean_name(value)
+    ]
 
-    values = [v for _, v in parts]
-
-    last = [v for t, v in parts if t == "Last Name"]
-    maiden = [v for t, v in parts if t == "Maiden Name"]
-    first = [v for t, v in parts if t == "First Name"]
-    middle = [v for t, v in parts if t == "Middle Name"]
-    patronymic = [v for t, v in parts if t == "Patronymic"]
-    matronymic = [v for t, v in parts if t == "Matronymic"]
-
-    personal_types = {
-        "Last Name",
-        "Maiden Name",
-        "First Name",
-        "Middle Name",
-        "Patronymic",
-        "Matronymic",
-    }
-
-    only_personal = all(t in personal_types for t, _ in parts)
-    latin = _is_latin_text(" ".join(values))
-
-    if only_personal and latin:
-        # Maiden Name と Last Name が同時にある場合は、
-        # 勝手に1つの姓へ合成せず XML 順へフォールバックする。
-        surname = []
-        if last and not maiden:
-            surname = last
-        elif maiden and not last:
-            surname = maiden
-
-        tail = first + middle + patronymic + matronymic
-
-        if surname and tail:
-            return clean_name(
-                f"{' '.join(surname)}, {' '.join(tail)}"
-            )
-
-    # Entity / Vessel / Aircraft / Nickname / 非Latin等。
-    # OFAC が記載した部品順そのものを維持する。
     return clean_name(" ".join(values))
+
+
+
+def screening_records(
+    records: list[dict],
+) -> list[dict]:
+    """通常スクリーニングへ送るOFAC名称だけを返す。
+
+    Advanced XML LowQuality=true はWeak AKA。
+    OFAC FAQ 124の位置付けに従い、
+    Weak-only aliasは通常の自動スクリーニングmasterへは入れない。
+
+    ただし同名のClassic/Strongレコードが存在する場合は
+    そのStrongレコードが残るためスクリーニング対象になる。
+
+    Weak alias自体はofac_alias_history.csvへ全件保存する。
+    """
+    return [
+        record
+        for record in records
+        if not bool(
+            record.get("low_quality", False)
+        )
+    ]
 
 
 def classic_party_ids(prim: Fetched, label: str) -> set[str]:

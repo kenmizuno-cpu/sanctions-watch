@@ -405,9 +405,14 @@ def test_parsers() -> None:
         True,
     )
     check(
-        "OFAC Advanced: Latin個人名をClassic順へ",
-        "DOE, John Paul" in advanced_names,
+        "OFAC Advanced: XML記載順を維持",
+        "DOE John Paul" in advanced_names,
         True,
+    )
+    check(
+        "OFAC Advanced: XMLに無いカンマ形式を生成しない",
+        "DOE, John Paul" in advanced_names,
+        False,
     )
     check(
         "OFAC Advanced: 非Latin名はXML順を維持",
@@ -564,6 +569,226 @@ def test_merge() -> None:
     # 再掲載されたら有効に戻る
     M.merge(rows, [_rec("ALPHA CORP"), _rec("BETA LTD")], "OFAC", ts=6000)
     check("再掲載で有効に戻る", rows[match_key("BETA LTD")]["status"], "有効")
+
+
+
+def test_ofac_party_index() -> None:
+    from src import ofac_index as OI
+
+    history = {}
+
+    records1 = [
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="ALPHA CORP",
+            source_id="100",
+            format="advanced_xml_v3",
+            alias_primary=True,
+        ),
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="ALPHA",
+            source_id="100",
+            format="classic_csv",
+        ),
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="BETA LTD",
+            source_id="200",
+            format="advanced_xml_v3",
+        ),
+    ]
+
+    d1 = OI.update(
+        history,
+        records1,
+        1000,
+    )
+
+    check(
+        "OFAC index: 初回baseline",
+        d1.baseline,
+        True,
+    )
+    check(
+        "OFAC index: baselineでParty終了なし",
+        d1.removed_parties,
+        set(),
+    )
+    check(
+        "OFAC index: 3alias保存",
+        len(history),
+        3,
+    )
+
+    # Party100は存続するがALPHA aliasだけ消える。
+    # Party200はPartyごと消える。
+    records2 = [
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="ALPHA CORP",
+            source_id="100",
+            format="advanced_xml_v3",
+            alias_primary=True,
+        ),
+    ]
+
+    d2 = OI.update(
+        history,
+        records2,
+        2000,
+    )
+
+    check(
+        "OFAC index: Party終了をFixedRefで検出",
+        d2.removed_parties,
+        {("SDN", "200")},
+    )
+
+    alpha_alias = history[
+        ("SDN", "100", "ALPHA")
+    ]
+
+    check(
+        "OFAC index: Party存続aliasは履歴保持",
+        alpha_alias["party_current"],
+        "1",
+    )
+    check(
+        "OFAC index: 消えたaliasだけ非current",
+        alpha_alias["alias_current"],
+        "0",
+    )
+
+    beta = history[
+        ("SDN", "200", "BETA LTD")
+    ]
+
+    check(
+        "OFAC index: Party終了",
+        beta["party_current"],
+        "0",
+    )
+
+    # master.mergeのmissing-report抑止
+    rows = {}
+    M.merge(
+        rows,
+        [_rec("LEGACY OFAC NAME")],
+        "OFAC",
+        ts=1000,
+    )
+
+    held = M.merge(
+        rows,
+        [],
+        "OFAC",
+        ts=2000,
+        delist=False,
+        report_missing=False,
+    )
+
+    check(
+        "OFAC index: name欠落だけでは候補を出さない",
+        len(held.removed),
+        0,
+    )
+
+
+
+
+def test_ofac_screening_policy() -> None:
+    from src import ofac_index as OI
+
+    records = [
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="STRONG NAME",
+            source_id="1",
+            format="advanced_xml_v3",
+            low_quality=False,
+        ),
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="WEAK NAME",
+            source_id="2",
+            format="advanced_xml_v3",
+            low_quality=True,
+        ),
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="MIXED NAME",
+            source_id="3",
+            format="advanced_xml_v3",
+            low_quality=True,
+        ),
+        # 同じ名称がClassicにも存在するならStrongとして扱える。
+        dict(
+            source="OFAC",
+            category="SDN",
+            name="MIXED NAME",
+            source_id="3",
+            format="classic_csv",
+        ),
+    ]
+
+    screened = ofac.screening_records(
+        records
+    )
+
+    screened_names = {
+        r["name"]
+        for r in screened
+    }
+
+    check(
+        "OFAC Weak: Strongは通常screening",
+        "STRONG NAME" in screened_names,
+        True,
+    )
+
+    check(
+        "OFAC Weak: Weak-onlyは通常screening除外",
+        "WEAK NAME" in screened_names,
+        False,
+    )
+
+    check(
+        "OFAC Weak: Classicにもある同名はscreening維持",
+        "MIXED NAME" in screened_names,
+        True,
+    )
+
+    history = {}
+
+    OI.update(
+        history,
+        records,
+        1000,
+    )
+
+    check(
+        "OFAC Weak: Weak-onlyを履歴には保持",
+        history[
+            ("SDN", "2", "WEAK NAME")
+        ]["low_quality"],
+        "1",
+    )
+
+    check(
+        "OFAC Weak: Weak+Strong同名はStrong扱い",
+        history[
+            ("SDN", "3", "MIXED NAME")
+        ]["low_quality"],
+        "0",
+    )
 
 
 def test_roundtrip() -> None:
@@ -862,7 +1087,8 @@ def test_dashboard() -> None:
 def main() -> int:
     for fn in (test_surname_order, test_match_key, test_clean_name, test_split_aliases, test_validate,
                test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
-               test_roundtrip, test_archive_roundtrip, test_resolve_raw, test_prune_raw,
+               test_ofac_party_index, test_ofac_screening_policy, test_roundtrip, test_archive_roundtrip, test_resolve_raw,
+               test_prune_raw,
                test_dashboard):
         fn()
     total = len(PASS) + len(FAIL)

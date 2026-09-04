@@ -20,6 +20,7 @@ import requests
 
 from . import dashboard as D
 from . import master as M
+from . import ofac_index as OI
 from . import state as S
 from .fetch import archive, fetch, prune_raw, read_raw
 from .sources import meti, mof, ofac
@@ -28,13 +29,12 @@ ROOT = Path(__file__).resolve().parent.parent
 MASTER = ROOT / "data" / "master" / "master.csv"
 DIFF_MD = ROOT / "data" / "diff" / "latest.md"
 DIFF_CSV = ROOT / "data" / "diff" / "latest.csv"
+OFAC_INDEX = ROOT / "data" / "master" / "ofac_alias_history.csv"
 
-# OFAC の掲載終了判定。
-#
-# Advanced XML Version 3 を正式突合元へ移行した後も、初回は False のままにする。
-# 既存マスターとの差を「掲載終了候補」として1回監査し、その結果が妥当と
-# 確認できた後にだけ True へ変更する。
-OFAC_DELIST = False
+# Advanced XML / Party indexをmainへ導入しても、
+# 明示的に解禁するまでmaster/社内取込には反映しない。
+# 初回はParty/Alias baselineだけを確立する。
+OFAC_ADVANCED_MASTER_ENABLED = False
 
 
 def log(status: str, name: str, msg: str = "") -> None:
@@ -206,6 +206,17 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             cfg["label"],
         )
 
+        # Classic CSVもOFAC公式の現行名称なので、
+        # Advancedを正式詳細ソースとしつつ検索互換名としてunionする。
+        classic_part = ofac.parse(
+            prim,
+            alt,
+            cfg["label"],
+        )
+
+        for r in classic_part:
+            r["format"] = "classic_csv"
+
         # ここが自動掲載終了より前の最重要安全弁。
         # ClassicとAdvancedのParty IDが1件でも違えば停止する。
         ofac.validate_party_coverage(
@@ -215,6 +226,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         )
 
         records += part
+        records += classic_part
 
         source_updated = (
             advanced.last_modified
@@ -228,7 +240,9 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             filename=prim.filename,
             url=cfg["prim"],
             source_updated=source_updated,
-            record_count=len(part),
+            record_count=len(part) + len(classic_part),
+            advanced_record_count=len(part),
+            classic_record_count=len(classic_part),
             party_count=len(advanced_ids),
             classic_party_count=len(classic_ids),
             baseline_synced=True,
@@ -248,7 +262,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                 status="fetched",
                 content_hash=advanced.sha256,
                 source_updated=source_updated,
-                record_count=len(part),
+                record_count=len(part) + len(classic_part),
                 raw_path=advanced.raw_path,
             )
         )
@@ -258,7 +272,8 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             cfg["name"],
             (
                 f"Party {len(advanced_ids)}件 / "
-                f"名称 {len(part)}件 / "
+                f"Advanced名称 {len(part)}件 / "
+                f"Classic名称 {len(classic_part)}件 / "
                 "Classic ID coverage完全一致"
             ),
         )
@@ -294,23 +309,92 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             f"Party {party_count}件 / 名称 {len(part)}件",
         )
 
-    # Advanced XMLへ移行しても初回は自動無効化しない。
-    # 既存masterとの差を「掲載終了候補（要確認）」として出し、
-    # 実差分の監査後に OFAC_DELIST=True を解禁する。
-    delist = bool(OFAC_DELIST)
+    # OFAC Party/Alias履歴。
+    # 全alias（Weak含む）をFixedRef付きで保存する。
+    history = OI.load(
+        OFAC_INDEX,
+    )
 
-    if not OFAC_DELIST:
+    index_diff = OI.update(
+        history,
+        records,
+        M.now_ms(),
+    )
+
+    # PartyそのもののFixedRef消失は、
+    # name差分とは比較にならない重要イベント。
+    #
+    # 現段階では自動解除せずfail-closed。
+    # workflow失敗通知を発生させ、人手監査する。
+    if index_diff.removed_parties:
+        sample = sorted(
+            index_diff.removed_parties
+        )[:20]
+
+        raise ofac.SchemaError(
+            "OFAC Party FixedRef消失を検出: "
+            f"{len(index_diff.removed_parties)}件 "
+            f"sample={sample}。"
+            "自動無効化せず処理を停止する"
+        )
+
+    # failure時には保存しないよう、
+    # Party終了検査を通過してからoptsへ渡す。
+    opts["ofac_index_rows"] = history
+    opts["ofac_index_diff"] = index_diff
+
+    screening_records = (
+        ofac.screening_records(
+            records
+        )
+    )
+
+    weak_record_count = (
+        len(records)
+        - len(screening_records)
+    )
+
+    log(
+        "party-index",
+        "OFAC",
+        (
+            f"baseline={index_diff.baseline} / "
+            f"Party追加={len(index_diff.added_parties)} / "
+            f"Party終了={len(index_diff.removed_parties)} / "
+            f"Alias新規={index_diff.added_aliases} / "
+            f"Party継続中Alias非current="
+            f"{index_diff.inactive_aliases_active_party} / "
+            f"Weak records={weak_record_count} / "
+            f"screening records={len(screening_records)}"
+        ),
+    )
+
+    # 初回baselineではmasterを変更しない。
+    # これによりmainへコードを入れても大量差分・Release更新・
+    # 社内取込ファイル生成が自動発生しない。
+    if not OFAC_ADVANCED_MASTER_ENABLED:
         log(
             "safe-mode",
             "OFAC",
-            "Advanced XML初回監査モード: 掲載終了は候補表示のみ",
+            (
+                "Advanced XML rollout gate OFF: "
+                "Party/Alias indexのみ監査し、"
+                "master・社内取込へは未反映"
+            ),
         )
 
+        return []
+
+    # 通常スクリーニングはStrong名称のみ。
+    #
+    # Weak AKAはParty indexに残るが、
+    # 高リスク名称としてmasterへ直接投入しない。
     d = M.merge(
         rows,
-        records,
+        screening_records,
         ofac.SOURCE,
-        delist=delist,
+        delist=False,
+        report_missing=False,
     )
 
     log(
@@ -373,6 +457,20 @@ def _latest_advanced(
             cfg["label"],
         )
 
+        prim_path2, alt_path = resolve_raw(
+            key,
+            prev,
+        )
+
+        if (
+            prim_path2 is None
+            or alt_path is None
+        ):
+            return None
+
+        prim = _Raw(prim_path2)
+        alt = _Raw(alt_path)
+
         classic_ids = ofac.classic_party_ids(
             prim,
             cfg["label"],
@@ -384,7 +482,19 @@ def _latest_advanced(
             cfg["label"],
         )
 
-        return part, len(advanced_ids)
+        classic_part = ofac.parse(
+            prim,
+            alt,
+            cfg["label"],
+        )
+
+        for r in classic_part:
+            r["format"] = "classic_csv"
+
+        return (
+            part + classic_part,
+            len(advanced_ids),
+        )
 
     except Exception as exc:  # noqa: BLE001
         print(
@@ -502,7 +612,11 @@ def main() -> int:
     ap.add_argument("--ignore-drift", action="store_true",
                     help="区分番号のずれを検出しても止めない")
     args = ap.parse_args()
-    opts = dict(no_delist=args.no_delist, ignore_drift=args.ignore_drift)
+    opts = dict(
+        no_delist=args.no_delist,
+        ignore_drift=args.ignore_drift,
+        dry_run=args.dry_run,
+    )
 
     targets = list(RUNNERS) if "all" in args.sources else args.sources
 
@@ -535,6 +649,12 @@ def main() -> int:
     if args.dry_run:
         print(M.render_markdown(diffs))
         return 1 if failed else 0
+
+    if opts.get("ofac_index_rows") is not None:
+        OI.save(
+            opts["ofac_index_rows"],
+            OFAC_INDEX,
+        )
 
     S.heartbeat(ROOT, hb)
     if diffs:
