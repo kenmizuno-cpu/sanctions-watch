@@ -34,7 +34,7 @@ OFAC_INDEX = ROOT / "data" / "master" / "ofac_alias_history.csv"
 # Advanced XML / Party indexをmainへ導入しても、
 # 明示的に解禁するまでmaster/社内取込には反映しない。
 # 初回はParty/Alias baselineだけを確立する。
-OFAC_ADVANCED_MASTER_ENABLED = False
+OFAC_ADVANCED_MASTER_ENABLED = True
 
 
 def log(status: str, name: str, msg: str = "") -> None:
