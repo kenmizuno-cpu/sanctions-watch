@@ -88,6 +88,26 @@ def run_mof(session, st, rows, hb, opts=None) -> list[M.Diff]:
 
 # ------------------------------------------------------------------ OFAC
 
+def _ofac_master_rollout_pending(st: dict, enabled=None) -> bool:
+    """Advanced baselineはあるがmaster同期が未完了ならTrue。
+
+    gateをONにした直後にOFACが304でも、次のリスト更新を待たず
+    保存済みbaseline rawから現在snapshotを再生してmasterへ反映する。
+    """
+    if enabled is None:
+        enabled = OFAC_ADVANCED_MASTER_ENABLED
+
+    return bool(
+        enabled
+        and any(
+            not st.get(key, {}).get(
+                "advanced_master_synced"
+            )
+            for key in ofac.LISTS
+        )
+    )
+
+
 def run_ofac(session, st, rows, hb, opts=None) -> list:
     """SDN と Consolidated の Advanced XML をまとめて1回でマージする。
 
@@ -278,8 +298,22 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             ),
         )
 
-    if not fetched_any:
+    rollout_pending = _ofac_master_rollout_pending(
+        st
+    )
+
+    if not fetched_any and not rollout_pending:
         return []
+
+    if not fetched_any and rollout_pending:
+        log(
+            "rollout-cache",
+            "OFAC",
+            (
+                "Advanced master初回同期: "
+                "ソース変更なしのため保存済みbaseline rawを再検証して使用"
+            ),
+        )
 
     # 片方だけ更新された場合、もう片方の最新Advanced XMLを
     # stateで記録したrawから復元する。
@@ -396,6 +430,26 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         delist=False,
         report_missing=False,
     )
+
+    # mergeまで正常完了したsnapshotだけmaster同期済みとする。
+    # main() はmaster保存後にstateを保存するため、途中失敗時は
+    # 次回もう一度安全にrolloutを再実行できる。
+    for key in ofac.LISTS:
+        state_row = st.get(key)
+
+        if not state_row:
+            raise ofac.SchemaError(
+                f"OFAC master同期state欠落: {key}"
+            )
+
+        state_row["advanced_master_synced"] = True
+
+    if rollout_pending:
+        log(
+            "rollout-state",
+            "OFAC",
+            "Advanced XML Strong名称のmaster同期完了",
+        )
 
     log(
         "changed" if d else "no_effective_change",

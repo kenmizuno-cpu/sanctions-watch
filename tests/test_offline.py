@@ -791,6 +791,55 @@ def test_ofac_screening_policy() -> None:
     )
 
 
+def test_ofac_master_rollout_pending() -> None:
+    import src.watch as W
+
+    synced = {
+        "ofac_sdn": {
+            "advanced_master_synced": True,
+        },
+        "ofac_cons": {
+            "advanced_master_synced": True,
+        },
+    }
+
+    check(
+        "OFAC rollout: 両方master同期済みならpendingなし",
+        W._ofac_master_rollout_pending(
+            synced,
+            enabled=True,
+        ),
+        False,
+    )
+
+    pending = {
+        "ofac_sdn": {
+            "advanced_master_synced": True,
+        },
+        "ofac_cons": {
+            "advanced_master_synced": False,
+        },
+    }
+
+    check(
+        "OFAC rollout: 片方でも未同期ならpending",
+        W._ofac_master_rollout_pending(
+            pending,
+            enabled=True,
+        ),
+        True,
+    )
+
+    check(
+        "OFAC rollout: gate OFFならpendingにしない",
+        W._ofac_master_rollout_pending(
+            pending,
+            enabled=False,
+        ),
+        False,
+    )
+
+
 def test_roundtrip() -> None:
     rows: dict[str, dict] = {}
     M.merge(rows, [_rec("ALPHA CORP"), _rec("ベータ商事")], "OFAC", ts=1000)
@@ -1087,7 +1136,7 @@ def test_dashboard() -> None:
 def main() -> int:
     for fn in (test_surname_order, test_match_key, test_clean_name, test_split_aliases, test_validate,
                test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
-               test_ofac_party_index, test_ofac_screening_policy, test_roundtrip, test_archive_roundtrip, test_resolve_raw,
+               test_ofac_party_index, test_ofac_screening_policy, test_ofac_master_rollout_pending, test_roundtrip, test_archive_roundtrip, test_resolve_raw,
                test_prune_raw,
                test_dashboard):
         fn()
