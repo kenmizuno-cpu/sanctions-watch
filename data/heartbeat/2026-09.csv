@@ -199,3 +199,5 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-09-04T12:49:34Z,meti,blocked,,,,
 2026-09-04T13:30:06Z,ofac_sdn,unchanged,657e2ecd8ed722d5640e4076058a24982c6e722aac2a631eea3da1e052861f93,"Thu, 03 Sep 2026 15:37:42 GMT",89251,
 2026-09-04T13:30:06Z,ofac_cons,unchanged,c0cdbcc3c7cb9c6bc4af5e1cff6110220aaa7628cb8216882a4feac5e71ab971,"Thu, 03 Sep 2026 15:37:43 GMT",3371,
+2026-09-04T14:30:05Z,ofac_sdn,fetched,0ec4e7e77fb184ecab51f6e2979a2107e72f967c83097e2ade6cc3e01039027b,"Fri, 04 Sep 2026 14:01:45 GMT",89262,data/raw/ofac_sdn_advanced/20260904T142950Z__sdn_advanced.xml.gz
+2026-09-04T14:30:05Z,ofac_cons,unchanged,c0cdbcc3c7cb9c6bc4af5e1cff6110220aaa7628cb8216882a4feac5e71ab971,"Thu, 03 Sep 2026 15:37:43 GMT",3371,

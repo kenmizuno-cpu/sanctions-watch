@@ -76909,6 +76909,17 @@ SDN,58490,BANCO EXTERIOR DE CUBA,bancoexteriordecuba,1788483946814,1788483946814
 SDN,58490,Banco Exterior De Cuba,bancoexteriordecuba,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58491,"CASTRO CALIS, Fidel Ernesto",fidelernestocastrocalis,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58491,Fidel Ernesto Castro Calis,fidelernestocastrocalis,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58544,GOLDEN GLOBAL INVESTMENT BANK,goldenglobalinvestmentbank,1788532201185,1788532201185,1,1,classic_csv,0,0
+SDN,58544,GOLDEN GLOBAL YATIRIM BANKASI ANONIM SIRKETI,goldenglobalyatirimbankasianonimsirketi,1788532201185,1788532201185,1,1,classic_csv,0,0
+SDN,58544,GOLDEN GLOBAL YATIRIM BANKASI ANONİM ŞİRKETİ,goldenglobalyatirimbankasianoni̇mşi̇rketi̇,1788532201185,1788532201185,1,1,advanced_xml_v3,1,0
+SDN,58544,Golden Global Investment Bank,goldenglobalinvestmentbank,1788532201185,1788532201185,1,1,advanced_xml_v3,0,0
+SDN,58544,Golden Global Yatirim Bankasi Anonim Sirketi,goldenglobalyatirimbankasianonimsirketi,1788532201185,1788532201185,1,1,advanced_xml_v3,1,0
+SDN,58545,GOLDEN GLOBAL VARLIK KIRALAMA ANONIM SIRKETI,goldenglobalvarlikkiralamaanonimsirketi,1788532201185,1788532201185,1,1,classic_csv,0,0
+SDN,58545,GOLDEN GLOBAL VARLIK KİRALAMA ANONİM ŞİRKETİ,goldenglobalvarlikki̇ralamaanoni̇mşi̇rketi̇,1788532201185,1788532201185,1,1,advanced_xml_v3,1,0
+SDN,58545,Golden Global Varlik Kiralama Anonim Sirketi,goldenglobalvarlikkiralamaanonimsirketi,1788532201185,1788532201185,1,1,advanced_xml_v3,1,0
+SDN,58548,GOLDEN GLOBAL PORTFOY YONETIMI ANONIM SIRKETI,goldenglobalportfoyyonetimianonimsirketi,1788532201185,1788532201185,1,1,classic_csv,0,0
+SDN,58548,GOLDEN GLOBAL PORTFÖY YÖNETİMİ ANONİM ŞİRKETİ,goldenglobalportföyyöneti̇mi̇anoni̇mşi̇rketi̇,1788532201185,1788532201185,1,1,advanced_xml_v3,1,0
+SDN,58548,Golden Global Portfoy Yonetimi Anonim Sirketi,goldenglobalportfoyyonetimianonimsirketi,1788532201185,1788532201185,1,1,advanced_xml_v3,1,0
 SDN,589,"CRYMSA - ARGENTINA, S.A.","crymsa-argentina,s.a.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,590,CUBACANCUN CIGARS AND GIFT SHOPS,cubacancuncigarsandgiftshops,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,591,CUBAEXPORT,cubaexport,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
