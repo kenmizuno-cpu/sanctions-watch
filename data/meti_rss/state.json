@@ -1,0 +1,7 @@
+{
+  "feed_url": "https://www.meti.go.jp/ml_index_release_atom.xml",
+  "last_error_fingerprint": "ea9cea44215c7e9bf9a8abbe221b20fd671f3671d285d9db7c2eb523e4dcf0ee",
+  "last_error_message": "403 Client Error: Forbidden for url: https://www.meti.go.jp/ml_index_release_atom.xml",
+  "last_error_type": "HTTPError",
+  "version": 2
+}
