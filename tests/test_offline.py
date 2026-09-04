@@ -1028,6 +1028,220 @@ def test_prune_raw() -> None:
         check("残るのは最新", next(d.iterdir()).name, "20260103T000000Z__x.csv.gz")
 
 
+
+def test_source_audit_ledger() -> None:
+    """一次ソース監視の監査証跡。
+
+    HTTP/ETag/Last-Modified/SHA256/URL/件数/差分/失敗/
+    スキーマ変更がCSVへ保存されること。
+    """
+    from src import source_audit as A
+    from src.fetch import Fetched
+    from src.sources import meti
+
+    f = Fetched(
+        url="https://example.test/list.csv",
+        final_url="https://cdn.example.test/list.csv",
+        body=b"x",
+        sha256="a" * 64,
+        etag='"abc"',
+        last_modified="Sat, 05 Sep 2026 00:00:00 GMT",
+        filename="list.csv",
+        http_status=200,
+        raw_path="data/raw/test/list.csv.gz",
+    )
+
+    row = A.entry(
+        "test",
+        "primary",
+        "changed",
+        fetched=f,
+        record_count=123,
+        diff_counts={
+            "追加": 2,
+            "削除": 1,
+            "変更": 3,
+        },
+    )
+
+    check("Audit HTTP status", row["http_status"], 200)
+    check("Audit ETag", row["etag"], '"abc"')
+    check(
+        "Audit Last-Modified",
+        bool(row["last_modified"]),
+        True,
+    )
+    check("Audit SHA256", row["content_hash"], "a" * 64)
+    check(
+        "Audit final URL",
+        row["final_url"],
+        "https://cdn.example.test/list.csv",
+    )
+    check("Audit 件数", row["record_count"], 123)
+    check("Audit 追加差分", row["diff_added"], 2)
+    check("Audit 削除差分", row["diff_removed"], 1)
+    check("Audit 変更差分", row["diff_changed"], 3)
+    check("Audit fetch成功", row["fetch_failed"], "0")
+    check("Audit schema正常", row["schema_changed"], "0")
+
+    schema_row = A.entry(
+        "test",
+        "primary",
+        "schema_error",
+        fetched=f,
+        fetch_failed=False,
+        schema_changed=True,
+        error=meti.SchemaError("構造変更"),
+    )
+
+    check(
+        "Audit schema変更",
+        schema_row["schema_changed"],
+        "1",
+    )
+    check(
+        "Audit schema error type",
+        schema_row["error_type"],
+        "SchemaError",
+    )
+
+    # WAF拒否と構造変更は別クラスであること。
+    check(
+        "METI blocked/schema分離",
+        issubclass(meti.SchemaError, meti.Blocked),
+        False,
+    )
+
+    # HTTPErrorではfallback URLではなく、実際のRequest URLを残す。
+    import requests
+
+    req = requests.Request(
+        "GET",
+        "https://example.test/actual-missing.csv",
+    ).prepare()
+
+    resp = requests.Response()
+    resp.status_code = 404
+    resp.url = "https://example.test/actual-missing.csv"
+    resp.request = req
+    resp.headers["ETag"] = '"missing"'
+
+    http_error = requests.HTTPError(
+        "404 Client Error",
+        response=resp,
+        request=req,
+    )
+
+    http_row = A.error_entry(
+        "test",
+        "list_file",
+        http_error,
+        url="https://example.test/fallback-index.html",
+    )
+
+    check(
+        "Audit HTTP errorは実Request URL",
+        http_row["url"],
+        "https://example.test/actual-missing.csv",
+    )
+    check(
+        "Audit HTTP error status",
+        http_row["http_status"],
+        404,
+    )
+
+    # 202 + 空本文のように、HTTP自体は成功してもWAF拒否と
+    # 判定した場合はFetchedを例外へ保持する。
+    blocked_fetched = Fetched(
+        url="https://example.test/meti",
+        final_url="https://example.test/meti",
+        body=b"",
+        sha256="b" * 64,
+        http_status=202,
+        filename="meti",
+    )
+
+    blocked_exc = meti.Blocked(
+        "WAF",
+        fetched=blocked_fetched,
+    )
+
+    blocked_row = A.error_entry(
+        "meti",
+        "index_page",
+        blocked_exc,
+        status="blocked",
+    )
+
+    check(
+        "METI BlockedでもHTTP保持",
+        blocked_row["http_status"],
+        202,
+    )
+    check(
+        "METI BlockedでもSHA保持",
+        blocked_row["content_hash"],
+        "b" * 64,
+    )
+
+    from src.sources import mof as mof_source
+
+    mof_exc = mof_source.SchemaError(
+        "リンク消失",
+        fetched=blocked_fetched,
+    )
+
+    mof_row = A.error_entry(
+        "mof",
+        "index_page",
+        mof_exc,
+        status="schema_error",
+        fetch_failed=False,
+        schema_changed=True,
+    )
+
+    check(
+        "MOF構造変更でもHTTP保持",
+        mof_row["http_status"],
+        202,
+    )
+
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        p = A.write(root, [row, schema_row])
+
+        with p.open(
+            encoding="utf-8",
+            newline="",
+        ) as f_:
+            saved = list(csv.DictReader(f_))
+
+        check("Audit CSV 2行", len(saved), 2)
+        check(
+            "Audit CSV schema flag",
+            saved[1]["schema_changed"],
+            "1",
+        )
+
+        # 監査台帳の列自体が壊れたら追記せず停止する。
+        p.write_text(
+            "broken,header\nx,y\n",
+            encoding="utf-8",
+        )
+
+        blocked = False
+        try:
+            A.write(root, [row])
+        except A.AuditSchemaError:
+            blocked = True
+
+        check(
+            "Audit Ledger列変更はfail-closed",
+            blocked,
+            True,
+        )
+
+
 def test_dashboard() -> None:
     """スプレッドシート取込用CSV。
 
@@ -1138,6 +1352,7 @@ def main() -> int:
                test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
                test_ofac_party_index, test_ofac_screening_policy, test_ofac_master_rollout_pending, test_roundtrip, test_archive_roundtrip, test_resolve_raw,
                test_prune_raw,
+               test_source_audit_ledger,
                test_dashboard):
         fn()
     total = len(PASS) + len(FAIL)

@@ -63,7 +63,15 @@ class SchemaError(RuntimeError):
 
     壊れたデータで静かにマスターを上書きするのが一番怖いので、
     疑わしければ止める。
+
+    fetched:
+        構造変更を検知するまでに取得できていた一次ソース。
+        HTTP Status / URL / SHA256等の監査証跡を失わないため保持する。
     """
+
+    def __init__(self, message: str, *, fetched=None):
+        super().__init__(message)
+        self.fetched = fetched
 
 
 # ---------------------------------------------------------------- 取得
@@ -75,7 +83,9 @@ def discover(session=None) -> tuple[str, str, Fetched]:
     if not m:
         raise SchemaError(
             "財務省の一覧ページから shisantouketsuYYYYMMDD.csv のリンクを見つけられなかった。"
-            "ページ構成が変わった可能性がある")
+            "ページ構成が変わった可能性がある",
+            fetched=idx,
+        )
     url = urljoin(INDEX_URL, m.group(1))
     asof = ASOF_RE.search(html)
     return url, (asof.group(1) if asof else m.group(2)), idx

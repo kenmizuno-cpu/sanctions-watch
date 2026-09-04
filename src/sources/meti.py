@@ -50,6 +50,18 @@ _STRIP = [
 class Blocked(RuntimeError):
     """WAF に弾かれた。異常ではなく想定内の状態。"""
 
+    def __init__(self, message: str, *, fetched=None):
+        super().__init__(message)
+        self.fetched = fetched
+
+
+class SchemaError(RuntimeError):
+    """ページ構造変更等。blocked と混同せず異常として扱う。"""
+
+    def __init__(self, message: str, *, fetched=None):
+        super().__init__(message)
+        self.fetched = fetched
+
 
 def signature(html: str) -> str:
     """更新判定用の署名。改正のたびに PDF のファイルIDが変わるのが合図。
@@ -70,12 +82,18 @@ def check(session=None) -> dict:
 
     # 202 を返して本文ゼロ、が WAF に弾かれたときの典型
     if not html.strip():
-        raise Blocked("経産省サイトが本文を返さない（WAFによる自動アクセス拒否）。"
-                      "更新はメール配信サービスで把握し、PDFは手作業で取り込むこと")
+        raise Blocked(
+            "経産省サイトが本文を返さない（WAFによる自動アクセス拒否）。"
+            "更新はメール配信サービスで把握し、PDFは手作業で取り込むこと",
+            fetched=f,
+        )
     sig = signature(html)
     if not sig:
-        raise Blocked("ページは取得できたが PDF リンクも日付表記も見つからない。"
-                      "ページ構成が変わった可能性がある")
+        raise SchemaError(
+            "ページは取得できたが PDF リンクも日付表記も見つからない。"
+            "ページ構成が変わった可能性がある",
+            fetched=f,
+        )
     return dict(
         signature=sig,
         pdfs=[urljoin(INDEX_URL, u) for u in sorted(set(PDF_RE.findall(html)))],

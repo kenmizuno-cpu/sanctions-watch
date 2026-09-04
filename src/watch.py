@@ -22,6 +22,7 @@ from . import dashboard as D
 from . import master as M
 from . import ofac_index as OI
 from . import state as S
+from . import source_audit as A
 from .fetch import archive, fetch, prune_raw, read_raw
 from .sources import meti, mof, ofac
 
@@ -45,44 +46,160 @@ def log(status: str, name: str, msg: str = "") -> None:
 
 def run_mof(session, st, rows, hb, opts=None) -> list[M.Diff]:
     opts = opts or {}
+    audit = opts.setdefault("audit", [])
     prev = st.get("mof", {})
-    url, asof, _ = mof.discover(session=session)
+
+    # 一覧ページ自体も一次ソースの一部。
+    # CSVリンク消失を「変更なし」にしない。
+    url, asof, idx = mof.discover(session=session)
+
+    audit.append(
+        A.entry(
+            source="mof",
+            document_role="index_page",
+            status="fetched",
+            fetched=idx,
+            source_updated=asof,
+        )
+    )
+
     f = fetch(url, prev=prev, session=session)
 
     if f.not_modified or f.sha256 == prev.get("sha256"):
-        log("unchanged", mof.NAME, "変更なし" + (" (304)" if f.not_modified else ""))
-        hb.append(dict(source="mof", status="unchanged", content_hash=prev.get("sha256", ""),
-                       source_updated=prev.get("asof", asof),
-                       record_count=prev.get("record_count", "")))
+        log(
+            "unchanged",
+            mof.NAME,
+            "変更なし" + (" (304)" if f.not_modified else ""),
+        )
+
+        hb.append(
+            dict(
+                source="mof",
+                status="unchanged",
+                content_hash=prev.get("sha256", ""),
+                source_updated=prev.get("asof", asof),
+                record_count=prev.get("record_count", ""),
+            )
+        )
+
+        audit.append(
+            A.entry(
+                source="mof",
+                document_role="list_file",
+                status="unchanged",
+                fetched=f,
+                source_updated=prev.get("asof", asof),
+                record_count=prev.get("record_count", ""),
+            )
+        )
+
         return []
 
     archive(f, "mof", ROOT)
     prune_raw("mof", ROOT)
-    records = mof.parse(f)
 
-    # 区分番号の繰り下がり検査。初回はマスターが別パイプライン由来で
-    # カテゴリ表記が揃っていないため警告に留め、2回目以降は止める。
+    try:
+        records = mof.parse(f)
+    except mof.SchemaError as exc:
+        audit.append(
+            A.entry(
+                source="mof",
+                document_role="list_file",
+                status="schema_error",
+                fetched=f,
+                source_updated=asof,
+                fetch_failed=False,
+                schema_changed=True,
+                error=exc,
+            )
+        )
+        raise
+
+    # 区分番号の繰り下がり検査。
     baseline = bool(prev.get("baseline_synced"))
     problems = mof.detect_drift(records, rows)
+
     if problems:
         for p_ in problems:
             log("DRIFT", mof.NAME, p_)
-        if baseline and not opts.get("ignore_drift"):
-            raise mof.SchemaError(
-                "区分番号のずれを検出した。data/kubun_map.json を更新すること:\n  "
-                + "\n  ".join(problems))
 
-    d = M.merge(rows, records, mof.SOURCE,
-                delist=baseline and not opts.get("no_delist"))
-    st["mof"] = dict(sha256=f.sha256, etag=f.etag, last_modified=f.last_modified,
-                     filename=f.filename, url=url, asof=asof,
-                     record_count=len(records), baseline_synced=True)
-    hb.append(dict(source="mof", status="changed" if d else "no_effective_change",
-                   content_hash=f.sha256, source_updated=asof,
-                   record_count=len(records), raw_path=f.raw_path))
-    log("changed" if d else "no_effective_change", mof.NAME,
-        " ".join(f"{k}{v}" for k, v in d.counts.items()) if d
-        else "ファイルは更新されたが正規化後の内容は同一")
+        if baseline and not opts.get("ignore_drift"):
+            exc = mof.SchemaError(
+                "区分番号のずれを検出した。data/kubun_map.json を更新すること:\n  "
+                + "\n  ".join(problems)
+            )
+
+            audit.append(
+                A.entry(
+                    source="mof",
+                    document_role="list_file",
+                    status="schema_error",
+                    fetched=f,
+                    source_updated=asof,
+                    record_count=len(records),
+                    fetch_failed=False,
+                    schema_changed=True,
+                    error=exc,
+                )
+            )
+
+            raise exc
+
+    d = M.merge(
+        rows,
+        records,
+        mof.SOURCE,
+        delist=baseline and not opts.get("no_delist"),
+    )
+
+    st["mof"] = dict(
+        sha256=f.sha256,
+        etag=f.etag,
+        last_modified=f.last_modified,
+        filename=f.filename,
+        url=url,
+        asof=asof,
+        record_count=len(records),
+        baseline_synced=True,
+    )
+
+    hb.append(
+        dict(
+            source="mof",
+            status="changed" if d else "no_effective_change",
+            content_hash=f.sha256,
+            source_updated=asof,
+            record_count=len(records),
+            raw_path=f.raw_path,
+        )
+    )
+
+    audit.append(
+        A.entry(
+            source="mof",
+            document_role="list_file",
+            status="changed" if d else "no_effective_change",
+            fetched=f,
+            source_updated=asof,
+            record_count=len(records),
+            diff_counts=d.counts if d else {
+                "追加": 0,
+                "削除": 0,
+                "変更": 0,
+            },
+        )
+    )
+
+    log(
+        "changed" if d else "no_effective_change",
+        mof.NAME,
+        (
+            " ".join(f"{k}{v}" for k, v in d.counts.items())
+            if d
+            else "ファイルは更新されたが正規化後の内容は同一"
+        ),
+    )
+
     return [d] if d else []
 
 
@@ -122,6 +239,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     不完全スナップショットで大量の偽「掲載終了候補」を出さないため。
     """
     opts = opts or {}
+    audit = opts.setdefault("audit", [])
     records: list = []
     unchanged: list[tuple[str, dict]] = []
     fetched_any = False
@@ -180,6 +298,17 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                 )
             )
 
+            audit.append(
+                A.entry(
+                    source=key,
+                    document_role="classic_primary",
+                    status="unchanged",
+                    fetched=prim,
+                    source_updated=prev.get("source_updated", ""),
+                    record_count=prev.get("record_count", ""),
+                )
+            )
+
             unchanged.append((key, prev))
             continue
 
@@ -205,6 +334,30 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             session=session,
             allow_conditional=False,
         )
+
+        # HTTP取得に成功した時点の証跡。
+        # 後段のパース/coverage検証で失敗した場合でも、
+        # 「何を取得したか」がAudit Ledgerに残る。
+        audit.extend([
+            A.entry(
+                source=key,
+                document_role="classic_primary",
+                status="fetched",
+                fetched=prim,
+            ),
+            A.entry(
+                source=key,
+                document_role="classic_alias",
+                status="fetched",
+                fetched=alt,
+            ),
+            A.entry(
+                source=key,
+                document_role="advanced_xml",
+                status="fetched",
+                fetched=advanced,
+            ),
+        ])
 
         # Classic と Advanced は別ディレクトリで世代管理する。
         # 121MB級XMLをClassicのprim/alt世代と混ぜると、
@@ -284,6 +437,17 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                 source_updated=source_updated,
                 record_count=len(part) + len(classic_part),
                 raw_path=advanced.raw_path,
+            )
+        )
+
+        audit.append(
+            A.entry(
+                source=key,
+                document_role="validated_snapshot",
+                status="validated",
+                fetched=advanced,
+                source_updated=source_updated,
+                record_count=len(part) + len(classic_part),
             )
         )
 
@@ -450,6 +614,20 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             "OFAC",
             "Advanced XML Strong名称のmaster同期完了",
         )
+
+    audit.append(
+        A.entry(
+            source="ofac",
+            document_role="aggregate_merge",
+            status="changed" if d else "no_effective_change",
+            record_count=len(screening_records),
+            diff_counts=d.counts if d else {
+                "追加": 0,
+                "削除": 0,
+                "変更": 0,
+            },
+        )
+    )
 
     log(
         "changed" if d else "no_effective_change",
@@ -619,35 +797,151 @@ def _latest_raw(key: str, cfg: dict, prev: dict | None = None) -> list:
 # ------------------------------------------------------------------ 経産省
 
 def run_meti(session, st, rows, hb, opts=None) -> list:
-    """経産省の更新監視。**失敗してもワークフローは落とさない。**
+    """経産省の更新監視。
 
-    経産省サイトは WAF で自動アクセスを拒否しており、弾かれるのが通常状態。
-    更新は年1〜3回しかないので監視が止まっても実害はないが、この監視のせいで
-    毎回ワークフローが赤くなると財務省や OFAC の本当の障害を見逃す。
+    WAF等による明示的な自動取得拒否だけは blocked として記録し、
+    他ソースの監視を止めない。
+
+    一方で、
+      - ページ構造変更
+      - HTTP 404/500
+      - 想定外の例外
+
+    は blocked と混同せず異常終了させる。
     """
+    opts = opts or {}
+    audit = opts.setdefault("audit", [])
     prev = st.get("meti", {})
+
     try:
         res = meti.check(session=session)
-    except Exception as e:  # noqa: BLE001
-        log("blocked", meti.NAME, f"取得できず: {e}")
-        hb.append(dict(source="meti", status="blocked"))
+
+    except meti.Blocked as exc:
+        log("blocked", meti.NAME, f"取得できず: {exc}")
+
+        hb.append(
+            dict(
+                source="meti",
+                status="blocked",
+            )
+        )
+
+        audit.append(
+            A.error_entry(
+                source="meti",
+                document_role="index_page",
+                error=exc,
+                url=meti.INDEX_URL,
+                status="blocked",
+                fetch_failed=True,
+                schema_changed=False,
+            )
+        )
+
         return []
+
+    except requests.HTTPError as exc:
+        status_code = getattr(
+            getattr(exc, "response", None),
+            "status_code",
+            None,
+        )
+
+        # METIのWAFが403で拒否するケースは「取得拒否」として分離。
+        if status_code == 403:
+            log("blocked", meti.NAME, f"HTTP 403: {exc}")
+
+            hb.append(
+                dict(
+                    source="meti",
+                    status="blocked",
+                )
+            )
+
+            audit.append(
+                A.error_entry(
+                    source="meti",
+                    document_role="index_page",
+                    error=exc,
+                    url=meti.INDEX_URL,
+                    status="blocked",
+                    fetch_failed=True,
+                    schema_changed=False,
+                )
+            )
+
+            return []
+
+        raise
+
+    except meti.SchemaError:
+        raise
 
     sig = res["signature"]
     changed = sig != prev.get("signature")
-    hb.append(dict(source="meti", status="updated" if changed else "unchanged",
-                   content_hash=res["fetched"].sha256,
-                   source_updated=";".join(res["dates"][:3])))
+    fetched = res["fetched"]
+
+    hb.append(
+        dict(
+            source="meti",
+            status="updated" if changed else "unchanged",
+            content_hash=fetched.sha256,
+            source_updated=";".join(res["dates"][:3]),
+        )
+    )
+
+    audit.append(
+        A.entry(
+            source="meti",
+            document_role="index_page",
+            status="updated" if changed else "unchanged",
+            fetched=fetched,
+            source_updated=";".join(res["dates"][:3]),
+        )
+    )
+
     if not changed:
         log("unchanged", meti.NAME, "変更なし")
         return []
 
-    st["meti"] = dict(signature=sig, pdfs=res["pdfs"], dates=res["dates"],
-                      sha256=res["fetched"].sha256)
-    archive(res["fetched"], "meti", ROOT)
+    st["meti"] = dict(
+        signature=sig,
+        pdfs=res["pdfs"],
+        dates=res["dates"],
+        sha256=fetched.sha256,
+        etag=fetched.etag,
+        last_modified=fetched.last_modified,
+        url=fetched.url,
+        filename=fetched.filename,
+    )
+
+    archive(fetched, "meti", ROOT)
     prune_raw("meti", ROOT)
-    log("updated", meti.NAME, "更新検出（PDFのため要手動取込）")
-    return [dict(source=meti.SOURCE, pdfs=res["pdfs"], dates=res["dates"])]
+
+    # archive後のraw_pathを含む確定証跡。
+    audit.append(
+        A.entry(
+            source="meti",
+            document_role="index_page_archived",
+            status="updated",
+            fetched=fetched,
+            source_updated=";".join(res["dates"][:3]),
+        )
+    )
+
+    log(
+        "updated",
+        meti.NAME,
+        "更新検出（PDFのため要手動取込）",
+    )
+
+    return [
+        dict(
+            source=meti.SOURCE,
+            pdfs=res["pdfs"],
+            dates=res["dates"],
+        )
+    ]
 
 
 # ------------------------------------------------------------------ main
@@ -670,6 +964,7 @@ def main() -> int:
         no_delist=args.no_delist,
         ignore_drift=args.ignore_drift,
         dry_run=args.dry_run,
+        audit=[],
     )
 
     targets = list(RUNNERS) if "all" in args.sources else args.sources
@@ -698,7 +993,92 @@ def main() -> int:
             failed.append(f"{t}: {e}")
             log("FAILED", t, str(e))
             traceback.print_exc()
-            hb.append(dict(source=t, status="error", content_hash=""))
+
+            schema_changed = isinstance(
+                e,
+                (
+                    mof.SchemaError,
+                    ofac.SchemaError,
+                    meti.SchemaError,
+                ),
+            )
+
+            error_status = (
+                "schema_error"
+                if schema_changed
+                else "error"
+            )
+
+            if t == "ofac":
+                # OFACはSDN/Consolidatedを一体スナップショットとして扱う。
+                # 片方の失敗でも全体mergeを停止するため、
+                # dashboard上も両方を正常表示のまま残さない。
+                for key, cfg in ofac.LISTS.items():
+                    hb.append(
+                        dict(
+                            source=key,
+                            status="error",
+                            content_hash="",
+                        )
+                    )
+
+                    opts["audit"].append(
+                        A.error_entry(
+                            source=key,
+                            document_role="source_run",
+                            error=e,
+                            url=cfg.get("prim", ""),
+                            status=error_status,
+                            fetch_failed=not schema_changed,
+                            schema_changed=schema_changed,
+                        )
+                    )
+            else:
+                hb.append(
+                    dict(
+                        source=t,
+                        status="error",
+                        content_hash="",
+                    )
+                )
+
+                source_url = (
+                    mof.INDEX_URL
+                    if t == "mof"
+                    else (
+                        meti.INDEX_URL
+                        if t == "meti"
+                        else ""
+                    )
+                )
+
+                opts["audit"].append(
+                    A.error_entry(
+                        source=t,
+                        document_role="source_run",
+                        error=e,
+                        url=source_url,
+                        status=error_status,
+                        fetch_failed=not schema_changed,
+                        schema_changed=schema_changed,
+                    )
+                )
+
+    # dry-runでは既存仕様どおり永続ファイルを書かない。
+    # 通常実行ではmaster/stateより先に監査証跡を保存する。
+    # Audit Ledger自体が壊れているなら業務データ更新も止める。
+    if not args.dry_run:
+        try:
+            A.write(ROOT, opts["audit"])
+        except Exception as e:  # noqa: BLE001
+            log("FAILED", "source_audit", str(e))
+            traceback.print_exc()
+            print(
+                "Source Audit Ledger の保存に失敗したため、"
+                "master/state更新を停止する",
+                file=sys.stderr,
+            )
+            return 1
 
     if args.dry_run:
         print(M.render_markdown(diffs))
