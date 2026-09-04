@@ -31,6 +31,8 @@ class Fetched:
     etag: str = ""
     last_modified: str = ""
     filename: str = ""
+    http_status: int | str = ""
+    final_url: str = ""
     raw_path: str = ""
     headers: dict = field(default_factory=dict)
 
@@ -73,17 +75,28 @@ def fetch(url: str, *, prev: dict | None = None, session: requests.Session | Non
     r = s.get(url, headers=headers, timeout=TIMEOUT)
 
     if r.status_code == 304:
-        return Fetched(url=url, not_modified=True,
-                       etag=prev.get("etag", ""), sha256=prev.get("sha256", ""),
-                       last_modified=prev.get("last_modified", ""),
-                       filename=prev.get("filename", ""))
+        return Fetched(
+            url=url,
+            not_modified=True,
+            etag=prev.get("etag", ""),
+            sha256=prev.get("sha256", ""),
+            last_modified=prev.get("last_modified", ""),
+            filename=prev.get("filename", ""),
+            http_status=304,
+            final_url=str(r.url or url),
+            headers=dict(r.headers),
+        )
 
     r.raise_for_status()
     return Fetched(
-        url=url, body=r.content, sha256=sha256(r.content),
+        url=url,
+        body=r.content,
+        sha256=sha256(r.content),
         etag=r.headers.get("ETag", ""),
         last_modified=r.headers.get("Last-Modified", ""),
         filename=_filename_from(url, r.headers),
+        http_status=r.status_code,
+        final_url=str(r.url or url),
         headers=dict(r.headers),
     )
 
