@@ -1,6 +1,6 @@
 {
   "applied": false,
-  "approved": false,
+  "approved": true,
   "current_diff_path": "data/manual/meti/diffs/20260905T201914Z__c632d657f9c1.csv",
   "current_raw_path": "data/raw/meti_manual/20260905T201914Z__c632d657f9c1__20250929_3.pdf",
   "current_record_count": 835,
@@ -10,7 +10,12 @@
   "effective_date": "2025-10-09",
   "last_imported_at": "2026-09-05T20:19:14Z",
   "publication_date": "2025-09-29",
-  "review_status": "REVIEW_REQUIRED",
+  "review_artifact_path": "data/manual/meti/reviews/20260905T202922Z__c632d657f9c1__approved__review.json",
+  "review_id": "20260905T202922Z__c632d657f9c1__approved",
+  "review_note": "835件baseline、原本SHA256、連番、Primary/Alias、Evidence Ledger、独立サンプル監査を確認",
+  "review_status": "APPROVED",
+  "reviewed_at": "2026-09-05T20:29:22Z",
+  "reviewed_by": "kenmizuno-cpu",
   "source_url": "https://www.meti.go.jp/policy/anpo/20250929_3.pdf",
   "version": 1
 }

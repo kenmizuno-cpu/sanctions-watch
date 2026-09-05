@@ -1,0 +1,20 @@
+{
+  "decision": "APPROVED",
+  "diff_added": 0,
+  "diff_changed": 0,
+  "diff_path": "data/manual/meti/diffs/20260905T201914Z__c632d657f9c1.csv",
+  "diff_removed": 0,
+  "document_role": "foreign_user_list_pdf",
+  "evidence_path": "data/evidence/meti_foreign_user_list.csv",
+  "note": "835件baseline、原本SHA256、連番、Primary/Alias、Evidence Ledger、独立サンプル監査を確認",
+  "raw_path": "data/raw/meti_manual/20260905T201914Z__c632d657f9c1__20250929_3.pdf",
+  "record_count": 835,
+  "records_path": "data/manual/meti/records/20260905T201914Z__c632d657f9c1.csv",
+  "report_path": "data/manual/meti/reports/20260905T201914Z__manual_import.json",
+  "review_id": "20260905T202922Z__c632d657f9c1__approved",
+  "reviewed_at": "2026-09-05T20:29:22Z",
+  "reviewer": "kenmizuno-cpu",
+  "source": "経済産業省",
+  "source_hash": "c632d657f9c13b1250d688394eb7c99956a994527cb56f4a77c86ed61ff1dbda",
+  "source_url": "https://www.meti.go.jp/policy/anpo/20250929_3.pdf"
+}
