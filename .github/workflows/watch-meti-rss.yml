@@ -4,6 +4,10 @@ name: watch-meti-rss
 # Slack通知は使わず data/dashboard/changes.csv へ記録し、
 # 既存のGoogle Sheets 15分同期で制裁リスト監視ダッシュボードへ表示する。
 on:
+  schedule:
+    # RSS更新候補を15分以内に検知。
+    # OFAC(17分)・国内監視(37分)との同時実行を避ける。
+    - cron: "5,20,35,50 * * * *"
   workflow_dispatch:
 
 permissions:
