@@ -458,7 +458,8 @@ def run(*, state_path: Path = STATE_PATH) -> int:
 
 def main() -> int:
     argparse.ArgumentParser().parse_args()
-    return run()
+    from .meti_rss_audit import run_audited
+    return run_audited()
 
 
 if __name__ == "__main__":
