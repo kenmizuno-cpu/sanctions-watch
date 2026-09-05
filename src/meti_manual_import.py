@@ -887,10 +887,31 @@ def main(argv: list[str] | None = None) -> int:
         TEXT_DIR.mkdir(parents=True, exist_ok=True)
         text_path.write_text(full_text, encoding="utf-8")
 
-        previous_path = Path(state.get("current_records_path", ""))
-        if previous_path and not previous_path.is_absolute():
-            previous_path = ROOT / previous_path
-        old_records = load_records(previous_path) if previous_path else []
+        previous_raw = str(
+            state.get("current_records_path") or ""
+        ).strip()
+
+        if previous_raw:
+            previous_path = Path(previous_raw)
+
+            if not previous_path.is_absolute():
+                previous_path = ROOT / previous_path
+
+            if not previous_path.exists():
+                raise ManualImportError(
+                    "前回recordsファイルが見つからない: "
+                    f"{previous_path}"
+                )
+
+            if not previous_path.is_file():
+                raise ManualImportError(
+                    "前回records参照が通常ファイルではない: "
+                    f"{previous_path}"
+                )
+
+            old_records = load_records(previous_path)
+        else:
+            old_records = []
 
         diff = (
             diff_records(old_records, records)

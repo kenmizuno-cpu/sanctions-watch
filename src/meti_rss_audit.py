@@ -9,6 +9,7 @@ import csv
 import hashlib
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
@@ -262,7 +263,20 @@ def _audit_event(*, status: str, fetched: Fetched | None,
 
 
 def _issue_fingerprint(kind: str, message: str) -> str:
-    return hashlib.sha256(f"{kind}|{message}".encode("utf-8", "replace")).hexdigest()
+    # stale の age=...h は15分ごとに増えるため、そのままfingerprintへ
+    # 入れると同じ継続異常を毎回「新規異常」と誤判定する。
+    stable_message = str(message)
+
+    if kind == "stale":
+        stable_message = re.sub(
+            r"age=[0-9]+(?:\.[0-9]+)?h",
+            "age=<dynamic>",
+            stable_message,
+        )
+
+    return hashlib.sha256(
+        f"{kind}|{stable_message}".encode("utf-8", "replace")
+    ).hexdigest()
 
 
 def _record_issue(*, state: dict, state_path: Path, now: datetime,

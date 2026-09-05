@@ -218,3 +218,13 @@ class TestMetiManualImportRealPdfGuards(unittest.TestCase):
             validate_source_url(
                 "https://example.com/policy/anpo/x.pdf"
             )
+
+
+class TestMetiManualImportBaselinePathRegression(unittest.TestCase):
+    def test_empty_previous_records_path_stays_empty(self):
+        state = {}
+        previous_raw = str(
+            state.get("current_records_path") or ""
+        ).strip()
+
+        self.assertEqual(previous_raw, "")

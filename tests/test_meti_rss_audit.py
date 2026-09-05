@@ -94,3 +94,43 @@ class TestMetiRssAudit(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestMetiRssStaleFingerprintRegression(unittest.TestCase):
+    def test_stale_fingerprint_ignores_dynamic_age(self):
+        from src.meti_rss_audit import _issue_fingerprint
+
+        a = (
+            "RSS最終entryが古すぎる: "
+            "latest=2026-06-19T05:00:00Z, "
+            "age=1886.7h, threshold=168h"
+        )
+        b = (
+            "RSS最終entryが古すぎる: "
+            "latest=2026-06-19T05:00:00Z, "
+            "age=1887.0h, threshold=168h"
+        )
+
+        self.assertEqual(
+            _issue_fingerprint("stale", a),
+            _issue_fingerprint("stale", b),
+        )
+
+    def test_stale_fingerprint_changes_if_latest_changes(self):
+        from src.meti_rss_audit import _issue_fingerprint
+
+        a = (
+            "RSS最終entryが古すぎる: "
+            "latest=2026-06-19T05:00:00Z, "
+            "age=1886.7h, threshold=168h"
+        )
+        b = (
+            "RSS最終entryが古すぎる: "
+            "latest=2026-06-20T05:00:00Z, "
+            "age=1862.7h, threshold=168h"
+        )
+
+        self.assertNotEqual(
+            _issue_fingerprint("stale", a),
+            _issue_fingerprint("stale", b),
+        )
