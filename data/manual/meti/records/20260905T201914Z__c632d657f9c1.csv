@@ -1,0 +1,836 @@
+no,country,company,aliases,wmd,conventional_weapons,match_key
+1,アフガニスタン Islamic Republic of Afghanistan,Al Qa'ida/Islamic Army,Al Qaeda␞Islamic Salvation Foundation␞The Base␞The Group for the Preservation of the Holy Sites␞The Islamic Army for the Liberation of Holy Places␞The World Islamic Front for Jihad against Jews and Crusaders␞Usama Bin Laden Network␞Usama Bin Laden Organisation,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,alqa'ida/islamicarmy
+2,アフガニスタン Islamic Republic of Afghanistan,Ummah Tameer E-Nau (UTN),FOUNDATION FOR CONSTRUCTION␞NATION BUILDING␞RECONSTRUCTION FOUNDATION␞RECONSTRUCTION OF THE ISLAMIC COMMUNITY␞RECONSTRUCTION OF THE MUSLIM UMMAH␞UMMAH TAMEER I-NAU␞UMMAH TAMIR E-NAU␞UMMAH TAMIR I-NAU␞UMMAT TAMIR E-NAU␞UMMAT TAMIR-I-PAU,"生物、化学、核 B,C,N",,ummahtameere-nau(utn)
+3,アラブ首長国連邦 United Arab Emirates,Al-Bairaq for international land transport,,ミサイル M,,al-bairaqforinternationallandtransport
+4,アラブ首長国連邦 United Arab Emirates,Candid General Trading LLC,Candid Trading LLC,ミサイル M,,candidgeneraltradingllc
+5,アラブ首長国連邦 United Arab Emirates,Delta Engineering Concern FZE （DEC）,,核 N,,deltaengineeringconcernfze(dec)
+6,アラブ首長国連邦 United Arab Emirates,"DES INTERNATIONAL CO., LTD.",D.E.S. INTERNATIONAL␞D.E.S. INTERNATIONAL CO. LTD␞DES INTERNATIONAL␞DES INTERNATIONAL CO.␞DES INTERNATIONAL COMPANY␞DES INTERNATIONAL COMPANY LIMITED,ミサイル M,,"desinternationalco.,ltd."
+7,アラブ首長国連邦 United Arab Emirates,DIAMOND CASTLE ELECTRONICS TRADING LLC,,ミサイル M,,diamondcastleelectronicstradingllc
+8,アラブ首長国連邦 United Arab Emirates,E and I Systems FZE,,核 N,,eandisystemsfze
+9,アラブ首長国連邦 United Arab Emirates,Energy Global International FZE,,"生物、化学、ミサイル、核 B,C,M,N",,energyglobalinternationalfze
+10,アラブ首長国連邦 United Arab Emirates,Emirates Alloys LLC,Emirates Alloys␞Emirates Alloys General Trading LLC␞Emirates Aero,核 N,,emiratesalloysllc
+11,アラブ首長国連邦 United Arab Emirates,Euromoto Middle East FZE,,ミサイル M,,euromotomiddleeastfze
+12,アラブ首長国連邦 United Arab Emirates,FARHAD GHAEDI WHOLESALERS LLC,,ミサイル M,,farhadghaediwholesalersllc
+13,アラブ首長国連邦 United Arab Emirates,FUTURE TRENDS GOODS WHOLESALERS LLC,,ミサイル M,,futuretrendsgoodswholesalersllc
+14,アラブ首長国連邦 United Arab Emirates,"Future Trends International, FZE LLC",Future Trends␞Future Trends Intl FZE LLC,核 N,,fzellcfuturetrendsinternational
+15,アラブ首長国連邦 United Arab Emirates,INFRACOM COMMUNICATION NETWORKS FZE,,ミサイル M,,infracomcommunicationnetworksfze
+16,アラブ首長国連邦 United Arab Emirates,International General Resourcing FZE,,ミサイル M,,internationalgeneralresourcingfze
+17,アラブ首長国連邦 United Arab Emirates,Mabrooka Trading Co L.L.C.,Mabrooka Trading Company,ミサイル M,,mabrookatradingcol.l.c.
+18,アラブ首長国連邦 United Arab Emirates,Mahrous Trading FZE,Mahrus Trading FZE,"生物、化学、ミサイル B,C,M",,mahroustradingfze
+19,アラブ首長国連邦 United Arab Emirates,Modern Technologies FZC (MTFZC),,核 N,,moderntechnologiesfzc(mtfzc)
+20,アラブ首長国連邦 United Arab Emirates,Odyssey General Trading FZC,,核 N,,odysseygeneraltradingfzc
+21,アラブ首長国連邦 United Arab Emirates,Parts Deep Trading,,ミサイル M,,partsdeeptrading
+22,アラブ首長国連邦 United Arab Emirates,Pegasus General Trading FZE,Pegasus General Trading FZE␞Pegasus General Trading Company␞Pegasus General Trading LLC␞Pegasus General␞Pegasus Trading␞Pegasus,"ミサイル、核 M,N",,pegasusgeneraltradingfze
+23,アラブ首長国連邦 United Arab Emirates,PHENOMENA INTERNATIONAL GENERAL TRADING LLC,,ミサイル M,,phenomenainternationalgeneraltradingllc
+24,アラブ首長国連邦 United Arab Emirates,Royal Pearl General T.R.D.,Royal Pearl Chemical␞Royal Pearls␞Royal Pearls General Trading,ミサイル M,,royalpearlgeneralt.r.d.
+25,アラブ首長国連邦 United Arab Emirates,Rigsol Well Drilling Equipment Trading,,核 N,,rigsolwelldrillingequipmenttrading
+26,アラブ首長国連邦 United Arab Emirates,S&D INDUSTRY LTD,,核 N,,s&dindustryltd
+27,アラブ首長国連邦 United Arab Emirates,Safe Technical Supply,"Safe Technical Supply Co., LLC␞Safe Technical Equipment Services LLC␞Safe Technical␞SafeTech",核 N,,safetechnicalsupply
+28,アラブ首長国連邦 United Arab Emirates,SANCO MIDDLE EAST FZC,SANCO ME FZC,核 N,,sancomiddleeastfzc
+29,アラブ首長国連邦 United Arab Emirates,"Sci Box Scientific and Laboratory Equipment Trading, LLC",,核 N,,"sciboxscientificandlaboratoryequipmenttrading,llc"
+30,アラブ首長国連邦 United Arab Emirates,Techcare Services FZ LLC,,核 N,,techcareservicesfzllc
+31,アラブ首長国連邦 United Arab Emirates,TEM International FZC（TEM）,,核 N,,teminternationalfzc(tem)
+32,イエメン Republic of Yemen,Al-Swari Trading and Import Co,Alswari Trading & Import Co␞Al-Swari Group for Rubber Manufacturing␞Hashem Brothers for International Trading,ミサイル M,,al-swaritradingandimportco
+33,イエメン Republic of Yemen,Houthi,,ミサイル M,,houthi
+34,イスラエル State of Israel,Nuclear Research Center Negev (NRCN),,核 N,,nuclearresearchcenternegev(nrcn)
+35,イラン Islamic Republic of Iran,7th of Tir,7th of Tir Complex␞7th of Tir Industrial Complex␞7th of Tir Industries␞7th of Tir Industries of Isfahan/Esfahan␞Mojtamae Sanate Haftome Tir␞Sanaye Haftome Tir␞Seventh of Tir,核 N,,7thoftir
+36,イラン Islamic Republic of Iran,ABU REIHAN GROUP,,ミサイル M,,abureihangroup
+37,イラン Islamic Republic of Iran,Abzar Boresh Kaveh Co.,BK Co.,核 N,,abzarboreshkavehco.
+38,イラン Islamic Republic of Iran,Advanced Information and Communication Technology Center (AICTC),,"ミサイル、核 M,N",,advancedinformationandcommunicationtechnologycenter(aictc)
+39,イラン Islamic Republic of Iran,ADVANCED TECHNOLOGIES COMPANY OF IRAN,ADVANCED TECHNOLOGIES␞ADVANCED TECHNOLOGIES COMPANY␞ADVANCED TECHNOLOGIES HOLDING COMPANY␞GHANI SAZI ENRICHMENT␞GHANI SAZI URANIUM COMPANY␞IATC␞IRANIAN ENRICHMENT COMPANY␞IRAN ADVANCED TECHNOLOGIES COMPANY␞IRAN URANIUM ENRICHMENT COMPANY,核 N,,advancedtechnologiescompanyofiran
+40,イラン Islamic Republic of Iran,Aerospace Industries Organization（AIO）,Sazemane Sanaye Hava Faza,ミサイル M,通常兵器 CW,aerospaceindustriesorganization(aio)
+41,イラン Islamic Republic of Iran,ALBORZ ORGANIC MATERIAL ENGINEERING COMPANY,,核 N,,alborzorganicmaterialengineeringcompany
+42,イラン Islamic Republic of Iran,Aluminat,Aluminat Production and Industrial Company,核 N,,aluminat
+43,イラン Islamic Republic of Iran,Amin Industrial Complex,Amin Industrial Company␞Amin Industrial Compound,"生物、化学、ミサイル、核 B,C,M,N",,aminindustrialcomplex
+44,イラン Islamic Republic of Iran,Amir Al Mo'menin Industries,Amirolmomenin Factories␞Amirolmomenin Industries␞Amir-Al-Mo'menin Complex,ミサイル M,,amiralmo'meninindustries
+45,イラン Islamic Republic of Iran,Amir Kabir University of Technology,Amirkabir University of Technology,"生物、化学、ミサイル、核 B,C,M,N",,amirkabiruniversityoftechnology
+46,イラン Islamic Republic of Iran,Ammunition and Metallurgy Industries Group (AMIG),Ammunition and Metallurgy Industry Group␞Ammunition Industries Group␞Sanaye Mohematsazi,核 N,,ammunitionandmetallurgyindustriesgroup(amig)
+47,イラン Islamic Republic of Iran,AMVAJ NILGOUN BUSHEHR CO.,,ミサイル M,通常兵器 CW,amvajnilgounbushehrco.
+48,イラン Islamic Republic of Iran,Andisheh Zolal Co.,,"生物、化学、核 B,C,N",,andishehzolalco.
+49,イラン Islamic Republic of Iran,Aras Farayande,,核 N,,arasfarayande
+50,イラン Islamic Republic of Iran,Arfa Paint Company,,"ミサイル、核 M,N",,arfapaintcompany
+51,イラン Islamic Republic of Iran,Arfeh Company,,"ミサイル、核 M,N",,arfehcompany
+52,イラン Islamic Republic of Iran,Aria Nikan,Aria Nikan Tehran␞Pergas Aria Movalled Ltd.,核 N,,arianikan
+53,イラン Islamic Republic of Iran,Armament Industries Group (AIG),AIG-Armament Industries Group␞Armament Industries,"ミサイル、核 M,N",通常兵器 CW,armamentindustriesgroup(aig)
+54,イラン Islamic Republic of Iran,Armed Forces Geographical Organisation,Organizacija Armed Forces Geographical Organisation␞National Geographic Organization␞Asevoimien maantieteellinen organisaatio,ミサイル M,,armedforcesgeographicalorganisation
+55,イラン Islamic Republic of Iran,ARTIN SANA'AT TABAAN COMPANY,ARTIN SANAT TABAN␞ARTIN SANAT TABAN CO␞SOLMATE,ミサイル M,通常兵器 CW,artinsana'attabaancompany
+56,イラン Islamic Republic of Iran,Arvin Fan Avar Vira Company,Arvin Fanavar Vira Company,,通常兵器 CW,arvinfanavarviracompany
+57,イラン Islamic Republic of Iran,Arya Niroo Nik,,核 N,,aryaniroonik
+58,イラン Islamic Republic of Iran,Ashtian Tablo,,核 N,,ashtiantablo
+59,イラン Islamic Republic of Iran,ASRE SANAT ESHRAGH COMPANY,ASR-E SANAT ESHRAGH␞ASRE SANAT ESHRAGH CO.␞ASRE SANATE ESHRAGH CO.␞ASR-E-SAN'AT ESHRAGH ENGINEERING COMPANY␞ASR-E-SAN'AT ESHRAGH ENGINEERING COMPANY LTD.,"ミサイル、核 M,N",,asresanateshraghcompany
+60,イラン Islamic Republic of Iran,ATBIN ISTA TECHNICAL AND ENGINEERING COMPANY,ATBIN ISTA TECHNICAL COMPANY,核 N,,atbinistatechnicalandengineeringcompany
+61,イラン Islamic Republic of Iran,AZMOON PAJOHAN HESGAR LIMITED LIABILITY COMPANY,AZMOUN PAZOHAN HESGAR␞AZMUN PEZHUHAN HESGAR CO,ミサイル M,通常兵器 CW,azmoonpajohanhesgarlimitedliabilitycompany
+62,イラン Islamic Republic of Iran,AZARAB INDUSTRIES CO.,AZARAB INDUSTRIES COMPANY␞AZARAB INDUSTRIES LLP,核 N,,azarabindustriesco.
+63,イラン Islamic Republic of Iran,Baghyatollah Medical Sciences University (BMSU),Baghiatollah Medical Sciences University␞Bagiatollah Medical Sciences University␞Baqiatollah Medical Sciences University␞Baqiyatallah Medical Sciences University␞Baqiyatallah University of Medical Sciences␞Baqyatollah Medical Sciences University,"ミサイル、核 M,N",,baghyatollahmedicalsciencesuniversity(bmsu)
+64,イラン Islamic Republic of Iran,BAHARESTAN KISH COMPANY,,ミサイル M,通常兵器 CW,baharestankishcompany
+65,イラン Islamic Republic of Iran,BAKHTAR RAAD SEPAHAN COMPANY,BAKHTAR RAAD ENGINEERING COMPANY␞BAKHTAR RAAD SEPAHAN CO.␞RADSEPAHAN,核 N,,bakhtarraadsepahancompany
+66,イラン Islamic Republic of Iran,Bargh Azaraksh,Barghe Azerakhsh Sakht,核 N,,barghazaraksh
+67,イラン Islamic Republic of Iran,BASAMAD ELECTRONIC POUYA ENGINEERING LIMITED LIABILITY COMPANY,DYNAMIC ELECTRONIC FREQUENCY ENGINEERING LIMITED LIABILITY COMPANY,ミサイル M,通常兵器 CW,basamadelectronicpouyaengineeringlimitedliabilitycompany
+68,イラン Islamic Republic of Iran,Behineh Trading Co.,,"ミサイル、核 M,N",,behinehtradingco.
+69,イラン Islamic Republic of Iran,Behnam Sahriyari Trading Company,,"ミサイル、核 M,N",,behnamsahriyaritradingcompany
+70,イラン Islamic Republic of Iran,BLUE CALM MARINE SERVICES COMPANY,BLUE CALM MARINE SERVICES,ミサイル M,通常兵器 CW,bluecalmmarineservicescompany
+71,イラン Islamic Republic of Iran,BUY BEST ELECTRONIC PARS COMPANY,KHARID-E BARTAR ELECTRONIC PARS␞BUY BEST ELECTRONIC,ミサイル M,通常兵器 CW,buybestelectronicparscompany
+72,イラン Islamic Republic of Iran,Carvana Company,CARVANA Co.,ミサイル M,,carvanacompany
+73,イラン Islamic Republic of Iran,Center for Innovation and Technology Cooperation (CITC),Iranian Presidential Center for Innovation and Technology Cooperation (CITC)␞Office of Scientific and Technical Cooperation␞Office of Scientific and Industrial Studies (OSIS)␞Presidency Office of Scientific and Industrial Studies (POSIS)␞Technology Cooperation Office (TCO)␞Technology Cooperation Office of the Iranian President's Office␞Technology Cooperation Office of the Presidency␞TCO of the Islamic Republic of Iran,"ミサイル、核 M,N",,centerforinnovationandtechnologycooperation(citc)
+74,イラン Islamic Republic of Iran,Chemical Industries & Development of Materials Group (CIDMG),,"化学、ミサイル C,M",,chemicalindustries&developmentofmaterialsgroup(cidmg)
+75,イラン Islamic Republic of Iran,Cruise Missile Industry Group,8th Imam Industries Group␞Cruise Systems Industry Group␞Naval Defence Missile Industry Group␞Samen Al-A'emmeh Industries Group,ミサイル M,通常兵器 CW,cruisemissileindustrygroup
+76,イラン Islamic Republic of Iran,Deep Offshore Technology PJS,Deep Offshore Technology Company PJS,ミサイル M,,deepoffshoretechnologypjs
+77,イラン Islamic Republic of Iran,Defence Industrieal Organisation,Defense Industries Organization␞SASADJA␞Saseman Sanaje Defa␞Sazemane Sanaye Defa,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,defenceindustriealorganisation
+78,イラン Islamic Republic of Iran,Defense Technology and Science Research Center (DTSRC),Educational Research Institute (ERI)␞MAVT Co.␞Moassese Amozeh Va Tahgiaghati,"ミサイル、核 M,N",通常兵器 CW,defensetechnologyandscienceresearchcenter(dtsrc)
+79,イラン Islamic Republic of Iran,Design and Manufacturing of Aero-Engine Company,DESIGN AND MANUFACTURE OF AIRCRAFT ENGINES␞IRANIAN TURBINE MANUFACTURING INDUSTRIES␞T.E.M. Co.␞Turbine Engineering Manufacturing Industries,"ミサイル、核 M,N",通常兵器 CW,designandmanufacturingofaero-enginecompany
+80,イラン Islamic Republic of Iran,Design and Manufacturing of Aircraft Engines (DAMA),,ミサイル M,通常兵器 CW,designandmanufacturingofaircraftengines(dama)
+81,イラン Islamic Republic of Iran,Digi Ghate,,,通常兵器 CW,digighate
+82,イラン Islamic Republic of Iran,Digital Media Lab (DML),,"ミサイル、核 M,N",,digitalmedialab(dml)
+83,イラン Islamic Republic of Iran,Doostan International Company (DICO),,ミサイル M,,doostaninternationalcompany(dico)
+84,イラン Islamic Republic of Iran,East Star Company,"Satereh Shargh Mobin Co.␞Satereh Shargh Samin Co., Ltd.␞Setareh Shargh Co.",ミサイル M,,eaststarcompany
+85,イラン Islamic Republic of Iran,EBTEKAR SANAT ILYA LLC,EBTEKAR SANAT ELYA␞EBTEKAR SANAT ILIA␞EBTEKAR SANAT ILIYA␞EBTEKAR SANAT ILIYA COMPANY␞EBTEKAR SANAT ILYA CO. LTD,ミサイル M,,ebtekarsanatilyallc
+86,イラン Islamic Republic of Iran,Electronic Components Industries (ECI),,"ミサイル、核 M,N",通常兵器 CW,electroniccomponentsindustries(eci)
+87,イラン Islamic Republic of Iran,Electro Sanam Company,E.S. Co.␞E.X. Co.␞ES Co.␞EX Co.,ミサイル M,,electrosanamcompany
+88,イラン Islamic Republic of Iran,Ertebat Gostar Novin,Eterbat Gostar Novin,"生物、化学、核 B,C,N",,ertebatgostarnovin
+89,イラン Islamic Republic of Iran,Ervin Danesh Aryan Company,Ervin Danesh,ミサイル M,,ervindanesharyancompany
+90,イラン Islamic Republic of Iran,ESNICO (Equipment Supplier for Nuclear Industries Corporation),,核 N,,esnico(equipmentsupplierfornuclearindustriescorporation)
+91,イラン Islamic Republic of Iran,Ettehad Technical Group,,ミサイル M,,ettehadtechnicalgroup
+92,イラン Islamic Republic of Iran,Eyvaz Technic,Eyvaz Technic Industrial Company Ltd.␞Eyvaz Technic Manufacturing Company␞Eyvaz Technik,核 N,,eyvaztechnic
+93,イラン Islamic Republic of Iran,Fajr Aviation Composite Industries,,"ミサイル、核 M,N",,fajraviationcompositeindustries
+94,イラン Islamic Republic of Iran,Fajr Industrial Group,Fadjr Industries Group (FIG)␞Industrial Factories of Precision-Machinery␞Instrumentation Factories of Precision Machinery␞Instrumentation Factories Plant (IFP)␞Mojtame Santy Ajzae Daghigh␞Nasr Industries Group,"ミサイル、核 M,N",,fajrindustrialgroup
+95,イラン Islamic Republic of Iran,Fanamoj,Fana Moj␞Fana Mowj␞Fanamoj Company␞Fanavari Modj Khavar␞Fanavari Moj Khavar Co.␞Fanavari Moudj Khavar Group␞Fanavari Mowj Khavar,ミサイル M,,fanamoj
+96,イラン Islamic Republic of Iran,FANAVARAN SANAT ERTEBATAT COMPANY,FANAVARAN COMMUNICATION INDUSTRY COMPANY␞COMMUNICATION INDUSTRY TECHNOLOGISTS,ミサイル M,通常兵器 CW,fanavaransanatertebatatcompany
+97,イラン Islamic Republic of Iran,Fan Pardazan,Fan Pardazan Co,"生物、化学、ミサイル、核 B,C,M,N",,fanpardazan
+98,イラン Islamic Republic of Iran,Farasakht Industries,,"ミサイル、核 M,N",通常兵器 CW,farasakhtindustries
+99,イラン Islamic Republic of Iran,Farasepehr Engineering Company,,"ミサイル、核 M,N",,farasepehrengineeringcompany
+100,イラン Islamic Republic of Iran,Faratech,Faratech Company,"生物、化学、核 B,C,N",,faratech
+101,イラン Islamic Republic of Iran,Farayand Technique,Farayand Technic,核 N,,farayandtechnique
+102,イラン Islamic Republic of Iran,"FARAZAN INDUSTRIAL ENGINEERING, INC.","FARAZAN CO., LTD.␞FARAZAN COMPANY",ミサイルM,,"farazanindustrialengineering,inc."
+103,イラン Islamic Republic of Iran,Fater Institute,Faater Institute␞Fater Engineering Company␞Fater Engineering Institute␞Gharargah Ghaem Faater Institute,"生物、化学、ミサイル、核 B,C,M,N",,faterinstitute
+104,イラン Islamic Republic of Iran,Fidar System Pooyan,Fidar System Pouyan,,通常兵器 CW,fidarsystempooyan
+105,イラン Islamic Republic of Iran,Fulmen,Fulmen Company␞Fulmen Group,核 N,,fulmen
+106,イラン Islamic Republic of Iran,General Electronic,Digital Electronics EngineeringGroup␞Delta Electronic␞Keyhan Electronic,,通常兵器 CW,generalelectronic
+107,イラン Islamic Republic of Iran,Gharagahe Sazandegi Ghaem,Gharargah Ghaem␞Gharargahe Sazandegi Ghaem,"生物、化学、ミサイル、核 B,C,M,N",,gharagahesazandegighaem
+108,イラン Islamic Republic of Iran,Ghorb Karbala,Gharargah Karbala␞Gharargah Sazandegi Karbala-Moasseseh Taha,"生物、化学、ミサイル、核 B,C,M,N",,ghorbkarbala
+109,イラン Islamic Republic of Iran,Ghorb Nooh,,"生物、化学、ミサイル、核 B,C,M,N",,ghorbnooh
+110,イラン Islamic Republic of Iran,Hara Company,Hara Institute,"生物、化学、ミサイル、核 B,C,M,N",,haracompany
+111,イラン Islamic Republic of Iran,Hirbod Co,,"生物、化学、ミサイル、核 B,C,M,N",,hirbodco
+112,イラン Islamic Republic of Iran,HODA TRADING,HODA TRADING CO.␞HODA TRADING COMPANY␞SUSTAINABLE ELECTRONIC DEVELOPMENT␞SUSTAINABLE ELECTRONICS DEVELOPMENT,ミサイル M,通常兵器 CW,hodatrading
+113,イラン Islamic Republic of Iran,Hong Kong Electronics,Hong Kong Electronics Kish Co.,"生物、化学、ミサイル、核 B,C,M,N",,hongkongelectronics
+114,イラン Islamic Republic of Iran,Hosseini Nejad Trading Company,Hosseini Nejad Trading Co.,"ミサイル、核 M,N",,hosseininejadtradingcompany
+115,イラン Islamic Republic of Iran,IC Kala,Ickala,,通常兵器 CW,ickala
+116,イラン Islamic Republic of Iran,Imam Hossein University (IHU),Emam Hoseyn Comprehensive University␞Imaam Hossein University␞Imam Hoseyn University␞Imam Hossein University Complex␞Imam Hussein University␞University of Imam Hoseyn,"生物、化学、ミサイル、核 B,C,M,N",,imamhosseinuniversity(ihu)
+117,イラン Islamic Republic of Iran,Imensazan Consultant Engineers Institute (ICEI),Imen Sazan Consultant Engineers␞Imensazen Consultant Engineers Institute,"生物、化学、ミサイル、核 B,C,M,N",,imensazanconsultantengineersinstitute(icei)
+118,イラン Islamic Republic of Iran,Information Systems Iran (ISIRAN),,"ミサイル、核 M,N",,informationsystemsiran(isiran)
+119,イラン Islamic Republic of Iran,Iran Aircraft Industries (IACI),SAHA,"ミサイル、核 M,N",,iranaircraftindustries(iaci)
+120,イラン Islamic Republic of Iran,Iran Aircraft Manufacturing Company (IAMCO),Hava Peyma Sazi-e Iran␞Havapeyma Sazi Iran␞Havapeyma Sazhran␞HESA␞HESA Trade Center␞Hevapeimasazi␞HTC␞IAMI␞Iran Aircraft Manufacturing Industrial Company␞Iran Aircraft Manufacturing Industries␞Karkhanejate Sanaye Havapaymaie Iran,"ミサイル、核 M,N",,iranaircraftmanufacturingcompany(iamco)
+121,イラン Islamic Republic of Iran,Iran Aircraft Manufacturing Industries Corporation (HESA),,ミサイル M,通常兵器 CW,iranaircraftmanufacturingindustriescorporation(hesa)
+122,イラン Islamic Republic of Iran,Iran Centrifuge Technology Company,TESA␞The Iran Centrifuge Technology Company␞TSA,核 N,,irancentrifugetechnologycompany
+123,イラン Islamic Republic of Iran,Iran Communications Industries (ICI),I.C.I.␞Iran Communication Industries␞Iran Communications Industries Group␞Sanaye Mokhaberat Iran,ミサイル M,通常兵器 CW,irancommunicationsindustries(ici)
+124,イラン Islamic Republic of Iran,Iran Compo Co.,Irancompo.,,通常兵器 CW,irancompoco.
+125,イラン Islamic Republic of Iran,Iran Composites Institute,Composite Institute of Iran␞Iranian Composites Institute (ICI),核 N,,irancompositesinstitute
+126,イラン Islamic Republic of Iran,Iran Electronics Industries (IEI),Sanaye Electronic Iran␞Sasad Iran Electronics Industries␞Sherkat Sanayeh Electronics Iran,"ミサイル、核 M,N",,iranelectronicsindustries(iei)
+127,イラン Islamic Republic of Iran,IRAN HELICOPTER SUPPORT AND RENEWAL COMPANY,IHSRC␞IRANIAN HELICOPTERS' MAINTENANCE AND REPAIRS COMPANY␞IRAN'S HELICOPTER RENOVATION AND LOGISTICS COMPANY␞PANHA,"ミサイル、核 M,N",通常兵器 CW,iranhelicoptersupportandrenewalcompany
+128,イラン Islamic Republic of Iran,Iranian Aviation Industries Organization (IAIO),Iran Aviation Industries Organization␞Sazmane Sanaye Havai,"ミサイル、核 M,N",通常兵器 CW,iranianaviationindustriesorganization(iaio)
+129,イラン Islamic Republic of Iran,Iran Marine Industrial Company (SADRA),Iran Marine Industrial Company␞Iran Marine Industrial Company SSA␞Iran SADRA␞Iran Ship Building Co.␞Sherkate Sanati Daryai Iran,"生物、化学、ミサイル、核 B,C,M,N",,iranmarineindustrialcompany(sadra)
+130,イラン Islamic Republic of Iran,Iran Pooya,Iran Pouya␞Iran Puya,核 N,,iranpooya
+131,イラン Islamic Republic of Iran,Iran Saffron Company,Iransaffron Co.,"ミサイル、核 M,N",,iransaffroncompany
+132,イラン Islamic Republic of Iran,Iran University of Science and Technology (IUST),Iran University of Science & Technology (IUST)␞University of Elm-o-Sanat,"ミサイル、核 M,N",,iranuniversityofscienceandtechnology(iust)
+133,イラン Islamic Republic of Iran,IRGC Air Force,Islamic Revolutionary Guard Corps Air Force␞Sepah Pasdaran Air Force␞IRGC Aerospace Force␞ＩＲＧＣＡＳＦ,ミサイル M,通常兵器 CW,irgcairforce
+134,イラン Islamic Republic of Iran,IRGC-Air Force Al-Ghadir Missile Command,IRGC Missile Command␞Islamic Revolutionary Guard Corps Missile Command,ミサイル M,通常兵器 CW,irgc-airforceal-ghadirmissilecommand
+135,イラン Islamic Republic of Iran,IRGC Qods Force,IRGC QF␞Pasdaran-e Enghelab-e Islami␞Sepah-e Qods,ミサイル M,通常兵器 CW,irgcqodsforce
+136,イラン Islamic Republic of Iran,Isfahan Optics,I.O.I.␞ELECTRO OPTIC SAIRAN INDUSTRIES CO.␞ESFAHAN OPTIC INDUSTRY␞ESFAHAN OPTICS INDUSTRY␞ISFAHAN OPTIC INDUSTRIES COMPANY␞ISFAHAN OPTICAL INDUSTRY␞ISFAHAN OPTICS INDUSTRIES␞ISFAHAN OPTICS INDUSTRY␞ISHAHAN OPTICS INDUSTRIES CO.␞SANAYE-E OPTIKE ESFAHAN␞SANOYE ELEKTRONIK SAIRAN␞ISFAHAN OPTICS␞SAPA,"ミサイル、核 M,N",通常兵器 CW,isfahanoptics
+137,イラン Islamic Republic of Iran,Islamic Azad University (IAU),,ミサイル M,,islamicazaduniversity(iau)
+138,イラン Islamic Republic of Iran,Islamic Revolutionary Guard Corps (IRGC),AGIR␞Iranian Revolutionary Guard Corps␞IRG␞Islamic Revolutionary Corps␞Pasdaran␞Pasdaran-e Enghelab-e Islami␞Pasdaran-e Inqilab␞Revolutionary Guard␞Revolutionary Guards␞Sepah␞Sepah Pasdaran␞Sepah-e Pasdaran-e Enqelab-e Eslami␞The Army of the Guardians of the Islamic Revolution␞The Iranian Revolutionary Guards,"ミサイル、核 M,N",通常兵器 CW,islamicrevolutionaryguardcorps(irgc)
+139,イラン Islamic Republic of Iran,Islamic Revolutionary Guard Corps Aerospace Force,,ミサイル M,通常兵器 CW,islamicrevolutionaryguardcorpsaerospaceforce
+140,イラン Islamic Republic of Iran,ISLAMIC REVOLUTIONARY GUARD CORPS AEROSPACE FORCE SELF SUFFICIENCY JIHAD ORGANIZATION,ISLAMIC REVOLUTIONARY GUARD CORPS AEROSPACE FORCE RESEARCH AND SELF SUFFICIENCY JEHAD ORGANIZATION␞ISLAMIC REVOLUTIONARY GUARD CORPS AEROSPACE FORCE SELF-SUFFICIENCY JEHAD ORGANIZATION,ミサイル M,通常兵器 CW,islamicrevolutionaryguardcorpsaerospaceforceselfsufficiencyjihadorganization
+141,イラン Islamic Republic of Iran,ISLAMIC REVOLUTIONARY GUARD CORPS RESEARCH AND SELF-SUFFICIENCY JEHAD ORGANIZATION,ISLAMIC REVOLUTIONARY GUARD CORPS RESEARCH AND SELF-SUFFICIENCY JIHAD ORGANIZATION␞ISLAMIC REVOLUTIONARY GUARD CORPS SELF- SUFFICIENCY JEHAD ORGANIZATION,ミサイル M,通常兵器 CW,islamicrevolutionaryguardcorpsresearchandself-sufficiencyjehadorganization
+142,イラン Islamic Republic of Iran,Jahan Tech Rooyan Pars,Jahan Tech␞Jahan Tech Rooyan Pars Company,"ミサイル、核 M,N",,jahantechrooyanpars
+143,イラン Islamic Republic of Iran,Javan Electronic Company,,,通常兵器 CW,javanelectroniccompany
+144,イラン Islamic Republic of Iran,Javedan Mehr Toos,,"ミサイル、核 M,N",,javedanmehrtoos
+145,イラン Islamic Republic of Iran,Jelvesazan Company,,核 N,,jelvesazancompany
+146,イラン Islamic Republic of Iran,Joza Industrial Co.,Joza Industries Company,ミサイル M,,jozaindustrialco.
+147,イラン Islamic Republic of Iran,Kalaye Electric Company,Kala Electric Company␞Kala-Electric␞Kalaye Electric␞Kalaye Electric Co.␞Kalia␞Kola Electric Company,核 N,,kalayeelectriccompany
+148,イラン Islamic Republic of Iran,Karanir,Moaser␞Tajhiz Sanat,核 N,,karanir
+149,イラン Islamic Republic of Iran,KAVAN ELECTRONICS BEHRAD LIMITED LIABILITY COMPANY,"KAVAN ELECTRONIC CO., LTD␞KAVAN ELECTRONIC COMPANY␞KAVAN ELECTRONIC SADR ARIA ENGINEERING LIMITED LIABILITY COMPANY",ミサイル M,通常兵器 CW,kavanelectronicsbehradlimitedliabilitycompany
+150,イラン Islamic Republic of Iran,Kaveh Cutting Tools Company,Kaveh Cutting Tools␞Kaveh Cutting Tools Complex␞Kaveh Cutting Tools Factories,"生物、化学、ミサイル、核 B,C,M,N",,kavehcuttingtoolscompany
+151,イラン Islamic Republic of Iran,Khajeh Nassir-Al-Deen Toosi (K. N. Toosi) University of Technology,K N Toosi (Khaje Nassir-Al-Deen Toosi) University␞Khaje Nassir-Al-Deen Toosi (K N Toosi) University␞Khaje Nassir-Al-DeenToosi University,"生物、化学、ミサイル、核 B,C,M,N",,khajehnassir-al-deentoosi(k.n.toosi)universityoftechnology
+152,イラン Islamic Republic of Iran,Khala Afarin Pars,,核 N,,khalaafarinpars
+153,イラン Islamic Republic of Iran,Khatam al-Anbiya Construction Headquarters (KAA),Ghorb Khatam␞Khatam al-Anbya␞Khatam ol Anbia␞Khatam ol Anbia Gharargah Sazandegi Nooh␞Khatem-ol Anbiya Construction Organisation,"生物、化学、ミサイル、核 B,C,M,N",,khatamal-anbiyaconstructionheadquarters(kaa)
+154,イラン Islamic Republic of Iran,Khorasan Metallurgy Industries,Khorasan Ammunition and Metallurgy Industries␞Khorasan Metalogy Industries␞Samen Industries␞Sanaye Metologie Iran␞The Metallurgy Industries of Khorasan,核 N,,khorasanmetallurgyindustries
+155,イラン Islamic Republic of Iran,KIMIA PART SIVAN COMPANY LLC （KIPAS）,KIMIA PART SIVAN␞KIMIA PARTS SIBON␞KIMIYA PARS SEBON,ミサイル M,通常兵器 CW,kimiapartsivancompanyllc(kipas)
+156,イラン Islamic Republic of Iran,Kimiya Pakhsh Shargh Co Ltd,"KPS␞KIMIA PAKHSH SHARGH␞KIMIYA PAKHSH SHARGH CO. LTD␞KIMIYA PAKHSH SHARGH GROUP␞""KIMIA""␞""KIMIA CO., LTD.""","生物、化学、ミサイル、核 B,C,M,N",,kimiyapakhshsharghcoltd
+157,イラン Islamic Republic of Iran,M. Babaie Industries,Shahid Babaie Industries␞Shahid Babaie Industries Complex␞Shahid Babaii Industries Co.,ミサイル M,通常兵器 CW,m.babaieindustries
+158,イラン Islamic Republic of Iran,Machine Pardazan Co.,Machine Pardazan Co. Ltd.␞Machine Pardazan Ltd.,ミサイル M,,machinepardazanco.
+159,イラン Islamic Republic of Iran,Makin,Makin Company␞Makin Institute,"生物、化学、ミサイル、核 B,C,M,N",,makin
+160,イラン Islamic Republic of Iran,Malek Ashtar University,Daneshgah-E Sana'Ti-Ye Malek-E Ashtar␞Malek Ashtar Aviation Universtiy Complex␞Malek Ashtar Industrial University␞Malek Ashtar University of Defense Technology␞Malek ashtar University of Technology␞Malek-E Ashtar Technical University␞Malek-E Ashtar University,"ミサイル、核 M,N",通常兵器 CW,malekashtaruniversity
+161,イラン Islamic Republic of Iran,Mandegar Baspar Kimiya Company,Bardiya Tejarat Javid␞Mandegar Baspar Fajr Asia,"ミサイル、核 M,N",,mandegarbasparkimiyacompany
+162,イラン Islamic Republic of Iran,Marine Industries,Marine Industries Organization (MIO),"ミサイル、核 M,N",,marineindustries
+163,イラン Islamic Republic of Iran,Marou Sanat,Maro Sanat Company␞Maro Sanat Development and Design Engineering Company␞Maro Sanat Engineering␞Marou Sanat Engineering Company,核 N,,marousanat
+164,イラン Islamic Republic of Iran,Matin Sanat Nik Andishan,Iranian Novin Systems Management␞MASNA␞MSNA,ミサイル M,,matinsanatnikandishan
+165,イラン Islamic Republic of Iran,MATSA (Mohandesi Toseh Sokht Atomi Company),,核 N,,matsa(mohandesitosehsokhtatomicompany)
+166,イラン Islamic Republic of Iran,Mechanic Industries Group,,ミサイル M,,mechanicindustriesgroup
+167,イラン Islamic Republic of Iran,Ministry of Defense and Armed Forces Logistics (MODAFL),MINISTRY OF DEFENCE & ARMED FORCES LOGISTICS␞MINISTRY OF DEFENSE AND SUPPORT FOR ARMED FORCES LOGISTICS␞MINISTRY OF DEFENSE ARMED FORCES LOGISTICS␞MINISTRY OF DEFENSE FOR ARMED FORCES LOGISTICS␞MODAFL␞MODSAF␞VEZARATE DEFA␞VEZARAT-E DEFA VA POSHTYBANI-E NIRU-HAYE MOSALLAH,"ミサイル、核 M,N",通常兵器 CW,ministryofdefenseandarmedforceslogistics(modafl)
+168,イラン Islamic Republic of Iran,Ministry of Defense Logistics Export (MODLEX),Ministry of Defense Legion Export,"ミサイル、核 M,N",,ministryofdefenselogisticsexport(modlex)
+169,イラン Islamic Republic of Iran,Mizan Machinery Manufacturing (3M),3MG␞Mizan Machine Manufacturing Group,"ミサイル、核 M,N",,mizanmachinerymanufacturing(3m)
+170,イラン Islamic Republic of Iran,MKS International Co. Ltd.,MKS International␞MKS International Group,ミサイル M,,mksinternationalco.ltd.
+171,イラン Islamic Republic of Iran,Mobarakeh Steel Company,Mobarakeh Steel Complex␞Esfahan's Mobarakeh Steel Company␞Mobarakeh Steel␞Esfahan Mobarakeh Steel Complex␞MSC␞Mobarakeh Steel Mill␞Mobarakeh Esfahan Steel Company,"生物、化学、ミサイル、核 B,C,M,N",,mobarakehsteelcompany
+172,イラン Islamic Republic of Iran,Mobin Sanjesh,FITCO,核 N,,mobinsanjesh
+173,イラン Islamic Republic of Iran,Multimat Ic Ve Dis Ticaret Pazarlama Limited Sirketi,Multimat Domestic and Foreign Trade Marketing Ltd.␞Multimat Tehran,ミサイル M,,multimaticvedisticaretpazarlamalimitedsirketi
+174,イラン Islamic Republic of Iran,NARIN SEPEHR MOBIN ISATIS,NAARIN SEPEHR MOBIN ISATIS␞PISHTAZAN SANAT PARVAZ SADRA CO. LLC,ミサイルM,,narinsepehrmobinisatis
+175,イラン Islamic Republic of Iran,Naserin Vahid,,"ミサイル、核 M,N",,naserinvahid
+176,イラン Islamic Republic of Iran,Navid Composite Material Company,Navid Composite,"ミサイル、核 M,N",,navidcompositematerialcompany
+177,イラン Islamic Republic of Iran,Neda Industrial Group,,核 N,,nedaindustrialgroup
+178,イラン Islamic Republic of Iran,Negin Parto Khavar,Ertebate Eghtessade Monir␞Negin Parto␞Negin Parto Khavar Co. Ltd.␞Payan Avaran Omran,"ミサイル、核 M,N",,neginpartokhavar
+179,イラン Islamic Republic of Iran,Neka Novin,,核 N,,nekanovin
+180,イラン Islamic Republic of Iran,Niru Battery Manufacturing Company,Nirou Battery Manufacturing Saba Battery Company␞Niru Battery Mfg. Co.␞Niru Co. Ltd.␞Sherkat Battery Sazi Niru Sahami Khass␞The Niru Battery Company,ミサイル M,,nirubatterymanufacturingcompany
+181,イラン Islamic Republic of Iran,Ofog Sabze Darya Company,,ミサイル M,,ofogsabzedaryacompany
+182,イラン Islamic Republic of Iran,OJE PARVAZ MADO NAFAR COMPANY,OWJ PARVAZ MADO NAFAR COMPANY LLC,ミサイル M,通常兵器 CW,ojeparvazmadonafarcompany
+183,イラン Islamic Republic of Iran,Omran Sahel,,"生物、化学、ミサイル、核 B,C,M,N",,omransahel
+184,イラン Islamic Republic of Iran,Organisation of Defensive Innovation and Research,SPND,核 N,,organisationofdefensiveinnovationandresearch
+185,イラン Islamic Republic of Iran,Oriental Oil Kish,,"生物、化学、ミサイル、核 B,C,M,N",,orientaloilkish
+186,イラン Islamic Republic of Iran,Paradise Medical Pioneers Company,PMP,"ミサイル、核 M,N",,paradisemedicalpioneerscompany
+187,イラン Islamic Republic of Iran,PARAVAR PARS COMPANY,,ミサイル M,通常兵器 CW,paravarparscompany
+188,イラン Islamic Republic of Iran,Parchin Chemical Industries (PCI),Para Chemical Industries␞Parchin Chemical Factories (PCF)␞Parchin Chemical Industries Group,"化学、ミサイル C,M",,parchinchemicalindustries(pci)
+189,イラン Islamic Republic of Iran,PARDAZAN SYSTEM NAMAD ARMAN,FARAZ TEGARAT ERTEBAT COMPANY␞PARDAZAN SYSTEM HOUSES ARMAN␞PASNA␞PASNA INDUSTRY CO.␞PASNA INTERNATION TRADING CO.␞POUYAN ELECTRONIC CO.␞SINO TRADER COMPANY,"ミサイル、核 M,N",通常兵器 CW,pardazansystemnamadarman
+190,イラン Islamic Republic of Iran,Pars Amayesh Sanaat Kish,PASK␞Vacuum Karan␞Vacuum Karan Co.␞Vacuumkaran,"生物、化学、ミサイル、核 B,C,M,N",,parsamayeshsanaatkish
+191,イラン Islamic Republic of Iran,Pars Aviation Services Company,,"ミサイル、核 M,N",,parsaviationservicescompany
+192,イラン Islamic Republic of Iran,PARS REACTORS CONSTRUCTION AND DEVELOPMENT COMPANY,SATRA PARS COMPANY,核 N,,parsreactorsconstructionanddevelopmentcompany
+193,イラン Islamic Republic of Iran,Parto Sanat Company,Parto Sanat Co.,核 N,,partosanatcompany
+194,イラン Islamic Republic of Iran,Passive Defense Organization,,核 N,,passivedefenseorganization
+195,イラン Islamic Republic of Iran,Paya Parto,Paya Partov␞Paya Partov Co.,核 N,,payaparto
+196,イラン Islamic Republic of Iran,PEGAH ALUMINUM ARAK COMPANY,ALUMINUM PEGAH ARAK␞PEGAH ALUMINUM COMPANY,核 N,,pegahaluminumarakcompany
+197,イラン Islamic Republic of Iran,Pentane Chemistry Industries (PCI),Pentane Chemistry␞Pentane Chemistry Industries Company␞Pentane Chemistry Industry Company,核 N,,pentanechemistryindustries(pci)
+198,イラン Islamic Republic of Iran,PISHGAM ELECTRONIC SAFEH COMPANY,PISHGAM ELECTRONIC SOFEH COMPANY,ミサイル M,通常兵器 CW,pishgamelectronicsafehcompany
+199,イラン Islamic Republic of Iran,PISHRO MOBTAKER PEYVAND,PISHRA MOBTAKER PEYVAND COMPANY␞PISHRO MOBTAKER PEIVAND␞LEADING INNOVATOR LINK,核 N,,pishromobtakerpeyvand
+200,イラン Islamic Republic of Iran,Pishro Systems Research Company,Advanced Systems Research Company␞ASRC␞Center for Advanced Systems Research␞CRAS␞Pishro Company,核 N,,pishrosystemsresearchcompany
+201,イラン Islamic Republic of Iran,"PISHTAZAN KAVOSH GOSTAR BOSHRA, LLC","KAVOSH GOSTAR BOSHRA LLC␞PISHTAZAN KAVOSH GOSTAR BASHARA LLC␞PISHTAZAN KAVOSH GOSTAR BUSHRA COMPANY, LLC␞PISHTAZAN KAVOSH GOSTAR BUSHRA LLC",ミサイル M,,"pishtazankavoshgostarboshra,llc"
+202,イラン Islamic Republic of Iran,Pouya Air,Pouya Airlines␞Yas Air␞Yas Air Cargo Airline␞Yas Air Kish,"ミサイル、核 M,N",通常兵器 CW,pouyaair
+203,イラン Islamic Republic of Iran,Pouya Control,Nam-Avaran-E Pouya Control␞Tejerat Gostar Nikan Iranian Company,核 N,,pouyacontrol
+204,イラン Islamic Republic of Iran,PUYA ELECTRO SAMAN NIRU,PULSE NIRU␞PULSE NIRU CO␞PULSE NIRU INDUSTRIES␞PULSENIRU INC.,"ミサイル、核 M,N",,puyaelectrosamanniru
+205,イラン Islamic Republic of Iran,Qeshm Madkandaloo Shipbuilding Cooperative Co,Mad Kandalu Company␞Mad Kandalu Shipbuilding Cooperative␞Mad Kandalu Shipbuilding Cooperative qeshm␞Madkandalou Company,ミサイル M,通常兵器 CW,qeshmmadkandalooshipbuildingcooperativeco
+206,イラン Islamic Republic of Iran,Qods Aeronautics Industries,Qods Aviation Industries␞Qods Research Center,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,qodsaeronauticsindustries
+207,イラン Islamic Republic of Iran,Raad Iran,Raad Automation Company,核 N,,raadiran
+208,イラン Islamic Republic of Iran,Rahab Engineering Institute,Rahab Institute␞Rahsaz Institute,"生物、化学、ミサイル、核 B,C,M,N",,rahabengineeringinstitute
+209,イラン Islamic Republic of Iran,RAH ROSHD INTERNATIONAL TRADE EXCHANGES DEVELOPMENT,RAH ROSHD COMPANY␞RAH ROSHD ENGINEERING CO␞RAH ROSHD INTERNATIONAL TRADE DEVELOPMENT COMPANY␞TOSE'E MOBADLAT BAZARGANI BEYN OLMELALI RAH ROSHD␞RAH ROSHD,ミサイル M,通常兵器 CW,rahroshdinternationaltradeexchangesdevelopment
+210,イラン Islamic Republic of Iran,Rah Sahel,Rah Sahel Institute,"生物、化学、ミサイル、核 B,C,M,N",,rahsahel
+211,イラン Islamic Republic of Iran,Raka,,核 N,,raka
+212,イラン Islamic Republic of Iran,Rastafann Ertebat Engineering Company,Rasstafann Co␞Rastafan␞Rastafann,ミサイル M,通常兵器 CW,rastafannertebatengineeringcompany
+213,イラン Islamic Republic of Iran,Rayan Roshd Afzar Company,Rayan Roshd Company␞Rayan Roshd,ミサイル M,通常兵器 CW,rayanroshdafzarcompany
+214,イラン Islamic Republic of Iran,Research Centre for Explosion and Impact,METFAZ,核 N,,researchcentreforexplosionandimpact
+215,イラン Islamic Republic of Iran,Rosmachin,,"ミサイル、核 M,N",,rosmachin
+216,イラン Islamic Republic of Iran,Saad Sazeh Faraz Sharif,Daria Fanavar Borhan Sharif␞Sadid Sazeh Parvaz Sharif,ミサイル M,通常兵器 CW,saadsazehfarazsharif
+217,イラン Islamic Republic of Iran,SABERIN KISH COMPANY,SABERIN KISH CO.␞TEJARAT PAYDAR OFOGH,ミサイル M,通常兵器 CW,saberinkishcompany
+218,イラン Islamic Republic of Iran,Sad Export Import Company,SAD Import & Export Company,"ミサイル、核 M,N",,sadexportimportcompany
+219,イラン Islamic Republic of Iran,Sadid Caran Saba Engineering Company,S.C. SABA ENG CO.␞SABA CRANE␞Sadid Caran Saba Company␞Sadid Caran Saba Eng. Co.,ミサイル M,,sadidcaransabaengineeringcompany
+220,イラン Islamic Republic of Iran,Safety Equipment Procurement (SEP),Safety Equipment Procurement Company␞SEP Co.,"生物、化学、ミサイル、核 B,C,M,N",,safetyequipmentprocurement(sep)
+221,イラン Islamic Republic of Iran,Sahel Consultant Engineers,,"生物、化学、ミサイル、核 B,C,M,N",,sahelconsultantengineers
+222,イラン Islamic Republic of Iran,SAMAN INDUSTRIAL GROUP,,ミサイル M,通常兵器 CW,samanindustrialgroup
+223,イラン Islamic Republic of Iran,Saman Nasb Zayendeh Rood,Saman Nasbzainde Rood,核 N,,samannasbzayendehrood
+224,イラン Islamic Republic of Iran,SAMAN TEJARAT BARMAN TRADINGCOMPANY,,化学 C,,samantejaratbarmantradingcompany
+225,イラン Islamic Republic of Iran,Sanam Industrial Group,Sanam Industries Group,"ミサイル、核 M,N",,sanamindustrialgroup
+226,イラン Islamic Republic of Iran,Sarmad Electronic Sepahan Company,Sarmad Electronic Sepahan␞Sarmad Electronics Co.,ミサイル M,通常兵器 CW,sarmadelectronicsepahancompany
+227,イラン Islamic Republic of Iran,Sazeh Morakab Co. Ltd,,ミサイル M,通常兵器 CW,sazehmorakabco.ltd
+228,イラン Islamic Republic of Iran,Schiller Novin,,"ミサイル、核 M,N",,schillernovin
+229,イラン Islamic Republic of Iran,SELIN TECHNIC CO,SELIN TECHNIC KISH COMPANY,ミサイル M,通常兵器 CW,selintechnicco
+230,イラン Islamic Republic of Iran,Sepanir,Sepah Nir␞Sepanir Establishment␞Sepanir Oil and Gas Energy Engineering Company,"生物、化学、ミサイル、核 B,C,M,N",,sepanir
+231,イラン Islamic Republic of Iran,Sepasad Engineering Company,,"生物、化学、ミサイル、核 B,C,M,N",,sepasadengineeringcompany
+232,イラン Islamic Republic of Iran,SHAFAGH SENOBAR YAZD COMPANY LIMITED,SHAFAGH SANUBAR YAZD COMPANY␞SHAFAGH SENOBAR COMPANY␞SHAFAGH SENOBAR YAZD CO. LTD␞SHAFAGH SENOWBAR YAZD CO.,ミサイル M,,shafaghsenobaryazdcompanylimited
+233,イラン Islamic Republic of Iran,SHAHED AVIATION RESEARCH INDUSTRIES CENTER,SAIRC␞Shahed Aviation␞Shahed Aviation Industries␞Shahed Aviation Industries Research␞Shahed Aviation Industries Research Center␞Shahed Aviation Industries Research Centre,ミサイル M,通常兵器 CW,shahedaviationresearchindustriescenter
+234,イラン Islamic Republic of Iran,Shahid Ahmad Kazemi Industrial Group (SAKIG),,ミサイル M,,shahidahmadkazemiindustrialgroup(sakig)
+235,イラン Islamic Republic of Iran,Shahid Alamolhoda Industries,SAI␞Shahid Alamolhoda␞Shahid Alamolhoda Industry,ミサイル M,,shahidalamolhodaindustries
+236,イラン Islamic Republic of Iran,Shahid Bagheri Industrial Group (SBIG),Mahtab Technical Engineering Co.␞Shahid Bagheri Industries Group␞Shahid Bakeri Industrial Group␞Shahid Hassan Bagheri Industrial Factories Group,ミサイル M,通常兵器 CW,shahidbagheriindustrialgroup(sbig)
+237,イラン Islamic Republic of Iran,Shahid Beheshti University,,"ミサイル、核 M,N",通常兵器 CW,shahidbeheshtiuniversity
+238,イラン Islamic Republic of Iran,Shahid Cheraghi Industries,,ミサイル M,通常兵器 CW,shahidcheraghiindustries
+239,イラン Islamic Republic of Iran,Shahid Eslami Research Center,,ミサイル M,,shahideslamiresearchcenter
+240,イラン Islamic Republic of Iran,Shahid Hemmat Industrial Group (SHIG),Ardalan Machineries Company (ARMACO)␞Sabalan Company␞Sahand Aluminum Parts Industrial Company (SAPICO)␞Tiz Pars,ミサイル M,通常兵器 CW,shahidhemmatindustrialgroup(shig)
+241,イラン Islamic Republic of Iran,Shahid Kalhor Industries,,ミサイル M,,shahidkalhorindustries
+242,イラン Islamic Republic of Iran,SHAHID KARIMI GROUP,,ミサイル M,,shahidkarimigroup
+243,イラン Islamic Republic of Iran,Shahid Karimi Industries,,ミサイル M,,shahidkarimiindustries
+244,イラン Islamic Republic of Iran,Shahid Kharrazi Industries,Shahid Karrazi Industries,ミサイル M,通常兵器 CW,shahidkharraziindustries
+245,イラン Islamic Republic of Iran,Shahid Meisami Group,SHAHID MEISAMI RESEARCH COMPLEX␞SHAHID MOYASAMI COMPLEX␞S.M.G.,"生物、化学、核 B,C,N",,shahidmeisamigroup
+246,イラン Islamic Republic of Iran,Shahid Moghaddam Industries,,ミサイル M,通常兵器 CW,shahidmoghaddamindustries
+247,イラン Islamic Republic of Iran,SHAHID MOVAHHED DANESH GROUP,,"ミサイル、核 M,N",,shahidmovahheddaneshgroup
+248,イラン Islamic Republic of Iran,Shahid Movahed Industries,SHAHID HAJ ALI MOVAHED RESEARCH CENTER␞SHAHID MOVAHED INDUSTRY␞SHIG DEPARTMENT 7500,ミサイル M,通常兵器 CW,shahidmovahedindustries
+249,イラン Islamic Republic of Iran,Shahid Nuri Industries,Shahid Nuri Industry,ミサイル M,通常兵器 CW,shahidnuriindustries
+250,イラン Islamic Republic of Iran,Shahid Rastegar Industries,,ミサイル M,,shahidrastegarindustries
+251,イラン Islamic Republic of Iran,Shahid Sanikhani Industries,,ミサイル M,通常兵器 CW,shahidsanikhaniindustries
+252,イラン Islamic Republic of Iran,Shahid Sattari Industries,Shahid Sattari Group Equipment Industries,ミサイル M,通常兵器 CW,shahidsattariindustries
+253,イラン Islamic Republic of Iran,Shahid Sayyade Shirazi Industries (SSSI),Shahid Sayyed Shirazi Ind.␞Shahid Sayyad Shirazi Industries,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,shahidsayyadeshiraziindustries(sssi)
+254,イラン Islamic Republic of Iran,Shahid Shustari Industries,Shahid Shoshtari Industries␞Shahid Shoushtari␞Shahid Shushtari Industries,ミサイル M,通常兵器 CW,shahidshustariindustries
+255,イラン Islamic Republic of Iran,Shahid Varamini Industries,,ミサイル M,通常兵器 CW,shahidvaraminiindustries
+256,イラン Islamic Republic of Iran,SHAHID ZEINODDIN GROUP,,"生物、ミサイル、核 B,M,N",,shahidzeinoddingroup
+257,イラン Islamic Republic of Iran,Shakad Sanat Asmari,Chekad Sanat Faraz Asia,ミサイル M,通常兵器 CW,shakadsanatasmari
+258,イラン Islamic Republic of Iran,Shakhese Behbud Sanat,,核 N,,shakhesebehbudsanat
+259,イラン Islamic Republic of Iran,Sharif University of Technology (SHFT),Sharif Technical University␞SUT,"ミサイル、核 M,N",通常兵器 CW,sharifuniversityoftechnology(shft)
+260,イラン Islamic Republic of Iran,Shetab G.,,"ミサイル、核 M,N",,shetabg.
+261,イラン Islamic Republic of Iran,Shetab Gaman,,"ミサイル、核 M,N",,shetabgaman
+262,イラン Islamic Republic of Iran,Shetab Trading,,"ミサイル、核 M,N",,shetabtrading
+263,イラン Islamic Republic of Iran,Shiraz Electronics Industries (SEI),Shiraz Electronic Industries,ミサイル M,通常兵器 CW,shirazelectronicsindustries(sei)
+264,イラン Islamic Republic of Iran,Simatic Development Co.,Simatec Development Company,核 N,,simaticdevelopmentco.
+265,イラン Islamic Republic of Iran,SkyTech Electronic,Sepehr Tejarat Trading Group.,,通常兵器 CW,skytechelectronic
+266,イラン Islamic Republic of Iran,State Purchasing Organisation (SPO),,"ミサイル、核 M,N",,statepurchasingorganisation(spo)
+267,イラン Islamic Republic of Iran,TOWLID ABZAR BORESHI IRAN,IRAN CUTTING TOOLS COMPANY␞TABA␞TABA COMPANY,核 N,,towlidabzarboreshiiran
+268,イラン Islamic Republic of Iran,Taghtiran Kashan Company,Taghtiran Kashan Co␞Taghtiran P.J.S,核 N,,taghtirankashancompany
+269,イラン Islamic Republic of Iran,Tajhiz Sanat Shayan (TSS),,核 N,,tajhizsanatshayan(tss)
+270,イラン Islamic Republic of Iran,TAMIN KALAYE SABZ ARAS COMPANY,KALAYE SABZ ORZ COMPANY␞TAMIN KALAYE SABZ␞TAMIN KALAYE SABZ COMPANY␞KSO COMPANY␞TS CO.␞TS COMPANY,核 N,,taminkalayesabzarascompany
+271,イラン Islamic Republic of Iran,Tarbiat Modares University,,"生物、化学、ミサイル、核 B,C,M,N",,tarbiatmodaresuniversity
+272,イラン Islamic Republic of Iran,Tarh O Palayesh,,核 N,,tarhopalayesh
+273,イラン Islamic Republic of Iran,Tehran Gostaresh,Tehran Gostaresh Co. PJS,"ミサイル、核 M,N",,tehrangostaresh
+274,イラン Islamic Republic of Iran,Tehran Pishro Trading Co.,,,通常兵器 CW,tehranpishrotradingco.
+275,イラン Islamic Republic of Iran,Test Tafsir,,核 N,,testtafsir
+276,イラン Islamic Republic of Iran,TEYF TADBIR ARYA ENGINEERING COMPANY,TEIF TADBIR ARYA␞TEYF TADBIR ARIA,ミサイルM,通常兵器 CW,teyftadbiraryaengineeringcompany
+277,イラン Islamic Republic of Iran,Tidewater Middle East Co.,Tide Water Company␞Tide water middle east marine service␞Tidewater␞Tidewater Co. (Middle east marine services),"ミサイル、核 M,N",,tidewatermiddleeastco.
+278,イラン Islamic Republic of Iran,Tiva Darya,,ミサイル M,,tivadarya
+279,イラン Islamic Republic of Iran,Tiva Kara Co. Ltd.,Tiva Kara Group,ミサイル M,,tivakaraco.ltd.
+280,イラン Islamic Republic of Iran,Tiva Polymer Co.,,ミサイル M,,tivapolymerco.
+281,イラン Islamic Republic of Iran,Tiva Sanat Group,Tiva Group␞Tiva Group Industries␞Tiva Sanat Shipbuilding Company,ミサイル M,,tivasanatgroup
+282,イラン Islamic Republic of Iran,University of Tehran,Tehran University,"生物、化学、ミサイル、核 B,C,M,N",,universityoftehran
+283,イラン Islamic Republic of Iran,Value-Added Services Laboratory (VASL),MOBILE Value-Added Services Laboratory,"ミサイル、核 M,N",,value-addedserviceslaboratory(vasl)
+284,イラン Islamic Republic of Iran,Y.A.S. Company Limited,Y.A.S. Co. Ltd.␞YAS Co. Ltd.,"ミサイル、核 M,N",,y.a.s.companylimited
+285,イラン Islamic Republic of Iran,Yarsanat,Yar Sanat␞Yarestan Vacuumi␞Yarsanat Co. Ltd.,核 N,,yarsanat
+286,イラン Islamic Republic of Iran,Ya Mahdi Industries Group,Ya Mahdi Industrial Complex␞Ya Mahdi Industrial Research Complex␞YMA,ミサイル M,通常兵器 CW,yamahdiindustriesgroup
+287,イラン Islamic Republic of Iran,Yasa Part,,"ミサイル、核 M,N",,yasapart
+288,イラン Islamic Republic of Iran,Yazd Metallurgy Industries (YMI),Directorate of Yazd Ammunition and Metallurgy Industries␞Yazd Ammunition Manufacturing and Metallurgy Industries,"生物、化学、ミサイル、核 B,C,M,N",,yazdmetallurgyindustries(ymi)
+289,イラン Islamic Republic of Iran,Zagros Electronic,Tesla Hooshmand Sazan Company,,通常兵器 CW,zagroselectronic
+290,イラン Islamic Republic of Iran,Zist Tajhiz Pooyesh Company,Pooyesh Environmental Instruments␞Ziest Tajhiez Pooyesh,ミサイル M,通常兵器 CW,zisttajhizpooyeshcompany
+291,イラン Islamic Republic of Iran,Zolal Iran Company,Zolal Iran Co.,"生物、化学、核 B,C,N",,zolalirancompany
+292,インド India,"Bhabha Atomic Research Centre (BARC), Department of Atomic Energy (DAE)",,核 N,,departmentofatomicenergy(dae)bhabhaatomicresearchcentre(barc)
+293,インド India,"Indira Gandhi Centre for Atomic Research (IGCAR), DAE",,核 N,,daeindiragandhicentreforatomicresearch(igcar)
+294,エジプト Arab Republic of Egypt,Abu Zaabal Company for Speciality Chemicals （AZC）,,"生物、化学、ミサイル B,C,M",,abuzaabalcompanyforspecialitychemicals(azc)
+295,エジプト Arab Republic of Egypt,EKO Development and Investment Company,EKO Development & Investment Food Company␞EKO Import and Export Company,"生物、化学、ミサイル、核 B,C,M,N",,ekodevelopmentandinvestmentcompany
+296,エジプト Arab Republic of Egypt,Sakr Factory for Developed Industries,,ミサイル M,,sakrfactoryfordevelopedindustries
+297,北朝鮮 North Korea,4.27 Co. Pyongyang Branch (4.27貿易会社平壌支社),4.27 Corporation,"生物、化学、ミサイル、核 B,C,M,N",,4.27co.pyongyangbranch(4.27貿易会社平壌支社)
+298,北朝鮮 North Korea,Academy of Health and Food Science (保健食品科学院),Institute of Health and Food,"生物、化学 B,C",,academyofhealthandfoodscience(保健食品科学院)
+299,北朝鮮 North Korea,Academy of National Defense Science (国防科学院),,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,academyofnationaldefensescience(国防科学院)
+300,北朝鮮 North Korea,Air Koryo (高麗航空),Airkoryo,"生物、化学、ミサイル、核 B,C,M,N",,airkoryo(高麗航空)
+301,北朝鮮 North Korea,Amroggang Development Banking Corporation,Amnokkang Development Bank␞Amroggang Development Bank (鴨緑江開発銀行)␞Amrokkang Development Bank,"生物、化学、ミサイル、核 B,C,M,N",,amroggangdevelopmentbankingcorporation
+302,北朝鮮 North Korea,Bank of East Land,Dongbang Bank␞Tongbang Bank␞Tongbang U'Nhaeng,"生物、化学、ミサイル、核 B,C,M,N",,bankofeastland
+303,北朝鮮 North Korea,"Chong Unsan-5 Co., Ltd. (青雲山5会社)","Chongunsan-5 Co., Ltd.","生物、化学、ミサイル、核 B,C,M,N",,"chongunsan-5co.,ltd.(青雲山5会社)"
+304,北朝鮮 North Korea,Chongbong Shipping Co Ltd,,"生物、化学、ミサイル、核 B,C,M,N",,chongbongshippingcoltd
+305,北朝鮮 North Korea,Chongchongang Shipping Company (清川江号),Chong Chon Gang Shipping Co. Ltd.␞Chongchongang Shipping Co Ltd.␞Tonghungsan Shipping Company Limited,"生物、化学、ミサイル、核 B,C,M,N",,chongchongangshippingcompany(清川江号)
+306,北朝鮮 North Korea,Choson Central Bank (朝鮮中央銀行),Central Bank of DPRK,"生物、化学、ミサイル、核 B,C,M,N",,chosoncentralbank(朝鮮中央銀行)
+307,北朝鮮 North Korea,"Construction Department, Samsu Power Plant, Ryanggangdo (両江道三水発電所建設部)",,"生物、化学、ミサイル、核 B,C,M,N",,"constructiondepartment,samsupowerplant,ryanggangdo(両江道三水発電所建設部)"
+308,北朝鮮 North Korea,Daedong Credit Bank,Dae-Dong Credit Bank␞DCB␞Taedong Credit Bank,"生物、化学、ミサイル、核 B,C,M,N",,daedongcreditbank
+309,北朝鮮 North Korea,Daehung Oil & Vehicle Trading Co. (大興運輸貿易会社),Taehung Oil & Vehicle Trading Co. (太興運輸貿易会社),"生物、化学、ミサイル、核 B,C,M,N",,daehungoil&vehicletradingco.(大興運輸貿易会社)
+310,北朝鮮 North Korea,Daiheung Chengyen (大興青年鉱山),Daehung Chengyen Mine,"生物、化学、ミサイル、核 B,C,M,N",,daiheungchengyen(大興青年鉱山)
+311,北朝鮮 North Korea,Dandong Co. (丹東会社),,"生物、化学、ミサイル、核 B,C,M,N",,dandongco.(丹東会社)
+312,北朝鮮 North Korea,DEPARTMENT 53 OF THE MINISTRY OF THE PEOPLE'S ARMED FORCES,KOREA PONGNAESAN TRADING CORPORATION␞BUREAU 53␞DEPARTMENT 53,,通常兵器 CW,department53oftheministryofthepeople'sarmedforces
+313,北朝鮮 North Korea,EFCO Corporation,EFCO Corp. Pyongyang Branch (EFCO平壌支社),"生物、化学、ミサイル、核 B,C,M,N",,efcocorporation
+314,北朝鮮 North Korea,EXTERNAL CONSTRUCTION BUREAU,EXTERNAL CONSTRUCTION GENERAL COMPANY␞EXTERNAL CONSTRUCTION GUIDANCE BUREAU,"生物、化学、ミサイル、核 B,C,M,N",,externalconstructionbureau
+315,北朝鮮 North Korea,Fhangin Co. Ltd.,,"生物、化学、ミサイル、核 B,C,M,N",,fhanginco.ltd.
+316,北朝鮮 North Korea,First Trust Finance Co. Ltd. (第一信託会社),,"生物、化学、ミサイル、核 B,C,M,N",,firsttrustfinanceco.ltd.(第一信託会社)
+317,北朝鮮 North Korea,Foreign Trade Bank of the Democratic People's Republic of Korea (貿易銀行),FTB␞Mooyukeunhaeng␞North Korea's Foreign Trade Bank,"生物、化学、ミサイル、核 B,C,M,N",,foreigntradebankofthedemocraticpeople'srepublicofkorea(貿易銀行)
+318,北朝鮮 North Korea,Green Pine Associated Corporation （青松連合）,Ch'o'ngsong Yo'nhap␞Cho'ngsong United Trading Company␞Chongsong Yonhap␞Chosun Chawo'n Kaebal T'uja Hoesa␞Jihyang Associated Corporation␞Jihyang Technology Trade Company␞Jihyang Trading Corporation␞Jindallae␞Ku'mhaeryong Company Ltd␞Natural Resources Development and Investment Corporation␞Paeksan Associated Corporation␞Saeng Pil Trading Corporation (SPTC)␞Saeingp'il Company␞Taedonggang Technical Associated Corporation␞総合貴金属連合体,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,greenpineassociatedcorporation(青松連合)
+319,北朝鮮 North Korea,Haejin Ship Management Company Limited,,"生物、化学、ミサイル、核 B,C,M,N",,haejinshipmanagementcompanylimited
+320,北朝鮮 North Korea,Hapjanggang Trading Corporation,,ミサイル M,通常兵器 CW,hapjanggangtradingcorporation
+321,北朝鮮 North Korea,Hesong Trading Corporation (彗星貿易会社),Hesong Trading Company␞Rason Hyesong Trade Company (羅先彗星貿易会社),"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,hesongtradingcorporation(彗星貿易会社)
+322,北朝鮮 North Korea,Hoeryong Shipping Co Ltd,,"生物、化学、ミサイル、核 B,C,M,N",,hoeryongshippingcoltd
+323,北朝鮮 North Korea,"Hwanghai Steel Union Co., Ltd. (黄海製鉄連合企業所)",Hwanghai Iron Works,"生物、化学、ミサイル、核 B,C,M,N",,"hwanghaisteelunionco.,ltd.(黄海製鉄連合企業所)"
+324,北朝鮮 North Korea,Ilsim International Bank,,"生物、化学、ミサイル、核 B,C,M,N",,ilsiminternationalbank
+325,北朝鮮 North Korea,KANGBONG TRADING CORPORATION,,ミサイル M,,kangbongtradingcorporation
+326,北朝鮮 North Korea,K.N. Technology Development Co.,,"生物、化学、ミサイル、核 B,C,M,N",,k.n.technologydevelopmentco.
+327,北朝鮮 North Korea,Kim Chaek Iron Works (金策製鉄所),Kim Chaek Iron and Steel Complex␞Kim Chaek Steel Union Corp. (金策製鉄連合企業所),"生物、化学、ミサイル、核 B,C,M,N",,kimchaekironworks(金策製鉄所)
+328,北朝鮮 North Korea,Kim Chaek University of Technology (金策工業総合大学),,"生物、化学、ミサイル、核 B,C,M,N",,kimchaekuniversityoftechnology(金策工業総合大学)
+329,北朝鮮 North Korea,Kim Il Sung University (金日成総合大学),,"生物、化学、ミサイル、核 B,C,M,N",,kimilsunguniversity(金日成総合大学)
+330,北朝鮮 North Korea,Korea 56 Trading Corp.,Korea 56 Trading (朝鮮56貿易),"生物、化学、ミサイル、核 B,C,M,N",,korea56tradingcorp.
+331,北朝鮮 North Korea,Korea Choei Syouji,,"生物、化学、ミサイル、核 B,C,M,N",,koreachoeisyouji
+332,北朝鮮 North Korea,Korea Complex Equipment Import Corporation (朝鮮総合設備輸出入会社),Korea Equipment & Plant Corporation (KEP),"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreacomplexequipmentimportcorporation(朝鮮総合設備輸出入会社)
+333,北朝鮮 North Korea,Korea Computer Center,Choson Computer Center␞Chung Sun Computer Center␞Korea Computer Company,"生物、化学、ミサイル、核 B,C,M,N",,koreacomputercenter
+334,北朝鮮 North Korea,Korea Daesong Bank,Choson Taesong Unhaeng␞Taesong Bank,"生物、化学、ミサイル、核 B,C,M,N",,koreadaesongbank
+335,北朝鮮 North Korea,Korea Daesong General Trading Corporation,Daesong-K6␞Daesong-T3 Trading Corporation␞Daesong Trading␞Daesong Trading Company␞Korea Daesong Jechil Trading Corporation␞Korea Daesong Jegu Trading Corporation␞Korea Daesong Jei Trading Corporation␞Korea Daesong Jeil Trading Corporation␞Korea Daesong Jeo Trading Corporation␞Korea Daesong Jepal Trading Corporation␞Korea Daesong Jeryuk Trading Corporation␞Korea Daesong Jesam Trading Corporation␞Korea Daesong Seil Trading Corporation␞Korea Daesong Trading Company␞Korea Daesong Trading Corporation (朝鮮大成貿易会社)␞Korea Daesong Transportation Company␞Korea Daesong-8 Trading Corporation,"生物、化学、ミサイル、核 B,C,M,N",,koreadaesonggeneraltradingcorporation
+336,北朝鮮 North Korea,Korea Dongsong Technical Corporation (朝鮮東城技術貿易会社),Korea Dongsong Technology Corp.,"生物、化学、ミサイル、核 B,C,M,N",,koreadongsongtechnicalcorporation(朝鮮東城技術貿易会社)
+337,北朝鮮 North Korea,Korea Dongyang Trading Corp. (朝鮮東洋貿易会社),Korea Tongyang Trading Corp.␞朝鮮東陽貿易会社,"生物、化学、ミサイル、核 B,C,M,N",,koreadongyangtradingcorp.(朝鮮東洋貿易会社)
+338,北朝鮮 North Korea,Korea Economic Co-operation Committee (朝鮮経済協力委員会),,"生物、化学、ミサイル、核 B,C,M,N",,koreaeconomicco-operationcommittee(朝鮮経済協力委員会)
+339,北朝鮮 North Korea,Korea Foreign Technical Trade Center (対外技術貿易センター),朝鮮対外技術貿易会社␞対外技術貿易会社,"生物、化学、ミサイル、核 B,C,M,N",,koreaforeigntechnicaltradecenter(対外技術貿易センタ-)
+340,北朝鮮 North Korea,Korea General Trading Corporation,,"生物、化学、ミサイル、核 B,C,M,N",,koreageneraltradingcorporation
+341,北朝鮮 North Korea,Korea Heungjin Trading Company,Hunjin Trading Co. (興進貿易会社)␞Korea Hengjin Trading Company␞Korea Henjin Trading Co.,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreaheungjintradingcompany
+342,北朝鮮 North Korea,Korea Hyoksin Trading Corporation (朝鮮革新貿易会社),Korea Hyoksin Export and Import Corporation,"生物、化学、ミサイル、核 B,C,M,N",,koreahyoksintradingcorporation(朝鮮革新貿易会社)
+343,北朝鮮 North Korea,Korea International Chemical Joint Venture Company (朝鮮国際化学合営会社),Choson International Chemicals Joint Operation Company␞Chosun International Chemicals Joint Operation Company␞International Chemical Joint Venture Corporation,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreainternationalchemicaljointventurecompany(朝鮮国際化学合営会社)
+344,北朝鮮 North Korea,Korea Jangsu Trading Corporation (長水貿易会社),Jangsu 100 (長水100),"生物、化学、ミサイル、核 B,C,M,N",,koreajangsutradingcorporation(長水貿易会社)
+345,北朝鮮 North Korea,Korea Kangsong Trading Corp. (朝鮮強盛貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreakangsongtradingcorp.(朝鮮強盛貿易会社)
+346,北朝鮮 North Korea,Korea KukSabong Joint Venture Company (朝鮮国師峰合営会社),Korea Kuksabong Joint Venture Corp.,"生物、化学、ミサイル、核 B,C,M,N",,koreakuksabongjointventurecompany(朝鮮国師峰合営会社)
+347,北朝鮮 North Korea,Korea Kumsan Trading Corporation,,"生物、化学、ミサイル、核 B,C,M,N",,koreakumsantradingcorporation
+348,北朝鮮 North Korea,Korea Kuwolsan Trading Co. (朝鮮九月山貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreakuwolsantradingco.(朝鮮九月山貿易会社)
+349,北朝鮮 North Korea,Korea Kwangson Banking Corporation (KKBC) (朝鮮光鮮金融会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreakwangsonbankingcorporation(kkbc)(朝鮮光鮮金融会社)
+350,北朝鮮 North Korea,Korea Kwangsong Trading Corporation (朝鮮光星貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreakwangsongtradingcorporation(朝鮮光星貿易会社)
+351,北朝鮮 North Korea,Korea Mangyong Trading Corporation (朝鮮萬景貿易会社),Mangyong Trading Corporation,"生物、化学、ミサイル、核 B,C,M,N",,koreamangyongtradingcorporation(朝鮮萬景貿易会社)
+352,北朝鮮 North Korea,Korea Mining Development Trading Corporation (KOMID) (朝鮮鉱業開発貿易会社),Changgwang Sinyong Corporation (蒼光信用会社)␞Changgwang Trading Corp.␞DPRKN Mining Development Trading Corporation␞External Technology General Corporation␞Korea Kumryong Trading Corporation␞North Korean Mining Development Trading Corporation␞221 General Bureau␞Mining Development Guidance Bureau,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreaminingdevelopmenttradingcorporation(komid)(朝鮮鉱業開発貿易会社)
+353,北朝鮮 North Korea,Korea Ocean Shipping Agency,,"生物、化学、ミサイル、核 B,C,M,N",,koreaoceanshippingagency
+354,北朝鮮 North Korea,Korea Paekho 7 Trading (朝鮮白虎7貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreapaekho7trading(朝鮮白虎7貿易会社)
+355,北朝鮮 North Korea,Korea Pugang Mining and Machinery Corporation Ltd.,,"生物、化学、ミサイル、核 B,C,M,N",,koreapugangminingandmachinerycorporationltd.
+356,北朝鮮 North Korea,Korea Pugang Trading Corporation (朝鮮富強貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreapugangtradingcorporation(朝鮮富強貿易会社)
+357,北朝鮮 North Korea,Korea Puhung Trading Corporation (朝鮮富興貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreapuhungtradingcorporation(朝鮮富興貿易会社)
+358,北朝鮮 North Korea,Korea Pyong-yang Roksan Trading Corporation (平壌緑山貿易会社),Korea Pyongyang Roksan Trading Corporation␞Roksan General Trading Corp (緑山貿易総会社),"生物、化学、ミサイル、核 B,C,M,N",,koreapyong-yangroksantradingcorporation(平壌緑山貿易会社)
+359,北朝鮮 North Korea,Korea Pyongwong Trading Co.,朝鮮平原貿易会社␞Korea Pyongwon Trading Co.,"生物、化学、ミサイル、核 B,C,M,N",,koreapyongwongtradingco.
+360,北朝鮮 North Korea,Korea Ragwon Department (朝鮮楽園百貨店),Korea Rakwon Department,"生物、化学、ミサイル、核 B,C,M,N",,korearagwondepartment(朝鮮楽園百貨店)
+361,北朝鮮 North Korea,Korea Ragwon Trading Corp. (朝鮮楽園貿易会社),Korea Rakwon Trading Corp.,"生物、化学、ミサイル、核 B,C,M,N",,korearagwontradingcorp.(朝鮮楽園貿易会社)
+362,北朝鮮 North Korea,Korea Rason Moran Company (朝鮮羅先牡丹会社),,"生物、化学、ミサイル、核 B,C,M,N",,korearasonmorancompany(朝鮮羅先牡丹会社)
+363,北朝鮮 North Korea,Korea Red Cross Hospital (朝鮮赤十字病院),,"生物、化学、ミサイル、核 B,C,M,N",,korearedcrosshospital(朝鮮赤十字病院)
+364,北朝鮮 North Korea,KOREA ROUNSAN TRADING CORPORATION,,ミサイル M,通常兵器 CW,korearounsantradingcorporation
+365,北朝鮮 North Korea,Korea Rungra-888 Trading Corporation (朝鮮綾羅888貿易会社),Korea Rungra 888 Trading Co.␞Korea Rungra-888 Muyeg Hisa␞Rungra 888 General Trading Corp (綾羅888貿易総会社),"生物、化学、ミサイル、核 B,C,M,N",,korearungra-888tradingcorporation(朝鮮綾羅888貿易会社)
+366,北朝鮮 North Korea,Korea Rungrado (General) Trading Co. (朝鮮綾羅島貿易(総)会社),Korea Rungrado Jonsong Trading Co. (朝鮮綾羅島全盛貿易会社)␞Rungrado Trade Company,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,korearungrado(general)tradingco.(朝鮮綾羅島貿易(総)会社)
+367,北朝鮮 North Korea,Korea Ryonbong General Corporation (KRGC) (朝鮮連峰総会社),Korea Yonbong General Corporation␞朝鮮嶺峰貿易会社␞Lyongaksan General Trading Corporation,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,korearyonbonggeneralcorporation(krgc)(朝鮮連峰総会社)
+368,北朝鮮 North Korea,Korea Ryongwang Trading Corporation (朝鮮連光貿易会社),Korea Ryengwang Trading Corporation␞Korean Ryengwang Trading Corporation,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,korearyongwangtradingcorporation(朝鮮連光貿易会社)
+369,北朝鮮 North Korea,Korea Ryonha Machinery Joint Venture Corporation (朝鮮蓮河機械合営会社),Chosun Yunha Machinery J.V. Corporation␞Chosun Yunha Machinery Joint Operation Company␞Huichon Machine Tool␞Huichon Ryonha Machinery General Plant␞Korea Ryenha Machinery J.V. Corporation␞Millim Technology Company␞Ryonha Machine Tool␞Ryonha Machine Tool Corporation␞Ryonha Machinery Corp␞Ryonha Machinery Corporation␞Ryonha Machinery Joint Venture Corporation␞Ryonhwa Machinery Joint Venture Corporation␞Ryonhwa Machinery JV␞Unsan␞Unsan Solid Tools,"生物、化学、ミサイル、核 B,C,M,N",,korearyonhamachineryjointventurecorporation(朝鮮蓮河機械合営会社)
+370,北朝鮮 North Korea,KOREA RYONHAP TRADING CORPORATION （朝鮮連合貿易会社）,,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,korearyonhaptradingcorporation(朝鮮連合貿易会社)
+371,北朝鮮 North Korea,Korea Ryonhap-2 Trading Corporation (朝鮮連合2貿易会社),Ryoehap-2␞Ryoehap-2 Trading Co.,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,korearyonhap-2tradingcorporation(朝鮮連合2貿易会社)
+372,北朝鮮 North Korea,"Korea Ryusong Co., Ltd. (朝鮮柳城商社)",,"生物、化学、ミサイル、核 B,C,M,N",,"korearyusongco.,ltd.(朝鮮柳城商社)"
+373,北朝鮮 North Korea,Korea Samilpo Shipping Co,,"生物、化学、ミサイル、核 B,C,M,N",,koreasamilposhippingco
+374,北朝鮮 North Korea,Korea Suho Trading Company （朝鮮守護貿易会社）,,"生物、化学、ミサイル、核 B,C,M,N",,koreasuhotradingcompany(朝鮮守護貿易会社)
+375,北朝鮮 North Korea,Korea Sungri Trading Corporation (朝鮮勝利貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreasungritradingcorporation(朝鮮勝利貿易会社)
+376,北朝鮮 North Korea,Korea Taesong Trading Company,,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreataesongtradingcompany
+377,北朝鮮 North Korea,Korea Tonghae Shipping Company (朝鮮東海海運会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreatonghaeshippingcompany(朝鮮東海海運会社)
+378,北朝鮮 North Korea,Korea Undok Trading Corporation (朝鮮恩徳貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",,koreaundoktradingcorporation(朝鮮恩徳貿易会社)
+379,北朝鮮 North Korea,Korea United Development Bank,,"生物、化学、ミサイル、核 B,C,M,N",,koreauniteddevelopmentbank
+380,北朝鮮 North Korea,Korea Wonbong Trading Corp. (朝鮮元峰貿易会社),"Korea Wonbong Co., Ltd. (朝鮮元峰会社)","生物、化学、ミサイル、核 B,C,M,N",,koreawonbongtradingcorp.(朝鮮元峰貿易会社)
+381,北朝鮮 North Korea,Korea Zinc Industrial Group (朝鮮亜鉛工業総会社),Korea Zinc Industry General Corporation␞Korea Zinc Industry Group␞North Korean Zinc Industry Group,ミサイル M,,koreazincindustrialgroup(朝鮮亜鉛工業総会社)
+382,北朝鮮 North Korea,Korea Zuzagbong Maritime Ltd,,"生物、化学、ミサイル、核 B,C,M,N",,koreazuzagbongmaritimeltd
+383,北朝鮮 North Korea,Korean Buyon Shipping Co. Ltd.,Korea Buyon Shipping Co␞Korean Buyon Shipping Company Limited,"生物、化学、ミサイル、核 B,C,M,N",,koreanbuyonshippingco.ltd.
+384,北朝鮮 North Korea,Korean Committee for Space Technology (朝鮮宇宙空間技術委員会),Committee for Space Technology␞Department of Space Technology of the DPRK␞DPRK Committee for Space Technology␞KCST,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreancommitteeforspacetechnology(朝鮮宇宙空間技術委員会)
+385,北朝鮮 North Korea,Korean Polish Shpg Co Ltd,,"生物、化学、ミサイル、核 B,C,M,N",,koreanpolishshpgcoltd
+386,北朝鮮 North Korea,Korean Tangun Trading Corporation (朝鮮檀君貿易会社),Korea Dangun Trading Corporation␞Korea Kuryonggang Trading Corporation␞Korea Tangun Trading Corporation␞Ryung Seng Trading Corporation␞Ryungseng Trading Corporation␞Ryungsong Trading Corporation␞Tangun Trading,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,koreantanguntradingcorporation(朝鮮檀君貿易会社)
+387,北朝鮮 North Korea,Kumgang Engine J.V. Co. (金剛原動機合営会社),,"生物、化学、ミサイル、核 B,C,M,N",,kumgangenginej.v.co.(金剛原動機合営会社)
+388,北朝鮮 North Korea,Kumsan JVC Pty Ltd. (金山合営会社),Kumsan Joint Venture Pty Co. Ltd.,"生物、化学 B,C",,kumsanjvcptyltd.(金山合営会社)
+389,北朝鮮 North Korea,Machinery Exp. and Imp. Corp.,,"生物、化学、ミサイル、核 B,C,M,N",,machineryexp.andimp.corp.
+390,北朝鮮 North Korea,Ministry of Atomic Energy Industry (MAEI) (原子力工業省),General Bureau of Atomic Energy (GBAE) (原子力総局)␞General Department of Atomic Energy (GDAE),核 N,,ministryofatomicenergyindustry(maei)(原子力工業省)
+391,北朝鮮 North Korea,MINISTRY OF ROCKET INDUSTRY （ロケット産業省）,ROCKET INDUSTRY DEPARTMENT,ミサイル M,通常兵器 CW,ministryofrocketindustry(ロケット産業省)
+392,北朝鮮 North Korea,Mirim Shipping Co Ltd,,"生物、化学、ミサイル、核 B,C,M,N",,mirimshippingcoltd
+393,北朝鮮 North Korea,Munitions Industry Department (軍需工業部),Military Supplies Industry Department,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,munitionsindustrydepartment(軍需工業部)
+394,北朝鮮 North Korea,Namchongang Trading Corporation (南川江貿易会社),Korea Daeryonggang Trading Corporation (朝鮮大玲江貿会社)␞Korea Namhung Trading Company␞Korea Taeryonggang Trading Corporation␞Nam Chon Gang Corporation␞Nam Chong Gan Trading Corporation␞Namchongang Trading␞Namhung Trading Corporation␞NCG␞Nomchongang Trading Co.,核 N,,namchongangtradingcorporation(南川江貿易会社)
+395,北朝鮮 North Korea,Namhung Chemical Plant (南興化学工場),Namhung Chemical Union Complex (南興化学連合企業所),ミサイル M,,namhungchemicalplant(南興化学工場)
+396,北朝鮮 North Korea,Namhung Youth Chemical Complex,Namheung Youth Chemical Fertilizer Factory,"ミサイル、核 M,N",,namhungyouthchemicalcomplex
+397,北朝鮮 North Korea,Namsan 2 Company (南山2会社),Namsan 2 Trading Corp. (南山2貿易会社),"生物、化学、ミサイル、核 B,C,M,N",,namsan2company(南山2会社)
+398,北朝鮮 North Korea,National Aerospace Development Administration (NADA) (国家宇宙開発局),,ミサイル M,通常兵器 CW,nationalaerospacedevelopmentadministration(nada)(国家宇宙開発局)
+399,北朝鮮 North Korea,National Defense College (国防大学),Kanggye Defense College (江界国防大学),"生物、化学、ミサイル、核 B,C,M,N",,nationaldefensecollege(国防大学)
+400,北朝鮮 North Korea,"New East International Trading Ltd., Pyongyang Office (東新国際貿易有限公司平壌事務所)",,"生物、化学、ミサイル、核 B,C,M,N",,pyongyangoffice(東新国際貿易有限公司平壌事務所)neweastinternationaltradingltd.
+401,北朝鮮 North Korea,Ocean Bunkering JV Co,,"生物、化学、ミサイル、核 B,C,M,N",,oceanbunkeringjvco
+402,北朝鮮 North Korea,"Ocean Maritime Management Company, Limited",OMM,"生物、化学、ミサイル、核 B,C,M,N",,limitedoceanmaritimemanagementcompany
+403,北朝鮮 North Korea,Office 39,Bureau 39␞Central Committee Bureau 39␞Division 39␞Office #39␞Office No. 39␞Third Floor,"生物、化学、ミサイル、核 B,C,M,N",,office39
+404,北朝鮮 North Korea,Pan Systems Pte. Ltd. (Pyongyang branch),Wonbang Trading Co.,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,pansystemspte.ltd.(pyongyangbranch)
+405,北朝鮮 North Korea,Peace Motors Corporation (平和自動車会社),Pyonghwa General Motor Company (平和自動車総会社),"生物、化学、ミサイル、核 B,C,M,N",,peacemotorscorporation(平和自動車会社)
+406,北朝鮮 North Korea,Ponghwa General Trading Corporation,Ponghwa General Corp (烽火総会社),核 N,,ponghwageneraltradingcorporation
+407,北朝鮮 North Korea,Ponghwa Hospital (烽火診療所),Bonghwa Hospital (烽火病院),"生物、化学、ミサイル、核 B,C,M,N",,ponghwahospital(烽火診療所)
+408,北朝鮮 North Korea,Potonggang Cooperative of Optical Glass Production (普通江眼鏡生産共同組合),,核 N,,potonggangcooperativeofopticalglassproduction(普通江眼鏡生産共同組合)
+409,北朝鮮 North Korea,Pyongjin Ship Management Company Limited,,"生物、化学、ミサイル、核 B,C,M,N",,pyongjinshipmanagementcompanylimited
+410,北朝鮮 North Korea,Pyongyang City Construction Bureau (平壌市都市建設総局),,"生物、化学、ミサイル、核 B,C,M,N",,pyongyangcityconstructionbureau(平壌市都市建設総局)
+411,北朝鮮 North Korea,Pyongyang Gomu Gongjang (平壌ゴム工場),Pyongyang Rubber Factory,"生物、化学、ミサイル、核 B,C,M,N",,pyongyanggomugongjang(平壌ゴム工場)
+412,北朝鮮 North Korea,Pyongyang Informatics Centre (平壌情報センター),Pyongyang Information Center,"生物、化学、ミサイル、核 B,C,M,N",,pyongyanginformaticscentre(平壌情報センタ-)
+413,北朝鮮 North Korea,Pyongyang Maternity Hospital (平壌産院),,"生物、化学、ミサイル、核 B,C,M,N",,pyongyangmaternityhospital(平壌産院)
+414,北朝鮮 North Korea,Pyongyang Public Library (平壌市図書館),,"生物、化学、ミサイル、核 B,C,M,N",,pyongyangpubliclibrary(平壌市図書館)
+415,北朝鮮 North Korea,Pyongyang Road Construction Office (平壌市道路建設事務所),,"生物、化学、ミサイル、核 B,C,M,N",,pyongyangroadconstructionoffice(平壌市道路建設事務所)
+416,北朝鮮 North Korea,Pyongyang Technical University (平壌技術大学),,核 N,,pyongyangtechnicaluniversity(平壌技術大学)
+417,北朝鮮 North Korea,Pyongyang Telephone Exchange (平壌電話交換局),,"生物、化学、ミサイル、核 B,C,M,N",,pyongyangtelephoneexchange(平壌電話交換局)
+418,北朝鮮 North Korea,Pyongyang Trading Company (平壌貿易会社),Pyongyang Central Zoo,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,pyongyangtradingcompany(平壌貿易会社)
+419,北朝鮮 North Korea,"RA-HAE Trading Co., Ltd. (羅海貿易会社)",,"生物、化学、ミサイル、核 B,C,M,N",,"ra-haetradingco.,ltd.(羅海貿易会社)"
+420,北朝鮮 North Korea,Rakwon 929 Import Corporation (楽園929輸入会社),Ragwon 929 Import Corporation,"生物、化学、ミサイル、核 B,C,M,N",,rakwon929importcorporation(楽園929輸入会社)
+421,北朝鮮 North Korea,Reconnaissance General Bureau (RGB) (偵察総局),Chongch'al Ch'ongguk␞General Bureau of Reconnaissance␞General Bureau of Surveillance␞General Reconnaissance Bureau␞KPA Unit 586,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,reconnaissancegeneralbureau(rgb)(偵察総局)
+422,北朝鮮 North Korea,Rimyongsu Trading Corporation (鯉明水貿易会社),Haegu'mgang Trading Company␞Korea Haegumgang Trading Corporation␞Naegu'ngang Trading Company,"生物、化学、ミサイル、核 B,C,M,N",,rimyongsutradingcorporation(鯉明水貿易会社)
+423,北朝鮮 North Korea,Samhung Corporation (三興会社),Korea Samhung Trading Corp. (朝鮮三興貿易会社),"生物、化学、ミサイル、核 B,C,M,N",,samhungcorporation(三興会社)
+424,北朝鮮 North Korea,San Yong Co. Ltd.,Sanyong Co. Ltd.␞Sanyong Joint Venture Co.␞山栄合営会社,"生物、化学、ミサイル、核 B,C,M,N",,sanyongco.ltd.
+425,北朝鮮 North Korea,Second Academy of Natural Sciences (第二自然科学院),2nd Academy of Natural Sciences␞Academy of Natural Sciences␞Chayon Kwahak-Won␞Che 2 Chayon Kwahak-Won␞Kukpang Kwahak-Won␞National Defense Academy␞SANSRI␞Second Academy of Natural Sciences Research Institute,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,secondacademyofnaturalsciences(第二自然科学院)
+426,北朝鮮 North Korea,Second Economic Committee (第二経済委員会),,"ミサイル、核 M,N",通常兵器 CW,secondeconomiccommittee(第二経済委員会)
+427,北朝鮮 North Korea,Seibu Co. Ltd.,,"生物、化学、ミサイル、核 B,C,M,N",,seibuco.ltd.
+428,北朝鮮 North Korea,Shinhung Trading (新興貿易会社),Shinfung Trading␞Sinhung Trading General Co (新興貿易総会社),"生物、化学、ミサイル、核 B,C,M,N",,shinhungtrading(新興貿易会社)
+429,北朝鮮 North Korea,Singwang Economics and Trading General Corporation,,"生物、化学、ミサイル、核 B,C,M,N",,singwangeconomicsandtradinggeneralcorporation
+430,北朝鮮 North Korea,Sobaeku United Corp. (小白水連合貿易会社),Korea Sobaeksu Trading Corporation␞Sobaeksu United Corp.␞Korea Sobaeksu United Co. (朝鮮小白水貿易会社),"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,sobaekuunitedcorp.(小白水連合貿易会社)
+431,北朝鮮 North Korea,Sosong Food Factory (西城食品工場),,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,sosongfoodfactory(西城食品工場)
+432,北朝鮮 North Korea,State Academy of Science of the DPRK Institute of Automation,,ミサイル M,,stateacademyofscienceofthedprkinstituteofautomation
+433,北朝鮮 North Korea,Sun Hwa Gang Co. Ltd. (順和江会社),(Korea) Sunhwagang Trading Co. ((朝鮮)順和江貿易会社),"生物、化学、ミサイル、核 B,C,M,N",,sunhwagangco.ltd.(順和江会社)
+434,北朝鮮 North Korea,Sunchon Cement Factory (順川セメント工場),,"生物、化学、ミサイル、核 B,C,M,N",,sunchoncementfactory(順川セメント工場)
+435,北朝鮮 North Korea,SUNGNISAN TRADING CORPORATION,KOREA SUNGRISAN TRADING CORPORATION,ミサイル M,通常兵器 CW,sungnisantradingcorporation
+436,北朝鮮 North Korea,Taean Electric Factory (大安電機工場),Daean Electric Factory,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,taeanelectricfactory(大安電機工場)
+437,北朝鮮 North Korea,"Taean Friendship Glass Factory, Pyongan Namdo (大安親善ガラス工場(平安南道))",Daean Friendship Glass Factory (大安親善琉璃工場),"生物、化学、ミサイル、核 B,C,M,N",,pyongannamdo(大安親善ガラス工場(平安南道))taeanfriendshipglassfactory
+438,北朝鮮 North Korea,Taean Heavy Machinery Complex (大安重機械連合企業所),Daean Heavy Machinery Complex (大安重機械工場)␞Daean Machinery Factory␞Taean Machinery Factory (大安機械工場),核 N,,taeanheavymachinerycomplex(大安重機械連合企業所)
+439,北朝鮮 North Korea,Tanchon Commercial Bank (端川商業銀行),Changgwang Credit Bank␞Danchon Commercial Bank␞Korea Changgwang Credit Bank,"生物、化学、ミサイル、核 B,C,M,N",,tanchoncommercialbank(端川商業銀行)
+440,北朝鮮 North Korea,Thaephyongsan Shipping Co Ltd,,"生物、化学、ミサイル、核 B,C,M,N",,thaephyongsanshippingcoltd
+441,北朝鮮 North Korea,Tosong Technology Trading Corporation (土星技術貿易会社),,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,tosongtechnologytradingcorporation(土星技術貿易会社)
+442,北朝鮮 North Korea,UNCHON TRADING CORPORATION,UNCHEN TRADING CORP.␞UNCHON TRADING CORP.,ミサイル M,通常兵器 CW,unchontradingcorporation
+443,北朝鮮 North Korea,Undok Chemical Factory (恩徳化学工場),,化学 C,,undokchemicalfactory(恩徳化学工場)
+444,北朝鮮 North Korea,University of Chemical Industry (化学工業大学),咸興化学工業大学␞Hamhung University of Chemical Industry,"化学、核 C,N",,universityofchemicalindustry(化学工業大学)
+445,北朝鮮 North Korea,Yongbyon Nuclear Research Centre,,核 N,,yongbyonnuclearresearchcentre
+446,北朝鮮 North Korea,Yongjin Ship Management Company Limited,,"生物、化学、ミサイル、核 B,C,M,N",,yongjinshipmanagementcompanylimited
+447,北朝鮮 North Korea,セソン技術貿易,,"生物、化学、ミサイル、核 B,C,M,N",,セソン技術貿易
+448,北朝鮮 North Korea,朝鮮綾羅科学技術交流社,,"生物、化学、ミサイル、核 B,C,M,N",,朝鮮綾羅科学技術交流社
+449,北朝鮮 North Korea,マンウォル貿易,,"生物、化学、ミサイル、核 B,C,M,N",,マンウォル貿易
+450,北朝鮮 North Korea,民族経済協力連合会,朝鮮民族経済協力連合会␞民経連,"生物、化学、ミサイル、核 B,C,M,N",,民族経済協力連合会
+451,シリア Syrian Arab Republic,Army Supply Bureau,,ミサイル M,,armysupplybureau
+452,シリア Syrian Arab Republic,Business Lab,,"生物、化学、ミサイル、核 B,C,M,N",,businesslab
+453,シリア Syrian Arab Republic,Electronics Institute,,ミサイル M,,electronicsinstitute
+454,シリア Syrian Arab Republic,Expert Partners,Experts Partners,"ミサイル、核 M,N",,expertpartners
+455,シリア Syrian Arab Republic,GOLDEN STAR CO,GOLDEN STAR INTERNATIONAL FREIGHT LIMITED␞GOLDEN STAR TRADING & INTERNATIONAL FREIGHT␞GOLDEN STAR TRADING AND INTERNATIONAL FREIGHT␞GOLDEN STAR TRADING INTERNATIONAL FREIGHT␞KASSOUMA FZC␞SHAREKAT GOLDEN STAR␞SMART LOGISTICS F.S.S.A.L␞SMART LOGISTICS OFFSHORE␞SMART LOGISTICS TRADING & INTERNATIONAL FREIGHT␞SMART LOGISTICS TRADING AND INTERNATIONAL FREIGHT,"生物、化学、ミサイル B,C,M",,goldenstarco
+456,シリア Syrian Arab Republic,Handasieh,General Organization for Engineering Industries,ミサイル M,,handasieh
+457,シリア Syrian Arab Republic,Higher Institute of Applied Science and Technology (HIAST),Institut des Sciences Appliquees et de Technologie (ISAT)␞Institut Superieur des Sciences Appliquees et de Technologie (ISSAT),"生物、ミサイル、核 B,M,N",,higherinstituteofappliedscienceandtechnology(hiast)
+458,シリア Syrian Arab Republic,Industrial Establishment of Defense (IED),Industrial Establishment of Defence (IED)␞Etablissement Industrial de la Defence (ETINDE)␞Établissements Industriels de la Défense (EID),ミサイル M,,industrialestablishmentofdefense(ied)
+459,シリア Syrian Arab Republic,Industrial Solutions,,ミサイル M,,industrialsolutions
+460,シリア Syrian Arab Republic,Mahrous Group,Al Mahrus Group Trading Company␞Mahrous Trading Establishment␞Mahrous Trading Institute␞Mahrus Group␞Mahrus Trading Establishment,"生物、化学、ミサイル B,C,M",,mahrousgroup
+461,シリア Syrian Arab Republic,Mechanical Construction Factory (MCF),,"ミサイル、核 M,N",,mechanicalconstructionfactory(mcf)
+462,シリア Syrian Arab Republic,Megatrade,,"ミサイル、核 M,N",,megatrade
+463,シリア Syrian Arab Republic,Metallic Manufacturing Factory,,"生物、化学、ミサイル B,C,M",,metallicmanufacturingfactory
+464,シリア Syrian Arab Republic,National Standards and Calibration Laboratory (NSCL),Institut National Calibration Centre␞National Calibration Centre␞Scientific Studies and Research Center (SSRC)-NSCL,ミサイル M,,nationalstandardsandcalibrationlaboratory(nscl)
+465,シリア Syrian Arab Republic,Organisation for Technological Industries (OTI）,Organization for Technical Industries␞Organization of Technological Industries,化学 C,,organisationfortechnologicalindustries(oti)
+466,シリア Syrian Arab Republic,Scientific Studies and Research Center (SSRC),Center for Scientific Studies and Research (SSRC)␞Center for Study and Research (CERS)␞Centre de Recherche de Kaboun␞Centre d'Etude et de Recherche Scientifique (CERS)␞Centre d'Etudes et de Recherches Scientifiques (CERS)␞Centre d'études et de recherches syrien (CERS)␞Scientific Research Council (SRC)␞Scientific Studies and Research Council␞Scientific Studies Research Centre (SSRC)␞Syrian Scientific Research Council,"生物、化学、ミサイル B,C,M",,scientificstudiesandresearchcenter(ssrc)
+467,シリア Syrian Arab Republic,Sigma Tech,,"生物、化学、ミサイル B,C,M",,sigmatech
+468,シリア Syrian Arab Republic,Syrian Arab Company for Electronic Industries,SYRONICS,ミサイル M,,syrianarabcompanyforelectronicindustries
+469,シリア Syrian Arab Republic,Syrian Company for Information Technology (SCIT),,化学 C,,syriancompanyforinformationtechnology(scit)
+470,台湾 Taiwan,Bentech Computer Corp.,利安科技股份有限公司,ミサイル M,,bentechcomputercorp.
+471,台湾 Taiwan,"Royal Team Corporation International Trading Co., Ltd.","Hua Yue International Trading Co., Ltd.␞Royal Team Corporation␞華悦國際企業股份有限公司","生物、化学、ミサイル、核 B,C,M,N",,"royalteamcorporationinternationaltradingco.,ltd."
+472,台湾 Taiwan,Semiconductor Equipment Manufacturing Incorporated,欣憶電子股份有限公司,ミサイル M,,semiconductorequipmentmanufacturingincorporated
+473,台湾 Taiwan,Sharp Edge Engineering (SEE),Ruiyuan Keji Youxian Gongsi␞銳元科技有限公司,核 N,,sharpedgeengineering(see)
+474,台湾 Taiwan,"NAZ TECHNOLOGY CO., LTD.","Naz␞N.A.Z. TECHNOLOGY␞Naz Technology Corporation Ltd␞Naishixin Electronics (Shenzhen) Co., Ltd.␞鼐实鑫电子(深圳)有限公司",ミサイル M,,"naztechnologyco.,ltd."
+475,中国 People's Republic of China,10th Research Institute of China Electronic Technology Group Corporation (CETC) (中国電子科技集団公司第十研究所),CETC 10th Research Institute␞Southwest Institute of Electronic Technology (SWIET)␞Southwest Research Institute of Electronic Technology (SWIET)␞Southwest Research Institute of Electronics Technology (中国西南電子技術研究所),ミサイル M,通常兵器 CW,10thresearchinstituteofchinaelectronictechnologygroupcorporation(cetc)(中国電子科技集団公司第十研究所)
+476,中国 People's Republic of China,"13th Research Institute, 9th Academy, China Aerospace Science and Technology Corporation (CASC) (中国航天科技集団公司第九研究院第十三研究所)","13th Institute␞Beijing Institute of Aerospace Control Devices (BIACD)␞230 Factory␞Beijing Aerospace Times Optical-Electronic Technology Co., Ltd.",ミサイル M,通常兵器 CW,"13thresearchinstitute,9thacademy,chinaaerospacescienceandtechnologycorporation(casc)(中国航天科技集団公司第九研究院第十三研究所)"
+477,中国 People's Republic of China,20th Research Institute of China Electronic Technology Group Corporation (CETC) (中国電子科技集団公司第二十研究所),CETC 20th Research Institute␞Xian Research Institute of Navigation Technology (西安導航技術研究所),ミサイル M,通常兵器 CW,20thresearchinstituteofchinaelectronictechnologygroupcorporation(cetc)(中国電子科技集団公司第二十研究所)
+478,中国 People's Republic of China,23rd Research Institute,Beijing Institute of Radio Measurement␞BIRM␞China Aerospace Science and Industry Corporation(CASIC) Second Academy 23rd Research Institute 中国航天科学技術工業集団有限公司第二研究院第二十 三研究所,ミサイル M,通常兵器 CW,23rdresearchinstitute
+479,中国 People's Republic of China,Abascience Tech Co. Ltd,,ミサイル M,,abasciencetechco.ltd
+480,中国 People's Republic of China,Academy of Aerospace Solid Propulsion Technology （航天动力技术研究院）,AASPT␞中国航天科技集団有限公司第四研究院,ミサイル M,通常兵器 CW,academyofaerospacesolidpropulsiontechnology(航天动力技术研究院)
+481,中国 People's Republic of China,AECC Beijing Institute of Aeronautical Materials (中国航発北京航空材料研究院),AECC BIAM,ミサイル M,通常兵器 CW,aeccbeijinginstituteofaeronauticalmaterials(中国航発北京航空材料研究院)
+482,中国 People's Republic of China,AECC South Industry Company Limited （中国航发南方工业有限公司）,,ミサイル M,通常兵器 CW,aeccsouthindustrycompanylimited(中国航发南方工业有限公司)
+483,中国 People's Republic of China,AVIC Leihua Electronic Technology Research Institute （中国航空工业集团公司雷华电子技术研究所）,LETRI,ミサイル M,通常兵器 CW,avicleihuaelectronictechnologyresearchinstitute(中国航空工业集团公司雷华电子技术研究所)
+484,中国 People's Republic of China,AVIC Research Institute for Special Structures of Aeronautical Composites （中国航空工業集団公司済南特種結構研究所）,AVIC RISAC␞AVIC 637th Research Institute,ミサイル M,通常兵器 CW,avicresearchinstituteforspecialstructuresofaeronauticalcomposites(中国航空工業集団公司済南特種結構研究所)
+485,中国 People's Republic of China,"Baimtec Material Co., Ltd. （北京航空材料研究院股份有限公司）",,"ミサイル、核 M,N",通常兵器 CW,"baimtecmaterialco.,ltd.(北京航空材料研究院股份有限公司)"
+486,中国 People's Republic of China,Baotou Guanghua Chemical Industrial Corporation,"202 Plant, Baotou Nuclear Energy Facility␞Baotou Guanghua Chemical Industry Company␞Baotou Nuclear Fuel Element Plant␞China Nuclear Baotou Guanghua Chemical Industry Company",核 N,,baotouguanghuachemicalindustrialcorporation
+487,中国 People's Republic of China,Beijing Aeronautical Manufacturing Technology Research Institute (BAMTRI) (北京航空製造工程研究所),Aviation Industry Corporation of China's (AVIC) Institute 625 (中国航空工業集団公司第六二五研究所)␞AVIC Beijing Aeronautical Manufacturing Technology Research Institute (中国航空工業集団公司北京航空製造工程研究所),ミサイル M,通常兵器 CW,beijingaeronauticalmanufacturingtechnologyresearchinstitute(bamtri)(北京航空製造工程研究所)
+488,中国 People's Republic of China,Beijing Aerospace Automatic Control Institute (BICD) (北京航天自動控制研究所),12th Research Institute China Academy of Launch Vehicle Technology (CALT)␞Beijing Institute of Space Automatic Control␞Beijing Spaceflight Autocontrol Research Institute␞China Aerospace Science and Technology Corporation First Academy 12th Research Institute (中国航天科技集団公司第一研究院第十二研究所),ミサイル M,通常兵器 CW,beijingaerospaceautomaticcontrolinstitute(bicd)(北京航天自動控制研究所)
+489,中国 People's Republic of China,"Beijing Alite Technologies Co., Ltd. (ALCO) (北京海立連合科技有限公司)","Beijing Haili Lianhe Keji Youxian Gongsi␞Beijing Hileed Solutions Co., Ltd.",ミサイル M,,"beijingalitetechnologiesco.,ltd.(alco)(北京海立連合科技有限公司)"
+490,中国 People's Republic of China,Beijing Automation Control Equipment Institute (BACEI) (北京自動化控制設備研究所),"33 Institute␞Beijing Institute of Automatic Control Equipment, China Haiying Electromechanical Technology Academy␞No. 33 Research Institute of the Third Academy of China Aerospace Science and Industry Corporation (CASIC) (中国航天科工集団第三研究院三十三研究所)",ミサイル M,通常兵器 CW,beijingautomationcontrolequipmentinstitute(bacei)(北京自動化控制設備研究所)
+491,中国 People's Republic of China,"Beijing China Tank Industry Co., Ltd. （北京科泰克科技有限責任公司）",,ミサイル M,,"beijingchinatankindustryco.,ltd.(北京科泰克科技有限責任公司)"
+492,中国 People's Republic of China,Beijing Chengxing Trading Co. Ltd. (北京成興貿易有限公司),,"ミサイル、核 M,N",通常兵器 CW,beijingchengxingtradingco.ltd.(北京成興貿易有限公司)
+493,中国 People's Republic of China,Beijing Institute of Structure and Environmental Engineering (BISE) (北京強度環境研究所),"702nd Research Institute, China Academy of Launch Vehicle Technology (CALT) (中国航天科技集団公司第一研究院第七○ニ研究所)␞Beijing Institute of Strength and Environmental Engineering",ミサイル M,通常兵器 CW,beijinginstituteofstructureandenvironmentalengineering(bise)(北京強度環境研究所)
+494,中国 People's Republic of China,Beijing Institute of Technology （北京理工大学）,,ミサイル M,通常兵器 CW,beijinginstituteoftechnology(北京理工大学)
+495,中国 People's Republic of China,Beijing Lion Heart International Trading Company,Wei Lai Xi Tong Ltd.,ミサイル M,,beijinglionheartinternationaltradingcompany
+496,中国 People's Republic of China,"Beijing Luo Luo Technology Development Co., Limited. （北京罗罗科技发展有限公司）",,ミサイル M,,limited.(北京罗罗科技发展有限公司)beijingluoluotechnologydevelopmentco.
+497,中国 People's Republic of China,"BEIJING SHINY NIGHTS TECHNOLOGY DEVELOPMENT CO., LTD. （北京闪亮之夜科技发展有限公司）",,ミサイル、核 M、N,,"beijingshinynightstechnologydevelopmentco.,ltd.(北京闪亮之夜科技发展有限公司)"
+498,中国 People's Republic of China,"Beijing Tianhai Industry Co., Ltd. （北京天海工业有限公司）",北京天海工業有限公司,ミサイル M,,"beijingtianhaiindustryco.,ltd.(北京天海工业有限公司)"
+499,中国 People's Republic of China,Beijing Power Machinery Institute (北京動力機械研究所),"31st Research Institute of China Aerospace Science and Industry Corporation (CASIC) (中国航天科工集団第三研究院三十一研究所)␞Beijing Power Generating Machinery Institute␞Beijing Power Machinery Research Laboratory␞China Haiying Electromechanical Technology Academy␞China Haiying Science & Technology Corporation␞China Aerospace Science and Industry Corporation (CASIC) 3rd Academy, 31 Research Institute",ミサイル M,通常兵器 CW,beijingpowermachineryinstitute(北京動力機械研究所)
+500,中国 People's Republic of China,"Beijing UniStrong Science & Technology Co., Ltd. （北京合衆思壯科技股份有限公司）",,ミサイル M,,"beijingunistrongscience&technologyco.,ltd.(北京合衆思壯科技股份有限公司)"
+501,中国 People's Republic of China,Beijing University of Aeronautics and Astronautics (BUAA) (北京航空航天大学),Beihang University,ミサイル M,通常兵器 CW,beijinguniversityofaeronauticsandastronautics(buaa)(北京航空航天大学)
+502,中国 People's Republic of China,BVI Electronics,,"生物、化学、ミサイル B,C,M",,bvielectronics
+503,中国 People's Republic of China,"CETC Chip Technology Co., Ltd （中电科芯片技术股份有限公司）","CETC 24␞CETC 26␞CETC 44␞CETC Chongqing Sound and Optoelectronics Co., Ltd.␞Chongqing Optoelectronics Technology Research Institute␞Dianke Chip Group",,通常兵器 CW,"cetcchiptechnologyco.,ltd(中电科芯片技术股份有限公司)"
+504,中国 People's Republic of China,"Changzhou Utek Composite Co., Limited.（CUC） （常州联拓复合材料有限公司）",,ミサイル M,,limited.(cuc)(常州联拓复合材料有限公司)changzhouutekcompositeco.
+505,中国 People's Republic of China,Chengdu Jingxin Technology Co. Ltd （成都景昕科技有限公司）,CHENGDU JINGXIN MICROWAVE TECHNOLOGY CO LTD␞CHENGDU JINGXIN TECK INC,,通常兵器 CW,chengdujingxintechnologyco.ltd(成都景昕科技有限公司)
+506,中国 People's Republic of China,Chengdu Latest Electronics Technology Company,,ミサイル M,,chengdulatestelectronicstechnologycompany
+507,中国 People's Republic of China,"Chengdu RML Technology Co., Ltd.（成都雷电微力科技 股份有限公司）","Chengdu Thunderbolt Micro Power Technology Co., Ltd.␞RML Technology",ミサイルM,通常兵器 CW,"chengdurmltechnologyco.,ltd.(成都雷电微力科技股份有限公司)"
+508,中国 People's Republic of China,China Academy of Launch Vehicle Technology (CALT) (中国運載火箭技術研究院),China Carrier Rocket Technology Research Institute␞First Academy of the China Aerospace Science Technology Corporation (中国航天科技集団公司第一研究院)␞Wanyuan Company,ミサイル M,通常兵器 CW,chinaacademyoflaunchvehicletechnology(calt)(中国運載火箭技術研究院)
+509,中国 People's Republic of China,China Academy of Space Technology (CAST) (中国空間技術研究院),5th Academy of China Aerospace Science and Technology Corporation (中国航天科技集団公司第五研究院),ミサイル M,通常兵器 CW,chinaacademyofspacetechnology(cast)(中国空間技術研究院)
+510,中国 People's Republic of China,China Aerodynamics Research and Development Center (CARDC) (中国空気動力研究与発展中心),,ミサイル M,通常兵器 CW,chinaaerodynamicsresearchanddevelopmentcenter(cardc)(中国空気動力研究与発展中心)
+511,中国 People's Republic of China,China Aerospace Science and Industry Corporation Second Academy（中国航天科工集団第二研究院）,China Changfeng Mechanics and Electronics Technology Academy␞China Chang Feng Mechano-Electronic Engineering Academy␞CASIC Second Academy␞China Chang Feng Mechano-Electronic Engineering Company␞CASIC Academy of Defense Technology␞Second Research Academy of CASIC␞Changfeng Electromechanical Technology Design Institute␞China Chang Feng Mechanics and Electronics Technology Academy␞中国航天科工防御技術研究院␞航天科工二院,,通常兵器 CW,chinaaerospacescienceandindustrycorporationsecondacademy(中国航天科工集団第二研究院)
+512,中国 People's Republic of China,China Aerospace Science and Technology Corporation (CASC) 9th Academy 771 Research Institute （中国航天科技集団有限公司第九研究院第771研究 所）,771 Research Institute␞China Aerospace Science and Technology Corporation （CASC）Ninth Academy 771 Institute␞Lishan Microelectronics Company␞Xi'an Institute of Microelectronics␞Xi'an Microelectronics Technology Institute␞XMTI,ミサイル M,通常兵器 CW,chinaaerospacescienceandtechnologycorporation(casc)9thacademy771researchinstitute(中国航天科技集団有限公司第九研究院第771研究所)
+513,中国 People's Republic of China,China Electronics Technology Group Corporation 14th Research Institute (CETC 14) （中国電子科技集団公司 第十四研究所）,Nanjing Research Institute of Electronics Technology␞NRIET␞Nanjing Electronics Technology Institute␞Ministry of Information Industry Electronics␞No 14 Research Institute␞Research Institute 14␞CETC Research Institute 14␞南京電子技術研究所,,通常兵器 CW,chinaelectronicstechnologygroupcorporation14thresearchinstitute(cetc14)(中国電子科技集団公司第十四研究所)
+514,中国 People's Republic of China,China Electronics Technology Group Corporation 28th Research Institute (CETC 28)（中国電子科技集団公司 第二十八研究所）,The 28th Research Institute of China Electronics Technology Group Corporation␞China Electronics Technology Group Corporation No. 28 Institute␞CETC 28␞The 28th Institute␞Nanjing Institute of Electronic Engineering␞NRIEE␞NIEE,,通常兵器 CW,chinaelectronicstechnologygroupcorporation28thresearchinstitute(cetc28)(中国電子科技集団公司第二十八研究所)
+515,中国 People's Republic of China,China Electronics Technology Group Corporation (CETC) 54th Research Institute (中国電子科技集団公司第五十四研究所),"54th Research Institute of China Electronics Technology Group Corporation (CETC54)␞Communication, Telemetry and Telecontrol Research Institute (CTI)␞Shijiazhuang Communication Observation and Control Technology Institute (石家庄通信測控技術研究所)",ミサイル M,通常兵器 CW,chinaelectronicstechnologygroupcorporation(cetc)54thresearchinstitute(中国電子科技集団公司第五十四研究所)
+516,中国 People's Republic of China,China General Nuclear Power Corporation (CGNPC) （中国広核集団）,China Guangdong Nuclear Power Corporation␞China General Nuclear Power Group,核 N,,chinageneralnuclearpowercorporation(cgnpc)(中国広核集団)
+517,中国 People's Republic of China,China National Precision Machinery Import and Export Corporation (CPMIEC) (中国精密機械進出口有限公司),China National Precision Machinery I/E Corp.␞China Precision Machinery Import/Export Corporation␞ZHONGGUO JINGMI JIXIE JINCHUKOU ZONGGONGSI,ミサイル M,,chinanationalprecisionmachineryimportandexportcorporation(cpmiec)(中国精密機械進出口有限公司)
+518,中国 People's Republic of China,China North Industries Group Corporation Limited (中国兵器工業集団有限公司),China North Industries Corporation (NORINCO) (中国北方工業公司),"化学、ミサイル C,M",通常兵器 CW,chinanorthindustriesgroupcorporationlimited(中国兵器工業集団有限公司)
+519,中国 People's Republic of China,Chinese Academy of Engineering Physics （中国工程物理研究院）,"Ninth Academy␞Southwest Computing Center␞Southwest Institute of Applied Electronics␞Southwest Institute of Chemical Materials␞Southwest Institute of Electronic Engineering␞Southwest Institute of Environmental Testing␞Southwest Institute of Explosives and Chemical Engineering␞Southwest Institute of Fluid Physics␞Southwest Institute of General Designing and Assembly␞Southwest Institute of Machining Technology␞Southwest Institute of Materials␞Southwest Institute of Nuclear Physics and Chemistry␞China Academy of Engineering Physics (CAEP)'s 902 Institute␞Southwest Institute of Research and Applications of Special Materials Factory␞Southwest Institute of Structural Mechanics␞The High Power Laser Laboratory, Shanghai␞The Institute of Applied Physics and Computational Mathematics, Beijing",核 N,,chineseacademyofengineeringphysics(中国工程物理研究院)
+520,中国 People's Republic of China,"Chinese Academy of Sciences Changchun Institute of Optics, Fine Mechanics, and Physics（中国科学院長春 光学精密機械与物理研究所）","Changchun Institute of Optics, Fine Mechanics, and Physics, CAS␞CAS Institute of Optics, Fine Mechanics, and Physics␞CIOMP",ミサイルM,通常兵器 CW,"chineseacademyofscienceschangchuninstituteofoptics,finemechanics,andphysics(中国科学院長春光学精密機械与物理研究所)"
+521,中国 People's Republic of China,"Chongyi Hengyi Ceramic Composites Co., Ltd. （崇義恒毅陶瓷複合材料有限公司）",,ミサイル M,通常兵器 CW,"chongyihengyiceramiccompositesco.,ltd.(崇義恒毅陶瓷複合材料有限公司)"
+522,中国 People's Republic of China,Cosailing Business Trading Company Limited （青島航帆貿易有限公司）,,ミサイル M,通常兵器 CW,cosailingbusinesstradingcompanylimited(青島航帆貿易有限公司)
+523,中国 People's Republic of China,Dalian Ligong Safety Equipment Company Limited,,ミサイル M,,dalianligongsafetyequipmentcompanylimited
+524,中国 People's Republic of China,Dalian Zhenghua Maoyi Youxian Gongsi,"Dalian Zenghua Trading Co., Ltd.",ミサイル M,,dalianzhenghuamaoyiyouxiangongsi
+525,中国 People's Republic of China,"Dalian Zhongchuang Char-White Co., Ltd.",,ミサイル M,,"dalianzhongchuangchar-whiteco.,ltd."
+526,中国 People's Republic of China,"Dandong Dongyuan Industrial Co., Ltd.","Dandong Dongyuan Industrial Co.␞Dandong Dongyuan Industry Co., Ltd.","ミサイル、核 M,N",通常兵器 CW,"dandongdongyuanindustrialco.,ltd."
+527,中国 People's Republic of China,Dandong Haotong Commercial Trade Co. Ltd. （丹東浩通商貿有限公司）,,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,dandonghaotongcommercialtradeco.ltd.(丹東浩通商貿有限公司)
+528,中国 People's Republic of China,Dandong Hongxiang Industrial Development Co Ltd,,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,dandonghongxiangindustrialdevelopmentcoltd
+529,中国 People's Republic of China,"Dandong Jinxiang Trade Co., Ltd.","China Dandong Kumsang Trade Company, Limited␞Dandong Metal Company␞Jinxiang Trading Company","ミサイル、核 M,N",通常兵器 CW,"dandongjinxiangtradeco.,ltd."
+530,中国 People's Republic of China,"DANDONG RICH EARTH TRADING CO., LTD. （丹东富地贸易有限公司）",,"ミサイル、核 M,N",通常兵器 CW,"dandongrichearthtradingco.,ltd.(丹东富地贸易有限公司)"
+531,中国 People's Republic of China,DANDONG ZHONGSHENG INDUSTRY & TRADE CO.， LTD. (丹东中盛工贸有限公司),DANDONG ZHONGSENG INDUSTRY & TRADE␞DANDONG ZHONGSENG INDUSTRY AND TRADE␞DANDONG ZHONGSHENG INDUSTRY AND TRADE CO.， LTD.␞DANDONG ZHONGSHONG INDUSTRY & TRADE␞DANDONG ZHONGSHONG INDUSTRY & TRADE CORPORATION LTD.␞DANDONG ZHONGSHONG INDUSTRY AND TRADE␞DANDONG ZHONGSHONG INDUSTRY AND TRADE CORPORATION LTD.,"生物、化学、ミサイル、核 B,C,M,N",,"dandongzhongshengindustry&tradeco.,ltd.(丹东中盛工贸有限公司)"
+532,中国 People's Republic of China,DCB Finance Limited,,"生物、化学、ミサイル、核 B,C,M,N",,dcbfinancelimited
+533,中国 People's Republic of China,EKT SMART TECHNOLOGY (黎巴嫩卡氏有限公司广州代表处),,"生物、化学、ミサイル B,C,M",,ektsmarttechnology(黎巴嫩卡氏有限公司广州代表处)
+534,中国 People's Republic of China,"Fushun Jinly Petrochemical Carbon Co., Ltd.",,ミサイル M,,"fushunjinlypetrochemicalcarbonco.,ltd."
+535,中国 People's Republic of China,"Grun Group Co., Limited","Grun Group Co., Ltd",,通常兵器 CW,limitedgrungroupco.
+536,中国 People's Republic of China,"GuangZhou Ausay Technology Co., Ltd. （广州欧赛科技有限公司）","Guangzhou Ausay Technology Co., Ltd.␞Guangzhou Ausay Technology Co., Limited",ミサイルM,通常兵器 CW,"guangzhouausaytechnologyco.,ltd.(广州欧赛科技有限公司)"
+537,中国 People's Republic of China,Guangzhou Ca.Ben Composites Company Limited (広州卡本複合材料有限公司),,"ミサイル、核 M,N",,guangzhouca.bencompositescompanylimited(広州卡本複合材料有限公司)
+538,中国 People's Republic of China,"Guangzhou Tian-Hai-Xiang Aviation Technology Co., Ltd. （広州天海翔航空科技有限公司）","Guangzhou Tianhaixiang Aviation Technology Co., Ltd.␞THX Aviation",ミサイル M,通常兵器 CW,"guangzhoutian-hai-xiangaviationtechnologyco.,ltd.(広州天海翔航空科技有限公司)"
+539,中国 People's Republic of China,"GUILIN ALPHA RUBBER & PLASTICS TECHNOLOGY CO., LTD (桂林阿尔法橡塑科技有限公司)",GUILIN ALPHA RUBBER & PLASTICS TECHNOLOGY COMPANY␞GUILIN ALPHA RUBBER AND PLASTICS TECHNOLOGY CO.， LTD␞GUILIN ALPHA RUBBER AND PLASTICS TECHNOLOGY COMPANY,ミサイル、核 M、N,,"guilinalpharubber&plasticstechnologyco.,ltd(桂林阿尔法橡塑科技有限公司)"
+540,中国 People's Republic of China,Harbin Engineering University (哈爾浜工程大学),,"ミサイル、核 M,N",通常兵器 CW,harbinengineeringuniversity(哈爾浜工程大学)
+541,中国 People's Republic of China,Harbin Institute of Technology (HIT) (哈爾浜工業大学),,ミサイル M,通常兵器 CW,harbininstituteoftechnology(hit)(哈爾浜工業大学)
+542,中国 People's Republic of China,"HANGZHOU FUYANG KOTO MACHINERY CO., LTD （杭州富阳科拓机械有限公司）","HANGZHOU FUYANG KOTO MACHINERY␞HANGZHOU FUYANG KOTO MACHINERY CO.␞KOTO MACHINERY CO., LTD␞KOTO MACHINRY CO., LTD","ミサイル、核 M,N",,"hangzhoufuyangkotomachineryco.,ltd(杭州富阳科拓机械有限公司)"
+543,中国 People's Republic of China,Hebei Sinopack Electronics (河北中瓷電子科技股份有限公司),"Hebei Sinapack Elec␞Hebei Sinopack Electronic Technology Co., Ltd.",ミサイル M,通常兵器 CW,hebeisinopackelectronics(河北中瓷電子科技股份有限公司)
+544,中国 People's Republic of China,"HENAN JIAYUAN ALUMINIUM INDUSTRY CO., LTD. （河南嘉源铝业有限公司）","HENAN JIAYUAN ALUMINUM INDUSTRY COMPANY, LIMITED",核 N,,"henanjiayuanaluminiumindustryco.,ltd.(河南嘉源铝业有限公司)"
+545,中国 People's Republic of China,"Hubei Sanjiang Aerospace Wanshan Special Vehicle Co., Ltd. （湖北三江航天万山特种车辆有限公司）",湖北三江航天万山特種車輛有限公司,ミサイル M,通常兵器 CW,"hubeisanjiangaerospacewanshanspecialvehicleco.,ltd.(湖北三江航天万山特种车辆有限公司)"
+546,中国 People's Republic of China,"Karat Industry Co., Ltd.",,ミサイル M,,"karatindustryco.,ltd."
+547,中国 People's Republic of China,"Kinglead Electronics Co., Ltd.",Kinglead International Trading␞Kinglead International Trading Limited␞Kinglead Trading␞Phonide Electronics Limited,"生物、化学、ミサイル B,C,M",,"kingleadelectronicsco.,ltd."
+548,中国 People's Republic of China,Landa Ariya Electronic Co,Landa Ariya Electronic Co. Ltd.␞Landa Electronic␞Landa Electronics.,ミサイル M,,landaariyaelectronicco
+549,中国 People's Republic of China,"Liaoyang Carbon Co., Ltd.",,ミサイル M,,"liaoyangcarbonco.,ltd."
+550,中国 People's Republic of China,LIMMT Economic and Trade Company (LIMMT経貿公司),"Ansi Metallurgy Industry Co. Ltd.␞Blue Sky Industry Corporation␞Dalian Carbon Co. Ltd.␞Dalian Sunny Industries␞Dalian Sunny Industry & Trade Co., Ltd.␞Liaoning Industry & Trade Co., Ltd.␞LIMMT (Dalian) Economic and Trade Organization␞LIMMT (Dalian) Metallurgy and Minerals Co.␞LIMMT (Dalian) Metallurgy and Minerals Co., Ltd.␞LIMMT (Dalian FTZ) Metallurgy and Minerals Co., Ltd.␞LIMMT (Dalian FTZ) Minmetals and Metallurgy Co., Ltd.␞SC (Dalian) Industry & Trade Co., Ltd.␞Sino Metallurgy & Minmetals Industry Co., Ltd.␞Wealthy Ocean Enterprises Ltd.",ミサイル M,,limmteconomicandtradecompany(limmt経貿公司)
+551,中国 People's Republic of China,MINGZHENG INTERNATIONAL TRADING LIMITED （明正国际贸易有限公司）,,"生物、化学、ミサイル、核 B,C,M,N",通常兵器 CW,mingzhenginternationaltradinglimited(明正国际贸易有限公司)
+552,中国 People's Republic of China,MTTO Industry and Trade Limited,,ミサイル M,,mttoindustryandtradelimited
+553,中国 People's Republic of China,National University of Defense Technology (NUDT) (国防科学技術大学),,"ミサイル、核 M,N",通常兵器 CW,nationaluniversityofdefensetechnology(nudt)(国防科学技術大学)
+554,中国 People's Republic of China,Nanjing Fiberglass Research and Design Institute （南京玻璃繊維研究設計院有限公司）,NRDI␞Nanjing Fiberglass Research,,通常兵器 CW,nanjingfiberglassresearchanddesigninstitute(南京玻璃繊維研究設計院有限公司)
+555,中国 People's Republic of China,Nanjing University of Aeronautics and Astronautics (NUAA) （南京航空航天大学）,,ミサイル、核 M、N,通常兵器 CW,nanjinguniversityofaeronauticsandastronautics(nuaa)(南京航空航天大学)
+556,中国 People's Republic of China,Nanjing University of Science and Technology（NUST） （南京理工大学）,,,通常兵器 CW,nanjinguniversityofscienceandtechnology(nust)(南京理工大学)
+557,中国 People's Republic of China,"Ningbo New Century Import and Export Company, Ltd. (寧波新世紀進出口有限公司)",New Century Import and Export Co. Ltd,ミサイル M,,"ningbonewcenturyimportandexportcompany,ltd.(寧波新世紀進出口有限公司)"
+558,中国 People's Republic of China,No. 35 Research Institute of the Third Academy of China Aerospace Science and Industry Corporation (CASIC),35 Institute␞Huahang Institute of Radio Measurement,ミサイル M,通常兵器 CW,no.35researchinstituteofthethirdacademyofchinaaerospacescienceandindustrycorporation(casic)
+559,中国 People's Republic of China,Northwestern Polytechnical University（NPU） (西北工業大学),Northwest Polytechnic University␞Northwest Polytechnical University␞Northwestern Polytechnic University,ミサイル M,通常兵器 CW,northwesternpolytechnicaluniversity(npu)(西北工業大学)
+560,中国 People's Republic of China,Nuclear Power Institute of China (NPIC) （中国核動力研究設計院）,China Nuclear Power Research Institute,核 N,通常兵器 CW,nuclearpowerinstituteofchina(npic)(中国核動力研究設計院)
+561,中国 People's Republic of China,Oriental Logistics Group LTD,Oriental Air Transport Service Ltd,ミサイル M,,orientallogisticsgroupltd
+562,中国 People's Republic of China,Poly Asia Pacific Ltd.(PAPL),Beijing Oriental Vision Petroleum Technology Company Limited (OVTEK-P),核 N,,polyasiapacificltd.(papl)
+563,中国 People's Republic of China,"Qianpu Technology Co., Ltd.",Beijing JDK Electrical Equipment Business Center␞Speedy Enterprise Ltd␞Step Forward Group Ltd,ミサイル、核 M、N,,"qianputechnologyco.,ltd."
+564,中国 People's Republic of China,"QINGDAO ZHONGRONGTONG TRADE DEVELOPMENT CO., LTD. （青岛中融通贸易发展有限公司）","QINGDAO ZHONGRONGTONG TRADING DEVELOPMENT CO., LTD.",ミサイル M,,"qingdaozhongrongtongtradedevelopmentco.,ltd.(青岛中融通贸易发展有限公司)"
+565,中国 People's Republic of China,Raybeam Optronics Co. Ltd. （三河市戎邦光电设备股份有限公司）,,ミサイル M,,raybeamoptronicsco.ltd.(三河市戎邦光电设备股份有限公司)
+566,中国 People's Republic of China,"Raytronic Corporation, Limited",,ミサイル M,,limitedraytroniccorporation
+567,中国 People's Republic of China,"SANMING SINO-EURO IMPORT AND EXPORT CO., LTD (三明市中伊欧进出⼝有限公司)",,核 N,,"sanmingsino-euroimportandexportco.,ltd(三明市中伊欧进出口有限公司)"
+568,中国 People's Republic of China,"Shaanxi Heavy Duty Automobile Co., Ltd （陝西重型汽車有限公司）",,ミサイル M,通常兵器 CW,"shaanxiheavydutyautomobileco.,ltd(陝西重型汽車有限公司)"
+569,中国 People's Republic of China,Shanghai Academy of Spaceflight Technology (SAST) (上海航天技術研究院),8th Research Academy of China Aerospace Science and Technology Corporation (中国航天科技集団公司第八研究院)␞Shanghai Astronautics Industry Bureau␞Shanghai Bureau of Astronautics (SHBOA)␞Shanghai Bureau of Space␞上海新躍儀表厰,ミサイル M,通常兵器 CW,shanghaiacademyofspaceflighttechnology(sast)(上海航天技術研究院)
+570,中国 People's Republic of China,Shanghai Aircraft Manufacturing Company (上海飛機製造有限公司),SAMC␞Shanghai Aircraft Manufacturing Co. Ltd.,ミサイル M,通常兵器 CW,shanghaiaircraftmanufacturingcompany(上海飛機製造有限公司)
+571,中国 People's Republic of China,Shanghai Gang Quan Trade Co. (上海港泉商貿有限公司),,ミサイル M,,shanghaigangquantradeco.(上海港泉商貿有限公司)
+572,中国 People's Republic of China,Shanghai Institute of Space Power Sources (上海空間電源研究所),"811th Research Institute, 8th Academy, China Aerospace Science and Technology Corporation (CASC) (中国航天科技集団公司第八研究院第八一一研究所)␞Shanghai Space Energy Research Institute␞Shanghai Space Power Supply Research Institute",ミサイル M,通常兵器 CW,shanghaiinstituteofspacepowersources(上海空間電源研究所)
+573,中国 People's Republic of China,Shanghai North Begins International (上海丙至国際貿易有限公司),Shanghai Bingzhi Guoji Maoyi Youxian Gongsi,ミサイル M,,shanghainorthbeginsinternational(上海丙至国際貿易有限公司)
+574,中国 People's Republic of China,Shanghai North Transway International Trading Co.,,ミサイル M,,shanghainorthtranswayinternationaltradingco.
+575,中国 People's Republic of China,"Shanghai Tianhai Composite Cylinders Co., Ltd. （上海天海复合气瓶有限公司）",上海天海複合気瓶有限公司,ミサイル M,,"shanghaitianhaicompositecylindersco.,ltd.(上海天海复合气瓶有限公司)"
+576,中国 People's Republic of China,"SHANGHAI PEOPLE'S INNOVATION INDUSTRIAL CO., LTD. （上海人创实业有限公司）",上海人創実業有限公司,ミサイル M,,"shanghaipeople'sinnovationindustrialco.,ltd.(上海人创实业有限公司)"
+577,中国 People's Republic of China,"Shanghai Xinli Machine Factory Co., Ltd （上海新力機器廠有限公司）",上海新力机器厂有限公司,ミサイル M,通常兵器 CW,"shanghaixinlimachinefactoryco.,ltd(上海新力機器廠有限公司)"
+578,中国 People's Republic of China,SHENZHEN CASPRO TECHNOLOGY CO.， LTD,"CASPRO TECHNOLOGY CO., LIMITED␞CASPRO TECHNOLOGY CO., LTD␞CASPRO TECHNOLOGY LTD␞SHENZHEN CASPRO TECHNOLOGY LTD.",ミサイル、核 M、N,,"shenzhencasprotechnologyco.,ltd"
+579,中国 People's Republic of China,"Shenzhen Iprogift Technology Co., Ltd","Iprogift Shenzhen Technology Co., Ltd.␞Shenzhen Iprogift Technology␞Iprogift Shenzhen Technology",ミサイル M,,"shenzheniprogifttechnologyco.,ltd"
+580,中国 People's Republic of China,SHENZHEN JIASIBO TECHNOLOGY CO.， LTD. （深圳嘉思博科技有限公司）,"SHENZHEN JIA SIBO SCIENCE AND TECHNOLOGY CO., LTD.",ミサイル、核 M、N,,"shenzhenjiasibotechnologyco.,ltd.(深圳嘉思博科技有限公司)"
+581,中国 People's Republic of China,Shenzhen Shunjinxin Import & Export Co. Ltd,Shenzhen Shunjinxin IMP & Export Co. Ltd,ミサイル M,,shenzhenshunjinxinimport&exportco.ltd
+582,中国 People's Republic of China,Shunji Electrinice Co. Ltd (深圳市顺吉电子科技有限公司),,ミサイル M,,shunjielectriniceco.ltd(深圳市顺吉电子科技有限公司)
+583,中国 People's Republic of China,Shvabe Opto-Electronics Co. LTD,"SHVABE OPTO-ELECTRONICS SHENZHEN CO., LTD␞UOMZ MEIZHOU CO., LTD␞SHVABE OPTO-ELECTRONICS MEIZHOU CO., LTD",,通常兵器 CW,shvabeopto-electronicsco.ltd
+584,中国 People's Republic of China,Sinotech Dalian Carbon and Graphite Manufacturing Corporation,,ミサイル M,,sinotechdaliancarbonandgraphitemanufacturingcorporation
+585,中国 People's Republic of China,"Sinotech Industry Co., Ltd.",,ミサイル M,,"sinotechindustryco.,ltd."
+586,中国 People's Republic of China,"Sinno Electronics Co., Ltd.","Xinnuo Electronic Technology.␞SINNO ELECTRONICS CO., LIMITED␞信諾電子科技有限公司",,通常兵器 CW,"sinnoelectronicsco.,ltd."
+587,中国 People's Republic of China,Sky Rise Technology Ltd.,Sky Rise Tech,ミサイル M,,skyrisetechnologyltd.
+588,中国 People's Republic of China,Success Move Ltd.,,ミサイル M,,successmoveltd.
+589,中国 People's Republic of China,"Sunway Tech Co., Ltd （北京旭润科技有限公司 ）",,ミサイル M,,"sunwaytechco.,ltd(北京旭润科技有限公司)"
+590,中国 People's Republic of China,"SUZHOU A-ONE SPECIAL ALLOY CO., LTD. (苏州埃⽂特种合⾦有限公司)","SUZHOU AIWEN SPECIAL ALLOY CO., LTD.",核 N,,"suzhoua-onespecialalloyco.,ltd.(苏州埃文特种合金有限公司)"
+591,中国 People's Republic of China,"SUZHOU ZHONGSHENG MAGNETIC INDUSTRY CO., LTD. (苏州中盛磁业有限公司)",SUZHOU ZHONGSHENG MAGNETIC COMPANY LIMITED,核 N,,"suzhouzhongshengmagneticindustryco.,ltd.(苏州中盛磁业有限公司)"
+592,中国 People's Republic of China,S&C TRADE PTY CO.， LTD,"S AND C TRADE PTY CO., LTD␞S AND C TRADE PTY LTD␞S&C TRADE PTY LTD",ミサイル、核 M、N,,"s&ctradeptyco.,ltd"
+593,中国 People's Republic of China,Tereal Industry and Trade Limited,,ミサイル M,,terealindustryandtradelimited
+594,中国 People's Republic of China,"Tianniao High Technology Co., Ltd. （江蘇天鳥高新技術有限責任公司）",,ミサイル M,通常兵器 CW,"tianniaohightechnologyco.,ltd.(江蘇天鳥高新技術有限責任公司)"
+595,中国 People's Republic of China,University of Electronic Science and Technology of China (UESTC) (電子科技大学),,"化学、ミサイル C,M",,universityofelectronicscienceandtechnologyofchina(uestc)(電子科技大学)
+596,中国 People's Republic of China,"VOHOM TECHNOLOGY HK CO., LIMITED （華弘科技香港有限公司）",,ミサイル、核 M、N,,limited(華弘科技香港有限公司)vohomtechnologyhkco.
+597,中国 People's Republic of China,Wuhan Sanjiang Import and Export Co. Ltd,"Wuhan Longhua Weiye Industry and Trade Co., Ltd␞Wuhan Sanjiang Imp. & Exp. Co. Ltd.␞WSIEC",ミサイル M,通常兵器 CW,wuhansanjiangimportandexportco.ltd
+598,中国 People's Republic of China,"Xinghe Xingyong Carbon Co., Ltd.",,ミサイル M,,"xinghexingyongcarbonco.,ltd."
+599,中国 People's Republic of China,YINKE HK ELECTRONICS COMPANY LIMITED （盈科香港電子有限公司）,"YINKE ELECTRONICS CO., LTD",ミサイル、核 M、N,,yinkehkelectronicscompanylimited(盈科香港電子有限公司)
+600,中国 People's Republic of China,"ZHEJIANG QINGJI IND. CO., LTD （浙江轻机实业有限公司）","ZHEJIANG LIGHT MACHINERY INDUSTRY CO., LTD.␞ZHEJIANG QINGJI INDUSTRIAL CO., LTD.",ミサイル M,,"zhejiangqingjiind.co.,ltd(浙江轻机实业有限公司)"
+601,中国 People's Republic of China,Zibo Shenbo Machinelectronics Co Ltd （淄博申博机电有限公司）,ZIBO SHENBO ELECTROMECHANICAL CO LTD,ミサイル M,,ziboshenbomachinelectronicscoltd(淄博申博机电有限公司)
+602,パキスタン Islamic Republic of Pakistan,Advanced Engineering Research Organization (AERO),Advance Engineering Research Organization␞Advanced Engineering Research Organisation,ミサイル M,,advancedengineeringresearchorganization(aero)
+603,パキスタン Islamic Republic of Pakistan,Advance Multicom,,核 N,,advancemulticom
+604,パキスタン Islamic Republic of Pakistan,Ahad International,,"生物、化学、ミサイル、核 B,C,M,N",,ahadinternational
+605,パキスタン Islamic Republic of Pakistan,Air Weapons Complex (AWC),,ミサイル M,,airweaponscomplex(awc)
+606,パキスタン Islamic Republic of Pakistan,Akhtar & Munir,Aimtech Trading Co.,核 N,,akhtar&munir
+607,パキスタン Islamic Republic of Pakistan,"Al Technique Corporation of Pakistan, Ltd. (ATCOP)",Al-Technique Corporation of Pakistan (Pvt) Ltd.,核 N,,"altechniquecorporationofpakistan,ltd.(atcop)"
+608,パキスタン Islamic Republic of Pakistan,Allied Trading Co.,Allied Engineering and Trading Company Ltd.␞UCB Arcade,"ミサイル、核 M,N",,alliedtradingco.
+609,パキスタン Islamic Republic of Pakistan,Blue Chip International,,"ミサイル、核 M,N",,bluechipinternational
+610,パキスタン Islamic Republic of Pakistan,Broad Engineering,,ミサイル M,,broadengineering
+611,パキスタン Islamic Republic of Pakistan,Busan International,,核 N,,busaninternational
+612,パキスタン Islamic Republic of Pakistan,Business Empire International,Drillage Trading FZE LLC.,核 N,,businessempireinternational
+613,パキスタン Islamic Republic of Pakistan,Chashma Nuclear Power Plant (CHASNUPP),Chasma Nuclear Power Plant␞Chashma Nuclear Complex,核 N,,chashmanuclearpowerplant(chasnupp)
+614,パキスタン Islamic Republic of Pakistan,Creative Dynamics Engineering,Creative Dynamics,ミサイル M,,creativedynamicsengineering
+615,パキスタン Islamic Republic of Pakistan,Defense Science and Technology Organization (DESTO),Chaklala Defense Science and Technology Organization␞Defense Science and Technology Center,"生物、化学、ミサイル B,C,M",,defensescienceandtechnologyorganization(desto)
+616,パキスタン Islamic Republic of Pakistan,Dynamic Engineering Corporation (DEC),Diagnostic Engineering Corporation␞Scientific Engineering Corporation,核 N,,dynamicengineeringcorporation(dec)
+617,パキスタン Islamic Republic of Pakistan,"EnerQuip Private, Ltd.",,"ミサイル、核 M,N",,"enerquipprivate,ltd."
+618,パキスタン Islamic Republic of Pakistan,Engineering and Commercial Services (ECS),,核 N,,engineeringandcommercialservices(ecs)
+619,パキスタン Islamic Republic of Pakistan,Engineering Solutions Pvt. Ltd.,,"ミサイル、核 M,N",,engineeringsolutionspvt.ltd.
+620,パキスタン Islamic Republic of Pakistan,ERDC Metal Paint Products (Pvt) Ltd.,Metal Paint Products (Pvt) Ltd␞MPPL,"ミサイル、核 M,N",,erdcmetalpaintproducts(pvt)ltd.
+621,パキスタン Islamic Republic of Pakistan,FabCon International,,核 N,,fabconinternational
+622,パキスタン Islamic Republic of Pakistan,FACO Trading,,"ミサイル、核 M,N",,facotrading
+623,パキスタン Islamic Republic of Pakistan,Future Systems Pvt. Ltd.,,ミサイル M,,futuresystemspvt.ltd.
+624,パキスタン Islamic Republic of Pakistan,H and A International,H&A International,核 N,,handainternational
+625,パキスタン Islamic Republic of Pakistan,Hassan Scientific Corporation,Hasan Scientific Corporation,核 N,,hassanscientificcorporation
+626,パキスタン Islamic Republic of Pakistan,Heavy Mechanical Complex,,"ミサイル、核 M,N",,heavymechanicalcomplex
+627,パキスタン Islamic Republic of Pakistan,Heavy Mechanical Complex-3,,"ミサイル、核 M,N",,heavymechanicalcomplex-3
+628,パキスタン Islamic Republic of Pakistan,High Landers Scientific Systems,,核 N,,highlandersscientificsystems
+629,パキスタン Islamic Republic of Pakistan,Iman Group,Pana Communication Inc.,"ミサイル、核 M,N",,imangroup
+630,パキスタン Islamic Republic of Pakistan,IMCO Technology and Services,IMCO,核 N,,imcotechnologyandservices
+631,パキスタン Islamic Republic of Pakistan,Impex Trade & Services,,核 N,,impextrade&services
+632,パキスタン Islamic Republic of Pakistan,Industrial Galaxy,,"ミサイル、核 M,N",,industrialgalaxy
+633,パキスタン Islamic Republic of Pakistan,Insight Enterprises Inc.,,核 N,,insightenterprisesinc.
+634,パキスタン Islamic Republic of Pakistan,Inspectech,,核 N,,inspectech
+635,パキスタン Islamic Republic of Pakistan,Interscan,,"生物、化学、ミサイル、核 B,C,M,N",,interscan
+636,パキスタン Islamic Republic of Pakistan,Intralink Incorporated,,"ミサイル、核 M,N",,intralinkincorporated
+637,パキスタン Islamic Republic of Pakistan,Iqbal Enterprises,,核 N,,iqbalenterprises
+638,パキスタン Islamic Republic of Pakistan,Jim Corporation,,"ミサイル、核 M,N",,jimcorporation
+639,パキスタン Islamic Republic of Pakistan,Karachi Nuclear Power Complex (KANUPP),Karachi Nuclear Power Plant,核 N,,karachinuclearpowercomplex(kanupp)
+640,パキスタン Islamic Republic of Pakistan,Kepler Corporation,,核 N,,keplercorporation
+641,パキスタン Islamic Republic of Pakistan,Khan Research Laboratories (KRL),Abdul Qader Khan Research Laboratories␞Engineering Research Laboratories (ERL)␞Institute of Industrial Control Systems (IICS)␞Kahuta Nuclear Facility␞Kahuta Research Facility,"生物、化学、ミサイル、核 B,C,M,N",,khanresearchlaboratories(krl)
+642,パキスタン Islamic Republic of Pakistan,KK International Traders (KKIT）,,核 N,,kkinternationaltraders(kkit)
+643,パキスタン Islamic Republic of Pakistan,KMA International Import and Export Co.,,"生物、化学、ミサイル、核 B,C,M,N",,kmainternationalimportandexportco.
+644,パキスタン Islamic Republic of Pakistan,KTK Engineering (Pvt) LTD,,核 N,,ktkengineering(pvt)ltd
+645,パキスタン Islamic Republic of Pakistan,K-SOFT Enterprises,,核 N,,k-softenterprises
+646,パキスタン Islamic Republic of Pakistan,L.T. Engineering & Trade Services (Pvt) Ltd.,LT Engineering and Trade Services (Pvt) Ltd.（LTE)␞L.T. Engineering & Trade Services PVT (LTD),"ミサイル、核 M,N",,l.t.engineering&tradeservices(pvt)ltd.
+647,パキスタン Islamic Republic of Pakistan,Link Lines (Pvt.) Limited,Link Lines.,"ミサイル、核 M,N",,linklines(pvt.)limited
+648,パキスタン Islamic Republic of Pakistan,Makkays Hi-Tech Systems,Zaib Electronics,ミサイル M,,makkayshi-techsystems
+649,パキスタン Islamic Republic of Pakistan,Maira Trade International,,"ミサイル、核 M,N",,mairatradeinternational
+650,パキスタン Islamic Republic of Pakistan,Marine Systems Pvt. Ltd.,,ミサイル M,,marinesystemspvt.ltd.
+651,パキスタン Islamic Republic of Pakistan,Maritime Technology Complex (MTC),,ミサイル M,,maritimetechnologycomplex(mtc)
+652,パキスタン Islamic Republic of Pakistan,Mecatech (Private) Limited,Mecatech,核 N,,mecatech(private)limited
+653,パキスタン Islamic Republic of Pakistan,Micado,Micado (Pvt) Limited␞Micado (Pvt) Ltd.,"ミサイル、核 M,N",,micado
+654,パキスタン Islamic Republic of Pakistan,Middle East Automation & Controls Services,MACS␞MEACS,核 N,,middleeastautomation&controlsservices
+655,パキスタン Islamic Republic of Pakistan,Mirza and Co,Mirza,核 N,,mirzaandco
+656,パキスタン Islamic Republic of Pakistan,MSN International,,"生物、化学、ミサイル、核 B,C,M,N",,msninternational
+657,パキスタン Islamic Republic of Pakistan,Muhandis Corporation,,核 N,,muhandiscorporation
+658,パキスタン Islamic Republic of Pakistan,NA Enterprises,,核 Ｎ,,naenterprises
+659,パキスタン Islamic Republic of Pakistan,National Centre for Non Destructive Testing (NCNDT),,"ミサイル、核 M,N",,nationalcentrefornondestructivetesting(ncndt)
+660,パキスタン Islamic Republic of Pakistan,National Development Complex (NDC),National Defense Complex␞National Development Centre,"ミサイル、核 M,N",,nationaldevelopmentcomplex(ndc)
+661,パキスタン Islamic Republic of Pakistan,National Engineering and Scientific Commission (NESCOM),,"ミサイル、核 M,N",,nationalengineeringandscientificcommission(nescom)
+662,パキスタン Islamic Republic of Pakistan,National Engineering Service Trading and Consultancy Company,NESTACC,核 N,,nationalengineeringservicetradingandconsultancycompany
+663,パキスタン Islamic Republic of Pakistan,National Institute of Lasers and Optronics (NILOP),National Institute of Lasers,核 N,,nationalinstituteoflasersandoptronics(nilop)
+664,パキスタン Islamic Republic of Pakistan,Nazir and Sons International,,"生物、化学、ミサイル、核 B,C,M,N",,nazirandsonsinternational
+665,パキスタン Islamic Republic of Pakistan,New Auto Engineering (NAE),,ミサイル M,,newautoengineering(nae)
+666,パキスタン Islamic Republic of Pakistan,Oriental Engineers,Advance Technologies␞Advanced Technologies␞Oriental Engineers Pvt. Ltd.␞Oriental Engineers Services,"ミサイル、核 M,N",,orientalengineers
+667,パキスタン Islamic Republic of Pakistan,Orion Eleven Pvt. Ltd.,,ミサイル M,,orionelevenpvt.ltd.
+668,パキスタン Islamic Republic of Pakistan,Pakistan Aeronautical Complex (PAC),,"ミサイル、核 M,N",,pakistanaeronauticalcomplex(pac)
+669,パキスタン Islamic Republic of Pakistan,Pakistan Atomic Energy Commission (PAEC),Power Plant Workshops,"ミサイル、核 M,N",,pakistanatomicenergycommission(paec)
+670,パキスタン Islamic Republic of Pakistan,Pakistan Institute of Engineering & Applied Sciences (PIEAS),,核 N,,pakistaninstituteofengineering&appliedsciences(pieas)
+671,パキスタン Islamic Republic of Pakistan,Pakistan Institute of Nuclear Science and Technology (PINSTECH),,核 N,,pakistaninstituteofnuclearscienceandtechnology(pinstech)
+672,パキスタン Islamic Republic of Pakistan,Pakistan Ordnance Factories (POF),,"生物、化学、ミサイル、核 B,C,M,N",,pakistanordnancefactories(pof)
+673,パキスタン Islamic Republic of Pakistan,Paktech Engineers,,核 N,,paktechengineers
+674,パキスタン Islamic Republic of Pakistan,Pentium Engineering Solutions,,核 N,,pentiumengineeringsolutions
+675,パキスタン Islamic Republic of Pakistan,People's Steel Mills Ltd.,Peoples Steel Mills␞People's Steel Mills Ltd.␞People's Steel Mills,"化学、ミサイル、核 C,M,N",,people'ssteelmillsltd.
+676,パキスタン Islamic Republic of Pakistan,Pervaiz Commercial Trading Co. (PCTC),,核 N,,pervaizcommercialtradingco.(pctc)
+677,パキスタン Islamic Republic of Pakistan,Pie Trading House,,"ミサイル、核 M,N",,pietradinghouse
+678,パキスタン Islamic Republic of Pakistan,Premier International,Align Impex,"ミサイル、核 M,N",,premierinternational
+679,パキスタン Islamic Republic of Pakistan,Prime Tech,,核 N,,primetech
+680,パキスタン Islamic Republic of Pakistan,Proficient Engineers,,核 N,,proficientengineers
+681,パキスタン Islamic Republic of Pakistan,Profile Engineering Works,,"ミサイル、核 M,N",,profileengineeringworks
+682,パキスタン Islamic Republic of Pakistan,QTech,Quality Technology,核 N,,qtech
+683,パキスタン Islamic Republic of Pakistan,RAINBOW SOLUTIONS,,核 N,,rainbowsolutions
+684,パキスタン Islamic Republic of Pakistan,Rohtas Enterprises,,核 N,,rohtasenterprises
+685,パキスタン Islamic Republic of Pakistan,S.M.B Associates,SMB Associates,核 N,,s.m.bassociates
+686,パキスタン Islamic Republic of Pakistan,Samina Pvt. Ltd.,,核 N,,saminapvt.ltd.
+687,パキスタン Islamic Republic of Pakistan,Sayyed Brothers Engineering Co. （SBEC）,,核 N,,sayyedbrothersengineeringco.(sbec)
+688,パキスタン Islamic Republic of Pakistan,Sci-Tech Global,,核 N,,sci-techglobal
+689,パキスタン Islamic Republic of Pakistan,Sitara Chemical Industries Ltd.,Sitara Chemicals Industries Ltd.,"化学、核 C,N",,sitarachemicalindustriesltd.
+690,パキスタン Islamic Republic of Pakistan,Solutions Engineering Pvt. Ltd.,Solutronix Engineering Pvt. Ltd.␞Solutronix Pvt. Ltd.,核 N,,solutionsengineeringpvt.ltd.
+691,パキスタン Islamic Republic of Pakistan,Space and Upper Atmosphere Research Commission (SUPARCO),Space and Upper Atmospheric Research Commission,ミサイル M,,spaceandupperatmosphereresearchcommission(suparco)
+692,パキスタン Islamic Republic of Pakistan,Sumico Technologies,,"ミサイル、核 M,N",,sumicotechnologies
+693,パキスタン Islamic Republic of Pakistan,Swan International Trading,,核 N,,swaninternationaltrading
+694,パキスタン Islamic Republic of Pakistan,Techlink Communications,,"ミサイル、核 M,N",,techlinkcommunications
+695,パキスタン Islamic Republic of Pakistan,Techlinks,,"ミサイル、核 M,N",,techlinks
+696,パキスタン Islamic Republic of Pakistan,Techno-Commercial,TCL␞Techserve,核 N,,techno-commercial
+697,パキスタン Islamic Republic of Pakistan,Teko Global Vision Pvt Ltd,"Tianjin Hanex Technology Co., Ltd","ミサイル、核 M,N",,tekoglobalvisionpvtltd
+698,パキスタン Islamic Republic of Pakistan,TELEC Electronics & Machinery (Pvt) Ltd.,TELEC,"ミサイル、核 M,N",,telecelectronics&machinery(pvt)ltd.
+699,パキスタン Islamic Republic of Pakistan,The Sadidians,,核 Ｎ,,thesadidians
+700,パキスタン Islamic Republic of Pakistan,Time & Tune,,"ミサイル、核 M,N",,time&tune
+701,パキスタン Islamic Republic of Pakistan,Triton Educational Equipment & Consultancy Co.,,核 N,,tritoneducationalequipment&consultancyco.
+702,パキスタン Islamic Republic of Pakistan,UEC (Pvt.) Ltd.,,核 N,,uec(pvt.)ltd.
+703,パキスタン Islamic Republic of Pakistan,Universal Tooling Services,Forward Design and Manufacturing␞MSM Enterprises␞Technopak Engineering,"ミサイル、核 M,N",,universaltoolingservices
+704,パキスタン Islamic Republic of Pakistan,Value Additions (Pvt) Limited.,,"ミサイル、核 M,N",,valueadditions(pvt)limited.
+705,香港 Hong Kong,"ADVANTAGE TRADING CO., LIMITED","Jin Ying Trading Co., Ltd.␞优势贸易有限公司",ミサイル M,,limitedadvantagetradingco.
+706,香港 Hong Kong,ARTTRONIX INTERNATIONAL HK LIMITED （億電國際香港有限公司）,Arttronix␞ADERAL INDUSTRIAL HK LTD.,ミサイル、核 M、N,,arttronixinternationalhklimited(億電國際香港有限公司)
+707,香港 Hong Kong,BRIGHT SHORE INC LIMITED,,ミサイル、核 M、N,,brightshoreinclimited
+708,香港 Hong Kong,BTW INTERNATIONAL LIMITED,,ミサイル、核 M、N,,btwinternationallimited
+709,香港 Hong Kong,CHINA CHLORATE TECH CO LIMITED,,ミサイル M,,chinachloratetechcolimited
+710,香港 Hong Kong,CLOUD ELEMENT COMPANY LIMITED,,ミサイル、核 M、N,,cloudelementcompanylimited
+711,香港 Hong Kong,"DALI RF TECHNOLOGY CO., LIMITED （大立射頻技術有限公司）",,ミサイル M,,limited(大立射頻技術有限公司)dalirftechnologyco.
+712,香港 Hong Kong,Detail Technology (HK) Limited,,ミサイル M,,detailtechnology(hk)limited
+713,香港 Hong Kong,DIRAC TECHNOLOGY HK LIMITED,Dirac Technology (HK) Limited Group,ミサイル M,,diractechnologyhklimited
+714,香港 Hong Kong,DULING TECHNOLOGY (HK) LIMITED. （都灵科技香港有限公司）,Duling Technology,ミサイル M,,dulingtechnology(hk)limited.(都灵科技香港有限公司)
+715,香港 Hong Kong,"FY INTERNATIONAL TRADING CO., LIMITED （伊國際貿易有限公司）",FYIT,ミサイル M,,limited(伊國際貿易有限公司)fyinternationaltradingco.
+716,香港 Hong Kong,General Technology Limited（大眾科技有限公司 ）,,ミサイル M,,generaltechnologylimited(大眾科技有限公司)
+717,香港 Hong Kong,HONGKONG HIMARK ELECTRON MODEL LIMITED （香港華邁電子模型有限公司）,Hongkong Himark,ミサイル M,,hongkonghimarkelectronmodellimited(香港華邁電子模型有限公司)
+718,香港 Hong Kong,"HONG KONG KE.DO INTERNATIONAL TRADE CO., LIMITED（香港科鬥國際貿易有限公司）",Hong Kong Ke.Do,ミサイル M,,limited(香港科鬥國際貿易有限公司)hongkongke.dointernationaltradeco.
+719,香港 Hong Kong,ICGOO ELECTRONICS LIMITED（創新在線電子有限公 司）,ICGOO Online Mall,ミサイル M,,icgooelectronicslimited(創新在線電子有限公司)
+720,香港 Hong Kong,JOTRIN ELECTRONICS LIMITED,杰驰电子有限公司␞深圳市杰驰电子有限公司␞Shenzhen Jotrin Electronics Co. Ltd.,ミサイル M,,jotrinelectronicslimited
+721,香港 Hong Kong,K Logistics (China) Limited （快急送物流(中國)有限公司）,K Logistics Hong Kong␞精滙企管科技有限公司␞3M Limited␞Kingway Managing Technic Limited,ミサイル M,,klogistics(china)limited(快急送物流(中國)有限公司)
+722,香港 Hong Kong,"NANXIGU TECHNOLOGY CO., LIMITED（南溪穀科技有 限公司）",,ミサイル M,,limited(南溪穀科技有限公司)nanxigutechnologyco.
+723,香港 Hong Kong,LINGOE PROCESS ENGINEERING LIMITED,Lingoe,ミサイル M,,lingoeprocessengineeringlimited
+724,香港 Hong Kong,RAVEN INTERNATIONAL TRADE LIMITED（瑞文機械有 限公司）,,ミサイル M,,raveninternationaltradelimited(瑞文機械有限公司)
+725,香港 Hong Kong,TAS TECHNOLOGY COMPANY LIMITED,"TAS TECHNOLOGY CO., LIMITED",ミサイル、核 M、N,,tastechnologycompanylimited
+726,香港 Hong Kong,WIN KEY LIMITED,,ミサイル M,,winkeylimited
+727,レバノン Republic of Lebanon,Best Electronics S.A.L,,"生物、化学、ミサイル B,C,M",,bestelectronicss.a.l
+728,レバノン Republic of Lebanon,Denise Company,,"生物、化学、ミサイル B,C,M",,denisecompany
+729,レバノン Republic of Lebanon,EFAB S.A.R.L,,"生物、化学、ミサイル B,C,M",,efabs.a.r.l
+730,レバノン Republic of Lebanon,EKT Electronics,AL AMIR ELECTRONICS␞ALAMIR ELECTRONICS␞AL-AMIR ELECTRONICS␞AMIRCO ELECTRONICS␞E.K.T. (KATRANGI BROS.)␞EKT␞EKT (KATRANGI BROS)␞EKT ELECTRONICS␞EKT KATRANGI BROTHERS␞ELECTRONIC KATRANGI GROUP␞ELECTRONIC SYSTEM GROUP␞ESG␞KATRANGI ELECTRONICS␞KATRANGI FOR ELECTRONICS INDUSTRIES␞KATRANGI TRADING KATRANJI LABS␞LUMIERE ELYSEES (Latin: LUMIÈRE ELYSÉES)␞NKTRONICS␞SMART GREEN POWER␞SMART PEGASUS E.K.T.,"生物、化学、ミサイル B,C,M",,ektelectronics
+731,レバノン Republic of Lebanon,POLO TRADING,,"生物、化学、ミサイル B,C,M",,polotrading
+732,レバノン Republic of Lebanon,Shadi for Cars Trading,,"生物、化学、ミサイル B,C,M",,shadiforcarstrading
+733,レバノン Republic of Lebanon,Technolab,Techno Lab,"生物、化学、ミサイル B,C,M",,technolab
+734,レバノン Republic of Lebanon,TOP TECHNOLOGIES SARL,,"生物、化学、ミサイル B,C,M",,toptechnologiessarl
+735,レバノン Republic of Lebanon,Vibes International Inc Sarl,,"生物、化学、ミサイル B,C,M",,vibesinternationalincsarl
+736,ロシア Russian Federation,27th Scientific Center of the Russian Ministry of Defense,27th NTs␞FEDERAL STATE BUDGETARY ESTABLISHMENT 27 SCIENTIFIC CENTER OF THE MINISTRY OF DEFENSE OF THE RUSSIAN FEDERATION,化学 C,,27thscientificcenteroftherussianministryofdefense
+737,ロシア Russian Federation,33rd Scientific Research and Testing Institute,33rd TsNIII␞FEDERAL STATE BUDGETARY ESTABLISHMENT 33 CENTRAL SCIENTIFIC RESEARCH TEST INSTITUTE OF THE MINISTRY OF DEFENSE OF THE RUSSIAN,化学 C,,33rdscientificresearchandtestinginstitute
+738,ロシア Russian Federation,Admiralty Shipyard JSC,,,通常兵器 CW,admiraltyshipyardjsc
+739,ロシア Russian Federation,AO GNPP Region,"""Region"" Scientific & Production Enterprise JSC",,通常兵器 CW,aognppregion
+740,ロシア Russian Federation,AO Kronshtadt,Kronshtadt Group␞Kronshtadt␞Kronde Group␞ZAO Kronshtadt,ミサイル M,通常兵器 CW,aokronshtadt
+741,ロシア Russian Federation,AO PKK Milandr,"JSC ICC MILANDR␞JSC PKK Milandr␞Milandr␞MPK Milandr, OOO␞PKK Milandr AO",核 N,,aopkkmilandr
+742,ロシア Russian Federation,"""Avangard"" JSC","Tactical Missile Corporation, Joint Stock Company Avangard",ミサイル M,,"avangard""jsc"
+743,ロシア Russian Federation,"""Central Design Bureau for Automatics Engineering"" JSC","Aktsionernoe Obshchestvo “Tsentralnoe Konstruktorskoe Byuro Avtomatiki”␞AO “TsKBA”␞JSC “TsKBA”␞Tactical Missile Corporation, “Central Design Bureau of Automation”",ミサイル M,通常兵器 CW,"centraldesignbureauforautomaticsengineering""jsc"
+744,ロシア Russian Federation,chimmed group,Chimmed␞Khimmed␞OOO Khimmed␞SPK Khimmed␞TD Chimmed␞TD Khimmed,"生物、化学 B,C",,chimmedgroup
+745,ロシア Russian Federation,Engineering Center Ltd.,"Certified Engineering Center, Ltd.␞EC␞LCEC",化学 C,,engineeringcenterltd.
+746,ロシア Russian Federation,Federal Security Service（FSB）,,化学 C,通常兵器 CW,federalsecurityservice(fsb)
+747,ロシア Russian Federation,Federal State Unitary Enterprise Dukhov Automatics Research Institute（VNIIA）,,核 N,,federalstateunitaryenterprisedukhovautomaticsresearchinstitute(vniia)
+748,ロシア Russian Federation,Foreign Intelligence Service（SVR）,,"ミサイル、核 M,N",,foreignintelligenceservice(svr)
+749,ロシア Russian Federation,"FSUE ""The Federal Center for Dual-Use Technologies ""Soyuz""",Federal Center for Dual-Use Technology (FTsDT) Soyuz␞FSUE FCDT Soyuz,ミサイル M,,"fsue""thefederalcenterfordual-usetechnologies""soyuz"
+750,ロシア Russian Federation,Ilyushin Aviation Complex Branch: Myasishcheva Experimental Mechanical Engineering Plant,Myasishcheva EMZ,ミサイル M,,ilyushinaviationcomplexbranch:myasishchevaexperimentalmechanicalengineeringplant
+751,ロシア Russian Federation,International Center for Quantum Optics and Quantum Technologies LLS,OOO MTSKT␞RQC␞Russian Quantum Center,核 N,,internationalcenterforquantumopticsandquantumtechnologieslls
+752,ロシア Russian Federation,Intertech Rus LLC,Intertek Rus OOO,"生物、化学、ミサイル、核 B,C,M,N",,intertechrusllc
+753,ロシア Russian Federation,"""Iskra"" Engineering Design Bureau JSC named after I.I. Kartukov","Aktsionernoe Obshchestvo “Mashinostroitelnoe Konstruktorskoe Byuro “Iskra” Imeni Ivana Ivanovicha Kartukova”␞AO MKB “ISKRA”␞Tactical Missile Corporation, PJSC “MBDB ISKRA”",ミサイル M,通常兵器 CW,"iskra""engineeringdesignbureaujscnamedafteri.i.kartukov"
+754,ロシア Russian Federation,Joint Stock Company Angstrem,Angstrem JSC,ミサイル M,通常兵器 CW,jointstockcompanyangstrem
+755,ロシア Russian Federation,Joint Stock Company Angstrem-T,AKTSIONERNOE OBSHCHESTVO ANGSTREM-T,ミサイル M,,jointstockcompanyangstrem-t
+756,ロシア Russian Federation,Joint-Stock Company Concern Almaz-Antey,Almaz-Antey Corp␞Almaz-Antey Defense Corporation␞Almaz-Antey JSC␞Otkrytoe Aktsionernoe Obshchestvo Kontsern PVO Almaz Antei,,通常兵器 CW,joint-stockcompanyconcernalmaz-antey
+757,ロシア Russian Federation,Joint Stock Company Concern Avrora Scientific and Production Association,AO Kontsern Nauchno-Proizvodstvennoe Obedinenie Avrora␞AO Kontsern NPO Avrora␞Avrora Systems␞Avrora JSC␞Concern Avrora Scientific Production Association␞Concern Research and Production Association Avrora␞NPO Avrora␞OJSC Concern NPO Avrora,,通常兵器 CW,jointstockcompanyconcernavrorascientificandproductionassociation
+758,ロシア Russian Federation,Joint Stock Company Concern Avtomatika,AO Kontsern Avtomatika␞JSC Concern Automation␞OJSC Kontsern Avtomatika,,通常兵器 CW,jointstockcompanyconcernavtomatika
+759,ロシア Russian Federation,Joint Stock Company Concern Sozvezdie,JSC Concern Sozvezdie␞JSC Sozvezdie Concern␞Joint Stock Company Concern Sozvezdie␞AO Kontsern Sozvezdie,,通常兵器 CW,jointstockcompanyconcernsozvezdie
+760,ロシア Russian Federation,Joint Stock Company Design Bureau of Special Machine Building,AO KBSM␞AO Konstruktorskoe Byuro Spetsialnogo Mashinostroeniya␞JSC Design Bureau of Special Machine Building␞KBSM␞Design Bureau of Special Machine Building AO␞Design Bureau of Special Machine Building␞KBSM Design Bureau of Special Machine Building␞Joint Stock Company KBSM␞Joint Stock Company Engineering Office Spetsialnogo Mashinostroyeniya,ミサイル M,通常兵器 CW,jointstockcompanydesignbureauofspecialmachinebuilding
+761,ロシア Russian Federation,Joint Stock Company Experimental Design Bureau Novator,Novator Design Bureau; and␞JSC OKB Novator,ミサイル M,通常兵器 CW,jointstockcompanyexperimentaldesignbureaunovator
+762,ロシア Russian Federation,"Joint Stock Company ""Federal Center of Science and High Technologies ""SNPO ""Eleron""",Joint Stock Company Eleron␞JSC FCS&HT SNPO Eleron␞SNPO Eleron,核 N,,"jointstockcompany""federalcenterofscienceandhightechnologies""snpo""eleron"
+763,ロシア Russian Federation,Joint Stock Company Federal Scientific and Production Center Titan-Barrikady,Federal Research and Production Center Titan Barrikady JSC␞Titan Design Bureau␞JSC FNPTs Titan-Barrikady,ミサイル M,通常兵器 CW,jointstockcompanyfederalscientificandproductioncentertitan-barrikady
+764,ロシア Russian Federation,Joint Stock Company Institute for Scientific Research Microelectronic Equipment Progress,AO NIIMA Progress␞Microelectronics Research Institute Progress JSC␞Nauchno-Issledovatelskiy Institut Mikroelektronnoiy Apparatury Progress␞Progress MRI JSC,,通常兵器 CW,jointstockcompanyinstituteforscientificresearchmicroelectronicequipmentprogress
+765,ロシア Russian Federation,Joint Stock Company Machine-Building Engineering Office Fakel Named After Akademika P.D. Grushina,AO MKB Fakel␞Engineering Design Bureau Fakel␞JSC EBD Fakel␞Mashinostroitelnoe Konstruktorskoe Byuro Fakel I.M. Akademika P.D. Grushina,,通常兵器 CW,jointstockcompanymachine-buildingengineeringofficefakelnamedafterakademikap.d.grushina
+766,ロシア Russian Federation,Joint Stock Company North Western Regional Center of Almaz Antey Concern Obukhovsky Plant,AO GOZ␞AO Severo-Zapadny Regionalny Tsentr Kontserna VKO Almaz-Antei Obukhovsky Zavod␞JSC GOZ Obukhov Plant␞JSC Obukhovskiy Zavod␞JSC SOP Obukhovskiy Plant,ミサイル M,通常兵器 CW,jointstockcompanynorthwesternregionalcenterofalmazanteyconcernobukhovskyplant
+767,ロシア Russian Federation,Joint Stock Company NPO Elektromechaniki,JSC Scientific and Production Association of Electro Mechanic,ミサイル M,,jointstockcompanynpoelektromechaniki
+768,ロシア Russian Federation,Joint Stock Company Precision Engineering Design Bureau named after A.E. Nudelman,AO Konstruktorskoe Byuro Tochnogo Mashinostroeniya imeni A.E. Nudelmana␞AO KB Tochmash im. A.E. Nudelmana␞JSC Precision Machine Building Design Bureau Nudelman␞KB Tochmash␞Nudelman Precision Engineering Design Bureau␞Tochmash,,通常兵器 CW,jointstockcompanyprecisionengineeringdesignbureaunamedaftera.e.nudelman
+769,ロシア Russian Federation,JOINT STOCK COMPANY RESEARCH AND PRODUCTION CORPORATION KONSTRUKTORSKOYE BYURO MASHYNOSTROYENIYA,JSC NPK KBM␞JSC Research and Production Corporation Design Bureau of Mechanical Engineering␞KB Mashinostroeniya,"化学、ミサイル C,M",通常兵器 CW,jointstockcompanyresearchandproductioncorporationkonstruktorskoyebyuromashynostroyeniya
+770,ロシア Russian Federation,"Joint Stock Company""Severniy press""","AO Severnyi Press␞Northern Press␞Tactical Missile Corporation, Joint Stock Company Severny Press",ミサイル M,通常兵器 CW,"jointstockcompany""severniypress"
+771,ロシア Russian Federation,Joint Stock Company Scientific Research Institute of Computer Engineering NII SVT,AKTSIONERNOE OBSHCHESTVO NAUCHNO ISSLEDOVATELSKII INSTITUT SREDSTV VYCHISLITELNOI TEKHNIKI␞AO Nauchno Issledovatelskii Institut Sredstv Vychislitelnoi Tekhniki␞AO NII SVT␞NII SVT PAO,生物 B,,jointstockcompanyscientificresearchinstituteofcomputerengineeringniisvt
+772,ロシア Russian Federation,Joint Stock Company Tekhnodinamika,AO Tekhnodinamika␞JSC Aviation Equipment␞JSC Technodynamics,,通常兵器 CW,jointstockcompanytekhnodinamika
+773,ロシア Russian Federation,Joint Stock Company Ufa Aggregate Enterprise “Gidravlika”,,,通常兵器 CW,"jointstockcompanyufaaggregateenterprise""gidravlika"
+774,ロシア Russian Federation,Joint Stock Company Uraltransmash,Urals Plant of Transportation Machinery Joint Stock Company␞Aktsionernoe Obshchestvo Uralskiy Zavod Transportnogo Mashinostroeniya␞the Urals Plant of Transport Engineering␞JSC Ural Plant of Transport Mechanical Engineering,,通常兵器 CW,jointstockcompanyuraltransmash
+775,ロシア Russian Federation,Joint Stock Company Votkinsky Zavod,,ミサイル M,,jointstockcompanyvotkinskyzavod
+776,ロシア Russian Federation,JSC Concern Granit-Electron,,,通常兵器 CW,jscconcerngranit-electron
+777,ロシア Russian Federation,JSC Concern Radio-Electronic Technologies（KRET）,,,通常兵器 CW,jscconcernradio-electronictechnologies(kret)
+778,ロシア Russian Federation,JSC Omsk Transport Machine Factory Omsktransmash,,,通常兵器 CW,jscomsktransportmachinefactoryomsktransmash
+779,ロシア Russian Federation,JSC SEZ Alabuga,Joint Stock Company Special Economic Zone of Industrial Production Alabuga␞AO OEZ PPT Alabuga␞Aktsionernoe Obshchestvo Osobaya Ekonomicheskaya Zona Promyshlenno-Proizvodstvennogo tipa Alabuga.,ミサイル M,,jscsezalabuga
+780,ロシア Russian Federation,Kalashnikov Concern,Concern Kalashnikov␞Izhevskiy Mashinostroitel'nyi Zavod OAO␞Izhmash R&D Center␞JSC NPO Izhmash␞NPO Izhmash OAO␞OJSC Concern Kalashnikov␞OJSC Izhmash␞Scientific Production Association Izhmash Joint Stock Company,,通常兵器 CW,kalashnikovconcern
+781,ロシア Russian Federation,KAMAZ Publicly Traded Company,KAMAZ PJSC␞KAMAZ PAO␞KAMAZ PTC␞Kamskoe Obedinenie PO Proizvodstvu Bolshegruznykh Avtomobilei Kamaz,,通常兵器 CW,kamazpubliclytradedcompany
+782,ロシア Russian Federation,Konstruktorskoe Byuro Priborostroeniya Otkrytoe Aktsionernoe Obshchestvo,Instrument Design Bureau␞JSC KBP Instrument Design Bureau␞KBP Instrument Design Bureau␞KBP Instrument Design Bureau Joint Stock Company␞KBP OAO,,通常兵器 CW,konstruktorskoebyuropriborostroeniyaotkrytoeaktsionernoeobshchestvo
+783,ロシア Russian Federation,Laboratory Systems and Technologies LTD,LST LTD,"生物、化学、ミサイル、核 B,C,M,N",,laboratorysystemsandtechnologiesltd
+784,ロシア Russian Federation,LLC Alabuga Development,OOO Alabuga Development,ミサイル M,,llcalabugadevelopment
+785,ロシア Russian Federation,Main Intelligence Directorate,GLAVNOE RAZVEDYVATEL'NOE UPRAVLENIE␞GRU␞Main Intelligence Department,化学 C,,mainintelligencedirectorate
+786,ロシア Russian Federation,Mikron,JOINT STOCK COMPANY MIKRON␞MIKRON JSC␞NII MOLEKULYARNOI ELEKTRONIKI I ZAVOD MIKRON PAO␞NIIME AND MIKRON␞OTKRYTOE AKTSIONERNOE OBSHCHESTVO NII MOLEKULYARNOY ELECKTRONIKI I ZAVOD MIKRON␞PJSC MIKRON␞PUBLICHNOE AKTSIONERNOE OBSCHESTVO MIKRON,ミサイル M,通常兵器 CW,mikron
+787,ロシア Russian Federation,"""Military Industrial Corporation NPO Mashinostroenia"" JSC",Joint Stock Company Military Industrial Consortium NPO Mashinostroyenia␞Joint Stock Company Military-Industrial Corporation NPO Mashinostroyenia␞JSC MIC NPO Mashinostroyenia␞MIC NPO Mashinostroyeniya JSC␞Military Industrial Corporation NPO Mashinostroenia OAO␞Open Joint Stock Company Military Industrial Corporation Scientific and Production Machine Building Association␞Voenno-Promyshlennaya Korporatsiya Nauchno- Proizvodstvennoe Obedinenie Mashinostroeniya OAO␞VPK NPO Mashinostroeniya,ミサイル M,通常兵器 CW,"militaryindustrialcorporationnpomashinostroenia""jsc"
+788,ロシア Russian Federation,Ministry of Defence of the Russian Federation,,"ミサイル、核 M,N",通常兵器 CW,ministryofdefenceoftherussianfederation
+789,ロシア Russian Federation,N.A. Dollezhal Research and Design Institute of Power Engineering,JSC NIKIET␞JSC Order of Lenin Research and Design Institute of Energy Engineering named after N. A. Dollezhal␞N.A. Dollezhal Order of Lenin Research and Design Institute of Power Engineering,核 N,,n.a.dollezhalresearchanddesigninstituteofpowerengineering
+790,ロシア Russian Federation,Nilco Group,Nil Fam Khazar Company␞Nilfam Khazar Co.␞Santers Holding,ミサイル M,,nilcogroup
+791,ロシア Russian Federation,NPK Tekhmash OAO,Aktsionernoe obshchestvo Nauchnoproizvodstvenny Kontsern Tekhnologii Mashinostroeniya␞JSC Scientific Industrial Concern Manufacturing Engineering␞JSC SPC Techmash␞OJSC Machine Engineering Technologies␞Scientific Industrial Concern Manufacturing Engineering OJSC,,通常兵器 CW,npktekhmashoao
+792,ロシア Russian Federation,NPO High Precision Systems JSC,,ミサイル M,通常兵器 CW,npohighprecisionsystemsjsc
+793,ロシア Russian Federation,NPO of Electromechanics,"Tactical Missile Corporation, NPO Electromechanics",ミサイル M,,npoofelectromechanics
+794,ロシア Russian Federation,NPO Splav JSC,,,通常兵器 CW,nposplavjsc
+795,ロシア Russian Federation,NPP Istok,,ミサイル M,通常兵器 CW,nppistok
+796,ロシア Russian Federation,OOO Albatross,OOO Albatros␞Albatross LLC,ミサイル M,,oooalbatross
+797,ロシア Russian Federation,OAO GosNIIkhimanalit,State Research Chemical-Analytical Institute,化学 C,,oaogosniikhimanalit
+798,ロシア Russian Federation,OOO Intertech Instruments,Intertek Instruments,"生物、化学、ミサイル、核 B,C,M,N",,ooointertechinstruments
+799,ロシア Russian Federation,Open Joint Stock Company Aviadvigatel,,,通常兵器 CW,openjointstockcompanyaviadvigatel
+800,ロシア Russian Federation,POLYUS Research Institute of M.F. Stelmakh Joint Stock Company,,ミサイル M,,polyusresearchinstituteofm.f.stelmakhjointstockcompany
+801,ロシア Russian Federation,Public Joint Stock Company Kurganmashzavod,Kurganmashzavod␞OAO Kurganmashzavod␞PJSC Kurgan Machine Building Factory␞PJSC Kurgansky Mashinostroitelny Zavod␞PJSC Kurgansky Mashinostroitelny Factory,,通常兵器 CW,publicjointstockcompanykurganmashzavod
+802,ロシア Russian Federation,Public Joint Stock Company UEC-Ufa Engine Industrial Association,Public Joint Stock Company ODK-Ufim Motor-Building Production Association␞Public Joint-Stock Company ODK-Ufimskoye␞PJSC UEC-UMPO␞PAO UEC-UMPO␞ODK-Ufim Motor-Building Production Association␞PJSC ODK-UMPO␞United Engine Manufacturing Corporation-Ufa Engine Building Production Association Public Joint Stock Corporation␞UEC-Ufa Motor-Building Manufacturing Association␞ODK-UMPO Engine Building Enterprise␞Ufa Engine-Manufacturing Company␞ODK-UMPO PAO␞ODK-UMPO Engine Building Association␞Ufa Engine Building Manufacturing Company␞UEC-UMPO,,通常兵器 CW,publicjointstockcompanyuec-ufaengineindustrialassociation
+803,ロシア Russian Federation,Public Joint Stock Company United Aircraft Corporation,,ミサイル、核 M、N,通常兵器 CW,publicjointstockcompanyunitedaircraftcorporation
+804,ロシア Russian Federation,Radiotechnical and Information Systems (RTI) Concern,,,通常兵器 CW,radiotechnicalandinformationsystems(rti)concern
+805,ロシア Russian Federation,"""Raduga"" State Engineering Design Bureau JSC named after A.Y. Bereznyak","AO “GosMKB “Raduga” IM. A.Ya.Bereznyaka”␞GosMKB ""Rainbow"" them. AND I. Bereznyak␞Joint Stock Company “State Machine-Building Design Bureau “Raduga”␞MKB Raduga␞State Machine Building Design Bureau Raduga␞Tactical Missile Corporation, Raduga Design Bureau",ミサイル M,,"raduga""stateengineeringdesignbureaujscnamedaftera.y.bereznyak"
+806,ロシア Russian Federation,Rosoboronexport OJSC (ROE),ROSOBORONEXPORT JSC␞RUSSIAN DEFENSE EXPORT ROSOBORONEXPORT␞ROSOBORONEKSPORT OJSC␞ROSOBORONEXPORT␞АО Рособоронэкспорт␞Russian Defence Export␞OJSC ROSOBORONEXPORT␞Rosoboroneksport AO␞Акционерное общество␞Рособоронэкспорт␞Aktsionernoe Obshchestvo Rosoboroneksport␞State Corporation Rosoboronexport,ミサイル M,通常兵器 CW,rosoboronexportojsc(roe)
+807,ロシア Russian Federation,Rostec（Russian Technologies State Corporation）,,ミサイル M,通常兵器 CW,rostec(russiantechnologiesstatecorporation)
+808,ロシア Russian Federation,Ruselectronics JSC,,,通常兵器 CW,ruselectronicsjsc
+809,ロシア Russian Federation,Russian Aircraft Corporation MiG,,ミサイル、核 M、N,通常兵器 CW,russianaircraftcorporationmig
+810,ロシア Russian Federation,Russian Helicopters JSC,,,通常兵器 CW,russianhelicoptersjsc
+811,ロシア Russian Federation,Scientific Research Institute of Applied Acoustics,Applied Acoustics Research Institute␞NIIPA,"生物、化学、ミサイル B,C,M",,scientificresearchinstituteofappliedacoustics
+812,ロシア Russian Federation,"""Scientific Research Institute for Mechanical Engineering"" JSC","GosNIImash␞JSC Scientific Research Institute for Mechanical Engineering␞Pervichnaya Profsoyuznaya Organizatsiya Rossiskogo Profsoyuza Rabotnikov Promyshlennosti V “GOSNIIMASH”␞PPO Rosprofprom V “GOSNIIMASH”␞SKB DNIKhTI␞State Research Institute of Mechanical Engineering named after V.V. Bakhireva␞State Scientific Research Institute of Machine Building Bakhirev␞Tactical Missile Corporation, Joint Stock Company GosNIIMash",ミサイル M,通常兵器 CW,"scientificresearchinstituteformechanicalengineering""jsc"
+813,ロシア Russian Federation,Severnoye Design Bureau Joint Stock Company,Joint Stock Company North Design Bureau␞JSC NORTH PKB␞JSC Severnoye PKB␞Severnoe Design Bureau␞Severnoye Design Bureau,,通常兵器 CW,severnoyedesignbureaujointstockcompany
+814,ロシア Russian Federation,SMT-iLogic,"SMT-iLogic, LLC␞SMT Aylogik",ミサイル M,,smt-ilogic
+815,ロシア Russian Federation,Special Technology Center,"Special Technology Centre Limited Liability Company␞STC, Ltd.",ミサイル M,通常兵器 CW,specialtechnologycenter
+816,ロシア Russian Federation,St. Petersburg Marine Bureau of Machine Building Malakhit,SPMBM Malakhit␞Malakhit,,通常兵器 CW,st.petersburgmarinebureauofmachinebuildingmalakhit
+817,ロシア Russian Federation,State Scientific Research Institute of Organic Chemistry and Technology,GosNIIOKhT,化学 C,,statescientificresearchinstituteoforganicchemistryandtechnology
+818,ロシア Russian Federation,"""Strela"" Production Association JSC","Production Association Strela␞Tactical Missile Corporation, Joint Stock Company PA Strela",ミサイル M,,"strela""productionassociationjsc"
+819,ロシア Russian Federation,Sukhoi Aviation JSC,,ミサイル、核 M、N,通常兵器 CW,sukhoiaviationjsc
+820,ロシア Russian Federation,Systems of Biological Synthesis LLC,OOO SBS␞SBS LLC␞Sistemy Biologicheskogo Sinteza,生物 B,,systemsofbiologicalsynthesisllc
+821,ロシア Russian Federation,Tactical Missiles Corporation JSC,,ミサイル M,通常兵器 CW,tacticalmissilescorporationjsc
+822,ロシア Russian Federation,"""Temp-Avia"" Arzamas Research and Production Association JSC",ANPP TEMP AIR␞ANPP “Temp-Avia”␞Arzamasskoe Scientific Production Enterprise Temp Avia␞Joint Stock Company “Arzamas Research And Production Enterprise“TEMP-AVIA”␞OKB “Temp”␞Public Joint Stock Company “Arzamas Research and Production Enterprise”␞Publichnoe Aktsionernoe Obshchestvo “Arzamasskoe Nauchno-Proizvodstvennoe Predpriyatie “TEMP-AVIA”␞PJSC ANPP Temp Avia␞TEMP-AVIA,ミサイル M,,"temp-avia""arzamasresearchandproductionassociationjsc"
+823,ロシア Russian Federation,TsKB MT Rubin,Tsentralnoe Konstruktorskoe Byuro Morskoi Tekhniki Rubin␞The Rubin Central Design Bureau for Marine Engineering,,通常兵器 CW,tskbmtrubin
+824,ロシア Russian Federation,Tupolev JSC,,ミサイル、核 M、N,通常兵器 CW,tupolevjsc
+825,ロシア Russian Federation,Turayev Machine Building Design Bureau Soyuz,TMBDB SoyuZ PJSC,ミサイル M,通常兵器 CW,turayevmachinebuildingdesignbureausoyuz
+826,ロシア Russian Federation,UEC-Saturn,,ミサイル M,通常兵器 CW,uec-saturn
+827,ロシア Russian Federation,United Engine Corporation,,ミサイル M,通常兵器 CW,unitedenginecorporation
+828,ロシア Russian Federation,United Instrument Manufacturing Corporation,,,通常兵器 CW,unitedinstrumentmanufacturingcorporation
+829,ロシア Russian Federation,United Shipbuilding Corporation,Obedinennaya Sudostroitelnaya Korporatsiya OAO␞OJSC United Shipbuilding Corporation␞United Shipbuilding Corporation Joint Stock Company␞OSK OAO,,通常兵器 CW,unitedshipbuildingcorporation
+830,ロシア Russian Federation,"United Shipbuilding Corporation JSC ""SC ""Zvyozdochka""","Filial ""Astrakhanski Sudoremontny Zavod"" Aktsionernogo Obshchestva ""Tsentr sudoremonta ""Zvezdochka""",,通常兵器 CW,"unitedshipbuildingcorporationjsc""sc""zvyozdochka"
+831,ロシア Russian Federation,United Shipbuilding Corporation “Production Association Northern Machine Building Enterprise”,JSC PO Sevmash,ミサイル、核 M、N,通常兵器 CW,"unitedshipbuildingcorporation""productionassociationnorthernmachinebuildingenterprise"
+832,ロシア Russian Federation,Ural Research Institute of Composite Materials,Ural Scientific Research Institute for Composite Materials,ミサイル M,,uralresearchinstituteofcompositematerials
+833,ロシア Russian Federation,Uralvagonzavod,Nauchno-Proizvodstvennaya Korporatsiya Uralvagonzavod OAO␞NPK Uralvagonzavod␞NPK Uralvagonzavod OAO␞OJSC Research and Production Corporation Uralvagonzavod␞Research and Production Corporation Uralvagonzavod␞Research and Production Corporation Uralvagonzavod OAO␞Uralvagonzavod Corporation␞UVZ,,通常兵器 CW,uralvagonzavod
+834,ロシア Russian Federation,"""Vympel"" State Engineering Design Bureau JSC named after I.I. Toropov","AO Gos MKB “Vympel” named for II Toropov␞Tactical Missile Corporation, Joint Stock Company “State Machine Building Design Bureau “Vympel” By Name I.I. Toropov”␞Vympel NPO",ミサイル M,通常兵器 CW,"vympel""stateengineeringdesignbureaujscnamedafteri.i.toropov"
+835,ロシア Russian Federation,"Zavod ""Miass""",AO Miasskiy mashinostroitelnyy zavod␞JSC MMZ␞Miass Machine-Building Factory,ミサイル M,,"zavod""miass"
