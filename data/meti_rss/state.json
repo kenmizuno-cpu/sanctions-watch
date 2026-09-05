@@ -1,6 +1,17 @@
 {
+  "audit_baseline_synced": true,
   "baseline_synced": true,
+  "content_hash": "ae1eb72bba8d18f20bc9a7bb38611e5f9c2db3d242163875b8b6b6a44fa6c9d0",
+  "current_candidate_count": 0,
+  "etag": "W/\"85de91fe47e2f3e3e025833da3ffffab\"",
   "feed_url": "https://www.meti.go.jp/ml_index_release_atom.xml",
+  "last_issue_at": "2026-09-05T19:44:13+00:00",
+  "last_issue_fingerprint": "1450dd4ab814fe99410f7b9197e3b7e24ba3d60b9afc776ff7b287d43775a8b5",
+  "last_issue_message": "RSS最終entryが古すぎる: latest=2026-06-19T05:00:00Z, age=1886.7h, threshold=168h",
+  "last_issue_type": "stale",
+  "last_modified": "Thu, 25 Jun 2026 20:29:34 GMT",
+  "latest_entry_updated": "2026-06-19T05:00:00Z",
+  "record_count": 25,
   "seen_candidate_ids": [],
-  "version": 2
+  "version": 3
 }
