@@ -6,3 +6,5 @@ google-auth>=2.23
 urllib3<2; python_version < "3.10"
 urllib3<2; python_version < "3.10"
 urllib3<2; python_version < "3.10"
+
+pdfplumber>=0.11,<1
