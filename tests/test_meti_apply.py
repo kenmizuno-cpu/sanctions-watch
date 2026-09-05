@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import csv
+import tempfile
 import unittest
+from pathlib import Path
 
 from src import meti_apply as A
 from src import meti_apply_plan as P
@@ -400,6 +403,71 @@ class TestMetiApplyExecutor(unittest.TestCase):
             ],
             1,
         )
+
+
+    def test_dashboard_write_and_consistency_guard(self):
+        master = {
+            "alpha": master_row(
+                "ALPHA",
+                "経産省",
+            ),
+            "beta": master_row(
+                "BETA",
+                "OFAC;経産省",
+            ),
+        }
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+
+            out = A._write_and_verify_dashboard(
+                master,
+                root=root,
+            )
+
+            self.assertTrue(out.exists())
+
+            with out.open(
+                encoding="utf-8-sig",
+                newline="",
+            ) as f:
+                rows = list(csv.reader(f))
+
+            self.assertEqual(
+                rows[0],
+                [
+                    "受取人名",
+                    "リスクタイプ",
+                    "状態",
+                    "リスク度",
+                ],
+            )
+            self.assertEqual(
+                len(rows) - 1,
+                2,
+            )
+
+            # dashboardだけ古い/誤った状態になったケースを再現。
+            rows[1][2] = "無効"
+
+            with out.open(
+                "w",
+                encoding="utf-8",
+                newline="",
+            ) as f:
+                w = csv.writer(
+                    f,
+                    lineterminator="\n",
+                )
+                w.writerows(rows)
+
+            with self.assertRaises(
+                A.ApplyError
+            ):
+                A._assert_dashboard_list_consistent(
+                    master,
+                    out,
+                )
 
 
 if __name__ == "__main__":

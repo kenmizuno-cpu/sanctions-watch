@@ -34,6 +34,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+from . import dashboard as D
 from . import master as M
 from . import meti_apply_plan as P
 from . import meti_review as R
@@ -44,10 +45,16 @@ from .meti_manual_import import (
     append_dashboard_row,
     save_state,
 )
-from .normalize import SRC_METI, match_key
+from .normalize import (
+    SRC_METI,
+    canonical_display_name,
+    is_trailing_unknown_artifact,
+    match_key,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 MASTER_PATH = ROOT / "data" / "master" / "master.csv"
+DASHBOARD_LIST_PATH = ROOT / "data" / "dashboard" / "list.csv"
 APPLICATION_DIR = (
     ROOT / "data" / "manual" / "meti" / "applications"
 )
@@ -1013,6 +1020,92 @@ def _git_clean() -> None:
         )
 
 
+def _assert_dashboard_list_consistent(
+    master: dict[str, dict],
+    path: Path,
+) -> None:
+    """masterとdashboard/list.csvの完全一致を検証する。"""
+
+    expected = Counter()
+
+    for row in master.values():
+        name = canonical_display_name(
+            row.get("display_name", "")
+        )
+
+        if is_trailing_unknown_artifact(name):
+            continue
+
+        expected[
+            (
+                name,
+                row.get("risk_type", ""),
+                row.get("status", ""),
+                row.get("risk_level", ""),
+            )
+        ] += 1
+
+    try:
+        with path.open(
+            encoding="utf-8-sig",
+            newline="",
+        ) as f:
+            rows = list(csv.reader(f))
+    except (OSError, csv.Error) as exc:
+        raise ApplyError(
+            "dashboard/list.csv読込失敗: "
+            f"{exc}"
+        ) from exc
+
+    if not rows:
+        raise ApplyError(
+            "dashboard/list.csvが空"
+        )
+
+    if rows[0] != D.LIST_COLS:
+        raise ApplyError(
+            "dashboard/list.csvヘッダー不一致: "
+            f"{rows[0]!r}"
+        )
+
+    actual = Counter(
+        tuple(row)
+        for row in rows[1:]
+    )
+
+    missing = expected - actual
+    extra = actual - expected
+
+    if missing or extra:
+        raise ApplyError(
+            "master/dashboard不一致: "
+            f"expected={sum(expected.values())} "
+            f"actual={sum(actual.values())} "
+            f"missing={sum(missing.values())} "
+            f"extra={sum(extra.values())}"
+        )
+
+
+def _write_and_verify_dashboard(
+    master: dict[str, dict],
+    *,
+    root: Path = ROOT,
+) -> Path:
+    """dashboard/list.csvを再生成し、その場でmasterと全件照合する。"""
+
+    path = D.write_list(
+        root,
+        master,
+    )
+
+    _assert_dashboard_list_consistent(
+        master,
+        path,
+    )
+
+    return path
+
+
 def _read_optional(path: Path) -> bytes | None:
     if path.exists():
         return path.read_bytes()
@@ -1228,6 +1321,7 @@ def apply_verified(
 
     touched = {
         MASTER_PATH,
+        DASHBOARD_LIST_PATH,
         STATE_PATH,
         CHANGES_PATH,
         audit_path,
@@ -1310,6 +1404,25 @@ def apply_verified(
                 "master atomic replace後SHA"
                 "不一致"
             )
+
+        # master更新とdashboard更新を同一transactionとして扱う。
+        # dashboard生成または全件整合性検査に失敗した場合は、
+        # except節でmasterを含む全ファイルをrollbackする。
+        master_after = M.load(
+            MASTER_PATH
+        )
+
+        if set(master_after) != set(
+            result["simulation"]["after"]
+        ):
+            raise ApplyError(
+                "master再読込後のkey集合が"
+                "simulation結果と一致しない"
+            )
+
+        _write_and_verify_dashboard(
+            master_after
+        )
 
         counts = Counter(
             result["counts"]
