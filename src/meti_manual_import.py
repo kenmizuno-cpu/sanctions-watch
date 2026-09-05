@@ -27,6 +27,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
+from urllib.parse import urlparse
 
 import pdfplumber
 
@@ -212,19 +213,42 @@ def _norm_compare(value: str) -> str:
 
 
 def _split_aliases(value: str) -> tuple[str, ...]:
+    # PDF表セルの別名を安全に分解する。
+    # bullet開始行は新しい別名、bulletなし行は直前別名の折返し。
     s = _clean_cell(value)
     if not s:
         return ()
 
     result: list[str] = []
-    for line in s.splitlines():
-        line = re.sub(r"^[・•●▪◦\-]\s*", "", line).strip()
+    current = ""
+
+    for raw_line in s.splitlines():
+        line = raw_line.strip()
         if not line:
             continue
-        if line in {"別名", "Also Known As"}:
+
+        marker = re.match(r"^[・•●▪◦\-]\s*(.*)$", line)
+
+        if marker:
+            if current:
+                current = re.sub(r"\s+", " ", current).strip()
+                if current and current not in result:
+                    result.append(current)
+
+            current = marker.group(1).strip()
             continue
-        if line not in result:
-            result.append(line)
+
+        current = (
+            f"{current} {line}".strip()
+            if current
+            else line
+        )
+
+    if current:
+        current = re.sub(r"\s+", " ", current).strip()
+        if current and current not in result:
+            result.append(current)
+
     return tuple(result)
 
 
@@ -260,13 +284,72 @@ def _header_map(row: list[str]) -> dict[str, int]:
         if "conventional weapons" in t or "通常兵器" in t:
             result.setdefault("conventional", i)
 
-    required = {"no", "country", "company", "aliases", "wmd"}
+    required = {
+        "no",
+        "country",
+        "company",
+        "aliases",
+        "wmd",
+        "conventional",
+    }
     if not required.issubset(result):
         raise PdfStructureError(
             f"外国ユーザーリスト表ヘッダーを判定できない: {result}"
         )
     return result
 
+
+
+def validate_source_url(value: str) -> str:
+    # Source EvidenceへMarkdown形式や別ドメインを混入させない。
+    url = str(value or "").strip()
+
+    if not url:
+        raise PdfValidationError("source URLが空")
+
+    if url.startswith("[") or "](" in url:
+        raise PdfValidationError(
+            "source URLはMarkdown形式ではなく生URLを指定してください"
+        )
+
+    parsed = urlparse(url)
+
+    if parsed.scheme.lower() != "https":
+        raise PdfValidationError(
+            "source URLはhttpsでなければならない"
+        )
+
+    if parsed.hostname not in {
+        "www.meti.go.jp",
+        "meti.go.jp",
+    }:
+        raise PdfValidationError(
+            "source URLが経済産業省公式ドメインではない: "
+            f"{parsed.hostname!r}"
+        )
+
+    if not parsed.path.startswith("/policy/anpo/"):
+        raise PdfValidationError(
+            "source URLが安全保障貿易管理配下ではない: "
+            f"{parsed.path!r}"
+        )
+
+    if not parsed.path.lower().endswith(".pdf"):
+        raise PdfValidationError(
+            "source URLがPDFではない"
+        )
+
+    if parsed.username or parsed.password:
+        raise PdfValidationError(
+            "source URLにuserinfoを含めてはいけない"
+        )
+
+    if parsed.fragment:
+        raise PdfValidationError(
+            "source URLにfragmentを含めてはいけない"
+        )
+
+    return url
 
 def _cell(row: list[str], idx: int | None) -> str:
     if idx is None or idx < 0 or idx >= len(row):
@@ -429,10 +512,30 @@ def extract_pdf(path: Path) -> tuple[list[Record], str, int]:
             f"pages={pages} text_pages={text_pages} chars={text_chars}"
         )
 
-    compact = re.sub(r"\s+", "", full_text)
-    if "外国ユーザーリスト" not in compact:
+    # この公式PDFは表本体だけで、文書タイトル
+    # 「外国ユーザーリスト」がPDFテキストとして存在しない版がある。
+    # タイトル1語ではなく公式6列表の構造で文書を識別する。
+    header_found = False
+
+    for table in all_tables:
+        if not table:
+            continue
+
+        for raw_row in table[:3]:
+            row = [_clean_cell(x) for x in (raw_row or [])]
+
+            if _is_header(row):
+                _header_map(row)
+                header_found = True
+                break
+
+        if header_found:
+            break
+
+    if not header_found:
         raise PdfStructureError(
-            "「外国ユーザーリスト」文言を確認できない。別資料の可能性"
+            "経産省外国ユーザーリストの公式6列表ヘッダーを"
+            "確認できない。別資料またはPDF構造変更の可能性"
         )
 
     records = records_from_tables(all_tables)
@@ -690,6 +793,13 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--expected-count", type=int, default=None)
     args = ap.parse_args(argv)
 
+    try:
+        source_url = validate_source_url(args.source_url)
+    except PdfValidationError as exc:
+        print(f"[BLOCKED] {exc}", file=sys.stderr)
+        print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
+        return 2
+
     src = Path(args.pdf).expanduser().resolve()
     now = _now()
     stamp = _stamp(now)
@@ -717,7 +827,7 @@ def main(argv: list[str] | None = None) -> int:
             "auto_import": "BLOCKED",
             "reason": str(exc),
             "input_file": str(src),
-            "source_url": args.source_url,
+            "source_url": source_url,
             "source_hash": digest,
             "quarantine_path": quarantine,
             "checked_at": seen_at,
@@ -731,7 +841,7 @@ def main(argv: list[str] | None = None) -> int:
                     "meti_manual",
                     "foreign_user_list_pdf",
                     "manual_input_invalid",
-                    url=args.source_url,
+                    url=source_url,
                     content_hash=digest,
                     fetched_file=src.name,
                     raw_path=quarantine,
@@ -745,7 +855,7 @@ def main(argv: list[str] | None = None) -> int:
             "手動正本解析BLOCKED",
             "外国ユーザーリスト",
             str(exc),
-            args.source_url,
+            source_url,
         )
         print(f"[BLOCKED] {exc}", file=sys.stderr)
         print(f"report: {_relative(report_path)}")
@@ -794,7 +904,7 @@ def main(argv: list[str] | None = None) -> int:
         update_evidence(
             records,
             source_hash=digest,
-            source_url=args.source_url,
+            source_url=source_url,
             source_document=_relative(raw_path),
             publication_date=args.publication_date,
             effective_date=args.effective_date,
@@ -809,7 +919,7 @@ def main(argv: list[str] | None = None) -> int:
             "auto_import": "BLOCKED",
             "baseline": baseline,
             "checked_at": seen_at,
-            "source_url": args.source_url,
+            "source_url": source_url,
             "publication_date": args.publication_date,
             "effective_date": args.effective_date,
             "input_file": str(src),
@@ -838,7 +948,7 @@ def main(argv: list[str] | None = None) -> int:
             "current_record_count": len(records),
             "publication_date": args.publication_date,
             "effective_date": args.effective_date,
-            "source_url": args.source_url,
+            "source_url": source_url,
             "last_imported_at": seen_at,
             "review_status": "REVIEW_REQUIRED",
             "approved": False,
@@ -853,7 +963,7 @@ def main(argv: list[str] | None = None) -> int:
                     "meti_manual",
                     "foreign_user_list_pdf",
                     "baseline_review_required" if baseline else "diff_review_required",
-                    url=args.source_url,
+                    url=source_url,
                     content_hash=digest,
                     fetched_file=src.name,
                     raw_path=_relative(raw_path),
@@ -871,7 +981,7 @@ def main(argv: list[str] | None = None) -> int:
                 "手動正本baseline（要レビュー）",
                 "外国ユーザーリスト",
                 "",
-                f"{len(records)}件 / SHA256 {digest[:12]} / {args.source_url}",
+                f"{len(records)}件 / SHA256 {digest[:12]} / {source_url}",
             )
         else:
             c = diff.counts
@@ -882,7 +992,7 @@ def main(argv: list[str] | None = None) -> int:
                 (
                     f"現版 {len(records)}件 / "
                     f"追加{c['追加']} 変更{c['変更']} 削除{c['削除']} / "
-                    f"{args.source_url}"
+                    f"{source_url}"
                 ),
             )
 
@@ -918,7 +1028,7 @@ def main(argv: list[str] | None = None) -> int:
             "auto_import": "BLOCKED",
             "reason": str(exc),
             "checked_at": seen_at,
-            "source_url": args.source_url,
+            "source_url": source_url,
             "publication_date": args.publication_date,
             "effective_date": args.effective_date,
             "input_file": str(src),
@@ -935,7 +1045,7 @@ def main(argv: list[str] | None = None) -> int:
                     "meti_manual",
                     "foreign_user_list_pdf",
                     "parse_blocked",
-                    url=args.source_url,
+                    url=source_url,
                     content_hash=digest,
                     fetched_file=src.name,
                     raw_path=_relative(raw_path),
@@ -949,7 +1059,7 @@ def main(argv: list[str] | None = None) -> int:
             "手動正本解析BLOCKED",
             "外国ユーザーリスト",
             str(exc),
-            args.source_url,
+            source_url,
         )
         print(f"[BLOCKED] {type(exc).__name__}: {exc}", file=sys.stderr)
         print(f"raw: {_relative(raw_path)}")

@@ -141,3 +141,80 @@ class TestMetiManualImport(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
+
+class TestMetiManualImportRealPdfGuards(unittest.TestCase):
+    def test_wrapped_alias_is_not_split_into_fake_alias(self):
+        from src.meti_manual_import import _split_aliases
+
+        value = (
+            "・The World Islamic Front for Jihad against Jews and\n"
+            "Crusaders\n"
+            "・Usama Bin Laden Network"
+        )
+
+        self.assertEqual(
+            _split_aliases(value),
+            (
+                "The World Islamic Front for Jihad against Jews and Crusaders",
+                "Usama Bin Laden Network",
+            ),
+        )
+
+    def test_wrapped_multi_line_alias(self):
+        from src.meti_manual_import import _split_aliases
+
+        value = (
+            "・ISLAMIC REVOLUTIONARY GUARD CORPS\n"
+            "AEROSPACE FORCE RESEARCH AND SELF\n"
+            "SUFFICIENCY JEHAD ORGANIZATION\n"
+            "・IRGC"
+        )
+
+        self.assertEqual(
+            _split_aliases(value),
+            (
+                "ISLAMIC REVOLUTIONARY GUARD CORPS "
+                "AEROSPACE FORCE RESEARCH AND SELF "
+                "SUFFICIENCY JEHAD ORGANIZATION",
+                "IRGC",
+            ),
+        )
+
+    def test_alias_without_bullet_is_one_alias(self):
+        from src.meti_manual_import import _split_aliases
+
+        self.assertEqual(
+            _split_aliases(
+                '"Region" Scientific & Production Enterprise JSC'
+            ),
+            ('"Region" Scientific & Production Enterprise JSC',),
+        )
+
+    def test_accept_official_meti_pdf_url(self):
+        from src.meti_manual_import import validate_source_url
+
+        url = "https://www.meti.go.jp/policy/anpo/20250929_3.pdf"
+        self.assertEqual(validate_source_url(url), url)
+
+    def test_reject_markdown_source_url(self):
+        from src.meti_manual_import import (
+            PdfValidationError,
+            validate_source_url,
+        )
+
+        with self.assertRaises(PdfValidationError):
+            validate_source_url(
+                "[https://www.meti.go.jp/policy/anpo/x.pdf]"
+                "(https://www.meti.go.jp/policy/anpo/x.pdf)"
+            )
+
+    def test_reject_non_meti_source_url(self):
+        from src.meti_manual_import import (
+            PdfValidationError,
+            validate_source_url,
+        )
+
+        with self.assertRaises(PdfValidationError):
+            validate_source_url(
+                "https://example.com/policy/anpo/x.pdf"
+            )
