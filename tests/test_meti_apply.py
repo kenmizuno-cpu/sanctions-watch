@@ -127,6 +127,7 @@ class TestMetiApplyExecutor(unittest.TestCase):
                 )
             ],
             master=master,
+            merge_ts_ms=1234567890000,
         )
 
         self.assertEqual(
@@ -159,6 +160,68 @@ class TestMetiApplyExecutor(unittest.TestCase):
                 sim["after"]["legacy"]
             ),
         )
+
+    def test_simulate_is_deterministic_with_fixed_timestamp(self):
+        master = {
+            "beta": master_row(
+                "BETA",
+                "OFAC",
+            ),
+        }
+        rows = [
+            plan_row(
+                P.ACTION_READY_ADD,
+                "alpha",
+                "ALPHA",
+            ),
+            plan_row(
+                P.ACTION_READY_TAG,
+                "beta",
+                "BETA",
+            ),
+        ]
+
+        a = A._simulate(
+            rows=rows,
+            legacy_rows=[],
+            master=master,
+            merge_ts_ms=1234567890000,
+        )
+        b = A._simulate(
+            rows=rows,
+            legacy_rows=[],
+            master=master,
+            merge_ts_ms=1234567890000,
+        )
+
+        self.assertEqual(a["after"], b["after"])
+        self.assertEqual(
+            a["after"]["alpha"]["first_seen_ms"],
+            1234567890000,
+        )
+        self.assertEqual(
+            a["after"]["alpha"]["last_updated_ms"],
+            1234567890000,
+        )
+        self.assertEqual(
+            a["after"]["beta"]["last_updated_ms"],
+            1234567890000,
+        )
+
+    def test_summary_merge_timestamp_is_stable(self):
+        summary = {
+            "generated_at": "2026-09-05T20:38:46Z",
+        }
+        a = A._summary_merge_ts_ms(summary)
+        b = A._summary_merge_ts_ms(summary)
+        self.assertEqual(a, b)
+        self.assertEqual(a, 1788640726000)
+
+    def test_summary_merge_timestamp_requires_timezone(self):
+        with self.assertRaises(A.ApplyError):
+            A._summary_merge_ts_ms({
+                "generated_at": "2026-09-05T20:38:46",
+            })
 
     def test_unknown_action_blocks(self):
         master = {}

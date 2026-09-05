@@ -127,6 +127,47 @@ def _stamp(dt: datetime | None = None) -> str:
     )
 
 
+def _summary_merge_ts_ms(summary: dict) -> int:
+    # plan生成時刻をmaster merge用の固定timestampへ変換する。
+    # M.merge() は ts 未指定だと現在時刻を使うため、verifyのたびに
+    # first_seen_ms / last_updated_ms が変わり、同一入力でも
+    # master_after SHA256 が変化する。commit済みplan summaryの
+    # generated_at を固定時刻として使い、再現性を保証する。
+    raw = str(
+        summary.get("generated_at") or ""
+    ).strip()
+
+    if not raw:
+        raise ApplyError(
+            "summary.generated_atが空"
+        )
+
+    try:
+        dt = datetime.fromisoformat(
+            raw.replace("Z", "+00:00")
+        )
+    except ValueError as exc:
+        raise ApplyError(
+            "summary.generated_atの形式が不正: "
+            f"{raw!r}"
+        ) from exc
+
+    if dt.tzinfo is None:
+        raise ApplyError(
+            "summary.generated_atにtimezoneがない"
+        )
+
+    dt = dt.astimezone(timezone.utc)
+    ts_ms = int(dt.timestamp() * 1000)
+
+    if ts_ms <= 0:
+        raise ApplyError(
+            "summary.generated_atから得たtimestampが不正"
+        )
+
+    return ts_ms
+
+
 def _relative(path: Path) -> str:
     try:
         return str(
@@ -428,6 +469,7 @@ def _simulate(
     rows: list[dict],
     legacy_rows: list[dict],
     master: dict[str, dict],
+    merge_ts_ms: int,
 ) -> dict:
     semantic = _assert_plan_semantics(
         rows=rows,
@@ -461,6 +503,7 @@ def _simulate(
         after,
         merge_records,
         SRC_METI,
+        ts=merge_ts_ms,
         delist=False,
         report_missing=False,
     )
@@ -762,10 +805,15 @@ def verify_executor(
             "summaryと一致しない"
         )
 
+    merge_ts_ms = _summary_merge_ts_ms(
+        summary
+    )
+
     sim = _simulate(
         rows=rows,
         legacy_rows=legacy_rows,
         master=master,
+        merge_ts_ms=merge_ts_ms,
     )
 
     with tempfile.TemporaryDirectory() as td:
@@ -850,6 +898,7 @@ def verify_executor(
             current_master_hash
         ),
         "master_after_sha256": after_hash,
+        "master_merge_timestamp_ms": merge_ts_ms,
         "master_before_count": len(master),
         "master_after_count": len(
             sim["after"]
@@ -880,6 +929,10 @@ def print_verify(result: dict) -> None:
     print(
         "master_after_sha256  :",
         result["master_after_sha256"],
+    )
+    print(
+        "merge_timestamp_ms   :",
+        result["master_merge_timestamp_ms"],
     )
     print(
         "master_before_count  :",
@@ -1287,6 +1340,9 @@ def apply_verified(
             "master_after_sha256": result[
                 "master_after_sha256"
             ],
+            "master_merge_timestamp_ms": result[
+                "master_merge_timestamp_ms"
+            ],
             "applied_add_count": counts[
                 P.ACTION_READY_ADD
             ],
@@ -1352,6 +1408,9 @@ def apply_verified(
             ],
             "master_after_sha256": result[
                 "master_after_sha256"
+            ],
+            "master_merge_timestamp_ms": result[
+                "master_merge_timestamp_ms"
             ],
             "master_before_count": result[
                 "master_before_count"
