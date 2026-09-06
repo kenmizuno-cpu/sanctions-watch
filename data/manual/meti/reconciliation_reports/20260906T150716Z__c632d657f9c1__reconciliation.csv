@@ -1,0 +1,836 @@
+record_no,canonical_record,match_key,alias_count,expected_token_count,primary_action,primary_plan_name,primary_plan_match_key,primary_in_master,primary_meti_tagged
+1,Al Qa'ida/Islamic Army,alqa'ida/islamicarmy,8,9,NOOP_ALREADY_METI,Al Qa'ida/Islamic Army,alqa'ida/islamicarmy,True,True
+2,Ummah Tameer E-Nau (UTN),ummahtameere-nau(utn),10,11,NOOP_ALREADY_METI,Ummah Tameer E-Nau (UTN),ummahtameere-nau(utn),True,True
+3,Al-Bairaq for international land transport,al-bairaqforinternationallandtransport,0,1,NOOP_ALREADY_METI,Al-Bairaq for international land transport,al-bairaqforinternationallandtransport,True,True
+4,Candid General Trading LLC,candidgeneraltradingllc,1,2,NOOP_ALREADY_METI,Candid General Trading LLC,candidgeneraltradingllc,True,True
+5,Delta Engineering Concern FZE （DEC）,deltaengineeringconcernfze(dec),0,1,NOOP_ALREADY_METI,Delta Engineering Concern FZE （DEC）,deltaengineeringconcernfze(dec),True,True
+6,"DES INTERNATIONAL CO., LTD.","desinternationalco.,ltd.",6,7,READY_TAG_EXISTING,"DES INTERNATIONAL CO., LTD.","desinternationalco.,ltd.",True,True
+7,DIAMOND CASTLE ELECTRONICS TRADING LLC,diamondcastleelectronicstradingllc,0,1,READY_TAG_EXISTING,DIAMOND CASTLE ELECTRONICS TRADING LLC,diamondcastleelectronicstradingllc,True,True
+8,E and I Systems FZE,eandisystemsfze,0,1,NOOP_ALREADY_METI,E and I Systems FZE,eandisystemsfze,True,True
+9,Energy Global International FZE,energyglobalinternationalfze,0,1,NOOP_ALREADY_METI,Energy Global International FZE,energyglobalinternationalfze,True,True
+10,Emirates Alloys LLC,emiratesalloysllc,3,4,NOOP_ALREADY_METI,Emirates Alloys LLC,emiratesalloysllc,True,True
+11,Euromoto Middle East FZE,euromotomiddleeastfze,0,1,NOOP_ALREADY_METI,Euromoto Middle East FZE,euromotomiddleeastfze,True,True
+12,FARHAD GHAEDI WHOLESALERS LLC,farhadghaediwholesalersllc,0,1,READY_TAG_EXISTING,FARHAD GHAEDI WHOLESALERS LLC,farhadghaediwholesalersllc,True,True
+13,FUTURE TRENDS GOODS WHOLESALERS LLC,futuretrendsgoodswholesalersllc,0,1,READY_TAG_EXISTING,FUTURE TRENDS GOODS WHOLESALERS LLC,futuretrendsgoodswholesalersllc,True,True
+14,"Future Trends International, FZE LLC",fzellcfuturetrendsinternational,2,3,NOOP_ALREADY_METI,"Future Trends International, FZE LLC",fzellcfuturetrendsinternational,True,True
+15,INFRACOM COMMUNICATION NETWORKS FZE,infracomcommunicationnetworksfze,0,1,READY_TAG_EXISTING,INFRACOM COMMUNICATION NETWORKS FZE,infracomcommunicationnetworksfze,True,True
+16,International General Resourcing FZE,internationalgeneralresourcingfze,0,1,NOOP_ALREADY_METI,International General Resourcing FZE,internationalgeneralresourcingfze,True,True
+17,Mabrooka Trading Co L.L.C.,mabrookatradingcol.l.c.,1,2,NOOP_ALREADY_METI,Mabrooka Trading Co L.L.C.,mabrookatradingcol.l.c.,True,True
+18,Mahrous Trading FZE,mahroustradingfze,1,2,READY_TAG_EXISTING,Mahrous Trading FZE,mahroustradingfze,True,True
+19,Modern Technologies FZC (MTFZC),moderntechnologiesfzc(mtfzc),0,1,NOOP_ALREADY_METI,Modern Technologies FZC (MTFZC),moderntechnologiesfzc(mtfzc),True,True
+20,Odyssey General Trading FZC,odysseygeneraltradingfzc,0,1,NOOP_ALREADY_METI,Odyssey General Trading FZC,odysseygeneraltradingfzc,True,True
+21,Parts Deep Trading,partsdeeptrading,0,1,NOOP_ALREADY_METI,Parts Deep Trading,partsdeeptrading,True,True
+22,Pegasus General Trading FZE,pegasusgeneraltradingfze,6,7,NOOP_ALREADY_METI,Pegasus General Trading FZE,pegasusgeneraltradingfze,True,True
+23,PHENOMENA INTERNATIONAL GENERAL TRADING LLC,phenomenainternationalgeneraltradingllc,0,1,READY_TAG_EXISTING,PHENOMENA INTERNATIONAL GENERAL TRADING LLC,phenomenainternationalgeneraltradingllc,True,True
+24,Royal Pearl General T.R.D.,royalpearlgeneralt.r.d.,3,4,NOOP_ALREADY_METI,Royal Pearl General T.R.D.,royalpearlgeneralt.r.d.,True,True
+25,Rigsol Well Drilling Equipment Trading,rigsolwelldrillingequipmenttrading,0,1,NOOP_ALREADY_METI,Rigsol Well Drilling Equipment Trading,rigsolwelldrillingequipmenttrading,True,True
+26,S&D INDUSTRY LTD,s&dindustryltd,0,1,NOOP_ALREADY_METI,S&D INDUSTRY LTD,s&dindustryltd,True,True
+27,Safe Technical Supply,safetechnicalsupply,4,5,NOOP_ALREADY_METI,Safe Technical Supply,safetechnicalsupply,True,True
+28,SANCO MIDDLE EAST FZC,sancomiddleeastfzc,1,2,NOOP_ALREADY_METI,SANCO MIDDLE EAST FZC,sancomiddleeastfzc,True,True
+29,"Sci Box Scientific and Laboratory Equipment Trading, LLC","sciboxscientificandlaboratoryequipmenttrading,llc",0,1,NOOP_ALREADY_METI,"Sci Box Scientific and Laboratory Equipment Trading, LLC","sciboxscientificandlaboratoryequipmenttrading,llc",True,True
+30,Techcare Services FZ LLC,techcareservicesfzllc,0,1,NOOP_ALREADY_METI,Techcare Services FZ LLC,techcareservicesfzllc,True,True
+31,TEM International FZC（TEM）,teminternationalfzc(tem),0,1,NOOP_ALREADY_METI,TEM International FZC（TEM）,teminternationalfzc(tem),True,True
+32,Al-Swari Trading and Import Co,al-swaritradingandimportco,3,4,NOOP_ALREADY_METI,Al-Swari Trading and Import Co,al-swaritradingandimportco,True,True
+33,Houthi,houthi,0,1,NOOP_ALREADY_METI,Houthi,houthi,True,True
+34,Nuclear Research Center Negev (NRCN),nuclearresearchcenternegev(nrcn),0,1,NOOP_ALREADY_METI,Nuclear Research Center Negev (NRCN),nuclearresearchcenternegev(nrcn),True,True
+35,7th of Tir,7thoftir,7,8,NOOP_ALREADY_METI,7th of Tir,7thoftir,True,True
+36,ABU REIHAN GROUP,abureihangroup,0,1,READY_TAG_EXISTING,ABU REIHAN GROUP,abureihangroup,True,True
+37,Abzar Boresh Kaveh Co.,abzarboreshkavehco.,1,2,NOOP_ALREADY_METI,Abzar Boresh Kaveh Co.,abzarboreshkavehco.,True,True
+38,Advanced Information and Communication Technology Center (AICTC),advancedinformationandcommunicationtechnologycenter(aictc),0,1,NOOP_ALREADY_METI,Advanced Information and Communication Technology Center (AICTC),advancedinformationandcommunicationtechnologycenter(aictc),True,True
+39,ADVANCED TECHNOLOGIES COMPANY OF IRAN,advancedtechnologiescompanyofiran,9,10,READY_TAG_EXISTING,ADVANCED TECHNOLOGIES COMPANY OF IRAN,advancedtechnologiescompanyofiran,True,True
+40,Aerospace Industries Organization（AIO）,aerospaceindustriesorganization(aio),1,2,NOOP_ALREADY_METI,Aerospace Industries Organization（AIO）,aerospaceindustriesorganization(aio),True,True
+41,ALBORZ ORGANIC MATERIAL ENGINEERING COMPANY,alborzorganicmaterialengineeringcompany,0,1,READY_TAG_EXISTING,ALBORZ ORGANIC MATERIAL ENGINEERING COMPANY,alborzorganicmaterialengineeringcompany,True,True
+42,Aluminat,aluminat,1,2,NOOP_ALREADY_METI,Aluminat,aluminat,True,True
+43,Amin Industrial Complex,aminindustrialcomplex,2,3,NOOP_ALREADY_METI,Amin Industrial Complex,aminindustrialcomplex,True,True
+44,Amir Al Mo'menin Industries,amiralmo'meninindustries,3,4,NOOP_ALREADY_METI,Amir Al Mo'menin Industries,amiralmo'meninindustries,True,True
+45,Amir Kabir University of Technology,amirkabiruniversityoftechnology,1,2,NOOP_ALREADY_METI,Amir Kabir University of Technology,amirkabiruniversityoftechnology,True,True
+46,Ammunition and Metallurgy Industries Group (AMIG),ammunitionandmetallurgyindustriesgroup(amig),3,4,NOOP_ALREADY_METI,Ammunition and Metallurgy Industries Group (AMIG),ammunitionandmetallurgyindustriesgroup(amig),True,True
+47,AMVAJ NILGOUN BUSHEHR CO.,amvajnilgounbushehrco.,0,1,READY_TAG_EXISTING,AMVAJ NILGOUN BUSHEHR CO.,amvajnilgounbushehrco.,True,True
+48,Andisheh Zolal Co.,andishehzolalco.,0,1,NOOP_ALREADY_METI,Andisheh Zolal Co.,andishehzolalco.,True,True
+49,Aras Farayande,arasfarayande,0,1,NOOP_ALREADY_METI,Aras Farayande,arasfarayande,True,True
+50,Arfa Paint Company,arfapaintcompany,0,1,NOOP_ALREADY_METI,Arfa Paint Company,arfapaintcompany,True,True
+51,Arfeh Company,arfehcompany,0,1,NOOP_ALREADY_METI,Arfeh Company,arfehcompany,True,True
+52,Aria Nikan,arianikan,2,3,NOOP_ALREADY_METI,Aria Nikan,arianikan,True,True
+53,Armament Industries Group (AIG),armamentindustriesgroup(aig),2,3,NOOP_ALREADY_METI,Armament Industries Group (AIG),armamentindustriesgroup(aig),True,True
+54,Armed Forces Geographical Organisation,armedforcesgeographicalorganisation,3,4,NOOP_ALREADY_METI,Armed Forces Geographical Organisation,armedforcesgeographicalorganisation,True,True
+55,ARTIN SANA'AT TABAAN COMPANY,artinsana'attabaancompany,3,4,READY_TAG_EXISTING,ARTIN SANA'AT TABAAN COMPANY,artinsana'attabaancompany,True,True
+56,Arvin Fan Avar Vira Company,arvinfanavarviracompany,1,2,READY_ADD,Arvin Fan Avar Vira Company,arvinfanavarviracompany,True,True
+57,Arya Niroo Nik,aryaniroonik,0,1,NOOP_ALREADY_METI,Arya Niroo Nik,aryaniroonik,True,True
+58,Ashtian Tablo,ashtiantablo,0,1,NOOP_ALREADY_METI,Ashtian Tablo,ashtiantablo,True,True
+59,ASRE SANAT ESHRAGH COMPANY,asresanateshraghcompany,5,6,READY_TAG_EXISTING,ASRE SANAT ESHRAGH COMPANY,asresanateshraghcompany,True,True
+60,ATBIN ISTA TECHNICAL AND ENGINEERING COMPANY,atbinistatechnicalandengineeringcompany,1,2,READY_TAG_EXISTING,ATBIN ISTA TECHNICAL AND ENGINEERING COMPANY,atbinistatechnicalandengineeringcompany,True,True
+61,AZMOON PAJOHAN HESGAR LIMITED LIABILITY COMPANY,azmoonpajohanhesgarlimitedliabilitycompany,2,3,READY_TAG_EXISTING,AZMOON PAJOHAN HESGAR LIMITED LIABILITY COMPANY,azmoonpajohanhesgarlimitedliabilitycompany,True,True
+62,AZARAB INDUSTRIES CO.,azarabindustriesco.,2,3,READY_TAG_EXISTING,AZARAB INDUSTRIES CO.,azarabindustriesco.,True,True
+63,Baghyatollah Medical Sciences University (BMSU),baghyatollahmedicalsciencesuniversity(bmsu),6,7,NOOP_ALREADY_METI,Baghyatollah Medical Sciences University (BMSU),baghyatollahmedicalsciencesuniversity(bmsu),True,True
+64,BAHARESTAN KISH COMPANY,baharestankishcompany,0,1,READY_TAG_EXISTING,BAHARESTAN KISH COMPANY,baharestankishcompany,True,True
+65,BAKHTAR RAAD SEPAHAN COMPANY,bakhtarraadsepahancompany,3,4,READY_TAG_EXISTING,BAKHTAR RAAD SEPAHAN COMPANY,bakhtarraadsepahancompany,True,True
+66,Bargh Azaraksh,barghazaraksh,1,2,NOOP_ALREADY_METI,Bargh Azaraksh,barghazaraksh,True,True
+67,BASAMAD ELECTRONIC POUYA ENGINEERING LIMITED LIABILITY COMPANY,basamadelectronicpouyaengineeringlimitedliabilitycompany,1,2,READY_TAG_EXISTING,BASAMAD ELECTRONIC POUYA ENGINEERING LIMITED LIABILITY COMPANY,basamadelectronicpouyaengineeringlimitedliabilitycompany,True,True
+68,Behineh Trading Co.,behinehtradingco.,0,1,NOOP_ALREADY_METI,Behineh Trading Co.,behinehtradingco.,True,True
+69,Behnam Sahriyari Trading Company,behnamsahriyaritradingcompany,0,1,NOOP_ALREADY_METI,Behnam Sahriyari Trading Company,behnamsahriyaritradingcompany,True,True
+70,BLUE CALM MARINE SERVICES COMPANY,bluecalmmarineservicescompany,1,2,READY_TAG_EXISTING,BLUE CALM MARINE SERVICES COMPANY,bluecalmmarineservicescompany,True,True
+71,BUY BEST ELECTRONIC PARS COMPANY,buybestelectronicparscompany,2,3,READY_TAG_EXISTING,BUY BEST ELECTRONIC PARS COMPANY,buybestelectronicparscompany,True,True
+72,Carvana Company,carvanacompany,1,2,NOOP_ALREADY_METI,Carvana Company,carvanacompany,True,True
+73,Center for Innovation and Technology Cooperation (CITC),centerforinnovationandtechnologycooperation(citc),8,9,NOOP_ALREADY_METI,Center for Innovation and Technology Cooperation (CITC),centerforinnovationandtechnologycooperation(citc),True,True
+74,Chemical Industries & Development of Materials Group (CIDMG),chemicalindustries&developmentofmaterialsgroup(cidmg),0,1,NOOP_ALREADY_METI,Chemical Industries & Development of Materials Group (CIDMG),chemicalindustries&developmentofmaterialsgroup(cidmg),True,True
+75,Cruise Missile Industry Group,cruisemissileindustrygroup,4,5,NOOP_ALREADY_METI,Cruise Missile Industry Group,cruisemissileindustrygroup,True,True
+76,Deep Offshore Technology PJS,deepoffshoretechnologypjs,1,2,NOOP_ALREADY_METI,Deep Offshore Technology PJS,deepoffshoretechnologypjs,True,True
+77,Defence Industrieal Organisation,defenceindustriealorganisation,4,5,NOOP_ALREADY_METI,Defence Industrieal Organisation,defenceindustriealorganisation,True,True
+78,Defense Technology and Science Research Center (DTSRC),defensetechnologyandscienceresearchcenter(dtsrc),3,4,NOOP_ALREADY_METI,Defense Technology and Science Research Center (DTSRC),defensetechnologyandscienceresearchcenter(dtsrc),True,True
+79,Design and Manufacturing of Aero-Engine Company,designandmanufacturingofaero-enginecompany,4,5,NOOP_ALREADY_METI,Design and Manufacturing of Aero-Engine Company,designandmanufacturingofaero-enginecompany,True,True
+80,Design and Manufacturing of Aircraft Engines (DAMA),designandmanufacturingofaircraftengines(dama),0,1,READY_ADD,Design and Manufacturing of Aircraft Engines (DAMA),designandmanufacturingofaircraftengines(dama),True,True
+81,Digi Ghate,digighate,0,1,READY_ADD,Digi Ghate,digighate,True,True
+82,Digital Media Lab (DML),digitalmedialab(dml),0,1,NOOP_ALREADY_METI,Digital Media Lab (DML),digitalmedialab(dml),True,True
+83,Doostan International Company (DICO),doostaninternationalcompany(dico),0,1,NOOP_ALREADY_METI,Doostan International Company (DICO),doostaninternationalcompany(dico),True,True
+84,East Star Company,eaststarcompany,3,4,READY_TAG_EXISTING,East Star Company,eaststarcompany,True,True
+85,EBTEKAR SANAT ILYA LLC,ebtekarsanatilyallc,5,6,READY_TAG_EXISTING,EBTEKAR SANAT ILYA LLC,ebtekarsanatilyallc,True,True
+86,Electronic Components Industries (ECI),electroniccomponentsindustries(eci),0,1,NOOP_ALREADY_METI,Electronic Components Industries (ECI),electroniccomponentsindustries(eci),True,True
+87,Electro Sanam Company,electrosanamcompany,4,5,NOOP_ALREADY_METI,Electro Sanam Company,electrosanamcompany,True,True
+88,Ertebat Gostar Novin,ertebatgostarnovin,1,2,NOOP_ALREADY_METI,Ertebat Gostar Novin,ertebatgostarnovin,True,True
+89,Ervin Danesh Aryan Company,ervindanesharyancompany,1,2,READY_TAG_EXISTING,Ervin Danesh Aryan Company,ervindanesharyancompany,True,True
+90,ESNICO (Equipment Supplier for Nuclear Industries Corporation),esnico(equipmentsupplierfornuclearindustriescorporation),0,1,NOOP_ALREADY_METI,ESNICO (Equipment Supplier for Nuclear Industries Corporation),esnico(equipmentsupplierfornuclearindustriescorporation),True,True
+91,Ettehad Technical Group,ettehadtechnicalgroup,0,1,NOOP_ALREADY_METI,Ettehad Technical Group,ettehadtechnicalgroup,True,True
+92,Eyvaz Technic,eyvaztechnic,3,4,NOOP_ALREADY_METI,Eyvaz Technic,eyvaztechnic,True,True
+93,Fajr Aviation Composite Industries,fajraviationcompositeindustries,0,1,NOOP_ALREADY_METI,Fajr Aviation Composite Industries,fajraviationcompositeindustries,True,True
+94,Fajr Industrial Group,fajrindustrialgroup,6,7,NOOP_ALREADY_METI,Fajr Industrial Group,fajrindustrialgroup,True,True
+95,Fanamoj,fanamoj,7,8,READY_TAG_EXISTING,Fanamoj,fanamoj,True,True
+96,FANAVARAN SANAT ERTEBATAT COMPANY,fanavaransanatertebatatcompany,2,3,READY_TAG_EXISTING,FANAVARAN SANAT ERTEBATAT COMPANY,fanavaransanatertebatatcompany,True,True
+97,Fan Pardazan,fanpardazan,1,2,NOOP_ALREADY_METI,Fan Pardazan,fanpardazan,True,True
+98,Farasakht Industries,farasakhtindustries,0,1,NOOP_ALREADY_METI,Farasakht Industries,farasakhtindustries,True,True
+99,Farasepehr Engineering Company,farasepehrengineeringcompany,0,1,NOOP_ALREADY_METI,Farasepehr Engineering Company,farasepehrengineeringcompany,True,True
+100,Faratech,faratech,1,2,NOOP_ALREADY_METI,Faratech,faratech,True,True
+101,Farayand Technique,farayandtechnique,1,2,NOOP_ALREADY_METI,Farayand Technique,farayandtechnique,True,True
+102,"FARAZAN INDUSTRIAL ENGINEERING, INC.","farazanindustrialengineering,inc.",2,3,READY_TAG_EXISTING,"FARAZAN INDUSTRIAL ENGINEERING, INC.","farazanindustrialengineering,inc.",True,True
+103,Fater Institute,faterinstitute,4,5,NOOP_ALREADY_METI,Fater Institute,faterinstitute,True,True
+104,Fidar System Pooyan,fidarsystempooyan,1,2,READY_ADD,Fidar System Pooyan,fidarsystempooyan,True,True
+105,Fulmen,fulmen,2,3,NOOP_ALREADY_METI,Fulmen,fulmen,True,True
+106,General Electronic,generalelectronic,3,4,READY_ADD,General Electronic,generalelectronic,True,True
+107,Gharagahe Sazandegi Ghaem,gharagahesazandegighaem,2,3,NOOP_ALREADY_METI,Gharagahe Sazandegi Ghaem,gharagahesazandegighaem,True,True
+108,Ghorb Karbala,ghorbkarbala,2,3,NOOP_ALREADY_METI,Ghorb Karbala,ghorbkarbala,True,True
+109,Ghorb Nooh,ghorbnooh,0,1,NOOP_ALREADY_METI,Ghorb Nooh,ghorbnooh,True,True
+110,Hara Company,haracompany,1,2,NOOP_ALREADY_METI,Hara Company,haracompany,True,True
+111,Hirbod Co,hirbodco,0,1,NOOP_ALREADY_METI,Hirbod Co,hirbodco,True,True
+112,HODA TRADING,hodatrading,4,5,READY_TAG_EXISTING,HODA TRADING,hodatrading,True,True
+113,Hong Kong Electronics,hongkongelectronics,1,2,NOOP_ALREADY_METI,Hong Kong Electronics,hongkongelectronics,True,True
+114,Hosseini Nejad Trading Company,hosseininejadtradingcompany,1,2,NOOP_ALREADY_METI,Hosseini Nejad Trading Company,hosseininejadtradingcompany,True,True
+115,IC Kala,ickala,1,2,READY_ADD,IC Kala,ickala,True,True
+116,Imam Hossein University (IHU),imamhosseinuniversity(ihu),6,7,NOOP_ALREADY_METI,Imam Hossein University (IHU),imamhosseinuniversity(ihu),True,True
+117,Imensazan Consultant Engineers Institute (ICEI),imensazanconsultantengineersinstitute(icei),2,3,NOOP_ALREADY_METI,Imensazan Consultant Engineers Institute (ICEI),imensazanconsultantengineersinstitute(icei),True,True
+118,Information Systems Iran (ISIRAN),informationsystemsiran(isiran),0,1,NOOP_ALREADY_METI,Information Systems Iran (ISIRAN),informationsystemsiran(isiran),True,True
+119,Iran Aircraft Industries (IACI),iranaircraftindustries(iaci),1,2,NOOP_ALREADY_METI,Iran Aircraft Industries (IACI),iranaircraftindustries(iaci),True,True
+120,Iran Aircraft Manufacturing Company (IAMCO),iranaircraftmanufacturingcompany(iamco),11,12,NOOP_ALREADY_METI,Iran Aircraft Manufacturing Company (IAMCO),iranaircraftmanufacturingcompany(iamco),True,True
+121,Iran Aircraft Manufacturing Industries Corporation (HESA),iranaircraftmanufacturingindustriescorporation(hesa),0,1,READY_ADD,Iran Aircraft Manufacturing Industries Corporation (HESA),iranaircraftmanufacturingindustriescorporation(hesa),True,True
+122,Iran Centrifuge Technology Company,irancentrifugetechnologycompany,3,4,NOOP_ALREADY_METI,Iran Centrifuge Technology Company,irancentrifugetechnologycompany,True,True
+123,Iran Communications Industries (ICI),irancommunicationsindustries(ici),4,5,NOOP_ALREADY_METI,Iran Communications Industries (ICI),irancommunicationsindustries(ici),True,True
+124,Iran Compo Co.,irancompoco.,1,2,READY_ADD,Iran Compo Co.,irancompoco.,True,True
+125,Iran Composites Institute,irancompositesinstitute,2,3,NOOP_ALREADY_METI,Iran Composites Institute,irancompositesinstitute,True,True
+126,Iran Electronics Industries (IEI),iranelectronicsindustries(iei),3,4,NOOP_ALREADY_METI,Iran Electronics Industries (IEI),iranelectronicsindustries(iei),True,True
+127,IRAN HELICOPTER SUPPORT AND RENEWAL COMPANY,iranhelicoptersupportandrenewalcompany,4,5,READY_TAG_EXISTING,IRAN HELICOPTER SUPPORT AND RENEWAL COMPANY,iranhelicoptersupportandrenewalcompany,True,True
+128,Iranian Aviation Industries Organization (IAIO),iranianaviationindustriesorganization(iaio),2,3,NOOP_ALREADY_METI,Iranian Aviation Industries Organization (IAIO),iranianaviationindustriesorganization(iaio),True,True
+129,Iran Marine Industrial Company (SADRA),iranmarineindustrialcompany(sadra),5,6,NOOP_ALREADY_METI,Iran Marine Industrial Company (SADRA),iranmarineindustrialcompany(sadra),True,True
+130,Iran Pooya,iranpooya,2,3,NOOP_ALREADY_METI,Iran Pooya,iranpooya,True,True
+131,Iran Saffron Company,iransaffroncompany,1,2,NOOP_ALREADY_METI,Iran Saffron Company,iransaffroncompany,True,True
+132,Iran University of Science and Technology (IUST),iranuniversityofscienceandtechnology(iust),2,3,NOOP_ALREADY_METI,Iran University of Science and Technology (IUST),iranuniversityofscienceandtechnology(iust),True,True
+133,IRGC Air Force,irgcairforce,4,5,NOOP_ALREADY_METI,IRGC Air Force,irgcairforce,True,True
+134,IRGC-Air Force Al-Ghadir Missile Command,irgc-airforceal-ghadirmissilecommand,2,3,NOOP_ALREADY_METI,IRGC-Air Force Al-Ghadir Missile Command,irgc-airforceal-ghadirmissilecommand,True,True
+135,IRGC Qods Force,irgcqodsforce,3,4,NOOP_ALREADY_METI,IRGC Qods Force,irgcqodsforce,True,True
+136,Isfahan Optics,isfahanoptics,13,14,NOOP_ALREADY_METI,Isfahan Optics,isfahanoptics,True,True
+137,Islamic Azad University (IAU),islamicazaduniversity(iau),0,1,NOOP_ALREADY_METI,Islamic Azad University (IAU),islamicazaduniversity(iau),True,True
+138,Islamic Revolutionary Guard Corps (IRGC),islamicrevolutionaryguardcorps(irgc),14,15,NOOP_ALREADY_METI,Islamic Revolutionary Guard Corps (IRGC),islamicrevolutionaryguardcorps(irgc),True,True
+139,Islamic Revolutionary Guard Corps Aerospace Force,islamicrevolutionaryguardcorpsaerospaceforce,0,1,READY_ADD,Islamic Revolutionary Guard Corps Aerospace Force,islamicrevolutionaryguardcorpsaerospaceforce,True,True
+140,ISLAMIC REVOLUTIONARY GUARD CORPS AEROSPACE FORCE SELF SUFFICIENCY JIHAD ORGANIZATION,islamicrevolutionaryguardcorpsaerospaceforceselfsufficiencyjihadorganization,2,3,READY_TAG_EXISTING,ISLAMIC REVOLUTIONARY GUARD CORPS AEROSPACE FORCE SELF SUFFICIENCY JIHAD ORGANIZATION,islamicrevolutionaryguardcorpsaerospaceforceselfsufficiencyjihadorganization,True,True
+141,ISLAMIC REVOLUTIONARY GUARD CORPS RESEARCH AND SELF-SUFFICIENCY JEHAD ORGANIZATION,islamicrevolutionaryguardcorpsresearchandself-sufficiencyjehadorganization,2,3,READY_TAG_EXISTING,ISLAMIC REVOLUTIONARY GUARD CORPS RESEARCH AND SELF-SUFFICIENCY JEHAD ORGANIZATION,islamicrevolutionaryguardcorpsresearchandself-sufficiencyjehadorganization,True,True
+142,Jahan Tech Rooyan Pars,jahantechrooyanpars,2,3,READY_TAG_EXISTING,Jahan Tech Rooyan Pars,jahantechrooyanpars,True,True
+143,Javan Electronic Company,javanelectroniccompany,0,1,READY_ADD,Javan Electronic Company,javanelectroniccompany,True,True
+144,Javedan Mehr Toos,javedanmehrtoos,0,1,NOOP_ALREADY_METI,Javedan Mehr Toos,javedanmehrtoos,True,True
+145,Jelvesazan Company,jelvesazancompany,0,1,NOOP_ALREADY_METI,Jelvesazan Company,jelvesazancompany,True,True
+146,Joza Industrial Co.,jozaindustrialco.,1,2,NOOP_ALREADY_METI,Joza Industrial Co.,jozaindustrialco.,True,True
+147,Kalaye Electric Company,kalayeelectriccompany,6,7,NOOP_ALREADY_METI,Kalaye Electric Company,kalayeelectriccompany,True,True
+148,Karanir,karanir,2,3,NOOP_ALREADY_METI,Karanir,karanir,True,True
+149,KAVAN ELECTRONICS BEHRAD LIMITED LIABILITY COMPANY,kavanelectronicsbehradlimitedliabilitycompany,3,4,READY_TAG_EXISTING,KAVAN ELECTRONICS BEHRAD LIMITED LIABILITY COMPANY,kavanelectronicsbehradlimitedliabilitycompany,True,True
+150,Kaveh Cutting Tools Company,kavehcuttingtoolscompany,3,4,NOOP_ALREADY_METI,Kaveh Cutting Tools Company,kavehcuttingtoolscompany,True,True
+151,Khajeh Nassir-Al-Deen Toosi (K. N. Toosi) University of Technology,khajehnassir-al-deentoosi(k.n.toosi)universityoftechnology,3,4,NOOP_ALREADY_METI,Khajeh Nassir-Al-Deen Toosi (K. N. Toosi) University of Technology,khajehnassir-al-deentoosi(k.n.toosi)universityoftechnology,True,True
+152,Khala Afarin Pars,khalaafarinpars,0,1,NOOP_ALREADY_METI,Khala Afarin Pars,khalaafarinpars,True,True
+153,Khatam al-Anbiya Construction Headquarters (KAA),khatamal-anbiyaconstructionheadquarters(kaa),5,6,NOOP_ALREADY_METI,Khatam al-Anbiya Construction Headquarters (KAA),khatamal-anbiyaconstructionheadquarters(kaa),True,True
+154,Khorasan Metallurgy Industries,khorasanmetallurgyindustries,5,6,NOOP_ALREADY_METI,Khorasan Metallurgy Industries,khorasanmetallurgyindustries,True,True
+155,KIMIA PART SIVAN COMPANY LLC （KIPAS）,kimiapartsivancompanyllc(kipas),3,4,NOOP_ALREADY_METI,KIMIA PART SIVAN COMPANY LLC （KIPAS）,kimiapartsivancompanyllc(kipas),True,True
+156,Kimiya Pakhsh Shargh Co Ltd,kimiyapakhshsharghcoltd,6,7,NOOP_ALREADY_METI,Kimiya Pakhsh Shargh Co Ltd,kimiyapakhshsharghcoltd,True,True
+157,M. Babaie Industries,m.babaieindustries,3,4,NOOP_ALREADY_METI,M. Babaie Industries,m.babaieindustries,True,True
+158,Machine Pardazan Co.,machinepardazanco.,2,3,NOOP_ALREADY_METI,Machine Pardazan Co.,machinepardazanco.,True,True
+159,Makin,makin,2,3,NOOP_ALREADY_METI,Makin,makin,True,True
+160,Malek Ashtar University,malekashtaruniversity,7,8,NOOP_ALREADY_METI,Malek Ashtar University,malekashtaruniversity,True,True
+161,Mandegar Baspar Kimiya Company,mandegarbasparkimiyacompany,2,3,READY_TAG_EXISTING,Mandegar Baspar Kimiya Company,mandegarbasparkimiyacompany,True,True
+162,Marine Industries,marineindustries,1,2,NOOP_ALREADY_METI,Marine Industries,marineindustries,True,True
+163,Marou Sanat,marousanat,4,5,NOOP_ALREADY_METI,Marou Sanat,marousanat,True,True
+164,Matin Sanat Nik Andishan,matinsanatnikandishan,3,4,READY_TAG_EXISTING,Matin Sanat Nik Andishan,matinsanatnikandishan,True,True
+165,MATSA (Mohandesi Toseh Sokht Atomi Company),matsa(mohandesitosehsokhtatomicompany),0,1,NOOP_ALREADY_METI,MATSA (Mohandesi Toseh Sokht Atomi Company),matsa(mohandesitosehsokhtatomicompany),True,True
+166,Mechanic Industries Group,mechanicindustriesgroup,0,1,NOOP_ALREADY_METI,Mechanic Industries Group,mechanicindustriesgroup,True,True
+167,Ministry of Defense and Armed Forces Logistics (MODAFL),ministryofdefenseandarmedforceslogistics(modafl),8,9,NOOP_ALREADY_METI,Ministry of Defense and Armed Forces Logistics (MODAFL),ministryofdefenseandarmedforceslogistics(modafl),True,True
+168,Ministry of Defense Logistics Export (MODLEX),ministryofdefenselogisticsexport(modlex),1,2,NOOP_ALREADY_METI,Ministry of Defense Logistics Export (MODLEX),ministryofdefenselogisticsexport(modlex),True,True
+169,Mizan Machinery Manufacturing (3M),mizanmachinerymanufacturing(3m),2,3,NOOP_ALREADY_METI,Mizan Machinery Manufacturing (3M),mizanmachinerymanufacturing(3m),True,True
+170,MKS International Co. Ltd.,mksinternationalco.ltd.,2,3,NOOP_ALREADY_METI,MKS International Co. Ltd.,mksinternationalco.ltd.,True,True
+171,Mobarakeh Steel Company,mobarakehsteelcompany,7,8,READY_TAG_EXISTING,Mobarakeh Steel Company,mobarakehsteelcompany,True,True
+172,Mobin Sanjesh,mobinsanjesh,1,2,NOOP_ALREADY_METI,Mobin Sanjesh,mobinsanjesh,True,True
+173,Multimat Ic Ve Dis Ticaret Pazarlama Limited Sirketi,multimaticvedisticaretpazarlamalimitedsirketi,2,3,NOOP_ALREADY_METI,Multimat Ic Ve Dis Ticaret Pazarlama Limited Sirketi,multimaticvedisticaretpazarlamalimitedsirketi,True,True
+174,NARIN SEPEHR MOBIN ISATIS,narinsepehrmobinisatis,2,3,READY_TAG_EXISTING,NARIN SEPEHR MOBIN ISATIS,narinsepehrmobinisatis,True,True
+175,Naserin Vahid,naserinvahid,0,1,NOOP_ALREADY_METI,Naserin Vahid,naserinvahid,True,True
+176,Navid Composite Material Company,navidcompositematerialcompany,1,2,NOOP_ALREADY_METI,Navid Composite Material Company,navidcompositematerialcompany,True,True
+177,Neda Industrial Group,nedaindustrialgroup,0,1,NOOP_ALREADY_METI,Neda Industrial Group,nedaindustrialgroup,True,True
+178,Negin Parto Khavar,neginpartokhavar,4,5,NOOP_ALREADY_METI,Negin Parto Khavar,neginpartokhavar,True,True
+179,Neka Novin,nekanovin,0,1,NOOP_ALREADY_METI,Neka Novin,nekanovin,True,True
+180,Niru Battery Manufacturing Company,nirubatterymanufacturingcompany,5,6,NOOP_ALREADY_METI,Niru Battery Manufacturing Company,nirubatterymanufacturingcompany,True,True
+181,Ofog Sabze Darya Company,ofogsabzedaryacompany,0,1,READY_TAG_EXISTING,Ofog Sabze Darya Company,ofogsabzedaryacompany,True,True
+182,OJE PARVAZ MADO NAFAR COMPANY,ojeparvazmadonafarcompany,1,2,READY_TAG_EXISTING,OJE PARVAZ MADO NAFAR COMPANY,ojeparvazmadonafarcompany,True,True
+183,Omran Sahel,omransahel,0,1,NOOP_ALREADY_METI,Omran Sahel,omransahel,True,True
+184,Organisation of Defensive Innovation and Research,organisationofdefensiveinnovationandresearch,1,2,NOOP_ALREADY_METI,Organisation of Defensive Innovation and Research,organisationofdefensiveinnovationandresearch,True,True
+185,Oriental Oil Kish,orientaloilkish,0,1,NOOP_ALREADY_METI,Oriental Oil Kish,orientaloilkish,True,True
+186,Paradise Medical Pioneers Company,paradisemedicalpioneerscompany,1,2,READY_TAG_EXISTING,Paradise Medical Pioneers Company,paradisemedicalpioneerscompany,True,True
+187,PARAVAR PARS COMPANY,paravarparscompany,0,1,READY_TAG_EXISTING,PARAVAR PARS COMPANY,paravarparscompany,True,True
+188,Parchin Chemical Industries (PCI),parchinchemicalindustries(pci),3,4,NOOP_ALREADY_METI,Parchin Chemical Industries (PCI),parchinchemicalindustries(pci),True,True
+189,PARDAZAN SYSTEM NAMAD ARMAN,pardazansystemnamadarman,7,8,READY_TAG_EXISTING,PARDAZAN SYSTEM NAMAD ARMAN,pardazansystemnamadarman,True,True
+190,Pars Amayesh Sanaat Kish,parsamayeshsanaatkish,4,5,NOOP_ALREADY_METI,Pars Amayesh Sanaat Kish,parsamayeshsanaatkish,True,True
+191,Pars Aviation Services Company,parsaviationservicescompany,0,1,READY_TAG_EXISTING,Pars Aviation Services Company,parsaviationservicescompany,True,True
+192,PARS REACTORS CONSTRUCTION AND DEVELOPMENT COMPANY,parsreactorsconstructionanddevelopmentcompany,1,2,READY_TAG_EXISTING,PARS REACTORS CONSTRUCTION AND DEVELOPMENT COMPANY,parsreactorsconstructionanddevelopmentcompany,True,True
+193,Parto Sanat Company,partosanatcompany,1,2,NOOP_ALREADY_METI,Parto Sanat Company,partosanatcompany,True,True
+194,Passive Defense Organization,passivedefenseorganization,0,1,NOOP_ALREADY_METI,Passive Defense Organization,passivedefenseorganization,True,True
+195,Paya Parto,payaparto,2,3,NOOP_ALREADY_METI,Paya Parto,payaparto,True,True
+196,PEGAH ALUMINUM ARAK COMPANY,pegahaluminumarakcompany,2,3,READY_TAG_EXISTING,PEGAH ALUMINUM ARAK COMPANY,pegahaluminumarakcompany,True,True
+197,Pentane Chemistry Industries (PCI),pentanechemistryindustries(pci),3,4,NOOP_ALREADY_METI,Pentane Chemistry Industries (PCI),pentanechemistryindustries(pci),True,True
+198,PISHGAM ELECTRONIC SAFEH COMPANY,pishgamelectronicsafehcompany,1,2,READY_TAG_EXISTING,PISHGAM ELECTRONIC SAFEH COMPANY,pishgamelectronicsafehcompany,True,True
+199,PISHRO MOBTAKER PEYVAND,pishromobtakerpeyvand,3,4,READY_TAG_EXISTING,PISHRO MOBTAKER PEYVAND,pishromobtakerpeyvand,True,True
+200,Pishro Systems Research Company,pishrosystemsresearchcompany,5,6,NOOP_ALREADY_METI,Pishro Systems Research Company,pishrosystemsresearchcompany,True,True
+201,"PISHTAZAN KAVOSH GOSTAR BOSHRA, LLC","pishtazankavoshgostarboshra,llc",4,5,READY_TAG_EXISTING,"PISHTAZAN KAVOSH GOSTAR BOSHRA, LLC","pishtazankavoshgostarboshra,llc",True,True
+202,Pouya Air,pouyaair,4,5,READY_TAG_EXISTING,Pouya Air,pouyaair,True,True
+203,Pouya Control,pouyacontrol,2,3,NOOP_ALREADY_METI,Pouya Control,pouyacontrol,True,True
+204,PUYA ELECTRO SAMAN NIRU,puyaelectrosamanniru,4,5,READY_TAG_EXISTING,PUYA ELECTRO SAMAN NIRU,puyaelectrosamanniru,True,True
+205,Qeshm Madkandaloo Shipbuilding Cooperative Co,qeshmmadkandalooshipbuildingcooperativeco,4,5,READY_TAG_EXISTING,Qeshm Madkandaloo Shipbuilding Cooperative Co,qeshmmadkandalooshipbuildingcooperativeco,True,True
+206,Qods Aeronautics Industries,qodsaeronauticsindustries,2,3,NOOP_ALREADY_METI,Qods Aeronautics Industries,qodsaeronauticsindustries,True,True
+207,Raad Iran,raadiran,1,2,NOOP_ALREADY_METI,Raad Iran,raadiran,True,True
+208,Rahab Engineering Institute,rahabengineeringinstitute,2,3,NOOP_ALREADY_METI,Rahab Engineering Institute,rahabengineeringinstitute,True,True
+209,RAH ROSHD INTERNATIONAL TRADE EXCHANGES DEVELOPMENT,rahroshdinternationaltradeexchangesdevelopment,5,6,READY_TAG_EXISTING,RAH ROSHD INTERNATIONAL TRADE EXCHANGES DEVELOPMENT,rahroshdinternationaltradeexchangesdevelopment,True,True
+210,Rah Sahel,rahsahel,1,2,NOOP_ALREADY_METI,Rah Sahel,rahsahel,True,True
+211,Raka,raka,0,1,NOOP_ALREADY_METI,Raka,raka,True,True
+212,Rastafann Ertebat Engineering Company,rastafannertebatengineeringcompany,3,4,READY_TAG_EXISTING,Rastafann Ertebat Engineering Company,rastafannertebatengineeringcompany,True,True
+213,Rayan Roshd Afzar Company,rayanroshdafzarcompany,2,3,READY_TAG_EXISTING,Rayan Roshd Afzar Company,rayanroshdafzarcompany,True,True
+214,Research Centre for Explosion and Impact,researchcentreforexplosionandimpact,1,2,NOOP_ALREADY_METI,Research Centre for Explosion and Impact,researchcentreforexplosionandimpact,True,True
+215,Rosmachin,rosmachin,0,1,NOOP_ALREADY_METI,Rosmachin,rosmachin,True,True
+216,Saad Sazeh Faraz Sharif,saadsazehfarazsharif,2,3,READY_TAG_EXISTING,Saad Sazeh Faraz Sharif,saadsazehfarazsharif,True,True
+217,SABERIN KISH COMPANY,saberinkishcompany,2,3,READY_TAG_EXISTING,SABERIN KISH COMPANY,saberinkishcompany,True,True
+218,Sad Export Import Company,sadexportimportcompany,1,2,NOOP_ALREADY_METI,Sad Export Import Company,sadexportimportcompany,True,True
+219,Sadid Caran Saba Engineering Company,sadidcaransabaengineeringcompany,4,5,READY_TAG_EXISTING,Sadid Caran Saba Engineering Company,sadidcaransabaengineeringcompany,True,True
+220,Safety Equipment Procurement (SEP),safetyequipmentprocurement(sep),2,3,NOOP_ALREADY_METI,Safety Equipment Procurement (SEP),safetyequipmentprocurement(sep),True,True
+221,Sahel Consultant Engineers,sahelconsultantengineers,0,1,NOOP_ALREADY_METI,Sahel Consultant Engineers,sahelconsultantengineers,True,True
+222,SAMAN INDUSTRIAL GROUP,samanindustrialgroup,0,1,READY_TAG_EXISTING,SAMAN INDUSTRIAL GROUP,samanindustrialgroup,True,True
+223,Saman Nasb Zayendeh Rood,samannasbzayendehrood,1,2,NOOP_ALREADY_METI,Saman Nasb Zayendeh Rood,samannasbzayendehrood,True,True
+224,SAMAN TEJARAT BARMAN TRADINGCOMPANY,samantejaratbarmantradingcompany,0,1,READY_TAG_EXISTING,SAMAN TEJARAT BARMAN TRADINGCOMPANY,samantejaratbarmantradingcompany,True,True
+225,Sanam Industrial Group,sanamindustrialgroup,1,2,NOOP_ALREADY_METI,Sanam Industrial Group,sanamindustrialgroup,True,True
+226,Sarmad Electronic Sepahan Company,sarmadelectronicsepahancompany,2,3,READY_TAG_EXISTING,Sarmad Electronic Sepahan Company,sarmadelectronicsepahancompany,True,True
+227,Sazeh Morakab Co. Ltd,sazehmorakabco.ltd,0,1,NOOP_ALREADY_METI,Sazeh Morakab Co. Ltd,sazehmorakabco.ltd,True,True
+228,Schiller Novin,schillernovin,0,1,NOOP_ALREADY_METI,Schiller Novin,schillernovin,True,True
+229,SELIN TECHNIC CO,selintechnicco,1,2,READY_TAG_EXISTING,SELIN TECHNIC CO,selintechnicco,True,True
+230,Sepanir,sepanir,3,4,NOOP_ALREADY_METI,Sepanir,sepanir,True,True
+231,Sepasad Engineering Company,sepasadengineeringcompany,0,1,NOOP_ALREADY_METI,Sepasad Engineering Company,sepasadengineeringcompany,True,True
+232,SHAFAGH SENOBAR YAZD COMPANY LIMITED,shafaghsenobaryazdcompanylimited,4,5,READY_TAG_EXISTING,SHAFAGH SENOBAR YAZD COMPANY LIMITED,shafaghsenobaryazdcompanylimited,True,True
+233,SHAHED AVIATION RESEARCH INDUSTRIES CENTER,shahedaviationresearchindustriescenter,6,7,NOOP_ALREADY_METI,SHAHED AVIATION RESEARCH INDUSTRIES CENTER,shahedaviationresearchindustriescenter,True,True
+234,Shahid Ahmad Kazemi Industrial Group (SAKIG),shahidahmadkazemiindustrialgroup(sakig),0,1,NOOP_ALREADY_METI,Shahid Ahmad Kazemi Industrial Group (SAKIG),shahidahmadkazemiindustrialgroup(sakig),True,True
+235,Shahid Alamolhoda Industries,shahidalamolhodaindustries,3,4,READY_TAG_EXISTING,Shahid Alamolhoda Industries,shahidalamolhodaindustries,True,True
+236,Shahid Bagheri Industrial Group (SBIG),shahidbagheriindustrialgroup(sbig),4,5,NOOP_ALREADY_METI,Shahid Bagheri Industrial Group (SBIG),shahidbagheriindustrialgroup(sbig),True,True
+237,Shahid Beheshti University,shahidbeheshtiuniversity,0,1,NOOP_ALREADY_METI,Shahid Beheshti University,shahidbeheshtiuniversity,True,True
+238,Shahid Cheraghi Industries,shahidcheraghiindustries,0,1,READY_TAG_EXISTING,Shahid Cheraghi Industries,shahidcheraghiindustries,True,True
+239,Shahid Eslami Research Center,shahideslamiresearchcenter,0,1,READY_TAG_EXISTING,Shahid Eslami Research Center,shahideslamiresearchcenter,True,True
+240,Shahid Hemmat Industrial Group (SHIG),shahidhemmatindustrialgroup(shig),4,5,NOOP_ALREADY_METI,Shahid Hemmat Industrial Group (SHIG),shahidhemmatindustrialgroup(shig),True,True
+241,Shahid Kalhor Industries,shahidkalhorindustries,0,1,READY_TAG_EXISTING,Shahid Kalhor Industries,shahidkalhorindustries,True,True
+242,SHAHID KARIMI GROUP,shahidkarimigroup,0,1,READY_TAG_EXISTING,SHAHID KARIMI GROUP,shahidkarimigroup,True,True
+243,Shahid Karimi Industries,shahidkarimiindustries,0,1,READY_TAG_EXISTING,Shahid Karimi Industries,shahidkarimiindustries,True,True
+244,Shahid Kharrazi Industries,shahidkharraziindustries,1,2,READY_TAG_EXISTING,Shahid Kharrazi Industries,shahidkharraziindustries,True,True
+245,Shahid Meisami Group,shahidmeisamigroup,3,4,READY_TAG_EXISTING,Shahid Meisami Group,shahidmeisamigroup,True,True
+246,Shahid Moghaddam Industries,shahidmoghaddamindustries,0,1,READY_TAG_EXISTING,Shahid Moghaddam Industries,shahidmoghaddamindustries,True,True
+247,SHAHID MOVAHHED DANESH GROUP,shahidmovahheddaneshgroup,0,1,READY_TAG_EXISTING,SHAHID MOVAHHED DANESH GROUP,shahidmovahheddaneshgroup,True,True
+248,Shahid Movahed Industries,shahidmovahedindustries,3,4,READY_TAG_EXISTING,Shahid Movahed Industries,shahidmovahedindustries,True,True
+249,Shahid Nuri Industries,shahidnuriindustries,1,2,READY_TAG_EXISTING,Shahid Nuri Industries,shahidnuriindustries,True,True
+250,Shahid Rastegar Industries,shahidrastegarindustries,0,1,READY_TAG_EXISTING,Shahid Rastegar Industries,shahidrastegarindustries,True,True
+251,Shahid Sanikhani Industries,shahidsanikhaniindustries,0,1,READY_TAG_EXISTING,Shahid Sanikhani Industries,shahidsanikhaniindustries,True,True
+252,Shahid Sattari Industries,shahidsattariindustries,1,2,NOOP_ALREADY_METI,Shahid Sattari Industries,shahidsattariindustries,True,True
+253,Shahid Sayyade Shirazi Industries (SSSI),shahidsayyadeshiraziindustries(sssi),2,3,NOOP_ALREADY_METI,Shahid Sayyade Shirazi Industries (SSSI),shahidsayyadeshiraziindustries(sssi),True,True
+254,Shahid Shustari Industries,shahidshustariindustries,3,4,READY_TAG_EXISTING,Shahid Shustari Industries,shahidshustariindustries,True,True
+255,Shahid Varamini Industries,shahidvaraminiindustries,0,1,READY_TAG_EXISTING,Shahid Varamini Industries,shahidvaraminiindustries,True,True
+256,SHAHID ZEINODDIN GROUP,shahidzeinoddingroup,0,1,READY_TAG_EXISTING,SHAHID ZEINODDIN GROUP,shahidzeinoddingroup,True,True
+257,Shakad Sanat Asmari,shakadsanatasmari,1,2,NOOP_ALREADY_METI,Shakad Sanat Asmari,shakadsanatasmari,True,True
+258,Shakhese Behbud Sanat,shakhesebehbudsanat,0,1,NOOP_ALREADY_METI,Shakhese Behbud Sanat,shakhesebehbudsanat,True,True
+259,Sharif University of Technology (SHFT),sharifuniversityoftechnology(shft),2,3,NOOP_ALREADY_METI,Sharif University of Technology (SHFT),sharifuniversityoftechnology(shft),True,True
+260,Shetab G.,shetabg.,0,1,NOOP_ALREADY_METI,Shetab G.,shetabg.,True,True
+261,Shetab Gaman,shetabgaman,0,1,NOOP_ALREADY_METI,Shetab Gaman,shetabgaman,True,True
+262,Shetab Trading,shetabtrading,0,1,NOOP_ALREADY_METI,Shetab Trading,shetabtrading,True,True
+263,Shiraz Electronics Industries (SEI),shirazelectronicsindustries(sei),1,2,NOOP_ALREADY_METI,Shiraz Electronics Industries (SEI),shirazelectronicsindustries(sei),True,True
+264,Simatic Development Co.,simaticdevelopmentco.,1,2,NOOP_ALREADY_METI,Simatic Development Co.,simaticdevelopmentco.,True,True
+265,SkyTech Electronic,skytechelectronic,1,2,READY_ADD,SkyTech Electronic,skytechelectronic,True,True
+266,State Purchasing Organisation (SPO),statepurchasingorganisation(spo),0,1,NOOP_ALREADY_METI,State Purchasing Organisation (SPO),statepurchasingorganisation(spo),True,True
+267,TOWLID ABZAR BORESHI IRAN,towlidabzarboreshiiran,3,4,READY_TAG_EXISTING,TOWLID ABZAR BORESHI IRAN,towlidabzarboreshiiran,True,True
+268,Taghtiran Kashan Company,taghtirankashancompany,2,3,NOOP_ALREADY_METI,Taghtiran Kashan Company,taghtirankashancompany,True,True
+269,Tajhiz Sanat Shayan (TSS),tajhizsanatshayan(tss),0,1,NOOP_ALREADY_METI,Tajhiz Sanat Shayan (TSS),tajhizsanatshayan(tss),True,True
+270,TAMIN KALAYE SABZ ARAS COMPANY,taminkalayesabzarascompany,6,7,READY_TAG_EXISTING,TAMIN KALAYE SABZ ARAS COMPANY,taminkalayesabzarascompany,True,True
+271,Tarbiat Modares University,tarbiatmodaresuniversity,0,1,NOOP_ALREADY_METI,Tarbiat Modares University,tarbiatmodaresuniversity,True,True
+272,Tarh O Palayesh,tarhopalayesh,0,1,NOOP_ALREADY_METI,Tarh O Palayesh,tarhopalayesh,True,True
+273,Tehran Gostaresh,tehrangostaresh,1,2,NOOP_ALREADY_METI,Tehran Gostaresh,tehrangostaresh,True,True
+274,Tehran Pishro Trading Co.,tehranpishrotradingco.,0,1,READY_ADD,Tehran Pishro Trading Co.,tehranpishrotradingco.,True,True
+275,Test Tafsir,testtafsir,0,1,NOOP_ALREADY_METI,Test Tafsir,testtafsir,True,True
+276,TEYF TADBIR ARYA ENGINEERING COMPANY,teyftadbiraryaengineeringcompany,2,3,READY_TAG_EXISTING,TEYF TADBIR ARYA ENGINEERING COMPANY,teyftadbiraryaengineeringcompany,True,True
+277,Tidewater Middle East Co.,tidewatermiddleeastco.,4,5,NOOP_ALREADY_METI,Tidewater Middle East Co.,tidewatermiddleeastco.,True,True
+278,Tiva Darya,tivadarya,0,1,NOOP_ALREADY_METI,Tiva Darya,tivadarya,True,True
+279,Tiva Kara Co. Ltd.,tivakaraco.ltd.,1,2,NOOP_ALREADY_METI,Tiva Kara Co. Ltd.,tivakaraco.ltd.,True,True
+280,Tiva Polymer Co.,tivapolymerco.,0,1,NOOP_ALREADY_METI,Tiva Polymer Co.,tivapolymerco.,True,True
+281,Tiva Sanat Group,tivasanatgroup,3,4,NOOP_ALREADY_METI,Tiva Sanat Group,tivasanatgroup,True,True
+282,University of Tehran,universityoftehran,1,2,NOOP_ALREADY_METI,University of Tehran,universityoftehran,True,True
+283,Value-Added Services Laboratory (VASL),value-addedserviceslaboratory(vasl),1,2,NOOP_ALREADY_METI,Value-Added Services Laboratory (VASL),value-addedserviceslaboratory(vasl),True,True
+284,Y.A.S. Company Limited,y.a.s.companylimited,2,3,NOOP_ALREADY_METI,Y.A.S. Company Limited,y.a.s.companylimited,True,True
+285,Yarsanat,yarsanat,3,4,NOOP_ALREADY_METI,Yarsanat,yarsanat,True,True
+286,Ya Mahdi Industries Group,yamahdiindustriesgroup,3,4,NOOP_ALREADY_METI,Ya Mahdi Industries Group,yamahdiindustriesgroup,True,True
+287,Yasa Part,yasapart,0,1,NOOP_ALREADY_METI,Yasa Part,yasapart,True,True
+288,Yazd Metallurgy Industries (YMI),yazdmetallurgyindustries(ymi),2,3,NOOP_ALREADY_METI,Yazd Metallurgy Industries (YMI),yazdmetallurgyindustries(ymi),True,True
+289,Zagros Electronic,zagroselectronic,1,2,READY_ADD,Zagros Electronic,zagroselectronic,True,True
+290,Zist Tajhiz Pooyesh Company,zisttajhizpooyeshcompany,2,3,READY_TAG_EXISTING,Zist Tajhiz Pooyesh Company,zisttajhizpooyeshcompany,True,True
+291,Zolal Iran Company,zolalirancompany,1,2,NOOP_ALREADY_METI,Zolal Iran Company,zolalirancompany,True,True
+292,"Bhabha Atomic Research Centre (BARC), Department of Atomic Energy (DAE)",departmentofatomicenergy(dae)bhabhaatomicresearchcentre(barc),0,1,NOOP_ALREADY_METI,"Bhabha Atomic Research Centre (BARC), Department of Atomic Energy (DAE)",departmentofatomicenergy(dae)bhabhaatomicresearchcentre(barc),True,True
+293,"Indira Gandhi Centre for Atomic Research (IGCAR), DAE",daeindiragandhicentreforatomicresearch(igcar),0,1,NOOP_ALREADY_METI,"Indira Gandhi Centre for Atomic Research (IGCAR), DAE",daeindiragandhicentreforatomicresearch(igcar),True,True
+294,Abu Zaabal Company for Speciality Chemicals （AZC）,abuzaabalcompanyforspecialitychemicals(azc),0,1,NOOP_ALREADY_METI,Abu Zaabal Company for Speciality Chemicals （AZC）,abuzaabalcompanyforspecialitychemicals(azc),True,True
+295,EKO Development and Investment Company,ekodevelopmentandinvestmentcompany,2,3,READY_TAG_EXISTING,EKO Development and Investment Company,ekodevelopmentandinvestmentcompany,True,True
+296,Sakr Factory for Developed Industries,sakrfactoryfordevelopedindustries,0,1,NOOP_ALREADY_METI,Sakr Factory for Developed Industries,sakrfactoryfordevelopedindustries,True,True
+297,4.27 Co. Pyongyang Branch (4.27貿易会社平壌支社),4.27co.pyongyangbranch(4.27貿易会社平壌支社),1,2,READY_ADD,4.27 Co. Pyongyang Branch (4.27貿易会社平壌支社),4.27co.pyongyangbranch(4.27貿易会社平壌支社),True,True
+298,Academy of Health and Food Science (保健食品科学院),academyofhealthandfoodscience(保健食品科学院),1,2,READY_ADD,Academy of Health and Food Science (保健食品科学院),academyofhealthandfoodscience(保健食品科学院),True,True
+299,Academy of National Defense Science (国防科学院),academyofnationaldefensescience(国防科学院),0,1,READY_ADD,Academy of National Defense Science (国防科学院),academyofnationaldefensescience(国防科学院),True,True
+300,Air Koryo (高麗航空),airkoryo(高麗航空),1,2,READY_ADD,Air Koryo (高麗航空),airkoryo(高麗航空),True,True
+301,Amroggang Development Banking Corporation,amroggangdevelopmentbankingcorporation,3,4,NOOP_ALREADY_METI,Amroggang Development Banking Corporation,amroggangdevelopmentbankingcorporation,True,True
+302,Bank of East Land,bankofeastland,3,4,NOOP_ALREADY_METI,Bank of East Land,bankofeastland,True,True
+303,"Chong Unsan-5 Co., Ltd. (青雲山5会社)","chongunsan-5co.,ltd.(青雲山5会社)",1,2,READY_ADD,"Chong Unsan-5 Co., Ltd. (青雲山5会社)","chongunsan-5co.,ltd.(青雲山5会社)",True,True
+304,Chongbong Shipping Co Ltd,chongbongshippingcoltd,0,1,READY_TAG_EXISTING,Chongbong Shipping Co Ltd,chongbongshippingcoltd,True,True
+305,Chongchongang Shipping Company (清川江号),chongchongangshippingcompany(清川江号),3,4,READY_ADD,Chongchongang Shipping Company (清川江号),chongchongangshippingcompany(清川江号),True,True
+306,Choson Central Bank (朝鮮中央銀行),chosoncentralbank(朝鮮中央銀行),1,2,READY_ADD,Choson Central Bank (朝鮮中央銀行),chosoncentralbank(朝鮮中央銀行),True,True
+307,"Construction Department, Samsu Power Plant, Ryanggangdo (両江道三水発電所建設部)","constructiondepartment,samsupowerplant,ryanggangdo(両江道三水発電所建設部)",0,1,READY_ADD,"Construction Department, Samsu Power Plant, Ryanggangdo (両江道三水発電所建設部)","constructiondepartment,samsupowerplant,ryanggangdo(両江道三水発電所建設部)",True,True
+308,Daedong Credit Bank,daedongcreditbank,3,4,NOOP_ALREADY_METI,Daedong Credit Bank,daedongcreditbank,True,True
+309,Daehung Oil & Vehicle Trading Co. (大興運輸貿易会社),daehungoil&vehicletradingco.(大興運輸貿易会社),1,2,READY_ADD,Daehung Oil & Vehicle Trading Co. (大興運輸貿易会社),daehungoil&vehicletradingco.(大興運輸貿易会社),True,True
+310,Daiheung Chengyen (大興青年鉱山),daiheungchengyen(大興青年鉱山),1,2,READY_ADD,Daiheung Chengyen (大興青年鉱山),daiheungchengyen(大興青年鉱山),True,True
+311,Dandong Co. (丹東会社),dandongco.(丹東会社),0,1,READY_ADD,Dandong Co. (丹東会社),dandongco.(丹東会社),True,True
+312,DEPARTMENT 53 OF THE MINISTRY OF THE PEOPLE'S ARMED FORCES,department53oftheministryofthepeople'sarmedforces,3,4,READY_TAG_EXISTING,DEPARTMENT 53 OF THE MINISTRY OF THE PEOPLE'S ARMED FORCES,department53oftheministryofthepeople'sarmedforces,True,True
+313,EFCO Corporation,efcocorporation,1,2,NOOP_ALREADY_METI,EFCO Corporation,efcocorporation,True,True
+314,EXTERNAL CONSTRUCTION BUREAU,externalconstructionbureau,2,3,READY_TAG_EXISTING,EXTERNAL CONSTRUCTION BUREAU,externalconstructionbureau,True,True
+315,Fhangin Co. Ltd.,fhanginco.ltd.,0,1,NOOP_ALREADY_METI,Fhangin Co. Ltd.,fhanginco.ltd.,True,True
+316,First Trust Finance Co. Ltd. (第一信託会社),firsttrustfinanceco.ltd.(第一信託会社),0,1,READY_ADD,First Trust Finance Co. Ltd. (第一信託会社),firsttrustfinanceco.ltd.(第一信託会社),True,True
+317,Foreign Trade Bank of the Democratic People's Republic of Korea (貿易銀行),foreigntradebankofthedemocraticpeople'srepublicofkorea(貿易銀行),3,4,READY_ADD,Foreign Trade Bank of the Democratic People's Republic of Korea (貿易銀行),foreigntradebankofthedemocraticpeople'srepublicofkorea(貿易銀行),True,True
+318,Green Pine Associated Corporation （青松連合）,greenpineassociatedcorporation(青松連合),15,16,READY_ADD,Green Pine Associated Corporation （青松連合）,greenpineassociatedcorporation(青松連合),True,True
+319,Haejin Ship Management Company Limited,haejinshipmanagementcompanylimited,0,1,READY_TAG_EXISTING,Haejin Ship Management Company Limited,haejinshipmanagementcompanylimited,True,True
+320,Hapjanggang Trading Corporation,hapjanggangtradingcorporation,0,1,READY_TAG_EXISTING,Hapjanggang Trading Corporation,hapjanggangtradingcorporation,True,True
+321,Hesong Trading Corporation (彗星貿易会社),hesongtradingcorporation(彗星貿易会社),2,3,READY_ADD,Hesong Trading Corporation (彗星貿易会社),hesongtradingcorporation(彗星貿易会社),True,True
+322,Hoeryong Shipping Co Ltd,hoeryongshippingcoltd,0,1,READY_TAG_EXISTING,Hoeryong Shipping Co Ltd,hoeryongshippingcoltd,True,True
+323,"Hwanghai Steel Union Co., Ltd. (黄海製鉄連合企業所)","hwanghaisteelunionco.,ltd.(黄海製鉄連合企業所)",1,2,READY_ADD,"Hwanghai Steel Union Co., Ltd. (黄海製鉄連合企業所)","hwanghaisteelunionco.,ltd.(黄海製鉄連合企業所)",True,True
+324,Ilsim International Bank,ilsiminternationalbank,0,1,READY_TAG_EXISTING,Ilsim International Bank,ilsiminternationalbank,True,True
+325,KANGBONG TRADING CORPORATION,kangbongtradingcorporation,0,1,READY_TAG_EXISTING,KANGBONG TRADING CORPORATION,kangbongtradingcorporation,True,True
+326,K.N. Technology Development Co.,k.n.technologydevelopmentco.,0,1,NOOP_ALREADY_METI,K.N. Technology Development Co.,k.n.technologydevelopmentco.,True,True
+327,Kim Chaek Iron Works (金策製鉄所),kimchaekironworks(金策製鉄所),2,3,READY_ADD,Kim Chaek Iron Works (金策製鉄所),kimchaekironworks(金策製鉄所),True,True
+328,Kim Chaek University of Technology (金策工業総合大学),kimchaekuniversityoftechnology(金策工業総合大学),0,1,READY_ADD,Kim Chaek University of Technology (金策工業総合大学),kimchaekuniversityoftechnology(金策工業総合大学),True,True
+329,Kim Il Sung University (金日成総合大学),kimilsunguniversity(金日成総合大学),0,1,READY_ADD,Kim Il Sung University (金日成総合大学),kimilsunguniversity(金日成総合大学),True,True
+330,Korea 56 Trading Corp.,korea56tradingcorp.,1,2,NOOP_ALREADY_METI,Korea 56 Trading Corp.,korea56tradingcorp.,True,True
+331,Korea Choei Syouji,koreachoeisyouji,0,1,NOOP_ALREADY_METI,Korea Choei Syouji,koreachoeisyouji,True,True
+332,Korea Complex Equipment Import Corporation (朝鮮総合設備輸出入会社),koreacomplexequipmentimportcorporation(朝鮮総合設備輸出入会社),1,2,READY_ADD,Korea Complex Equipment Import Corporation (朝鮮総合設備輸出入会社),koreacomplexequipmentimportcorporation(朝鮮総合設備輸出入会社),True,True
+333,Korea Computer Center,koreacomputercenter,3,4,READY_TAG_EXISTING,Korea Computer Center,koreacomputercenter,True,True
+334,Korea Daesong Bank,koreadaesongbank,2,3,READY_TAG_EXISTING,Korea Daesong Bank,koreadaesongbank,True,True
+335,Korea Daesong General Trading Corporation,koreadaesonggeneraltradingcorporation,17,18,NOOP_ALREADY_METI,Korea Daesong General Trading Corporation,koreadaesonggeneraltradingcorporation,True,True
+336,Korea Dongsong Technical Corporation (朝鮮東城技術貿易会社),koreadongsongtechnicalcorporation(朝鮮東城技術貿易会社),1,2,READY_ADD,Korea Dongsong Technical Corporation (朝鮮東城技術貿易会社),koreadongsongtechnicalcorporation(朝鮮東城技術貿易会社),True,True
+337,Korea Dongyang Trading Corp. (朝鮮東洋貿易会社),koreadongyangtradingcorp.(朝鮮東洋貿易会社),2,3,READY_ADD,Korea Dongyang Trading Corp. (朝鮮東洋貿易会社),koreadongyangtradingcorp.(朝鮮東洋貿易会社),True,True
+338,Korea Economic Co-operation Committee (朝鮮経済協力委員会),koreaeconomicco-operationcommittee(朝鮮経済協力委員会),0,1,READY_ADD,Korea Economic Co-operation Committee (朝鮮経済協力委員会),koreaeconomicco-operationcommittee(朝鮮経済協力委員会),True,True
+339,Korea Foreign Technical Trade Center (対外技術貿易センター),koreaforeigntechnicaltradecenter(対外技術貿易センタ-),2,3,READY_ADD,Korea Foreign Technical Trade Center (対外技術貿易センター),koreaforeigntechnicaltradecenter(対外技術貿易センタ-),True,True
+340,Korea General Trading Corporation,koreageneraltradingcorporation,0,1,NOOP_ALREADY_METI,Korea General Trading Corporation,koreageneraltradingcorporation,True,True
+341,Korea Heungjin Trading Company,koreaheungjintradingcompany,3,4,NOOP_ALREADY_METI,Korea Heungjin Trading Company,koreaheungjintradingcompany,True,True
+342,Korea Hyoksin Trading Corporation (朝鮮革新貿易会社),koreahyoksintradingcorporation(朝鮮革新貿易会社),1,2,READY_ADD,Korea Hyoksin Trading Corporation (朝鮮革新貿易会社),koreahyoksintradingcorporation(朝鮮革新貿易会社),True,True
+343,Korea International Chemical Joint Venture Company (朝鮮国際化学合営会社),koreainternationalchemicaljointventurecompany(朝鮮国際化学合営会社),3,4,READY_ADD,Korea International Chemical Joint Venture Company (朝鮮国際化学合営会社),koreainternationalchemicaljointventurecompany(朝鮮国際化学合営会社),True,True
+344,Korea Jangsu Trading Corporation (長水貿易会社),koreajangsutradingcorporation(長水貿易会社),1,2,READY_ADD,Korea Jangsu Trading Corporation (長水貿易会社),koreajangsutradingcorporation(長水貿易会社),True,True
+345,Korea Kangsong Trading Corp. (朝鮮強盛貿易会社),koreakangsongtradingcorp.(朝鮮強盛貿易会社),0,1,READY_ADD,Korea Kangsong Trading Corp. (朝鮮強盛貿易会社),koreakangsongtradingcorp.(朝鮮強盛貿易会社),True,True
+346,Korea KukSabong Joint Venture Company (朝鮮国師峰合営会社),koreakuksabongjointventurecompany(朝鮮国師峰合営会社),1,2,READY_ADD,Korea KukSabong Joint Venture Company (朝鮮国師峰合営会社),koreakuksabongjointventurecompany(朝鮮国師峰合営会社),True,True
+347,Korea Kumsan Trading Corporation,koreakumsantradingcorporation,0,1,READY_TAG_EXISTING,Korea Kumsan Trading Corporation,koreakumsantradingcorporation,True,True
+348,Korea Kuwolsan Trading Co. (朝鮮九月山貿易会社),koreakuwolsantradingco.(朝鮮九月山貿易会社),0,1,READY_ADD,Korea Kuwolsan Trading Co. (朝鮮九月山貿易会社),koreakuwolsantradingco.(朝鮮九月山貿易会社),True,True
+349,Korea Kwangson Banking Corporation (KKBC) (朝鮮光鮮金融会社),koreakwangsonbankingcorporation(kkbc)(朝鮮光鮮金融会社),0,1,READY_ADD,Korea Kwangson Banking Corporation (KKBC) (朝鮮光鮮金融会社),koreakwangsonbankingcorporation(kkbc)(朝鮮光鮮金融会社),True,True
+350,Korea Kwangsong Trading Corporation (朝鮮光星貿易会社),koreakwangsongtradingcorporation(朝鮮光星貿易会社),0,1,READY_ADD,Korea Kwangsong Trading Corporation (朝鮮光星貿易会社),koreakwangsongtradingcorporation(朝鮮光星貿易会社),True,True
+351,Korea Mangyong Trading Corporation (朝鮮萬景貿易会社),koreamangyongtradingcorporation(朝鮮萬景貿易会社),1,2,READY_ADD,Korea Mangyong Trading Corporation (朝鮮萬景貿易会社),koreamangyongtradingcorporation(朝鮮萬景貿易会社),True,True
+352,Korea Mining Development Trading Corporation (KOMID) (朝鮮鉱業開発貿易会社),koreaminingdevelopmenttradingcorporation(komid)(朝鮮鉱業開発貿易会社),8,9,READY_ADD,Korea Mining Development Trading Corporation (KOMID) (朝鮮鉱業開発貿易会社),koreaminingdevelopmenttradingcorporation(komid)(朝鮮鉱業開発貿易会社),True,True
+353,Korea Ocean Shipping Agency,koreaoceanshippingagency,0,1,READY_TAG_EXISTING,Korea Ocean Shipping Agency,koreaoceanshippingagency,True,True
+354,Korea Paekho 7 Trading (朝鮮白虎7貿易会社),koreapaekho7trading(朝鮮白虎7貿易会社),0,1,READY_ADD,Korea Paekho 7 Trading (朝鮮白虎7貿易会社),koreapaekho7trading(朝鮮白虎7貿易会社),True,True
+355,Korea Pugang Mining and Machinery Corporation Ltd.,koreapugangminingandmachinerycorporationltd.,0,1,NOOP_ALREADY_METI,Korea Pugang Mining and Machinery Corporation Ltd.,koreapugangminingandmachinerycorporationltd.,True,True
+356,Korea Pugang Trading Corporation (朝鮮富強貿易会社),koreapugangtradingcorporation(朝鮮富強貿易会社),0,1,READY_ADD,Korea Pugang Trading Corporation (朝鮮富強貿易会社),koreapugangtradingcorporation(朝鮮富強貿易会社),True,True
+357,Korea Puhung Trading Corporation (朝鮮富興貿易会社),koreapuhungtradingcorporation(朝鮮富興貿易会社),0,1,READY_ADD,Korea Puhung Trading Corporation (朝鮮富興貿易会社),koreapuhungtradingcorporation(朝鮮富興貿易会社),True,True
+358,Korea Pyong-yang Roksan Trading Corporation (平壌緑山貿易会社),koreapyong-yangroksantradingcorporation(平壌緑山貿易会社),2,3,READY_ADD,Korea Pyong-yang Roksan Trading Corporation (平壌緑山貿易会社),koreapyong-yangroksantradingcorporation(平壌緑山貿易会社),True,True
+359,Korea Pyongwong Trading Co.,koreapyongwongtradingco.,2,3,NOOP_ALREADY_METI,Korea Pyongwong Trading Co.,koreapyongwongtradingco.,True,True
+360,Korea Ragwon Department (朝鮮楽園百貨店),korearagwondepartment(朝鮮楽園百貨店),1,2,READY_ADD,Korea Ragwon Department (朝鮮楽園百貨店),korearagwondepartment(朝鮮楽園百貨店),True,True
+361,Korea Ragwon Trading Corp. (朝鮮楽園貿易会社),korearagwontradingcorp.(朝鮮楽園貿易会社),1,2,READY_ADD,Korea Ragwon Trading Corp. (朝鮮楽園貿易会社),korearagwontradingcorp.(朝鮮楽園貿易会社),True,True
+362,Korea Rason Moran Company (朝鮮羅先牡丹会社),korearasonmorancompany(朝鮮羅先牡丹会社),0,1,READY_ADD,Korea Rason Moran Company (朝鮮羅先牡丹会社),korearasonmorancompany(朝鮮羅先牡丹会社),True,True
+363,Korea Red Cross Hospital (朝鮮赤十字病院),korearedcrosshospital(朝鮮赤十字病院),0,1,READY_ADD,Korea Red Cross Hospital (朝鮮赤十字病院),korearedcrosshospital(朝鮮赤十字病院),True,True
+364,KOREA ROUNSAN TRADING CORPORATION,korearounsantradingcorporation,0,1,READY_TAG_EXISTING,KOREA ROUNSAN TRADING CORPORATION,korearounsantradingcorporation,True,True
+365,Korea Rungra-888 Trading Corporation (朝鮮綾羅888貿易会社),korearungra-888tradingcorporation(朝鮮綾羅888貿易会社),3,4,READY_ADD,Korea Rungra-888 Trading Corporation (朝鮮綾羅888貿易会社),korearungra-888tradingcorporation(朝鮮綾羅888貿易会社),True,True
+366,Korea Rungrado (General) Trading Co. (朝鮮綾羅島貿易(総)会社),korearungrado(general)tradingco.(朝鮮綾羅島貿易(総)会社),2,3,READY_ADD,Korea Rungrado (General) Trading Co. (朝鮮綾羅島貿易(総)会社),korearungrado(general)tradingco.(朝鮮綾羅島貿易(総)会社),True,True
+367,Korea Ryonbong General Corporation (KRGC) (朝鮮連峰総会社),korearyonbonggeneralcorporation(krgc)(朝鮮連峰総会社),3,4,READY_ADD,Korea Ryonbong General Corporation (KRGC) (朝鮮連峰総会社),korearyonbonggeneralcorporation(krgc)(朝鮮連峰総会社),True,True
+368,Korea Ryongwang Trading Corporation (朝鮮連光貿易会社),korearyongwangtradingcorporation(朝鮮連光貿易会社),2,3,READY_ADD,Korea Ryongwang Trading Corporation (朝鮮連光貿易会社),korearyongwangtradingcorporation(朝鮮連光貿易会社),True,True
+369,Korea Ryonha Machinery Joint Venture Corporation (朝鮮蓮河機械合営会社),korearyonhamachineryjointventurecorporation(朝鮮蓮河機械合営会社),15,16,READY_ADD,Korea Ryonha Machinery Joint Venture Corporation (朝鮮蓮河機械合営会社),korearyonhamachineryjointventurecorporation(朝鮮蓮河機械合営会社),True,True
+370,KOREA RYONHAP TRADING CORPORATION （朝鮮連合貿易会社）,korearyonhaptradingcorporation(朝鮮連合貿易会社),0,1,READY_ADD,KOREA RYONHAP TRADING CORPORATION （朝鮮連合貿易会社）,korearyonhaptradingcorporation(朝鮮連合貿易会社),True,True
+371,Korea Ryonhap-2 Trading Corporation (朝鮮連合2貿易会社),korearyonhap-2tradingcorporation(朝鮮連合2貿易会社),2,3,READY_ADD,Korea Ryonhap-2 Trading Corporation (朝鮮連合2貿易会社),korearyonhap-2tradingcorporation(朝鮮連合2貿易会社),True,True
+372,"Korea Ryusong Co., Ltd. (朝鮮柳城商社)","korearyusongco.,ltd.(朝鮮柳城商社)",0,1,READY_ADD,"Korea Ryusong Co., Ltd. (朝鮮柳城商社)","korearyusongco.,ltd.(朝鮮柳城商社)",True,True
+373,Korea Samilpo Shipping Co,koreasamilposhippingco,0,1,READY_TAG_EXISTING,Korea Samilpo Shipping Co,koreasamilposhippingco,True,True
+374,Korea Suho Trading Company （朝鮮守護貿易会社）,koreasuhotradingcompany(朝鮮守護貿易会社),0,1,READY_ADD,Korea Suho Trading Company （朝鮮守護貿易会社）,koreasuhotradingcompany(朝鮮守護貿易会社),True,True
+375,Korea Sungri Trading Corporation (朝鮮勝利貿易会社),koreasungritradingcorporation(朝鮮勝利貿易会社),0,1,READY_ADD,Korea Sungri Trading Corporation (朝鮮勝利貿易会社),koreasungritradingcorporation(朝鮮勝利貿易会社),True,True
+376,Korea Taesong Trading Company,koreataesongtradingcompany,0,1,NOOP_ALREADY_METI,Korea Taesong Trading Company,koreataesongtradingcompany,True,True
+377,Korea Tonghae Shipping Company (朝鮮東海海運会社),koreatonghaeshippingcompany(朝鮮東海海運会社),0,1,READY_ADD,Korea Tonghae Shipping Company (朝鮮東海海運会社),koreatonghaeshippingcompany(朝鮮東海海運会社),True,True
+378,Korea Undok Trading Corporation (朝鮮恩徳貿易会社),koreaundoktradingcorporation(朝鮮恩徳貿易会社),0,1,READY_ADD,Korea Undok Trading Corporation (朝鮮恩徳貿易会社),koreaundoktradingcorporation(朝鮮恩徳貿易会社),True,True
+379,Korea United Development Bank,koreauniteddevelopmentbank,0,1,READY_TAG_EXISTING,Korea United Development Bank,koreauniteddevelopmentbank,True,True
+380,Korea Wonbong Trading Corp. (朝鮮元峰貿易会社),koreawonbongtradingcorp.(朝鮮元峰貿易会社),1,2,READY_ADD,Korea Wonbong Trading Corp. (朝鮮元峰貿易会社),koreawonbongtradingcorp.(朝鮮元峰貿易会社),True,True
+381,Korea Zinc Industrial Group (朝鮮亜鉛工業総会社),koreazincindustrialgroup(朝鮮亜鉛工業総会社),3,4,READY_ADD,Korea Zinc Industrial Group (朝鮮亜鉛工業総会社),koreazincindustrialgroup(朝鮮亜鉛工業総会社),True,True
+382,Korea Zuzagbong Maritime Ltd,koreazuzagbongmaritimeltd,0,1,READY_TAG_EXISTING,Korea Zuzagbong Maritime Ltd,koreazuzagbongmaritimeltd,True,True
+383,Korean Buyon Shipping Co. Ltd.,koreanbuyonshippingco.ltd.,2,3,NOOP_ALREADY_METI,Korean Buyon Shipping Co. Ltd.,koreanbuyonshippingco.ltd.,True,True
+384,Korean Committee for Space Technology (朝鮮宇宙空間技術委員会),koreancommitteeforspacetechnology(朝鮮宇宙空間技術委員会),4,5,READY_ADD,Korean Committee for Space Technology (朝鮮宇宙空間技術委員会),koreancommitteeforspacetechnology(朝鮮宇宙空間技術委員会),True,True
+385,Korean Polish Shpg Co Ltd,koreanpolishshpgcoltd,0,1,READY_TAG_EXISTING,Korean Polish Shpg Co Ltd,koreanpolishshpgcoltd,True,True
+386,Korean Tangun Trading Corporation (朝鮮檀君貿易会社),koreantanguntradingcorporation(朝鮮檀君貿易会社),7,8,READY_ADD,Korean Tangun Trading Corporation (朝鮮檀君貿易会社),koreantanguntradingcorporation(朝鮮檀君貿易会社),True,True
+387,Kumgang Engine J.V. Co. (金剛原動機合営会社),kumgangenginej.v.co.(金剛原動機合営会社),0,1,READY_ADD,Kumgang Engine J.V. Co. (金剛原動機合営会社),kumgangenginej.v.co.(金剛原動機合営会社),True,True
+388,Kumsan JVC Pty Ltd. (金山合営会社),kumsanjvcptyltd.(金山合営会社),1,2,READY_ADD,Kumsan JVC Pty Ltd. (金山合営会社),kumsanjvcptyltd.(金山合営会社),True,True
+389,Machinery Exp. and Imp. Corp.,machineryexp.andimp.corp.,0,1,NOOP_ALREADY_METI,Machinery Exp. and Imp. Corp.,machineryexp.andimp.corp.,True,True
+390,Ministry of Atomic Energy Industry (MAEI) (原子力工業省),ministryofatomicenergyindustry(maei)(原子力工業省),2,3,READY_ADD,Ministry of Atomic Energy Industry (MAEI) (原子力工業省),ministryofatomicenergyindustry(maei)(原子力工業省),True,True
+391,MINISTRY OF ROCKET INDUSTRY （ロケット産業省）,ministryofrocketindustry(ロケット産業省),1,2,READY_ADD,MINISTRY OF ROCKET INDUSTRY （ロケット産業省）,ministryofrocketindustry(ロケット産業省),True,True
+392,Mirim Shipping Co Ltd,mirimshippingcoltd,0,1,READY_TAG_EXISTING,Mirim Shipping Co Ltd,mirimshippingcoltd,True,True
+393,Munitions Industry Department (軍需工業部),munitionsindustrydepartment(軍需工業部),1,2,READY_ADD,Munitions Industry Department (軍需工業部),munitionsindustrydepartment(軍需工業部),True,True
+394,Namchongang Trading Corporation (南川江貿易会社),namchongangtradingcorporation(南川江貿易会社),9,10,READY_ADD,Namchongang Trading Corporation (南川江貿易会社),namchongangtradingcorporation(南川江貿易会社),True,True
+395,Namhung Chemical Plant (南興化学工場),namhungchemicalplant(南興化学工場),1,2,READY_ADD,Namhung Chemical Plant (南興化学工場),namhungchemicalplant(南興化学工場),True,True
+396,Namhung Youth Chemical Complex,namhungyouthchemicalcomplex,1,2,NOOP_ALREADY_METI,Namhung Youth Chemical Complex,namhungyouthchemicalcomplex,True,True
+397,Namsan 2 Company (南山2会社),namsan2company(南山2会社),1,2,READY_ADD,Namsan 2 Company (南山2会社),namsan2company(南山2会社),True,True
+398,National Aerospace Development Administration (NADA) (国家宇宙開発局),nationalaerospacedevelopmentadministration(nada)(国家宇宙開発局),0,1,READY_ADD,National Aerospace Development Administration (NADA) (国家宇宙開発局),nationalaerospacedevelopmentadministration(nada)(国家宇宙開発局),True,True
+399,National Defense College (国防大学),nationaldefensecollege(国防大学),1,2,READY_ADD,National Defense College (国防大学),nationaldefensecollege(国防大学),True,True
+400,"New East International Trading Ltd., Pyongyang Office (東新国際貿易有限公司平壌事務所)",pyongyangoffice(東新国際貿易有限公司平壌事務所)neweastinternationaltradingltd.,0,1,READY_ADD,"New East International Trading Ltd., Pyongyang Office (東新国際貿易有限公司平壌事務所)",pyongyangoffice(東新国際貿易有限公司平壌事務所)neweastinternationaltradingltd.,True,True
+401,Ocean Bunkering JV Co,oceanbunkeringjvco,0,1,NOOP_ALREADY_METI,Ocean Bunkering JV Co,oceanbunkeringjvco,True,True
+402,"Ocean Maritime Management Company, Limited",limitedoceanmaritimemanagementcompany,1,2,NOOP_ALREADY_METI,"Ocean Maritime Management Company, Limited",limitedoceanmaritimemanagementcompany,True,True
+403,Office 39,office39,6,7,NOOP_ALREADY_METI,Office 39,office39,True,True
+404,Pan Systems Pte. Ltd. (Pyongyang branch),pansystemspte.ltd.(pyongyangbranch),1,2,NOOP_ALREADY_METI,Pan Systems Pte. Ltd. (Pyongyang branch),pansystemspte.ltd.(pyongyangbranch),True,True
+405,Peace Motors Corporation (平和自動車会社),peacemotorscorporation(平和自動車会社),1,2,READY_ADD,Peace Motors Corporation (平和自動車会社),peacemotorscorporation(平和自動車会社),True,True
+406,Ponghwa General Trading Corporation,ponghwageneraltradingcorporation,1,2,NOOP_ALREADY_METI,Ponghwa General Trading Corporation,ponghwageneraltradingcorporation,True,True
+407,Ponghwa Hospital (烽火診療所),ponghwahospital(烽火診療所),1,2,READY_ADD,Ponghwa Hospital (烽火診療所),ponghwahospital(烽火診療所),True,True
+408,Potonggang Cooperative of Optical Glass Production (普通江眼鏡生産共同組合),potonggangcooperativeofopticalglassproduction(普通江眼鏡生産共同組合),0,1,READY_ADD,Potonggang Cooperative of Optical Glass Production (普通江眼鏡生産共同組合),potonggangcooperativeofopticalglassproduction(普通江眼鏡生産共同組合),True,True
+409,Pyongjin Ship Management Company Limited,pyongjinshipmanagementcompanylimited,0,1,READY_TAG_EXISTING,Pyongjin Ship Management Company Limited,pyongjinshipmanagementcompanylimited,True,True
+410,Pyongyang City Construction Bureau (平壌市都市建設総局),pyongyangcityconstructionbureau(平壌市都市建設総局),0,1,READY_ADD,Pyongyang City Construction Bureau (平壌市都市建設総局),pyongyangcityconstructionbureau(平壌市都市建設総局),True,True
+411,Pyongyang Gomu Gongjang (平壌ゴム工場),pyongyanggomugongjang(平壌ゴム工場),1,2,READY_ADD,Pyongyang Gomu Gongjang (平壌ゴム工場),pyongyanggomugongjang(平壌ゴム工場),True,True
+412,Pyongyang Informatics Centre (平壌情報センター),pyongyanginformaticscentre(平壌情報センタ-),1,2,READY_ADD,Pyongyang Informatics Centre (平壌情報センター),pyongyanginformaticscentre(平壌情報センタ-),True,True
+413,Pyongyang Maternity Hospital (平壌産院),pyongyangmaternityhospital(平壌産院),0,1,READY_ADD,Pyongyang Maternity Hospital (平壌産院),pyongyangmaternityhospital(平壌産院),True,True
+414,Pyongyang Public Library (平壌市図書館),pyongyangpubliclibrary(平壌市図書館),0,1,READY_ADD,Pyongyang Public Library (平壌市図書館),pyongyangpubliclibrary(平壌市図書館),True,True
+415,Pyongyang Road Construction Office (平壌市道路建設事務所),pyongyangroadconstructionoffice(平壌市道路建設事務所),0,1,READY_ADD,Pyongyang Road Construction Office (平壌市道路建設事務所),pyongyangroadconstructionoffice(平壌市道路建設事務所),True,True
+416,Pyongyang Technical University (平壌技術大学),pyongyangtechnicaluniversity(平壌技術大学),0,1,READY_ADD,Pyongyang Technical University (平壌技術大学),pyongyangtechnicaluniversity(平壌技術大学),True,True
+417,Pyongyang Telephone Exchange (平壌電話交換局),pyongyangtelephoneexchange(平壌電話交換局),0,1,READY_ADD,Pyongyang Telephone Exchange (平壌電話交換局),pyongyangtelephoneexchange(平壌電話交換局),True,True
+418,Pyongyang Trading Company (平壌貿易会社),pyongyangtradingcompany(平壌貿易会社),1,2,READY_ADD,Pyongyang Trading Company (平壌貿易会社),pyongyangtradingcompany(平壌貿易会社),True,True
+419,"RA-HAE Trading Co., Ltd. (羅海貿易会社)","ra-haetradingco.,ltd.(羅海貿易会社)",0,1,READY_ADD,"RA-HAE Trading Co., Ltd. (羅海貿易会社)","ra-haetradingco.,ltd.(羅海貿易会社)",True,True
+420,Rakwon 929 Import Corporation (楽園929輸入会社),rakwon929importcorporation(楽園929輸入会社),1,2,READY_ADD,Rakwon 929 Import Corporation (楽園929輸入会社),rakwon929importcorporation(楽園929輸入会社),True,True
+421,Reconnaissance General Bureau (RGB) (偵察総局),reconnaissancegeneralbureau(rgb)(偵察総局),5,6,READY_ADD,Reconnaissance General Bureau (RGB) (偵察総局),reconnaissancegeneralbureau(rgb)(偵察総局),True,True
+422,Rimyongsu Trading Corporation (鯉明水貿易会社),rimyongsutradingcorporation(鯉明水貿易会社),3,4,READY_ADD,Rimyongsu Trading Corporation (鯉明水貿易会社),rimyongsutradingcorporation(鯉明水貿易会社),True,True
+423,Samhung Corporation (三興会社),samhungcorporation(三興会社),1,2,READY_ADD,Samhung Corporation (三興会社),samhungcorporation(三興会社),True,True
+424,San Yong Co. Ltd.,sanyongco.ltd.,3,4,NOOP_ALREADY_METI,San Yong Co. Ltd.,sanyongco.ltd.,True,True
+425,Second Academy of Natural Sciences (第二自然科学院),secondacademyofnaturalsciences(第二自然科学院),8,9,READY_ADD,Second Academy of Natural Sciences (第二自然科学院),secondacademyofnaturalsciences(第二自然科学院),True,True
+426,Second Economic Committee (第二経済委員会),secondeconomiccommittee(第二経済委員会),0,1,READY_ADD,Second Economic Committee (第二経済委員会),secondeconomiccommittee(第二経済委員会),True,True
+427,Seibu Co. Ltd.,seibuco.ltd.,0,1,NOOP_ALREADY_METI,Seibu Co. Ltd.,seibuco.ltd.,True,True
+428,Shinhung Trading (新興貿易会社),shinhungtrading(新興貿易会社),2,3,READY_ADD,Shinhung Trading (新興貿易会社),shinhungtrading(新興貿易会社),True,True
+429,Singwang Economics and Trading General Corporation,singwangeconomicsandtradinggeneralcorporation,0,1,READY_TAG_EXISTING,Singwang Economics and Trading General Corporation,singwangeconomicsandtradinggeneralcorporation,True,True
+430,Sobaeku United Corp. (小白水連合貿易会社),sobaekuunitedcorp.(小白水連合貿易会社),3,4,READY_ADD,Sobaeku United Corp. (小白水連合貿易会社),sobaekuunitedcorp.(小白水連合貿易会社),True,True
+431,Sosong Food Factory (西城食品工場),sosongfoodfactory(西城食品工場),0,1,READY_ADD,Sosong Food Factory (西城食品工場),sosongfoodfactory(西城食品工場),True,True
+432,State Academy of Science of the DPRK Institute of Automation,stateacademyofscienceofthedprkinstituteofautomation,0,1,NOOP_ALREADY_METI,State Academy of Science of the DPRK Institute of Automation,stateacademyofscienceofthedprkinstituteofautomation,True,True
+433,Sun Hwa Gang Co. Ltd. (順和江会社),sunhwagangco.ltd.(順和江会社),1,2,READY_ADD,Sun Hwa Gang Co. Ltd. (順和江会社),sunhwagangco.ltd.(順和江会社),True,True
+434,Sunchon Cement Factory (順川セメント工場),sunchoncementfactory(順川セメント工場),0,1,READY_ADD,Sunchon Cement Factory (順川セメント工場),sunchoncementfactory(順川セメント工場),True,True
+435,SUNGNISAN TRADING CORPORATION,sungnisantradingcorporation,1,2,READY_TAG_EXISTING,SUNGNISAN TRADING CORPORATION,sungnisantradingcorporation,True,True
+436,Taean Electric Factory (大安電機工場),taeanelectricfactory(大安電機工場),1,2,READY_ADD,Taean Electric Factory (大安電機工場),taeanelectricfactory(大安電機工場),True,True
+437,"Taean Friendship Glass Factory, Pyongan Namdo (大安親善ガラス工場(平安南道))",pyongannamdo(大安親善ガラス工場(平安南道))taeanfriendshipglassfactory,1,2,READY_ADD,"Taean Friendship Glass Factory, Pyongan Namdo (大安親善ガラス工場(平安南道))",pyongannamdo(大安親善ガラス工場(平安南道))taeanfriendshipglassfactory,True,True
+438,Taean Heavy Machinery Complex (大安重機械連合企業所),taeanheavymachinerycomplex(大安重機械連合企業所),3,4,READY_ADD,Taean Heavy Machinery Complex (大安重機械連合企業所),taeanheavymachinerycomplex(大安重機械連合企業所),True,True
+439,Tanchon Commercial Bank (端川商業銀行),tanchoncommercialbank(端川商業銀行),3,4,READY_ADD,Tanchon Commercial Bank (端川商業銀行),tanchoncommercialbank(端川商業銀行),True,True
+440,Thaephyongsan Shipping Co Ltd,thaephyongsanshippingcoltd,0,1,READY_TAG_EXISTING,Thaephyongsan Shipping Co Ltd,thaephyongsanshippingcoltd,True,True
+441,Tosong Technology Trading Corporation (土星技術貿易会社),tosongtechnologytradingcorporation(土星技術貿易会社),0,1,READY_ADD,Tosong Technology Trading Corporation (土星技術貿易会社),tosongtechnologytradingcorporation(土星技術貿易会社),True,True
+442,UNCHON TRADING CORPORATION,unchontradingcorporation,2,3,READY_TAG_EXISTING,UNCHON TRADING CORPORATION,unchontradingcorporation,True,True
+443,Undok Chemical Factory (恩徳化学工場),undokchemicalfactory(恩徳化学工場),0,1,READY_ADD,Undok Chemical Factory (恩徳化学工場),undokchemicalfactory(恩徳化学工場),True,True
+444,University of Chemical Industry (化学工業大学),universityofchemicalindustry(化学工業大学),2,3,READY_ADD,University of Chemical Industry (化学工業大学),universityofchemicalindustry(化学工業大学),True,True
+445,Yongbyon Nuclear Research Centre,yongbyonnuclearresearchcentre,0,1,NOOP_ALREADY_METI,Yongbyon Nuclear Research Centre,yongbyonnuclearresearchcentre,True,True
+446,Yongjin Ship Management Company Limited,yongjinshipmanagementcompanylimited,0,1,READY_TAG_EXISTING,Yongjin Ship Management Company Limited,yongjinshipmanagementcompanylimited,True,True
+447,セソン技術貿易,セソン技術貿易,0,1,NOOP_ALREADY_METI,セソン技術貿易,セソン技術貿易,True,True
+448,朝鮮綾羅科学技術交流社,朝鮮綾羅科学技術交流社,0,1,NOOP_ALREADY_METI,朝鮮綾羅科学技術交流社,朝鮮綾羅科学技術交流社,True,True
+449,マンウォル貿易,マンウォル貿易,0,1,NOOP_ALREADY_METI,マンウォル貿易,マンウォル貿易,True,True
+450,民族経済協力連合会,民族経済協力連合会,2,3,NOOP_ALREADY_METI,民族経済協力連合会,民族経済協力連合会,True,True
+451,Army Supply Bureau,armysupplybureau,0,1,NOOP_ALREADY_METI,Army Supply Bureau,armysupplybureau,True,True
+452,Business Lab,businesslab,0,1,READY_TAG_EXISTING,Business Lab,businesslab,True,True
+453,Electronics Institute,electronicsinstitute,0,1,NOOP_ALREADY_METI,Electronics Institute,electronicsinstitute,True,True
+454,Expert Partners,expertpartners,1,2,READY_TAG_EXISTING,Expert Partners,expertpartners,True,True
+455,GOLDEN STAR CO,goldenstarco,10,11,READY_TAG_EXISTING,GOLDEN STAR CO,goldenstarco,True,True
+456,Handasieh,handasieh,1,2,NOOP_ALREADY_METI,Handasieh,handasieh,True,True
+457,Higher Institute of Applied Science and Technology (HIAST),higherinstituteofappliedscienceandtechnology(hiast),2,3,NOOP_ALREADY_METI,Higher Institute of Applied Science and Technology (HIAST),higherinstituteofappliedscienceandtechnology(hiast),True,True
+458,Industrial Establishment of Defense (IED),industrialestablishmentofdefense(ied),3,4,NOOP_ALREADY_METI,Industrial Establishment of Defense (IED),industrialestablishmentofdefense(ied),True,True
+459,Industrial Solutions,industrialsolutions,0,1,READY_TAG_EXISTING,Industrial Solutions,industrialsolutions,True,True
+460,Mahrous Group,mahrousgroup,5,6,READY_TAG_EXISTING,Mahrous Group,mahrousgroup,True,True
+461,Mechanical Construction Factory (MCF),mechanicalconstructionfactory(mcf),0,1,NOOP_ALREADY_METI,Mechanical Construction Factory (MCF),mechanicalconstructionfactory(mcf),True,True
+462,Megatrade,megatrade,0,1,READY_TAG_EXISTING,Megatrade,megatrade,True,True
+463,Metallic Manufacturing Factory,metallicmanufacturingfactory,0,1,READY_TAG_EXISTING,Metallic Manufacturing Factory,metallicmanufacturingfactory,True,True
+464,National Standards and Calibration Laboratory (NSCL),nationalstandardsandcalibrationlaboratory(nscl),3,4,NOOP_ALREADY_METI,National Standards and Calibration Laboratory (NSCL),nationalstandardsandcalibrationlaboratory(nscl),True,True
+465,Organisation for Technological Industries (OTI）,organisationfortechnologicalindustries(oti),2,3,NOOP_ALREADY_METI,Organisation for Technological Industries (OTI）,organisationfortechnologicalindustries(oti),True,True
+466,Scientific Studies and Research Center (SSRC),scientificstudiesandresearchcenter(ssrc),10,11,NOOP_ALREADY_METI,Scientific Studies and Research Center (SSRC),scientificstudiesandresearchcenter(ssrc),True,True
+467,Sigma Tech,sigmatech,0,1,NOOP_ALREADY_METI,Sigma Tech,sigmatech,True,True
+468,Syrian Arab Company for Electronic Industries,syrianarabcompanyforelectronicindustries,1,2,NOOP_ALREADY_METI,Syrian Arab Company for Electronic Industries,syrianarabcompanyforelectronicindustries,True,True
+469,Syrian Company for Information Technology (SCIT),syriancompanyforinformationtechnology(scit),0,1,NOOP_ALREADY_METI,Syrian Company for Information Technology (SCIT),syriancompanyforinformationtechnology(scit),True,True
+470,Bentech Computer Corp.,bentechcomputercorp.,1,2,NOOP_ALREADY_METI,Bentech Computer Corp.,bentechcomputercorp.,True,True
+471,"Royal Team Corporation International Trading Co., Ltd.","royalteamcorporationinternationaltradingco.,ltd.",3,4,NOOP_ALREADY_METI,"Royal Team Corporation International Trading Co., Ltd.","royalteamcorporationinternationaltradingco.,ltd.",True,True
+472,Semiconductor Equipment Manufacturing Incorporated,semiconductorequipmentmanufacturingincorporated,1,2,NOOP_ALREADY_METI,Semiconductor Equipment Manufacturing Incorporated,semiconductorequipmentmanufacturingincorporated,True,True
+473,Sharp Edge Engineering (SEE),sharpedgeengineering(see),2,3,NOOP_ALREADY_METI,Sharp Edge Engineering (SEE),sharpedgeengineering(see),True,True
+474,"NAZ TECHNOLOGY CO., LTD.","naztechnologyco.,ltd.",5,6,READY_TAG_EXISTING,"NAZ TECHNOLOGY CO., LTD.","naztechnologyco.,ltd.",True,True
+475,10th Research Institute of China Electronic Technology Group Corporation (CETC) (中国電子科技集団公司第十研究所),10thresearchinstituteofchinaelectronictechnologygroupcorporation(cetc)(中国電子科技集団公司第十研究所),4,5,READY_ADD,10th Research Institute of China Electronic Technology Group Corporation (CETC) (中国電子科技集団公司第十研究所),10thresearchinstituteofchinaelectronictechnologygroupcorporation(cetc)(中国電子科技集団公司第十研究所),True,True
+476,"13th Research Institute, 9th Academy, China Aerospace Science and Technology Corporation (CASC) (中国航天科技集団公司第九研究院第十三研究所)","13thresearchinstitute,9thacademy,chinaaerospacescienceandtechnologycorporation(casc)(中国航天科技集団公司第九研究院第十三研究所)",4,5,READY_ADD,"13th Research Institute, 9th Academy, China Aerospace Science and Technology Corporation (CASC) (中国航天科技集団公司第九研究院第十三研究所)","13thresearchinstitute,9thacademy,chinaaerospacescienceandtechnologycorporation(casc)(中国航天科技集団公司第九研究院第十三研究所)",True,True
+477,20th Research Institute of China Electronic Technology Group Corporation (CETC) (中国電子科技集団公司第二十研究所),20thresearchinstituteofchinaelectronictechnologygroupcorporation(cetc)(中国電子科技集団公司第二十研究所),2,3,READY_ADD,20th Research Institute of China Electronic Technology Group Corporation (CETC) (中国電子科技集団公司第二十研究所),20thresearchinstituteofchinaelectronictechnologygroupcorporation(cetc)(中国電子科技集団公司第二十研究所),True,True
+478,23rd Research Institute,23rdresearchinstitute,3,4,NOOP_ALREADY_METI,23rd Research Institute,23rdresearchinstitute,True,True
+479,Abascience Tech Co. Ltd,abasciencetechco.ltd,0,1,NOOP_ALREADY_METI,Abascience Tech Co. Ltd,abasciencetechco.ltd,True,True
+480,Academy of Aerospace Solid Propulsion Technology （航天动力技术研究院）,academyofaerospacesolidpropulsiontechnology(航天动力技术研究院),2,3,READY_ADD,Academy of Aerospace Solid Propulsion Technology （航天动力技术研究院）,academyofaerospacesolidpropulsiontechnology(航天动力技术研究院),True,True
+481,AECC Beijing Institute of Aeronautical Materials (中国航発北京航空材料研究院),aeccbeijinginstituteofaeronauticalmaterials(中国航発北京航空材料研究院),1,2,READY_ADD,AECC Beijing Institute of Aeronautical Materials (中国航発北京航空材料研究院),aeccbeijinginstituteofaeronauticalmaterials(中国航発北京航空材料研究院),True,True
+482,AECC South Industry Company Limited （中国航发南方工业有限公司）,aeccsouthindustrycompanylimited(中国航发南方工业有限公司),0,1,READY_ADD,AECC South Industry Company Limited （中国航发南方工业有限公司）,aeccsouthindustrycompanylimited(中国航发南方工业有限公司),True,True
+483,AVIC Leihua Electronic Technology Research Institute （中国航空工业集团公司雷华电子技术研究所）,avicleihuaelectronictechnologyresearchinstitute(中国航空工业集团公司雷华电子技术研究所),1,2,READY_ADD,AVIC Leihua Electronic Technology Research Institute （中国航空工业集团公司雷华电子技术研究所）,avicleihuaelectronictechnologyresearchinstitute(中国航空工业集团公司雷华电子技术研究所),True,True
+484,AVIC Research Institute for Special Structures of Aeronautical Composites （中国航空工業集団公司済南特種結構研究所）,avicresearchinstituteforspecialstructuresofaeronauticalcomposites(中国航空工業集団公司済南特種結構研究所),2,3,READY_ADD,AVIC Research Institute for Special Structures of Aeronautical Composites （中国航空工業集団公司済南特種結構研究所）,avicresearchinstituteforspecialstructuresofaeronauticalcomposites(中国航空工業集団公司済南特種結構研究所),True,True
+485,"Baimtec Material Co., Ltd. （北京航空材料研究院股份有限公司）","baimtecmaterialco.,ltd.(北京航空材料研究院股份有限公司)",0,1,READY_ADD,"Baimtec Material Co., Ltd. （北京航空材料研究院股份有限公司）","baimtecmaterialco.,ltd.(北京航空材料研究院股份有限公司)",True,True
+486,Baotou Guanghua Chemical Industrial Corporation,baotouguanghuachemicalindustrialcorporation,4,5,NOOP_ALREADY_METI,Baotou Guanghua Chemical Industrial Corporation,baotouguanghuachemicalindustrialcorporation,True,True
+487,Beijing Aeronautical Manufacturing Technology Research Institute (BAMTRI) (北京航空製造工程研究所),beijingaeronauticalmanufacturingtechnologyresearchinstitute(bamtri)(北京航空製造工程研究所),2,3,READY_ADD,Beijing Aeronautical Manufacturing Technology Research Institute (BAMTRI) (北京航空製造工程研究所),beijingaeronauticalmanufacturingtechnologyresearchinstitute(bamtri)(北京航空製造工程研究所),True,True
+488,Beijing Aerospace Automatic Control Institute (BICD) (北京航天自動控制研究所),beijingaerospaceautomaticcontrolinstitute(bicd)(北京航天自動控制研究所),4,5,READY_ADD,Beijing Aerospace Automatic Control Institute (BICD) (北京航天自動控制研究所),beijingaerospaceautomaticcontrolinstitute(bicd)(北京航天自動控制研究所),True,True
+489,"Beijing Alite Technologies Co., Ltd. (ALCO) (北京海立連合科技有限公司)","beijingalitetechnologiesco.,ltd.(alco)(北京海立連合科技有限公司)",2,3,READY_ADD,"Beijing Alite Technologies Co., Ltd. (ALCO) (北京海立連合科技有限公司)","beijingalitetechnologiesco.,ltd.(alco)(北京海立連合科技有限公司)",True,True
+490,Beijing Automation Control Equipment Institute (BACEI) (北京自動化控制設備研究所),beijingautomationcontrolequipmentinstitute(bacei)(北京自動化控制設備研究所),3,4,READY_ADD,Beijing Automation Control Equipment Institute (BACEI) (北京自動化控制設備研究所),beijingautomationcontrolequipmentinstitute(bacei)(北京自動化控制設備研究所),True,True
+491,"Beijing China Tank Industry Co., Ltd. （北京科泰克科技有限責任公司）","beijingchinatankindustryco.,ltd.(北京科泰克科技有限責任公司)",0,1,READY_ADD,"Beijing China Tank Industry Co., Ltd. （北京科泰克科技有限責任公司）","beijingchinatankindustryco.,ltd.(北京科泰克科技有限責任公司)",True,True
+492,Beijing Chengxing Trading Co. Ltd. (北京成興貿易有限公司),beijingchengxingtradingco.ltd.(北京成興貿易有限公司),0,1,READY_ADD,Beijing Chengxing Trading Co. Ltd. (北京成興貿易有限公司),beijingchengxingtradingco.ltd.(北京成興貿易有限公司),True,True
+493,Beijing Institute of Structure and Environmental Engineering (BISE) (北京強度環境研究所),beijinginstituteofstructureandenvironmentalengineering(bise)(北京強度環境研究所),2,3,READY_ADD,Beijing Institute of Structure and Environmental Engineering (BISE) (北京強度環境研究所),beijinginstituteofstructureandenvironmentalengineering(bise)(北京強度環境研究所),True,True
+494,Beijing Institute of Technology （北京理工大学）,beijinginstituteoftechnology(北京理工大学),0,1,READY_ADD,Beijing Institute of Technology （北京理工大学）,beijinginstituteoftechnology(北京理工大学),True,True
+495,Beijing Lion Heart International Trading Company,beijinglionheartinternationaltradingcompany,1,2,NOOP_ALREADY_METI,Beijing Lion Heart International Trading Company,beijinglionheartinternationaltradingcompany,True,True
+496,"Beijing Luo Luo Technology Development Co., Limited. （北京罗罗科技发展有限公司）",limited.(北京罗罗科技发展有限公司)beijingluoluotechnologydevelopmentco.,0,1,READY_ADD,"Beijing Luo Luo Technology Development Co., Limited. （北京罗罗科技发展有限公司）",limited.(北京罗罗科技发展有限公司)beijingluoluotechnologydevelopmentco.,True,True
+497,"BEIJING SHINY NIGHTS TECHNOLOGY DEVELOPMENT CO., LTD. （北京闪亮之夜科技发展有限公司）","beijingshinynightstechnologydevelopmentco.,ltd.(北京闪亮之夜科技发展有限公司)",0,1,READY_ADD,"BEIJING SHINY NIGHTS TECHNOLOGY DEVELOPMENT CO., LTD. （北京闪亮之夜科技发展有限公司）","beijingshinynightstechnologydevelopmentco.,ltd.(北京闪亮之夜科技发展有限公司)",True,True
+498,"Beijing Tianhai Industry Co., Ltd. （北京天海工业有限公司）","beijingtianhaiindustryco.,ltd.(北京天海工业有限公司)",1,2,READY_ADD,"Beijing Tianhai Industry Co., Ltd. （北京天海工业有限公司）","beijingtianhaiindustryco.,ltd.(北京天海工业有限公司)",True,True
+499,Beijing Power Machinery Institute (北京動力機械研究所),beijingpowermachineryinstitute(北京動力機械研究所),6,7,READY_ADD,Beijing Power Machinery Institute (北京動力機械研究所),beijingpowermachineryinstitute(北京動力機械研究所),True,True
+500,"Beijing UniStrong Science & Technology Co., Ltd. （北京合衆思壯科技股份有限公司）","beijingunistrongscience&technologyco.,ltd.(北京合衆思壯科技股份有限公司)",0,1,READY_ADD,"Beijing UniStrong Science & Technology Co., Ltd. （北京合衆思壯科技股份有限公司）","beijingunistrongscience&technologyco.,ltd.(北京合衆思壯科技股份有限公司)",True,True
+501,Beijing University of Aeronautics and Astronautics (BUAA) (北京航空航天大学),beijinguniversityofaeronauticsandastronautics(buaa)(北京航空航天大学),1,2,READY_ADD,Beijing University of Aeronautics and Astronautics (BUAA) (北京航空航天大学),beijinguniversityofaeronauticsandastronautics(buaa)(北京航空航天大学),True,True
+502,BVI Electronics,bvielectronics,0,1,NOOP_ALREADY_METI,BVI Electronics,bvielectronics,True,True
+503,"CETC Chip Technology Co., Ltd （中电科芯片技术股份有限公司）","cetcchiptechnologyco.,ltd(中电科芯片技术股份有限公司)",6,7,READY_ADD,"CETC Chip Technology Co., Ltd （中电科芯片技术股份有限公司）","cetcchiptechnologyco.,ltd(中电科芯片技术股份有限公司)",True,True
+504,"Changzhou Utek Composite Co., Limited.（CUC） （常州联拓复合材料有限公司）",limited.(cuc)(常州联拓复合材料有限公司)changzhouutekcompositeco.,0,1,READY_ADD,"Changzhou Utek Composite Co., Limited.（CUC） （常州联拓复合材料有限公司）",limited.(cuc)(常州联拓复合材料有限公司)changzhouutekcompositeco.,True,True
+505,Chengdu Jingxin Technology Co. Ltd （成都景昕科技有限公司）,chengdujingxintechnologyco.ltd(成都景昕科技有限公司),2,3,READY_ADD,Chengdu Jingxin Technology Co. Ltd （成都景昕科技有限公司）,chengdujingxintechnologyco.ltd(成都景昕科技有限公司),True,True
+506,Chengdu Latest Electronics Technology Company,chengdulatestelectronicstechnologycompany,0,1,NOOP_ALREADY_METI,Chengdu Latest Electronics Technology Company,chengdulatestelectronicstechnologycompany,True,True
+507,"Chengdu RML Technology Co., Ltd.（成都雷电微力科技 股份有限公司）","chengdurmltechnologyco.,ltd.(成都雷电微力科技股份有限公司)",2,3,READY_ADD,"Chengdu RML Technology Co., Ltd.（成都雷电微力科技 股份有限公司）","chengdurmltechnologyco.,ltd.(成都雷电微力科技股份有限公司)",True,True
+508,China Academy of Launch Vehicle Technology (CALT) (中国運載火箭技術研究院),chinaacademyoflaunchvehicletechnology(calt)(中国運載火箭技術研究院),3,4,READY_ADD,China Academy of Launch Vehicle Technology (CALT) (中国運載火箭技術研究院),chinaacademyoflaunchvehicletechnology(calt)(中国運載火箭技術研究院),True,True
+509,China Academy of Space Technology (CAST) (中国空間技術研究院),chinaacademyofspacetechnology(cast)(中国空間技術研究院),1,2,READY_ADD,China Academy of Space Technology (CAST) (中国空間技術研究院),chinaacademyofspacetechnology(cast)(中国空間技術研究院),True,True
+510,China Aerodynamics Research and Development Center (CARDC) (中国空気動力研究与発展中心),chinaaerodynamicsresearchanddevelopmentcenter(cardc)(中国空気動力研究与発展中心),0,1,READY_ADD,China Aerodynamics Research and Development Center (CARDC) (中国空気動力研究与発展中心),chinaaerodynamicsresearchanddevelopmentcenter(cardc)(中国空気動力研究与発展中心),True,True
+511,China Aerospace Science and Industry Corporation Second Academy（中国航天科工集団第二研究院）,chinaaerospacescienceandindustrycorporationsecondacademy(中国航天科工集団第二研究院),10,11,READY_ADD,China Aerospace Science and Industry Corporation Second Academy（中国航天科工集団第二研究院）,chinaaerospacescienceandindustrycorporationsecondacademy(中国航天科工集団第二研究院),True,True
+512,China Aerospace Science and Technology Corporation (CASC) 9th Academy 771 Research Institute （中国航天科技集団有限公司第九研究院第771研究 所）,chinaaerospacescienceandtechnologycorporation(casc)9thacademy771researchinstitute(中国航天科技集団有限公司第九研究院第771研究所),6,7,READY_ADD,China Aerospace Science and Technology Corporation (CASC) 9th Academy 771 Research Institute （中国航天科技集団有限公司第九研究院第771研究 所）,chinaaerospacescienceandtechnologycorporation(casc)9thacademy771researchinstitute(中国航天科技集団有限公司第九研究院第771研究所),True,True
+513,China Electronics Technology Group Corporation 14th Research Institute (CETC 14) （中国電子科技集団公司 第十四研究所）,chinaelectronicstechnologygroupcorporation14thresearchinstitute(cetc14)(中国電子科技集団公司第十四研究所),8,9,READY_ADD,China Electronics Technology Group Corporation 14th Research Institute (CETC 14) （中国電子科技集団公司 第十四研究所）,chinaelectronicstechnologygroupcorporation14thresearchinstitute(cetc14)(中国電子科技集団公司第十四研究所),True,True
+514,China Electronics Technology Group Corporation 28th Research Institute (CETC 28)（中国電子科技集団公司 第二十八研究所）,chinaelectronicstechnologygroupcorporation28thresearchinstitute(cetc28)(中国電子科技集団公司第二十八研究所),7,8,READY_ADD,China Electronics Technology Group Corporation 28th Research Institute (CETC 28)（中国電子科技集団公司 第二十八研究所）,chinaelectronicstechnologygroupcorporation28thresearchinstitute(cetc28)(中国電子科技集団公司第二十八研究所),True,True
+515,China Electronics Technology Group Corporation (CETC) 54th Research Institute (中国電子科技集団公司第五十四研究所),chinaelectronicstechnologygroupcorporation(cetc)54thresearchinstitute(中国電子科技集団公司第五十四研究所),3,4,READY_ADD,China Electronics Technology Group Corporation (CETC) 54th Research Institute (中国電子科技集団公司第五十四研究所),chinaelectronicstechnologygroupcorporation(cetc)54thresearchinstitute(中国電子科技集団公司第五十四研究所),True,True
+516,China General Nuclear Power Corporation (CGNPC) （中国広核集団）,chinageneralnuclearpowercorporation(cgnpc)(中国広核集団),2,3,READY_ADD,China General Nuclear Power Corporation (CGNPC) （中国広核集団）,chinageneralnuclearpowercorporation(cgnpc)(中国広核集団),True,True
+517,China National Precision Machinery Import and Export Corporation (CPMIEC) (中国精密機械進出口有限公司),chinanationalprecisionmachineryimportandexportcorporation(cpmiec)(中国精密機械進出口有限公司),3,4,READY_ADD,China National Precision Machinery Import and Export Corporation (CPMIEC) (中国精密機械進出口有限公司),chinanationalprecisionmachineryimportandexportcorporation(cpmiec)(中国精密機械進出口有限公司),True,True
+518,China North Industries Group Corporation Limited (中国兵器工業集団有限公司),chinanorthindustriesgroupcorporationlimited(中国兵器工業集団有限公司),1,2,READY_ADD,China North Industries Group Corporation Limited (中国兵器工業集団有限公司),chinanorthindustriesgroupcorporationlimited(中国兵器工業集団有限公司),True,True
+519,Chinese Academy of Engineering Physics （中国工程物理研究院）,chineseacademyofengineeringphysics(中国工程物理研究院),17,18,READY_ADD,Chinese Academy of Engineering Physics （中国工程物理研究院）,chineseacademyofengineeringphysics(中国工程物理研究院),True,True
+520,"Chinese Academy of Sciences Changchun Institute of Optics, Fine Mechanics, and Physics（中国科学院長春 光学精密機械与物理研究所）","chineseacademyofscienceschangchuninstituteofoptics,finemechanics,andphysics(中国科学院長春光学精密機械与物理研究所)",3,4,READY_ADD,"Chinese Academy of Sciences Changchun Institute of Optics, Fine Mechanics, and Physics（中国科学院長春 光学精密機械与物理研究所）","chineseacademyofscienceschangchuninstituteofoptics,finemechanics,andphysics(中国科学院長春光学精密機械与物理研究所)",True,True
+521,"Chongyi Hengyi Ceramic Composites Co., Ltd. （崇義恒毅陶瓷複合材料有限公司）","chongyihengyiceramiccompositesco.,ltd.(崇義恒毅陶瓷複合材料有限公司)",0,1,READY_ADD,"Chongyi Hengyi Ceramic Composites Co., Ltd. （崇義恒毅陶瓷複合材料有限公司）","chongyihengyiceramiccompositesco.,ltd.(崇義恒毅陶瓷複合材料有限公司)",True,True
+522,Cosailing Business Trading Company Limited （青島航帆貿易有限公司）,cosailingbusinesstradingcompanylimited(青島航帆貿易有限公司),0,1,READY_ADD,Cosailing Business Trading Company Limited （青島航帆貿易有限公司）,cosailingbusinesstradingcompanylimited(青島航帆貿易有限公司),True,True
+523,Dalian Ligong Safety Equipment Company Limited,dalianligongsafetyequipmentcompanylimited,0,1,NOOP_ALREADY_METI,Dalian Ligong Safety Equipment Company Limited,dalianligongsafetyequipmentcompanylimited,True,True
+524,Dalian Zhenghua Maoyi Youxian Gongsi,dalianzhenghuamaoyiyouxiangongsi,1,2,NOOP_ALREADY_METI,Dalian Zhenghua Maoyi Youxian Gongsi,dalianzhenghuamaoyiyouxiangongsi,True,True
+525,"Dalian Zhongchuang Char-White Co., Ltd.","dalianzhongchuangchar-whiteco.,ltd.",0,1,NOOP_ALREADY_METI,"Dalian Zhongchuang Char-White Co., Ltd.","dalianzhongchuangchar-whiteco.,ltd.",True,True
+526,"Dandong Dongyuan Industrial Co., Ltd.","dandongdongyuanindustrialco.,ltd.",2,3,NOOP_ALREADY_METI,"Dandong Dongyuan Industrial Co., Ltd.","dandongdongyuanindustrialco.,ltd.",True,True
+527,Dandong Haotong Commercial Trade Co. Ltd. （丹東浩通商貿有限公司）,dandonghaotongcommercialtradeco.ltd.(丹東浩通商貿有限公司),0,1,READY_ADD,Dandong Haotong Commercial Trade Co. Ltd. （丹東浩通商貿有限公司）,dandonghaotongcommercialtradeco.ltd.(丹東浩通商貿有限公司),True,True
+528,Dandong Hongxiang Industrial Development Co Ltd,dandonghongxiangindustrialdevelopmentcoltd,0,1,READY_TAG_EXISTING,Dandong Hongxiang Industrial Development Co Ltd,dandonghongxiangindustrialdevelopmentcoltd,True,True
+529,"Dandong Jinxiang Trade Co., Ltd.","dandongjinxiangtradeco.,ltd.",3,4,NOOP_ALREADY_METI,"Dandong Jinxiang Trade Co., Ltd.","dandongjinxiangtradeco.,ltd.",True,True
+530,"DANDONG RICH EARTH TRADING CO., LTD. （丹东富地贸易有限公司）","dandongrichearthtradingco.,ltd.(丹东富地贸易有限公司)",0,1,READY_ADD,"DANDONG RICH EARTH TRADING CO., LTD. （丹东富地贸易有限公司）","dandongrichearthtradingco.,ltd.(丹东富地贸易有限公司)",True,True
+531,DANDONG ZHONGSHENG INDUSTRY & TRADE CO.， LTD. (丹东中盛工贸有限公司),"dandongzhongshengindustry&tradeco.,ltd.(丹东中盛工贸有限公司)",7,8,READY_ADD,DANDONG ZHONGSHENG INDUSTRY & TRADE CO.， LTD. (丹东中盛工贸有限公司),"dandongzhongshengindustry&tradeco.,ltd.(丹东中盛工贸有限公司)",True,True
+532,DCB Finance Limited,dcbfinancelimited,0,1,READY_TAG_EXISTING,DCB Finance Limited,dcbfinancelimited,True,True
+533,EKT SMART TECHNOLOGY (黎巴嫩卡氏有限公司广州代表处),ektsmarttechnology(黎巴嫩卡氏有限公司广州代表处),0,1,READY_ADD,EKT SMART TECHNOLOGY (黎巴嫩卡氏有限公司广州代表处),ektsmarttechnology(黎巴嫩卡氏有限公司广州代表处),True,True
+534,"Fushun Jinly Petrochemical Carbon Co., Ltd.","fushunjinlypetrochemicalcarbonco.,ltd.",0,1,NOOP_ALREADY_METI,"Fushun Jinly Petrochemical Carbon Co., Ltd.","fushunjinlypetrochemicalcarbonco.,ltd.",True,True
+535,"Grun Group Co., Limited",limitedgrungroupco.,1,2,READY_ADD,"Grun Group Co., Limited",limitedgrungroupco.,True,True
+536,"GuangZhou Ausay Technology Co., Ltd. （广州欧赛科技有限公司）","guangzhouausaytechnologyco.,ltd.(广州欧赛科技有限公司)",2,3,READY_ADD,"GuangZhou Ausay Technology Co., Ltd. （广州欧赛科技有限公司）","guangzhouausaytechnologyco.,ltd.(广州欧赛科技有限公司)",True,True
+537,Guangzhou Ca.Ben Composites Company Limited (広州卡本複合材料有限公司),guangzhouca.bencompositescompanylimited(広州卡本複合材料有限公司),0,1,READY_ADD,Guangzhou Ca.Ben Composites Company Limited (広州卡本複合材料有限公司),guangzhouca.bencompositescompanylimited(広州卡本複合材料有限公司),True,True
+538,"Guangzhou Tian-Hai-Xiang Aviation Technology Co., Ltd. （広州天海翔航空科技有限公司）","guangzhoutian-hai-xiangaviationtechnologyco.,ltd.(広州天海翔航空科技有限公司)",2,3,READY_ADD,"Guangzhou Tian-Hai-Xiang Aviation Technology Co., Ltd. （広州天海翔航空科技有限公司）","guangzhoutian-hai-xiangaviationtechnologyco.,ltd.(広州天海翔航空科技有限公司)",True,True
+539,"GUILIN ALPHA RUBBER & PLASTICS TECHNOLOGY CO., LTD (桂林阿尔法橡塑科技有限公司)","guilinalpharubber&plasticstechnologyco.,ltd(桂林阿尔法橡塑科技有限公司)",3,4,READY_ADD,"GUILIN ALPHA RUBBER & PLASTICS TECHNOLOGY CO., LTD (桂林阿尔法橡塑科技有限公司)","guilinalpharubber&plasticstechnologyco.,ltd(桂林阿尔法橡塑科技有限公司)",True,True
+540,Harbin Engineering University (哈爾浜工程大学),harbinengineeringuniversity(哈爾浜工程大学),0,1,READY_ADD,Harbin Engineering University (哈爾浜工程大学),harbinengineeringuniversity(哈爾浜工程大学),True,True
+541,Harbin Institute of Technology (HIT) (哈爾浜工業大学),harbininstituteoftechnology(hit)(哈爾浜工業大学),0,1,READY_ADD,Harbin Institute of Technology (HIT) (哈爾浜工業大学),harbininstituteoftechnology(hit)(哈爾浜工業大学),True,True
+542,"HANGZHOU FUYANG KOTO MACHINERY CO., LTD （杭州富阳科拓机械有限公司）","hangzhoufuyangkotomachineryco.,ltd(杭州富阳科拓机械有限公司)",4,5,READY_ADD,"HANGZHOU FUYANG KOTO MACHINERY CO., LTD （杭州富阳科拓机械有限公司）","hangzhoufuyangkotomachineryco.,ltd(杭州富阳科拓机械有限公司)",True,True
+543,Hebei Sinopack Electronics (河北中瓷電子科技股份有限公司),hebeisinopackelectronics(河北中瓷電子科技股份有限公司),2,3,READY_ADD,Hebei Sinopack Electronics (河北中瓷電子科技股份有限公司),hebeisinopackelectronics(河北中瓷電子科技股份有限公司),True,True
+544,"HENAN JIAYUAN ALUMINIUM INDUSTRY CO., LTD. （河南嘉源铝业有限公司）","henanjiayuanaluminiumindustryco.,ltd.(河南嘉源铝业有限公司)",1,2,READY_ADD,"HENAN JIAYUAN ALUMINIUM INDUSTRY CO., LTD. （河南嘉源铝业有限公司）","henanjiayuanaluminiumindustryco.,ltd.(河南嘉源铝业有限公司)",True,True
+545,"Hubei Sanjiang Aerospace Wanshan Special Vehicle Co., Ltd. （湖北三江航天万山特种车辆有限公司）","hubeisanjiangaerospacewanshanspecialvehicleco.,ltd.(湖北三江航天万山特种车辆有限公司)",1,2,READY_ADD,"Hubei Sanjiang Aerospace Wanshan Special Vehicle Co., Ltd. （湖北三江航天万山特种车辆有限公司）","hubeisanjiangaerospacewanshanspecialvehicleco.,ltd.(湖北三江航天万山特种车辆有限公司)",True,True
+546,"Karat Industry Co., Ltd.","karatindustryco.,ltd.",0,1,NOOP_ALREADY_METI,"Karat Industry Co., Ltd.","karatindustryco.,ltd.",True,True
+547,"Kinglead Electronics Co., Ltd.","kingleadelectronicsco.,ltd.",4,5,NOOP_ALREADY_METI,"Kinglead Electronics Co., Ltd.","kingleadelectronicsco.,ltd.",True,True
+548,Landa Ariya Electronic Co,landaariyaelectronicco,3,4,NOOP_ALREADY_METI,Landa Ariya Electronic Co,landaariyaelectronicco,True,True
+549,"Liaoyang Carbon Co., Ltd.","liaoyangcarbonco.,ltd.",0,1,NOOP_ALREADY_METI,"Liaoyang Carbon Co., Ltd.","liaoyangcarbonco.,ltd.",True,True
+550,LIMMT Economic and Trade Company (LIMMT経貿公司),limmteconomicandtradecompany(limmt経貿公司),14,15,READY_ADD,LIMMT Economic and Trade Company (LIMMT経貿公司),limmteconomicandtradecompany(limmt経貿公司),True,True
+551,MINGZHENG INTERNATIONAL TRADING LIMITED （明正国际贸易有限公司）,mingzhenginternationaltradinglimited(明正国际贸易有限公司),0,1,READY_ADD,MINGZHENG INTERNATIONAL TRADING LIMITED （明正国际贸易有限公司）,mingzhenginternationaltradinglimited(明正国际贸易有限公司),True,True
+552,MTTO Industry and Trade Limited,mttoindustryandtradelimited,0,1,NOOP_ALREADY_METI,MTTO Industry and Trade Limited,mttoindustryandtradelimited,True,True
+553,National University of Defense Technology (NUDT) (国防科学技術大学),nationaluniversityofdefensetechnology(nudt)(国防科学技術大学),0,1,READY_ADD,National University of Defense Technology (NUDT) (国防科学技術大学),nationaluniversityofdefensetechnology(nudt)(国防科学技術大学),True,True
+554,Nanjing Fiberglass Research and Design Institute （南京玻璃繊維研究設計院有限公司）,nanjingfiberglassresearchanddesigninstitute(南京玻璃繊維研究設計院有限公司),2,3,READY_ADD,Nanjing Fiberglass Research and Design Institute （南京玻璃繊維研究設計院有限公司）,nanjingfiberglassresearchanddesigninstitute(南京玻璃繊維研究設計院有限公司),True,True
+555,Nanjing University of Aeronautics and Astronautics (NUAA) （南京航空航天大学）,nanjinguniversityofaeronauticsandastronautics(nuaa)(南京航空航天大学),0,1,READY_ADD,Nanjing University of Aeronautics and Astronautics (NUAA) （南京航空航天大学）,nanjinguniversityofaeronauticsandastronautics(nuaa)(南京航空航天大学),True,True
+556,Nanjing University of Science and Technology（NUST） （南京理工大学）,nanjinguniversityofscienceandtechnology(nust)(南京理工大学),0,1,READY_ADD,Nanjing University of Science and Technology（NUST） （南京理工大学）,nanjinguniversityofscienceandtechnology(nust)(南京理工大学),True,True
+557,"Ningbo New Century Import and Export Company, Ltd. (寧波新世紀進出口有限公司)","ningbonewcenturyimportandexportcompany,ltd.(寧波新世紀進出口有限公司)",1,2,READY_ADD,"Ningbo New Century Import and Export Company, Ltd. (寧波新世紀進出口有限公司)","ningbonewcenturyimportandexportcompany,ltd.(寧波新世紀進出口有限公司)",True,True
+558,No. 35 Research Institute of the Third Academy of China Aerospace Science and Industry Corporation (CASIC),no.35researchinstituteofthethirdacademyofchinaaerospacescienceandindustrycorporation(casic),2,3,NOOP_ALREADY_METI,No. 35 Research Institute of the Third Academy of China Aerospace Science and Industry Corporation (CASIC),no.35researchinstituteofthethirdacademyofchinaaerospacescienceandindustrycorporation(casic),True,True
+559,Northwestern Polytechnical University（NPU） (西北工業大学),northwesternpolytechnicaluniversity(npu)(西北工業大学),3,4,READY_ADD,Northwestern Polytechnical University（NPU） (西北工業大学),northwesternpolytechnicaluniversity(npu)(西北工業大学),True,True
+560,Nuclear Power Institute of China (NPIC) （中国核動力研究設計院）,nuclearpowerinstituteofchina(npic)(中国核動力研究設計院),1,2,READY_ADD,Nuclear Power Institute of China (NPIC) （中国核動力研究設計院）,nuclearpowerinstituteofchina(npic)(中国核動力研究設計院),True,True
+561,Oriental Logistics Group LTD,orientallogisticsgroupltd,1,2,NOOP_ALREADY_METI,Oriental Logistics Group LTD,orientallogisticsgroupltd,True,True
+562,Poly Asia Pacific Ltd.(PAPL),polyasiapacificltd.(papl),1,2,NOOP_ALREADY_METI,Poly Asia Pacific Ltd.(PAPL),polyasiapacificltd.(papl),True,True
+563,"Qianpu Technology Co., Ltd.","qianputechnologyco.,ltd.",3,4,NOOP_ALREADY_METI,"Qianpu Technology Co., Ltd.","qianputechnologyco.,ltd.",True,True
+564,"QINGDAO ZHONGRONGTONG TRADE DEVELOPMENT CO., LTD. （青岛中融通贸易发展有限公司）","qingdaozhongrongtongtradedevelopmentco.,ltd.(青岛中融通贸易发展有限公司)",1,2,READY_ADD,"QINGDAO ZHONGRONGTONG TRADE DEVELOPMENT CO., LTD. （青岛中融通贸易发展有限公司）","qingdaozhongrongtongtradedevelopmentco.,ltd.(青岛中融通贸易发展有限公司)",True,True
+565,Raybeam Optronics Co. Ltd. （三河市戎邦光电设备股份有限公司）,raybeamoptronicsco.ltd.(三河市戎邦光电设备股份有限公司),0,1,READY_ADD,Raybeam Optronics Co. Ltd. （三河市戎邦光电设备股份有限公司）,raybeamoptronicsco.ltd.(三河市戎邦光电设备股份有限公司),True,True
+566,"Raytronic Corporation, Limited",limitedraytroniccorporation,0,1,NOOP_ALREADY_METI,"Raytronic Corporation, Limited",limitedraytroniccorporation,True,True
+567,"SANMING SINO-EURO IMPORT AND EXPORT CO., LTD (三明市中伊欧进出⼝有限公司)","sanmingsino-euroimportandexportco.,ltd(三明市中伊欧进出口有限公司)",0,1,READY_ADD,"SANMING SINO-EURO IMPORT AND EXPORT CO., LTD (三明市中伊欧进出⼝有限公司)","sanmingsino-euroimportandexportco.,ltd(三明市中伊欧进出口有限公司)",True,True
+568,"Shaanxi Heavy Duty Automobile Co., Ltd （陝西重型汽車有限公司）","shaanxiheavydutyautomobileco.,ltd(陝西重型汽車有限公司)",0,1,READY_ADD,"Shaanxi Heavy Duty Automobile Co., Ltd （陝西重型汽車有限公司）","shaanxiheavydutyautomobileco.,ltd(陝西重型汽車有限公司)",True,True
+569,Shanghai Academy of Spaceflight Technology (SAST) (上海航天技術研究院),shanghaiacademyofspaceflighttechnology(sast)(上海航天技術研究院),5,6,READY_ADD,Shanghai Academy of Spaceflight Technology (SAST) (上海航天技術研究院),shanghaiacademyofspaceflighttechnology(sast)(上海航天技術研究院),True,True
+570,Shanghai Aircraft Manufacturing Company (上海飛機製造有限公司),shanghaiaircraftmanufacturingcompany(上海飛機製造有限公司),2,3,READY_ADD,Shanghai Aircraft Manufacturing Company (上海飛機製造有限公司),shanghaiaircraftmanufacturingcompany(上海飛機製造有限公司),True,True
+571,Shanghai Gang Quan Trade Co. (上海港泉商貿有限公司),shanghaigangquantradeco.(上海港泉商貿有限公司),0,1,READY_ADD,Shanghai Gang Quan Trade Co. (上海港泉商貿有限公司),shanghaigangquantradeco.(上海港泉商貿有限公司),True,True
+572,Shanghai Institute of Space Power Sources (上海空間電源研究所),shanghaiinstituteofspacepowersources(上海空間電源研究所),3,4,READY_ADD,Shanghai Institute of Space Power Sources (上海空間電源研究所),shanghaiinstituteofspacepowersources(上海空間電源研究所),True,True
+573,Shanghai North Begins International (上海丙至国際貿易有限公司),shanghainorthbeginsinternational(上海丙至国際貿易有限公司),1,2,READY_ADD,Shanghai North Begins International (上海丙至国際貿易有限公司),shanghainorthbeginsinternational(上海丙至国際貿易有限公司),True,True
+574,Shanghai North Transway International Trading Co.,shanghainorthtranswayinternationaltradingco.,0,1,NOOP_ALREADY_METI,Shanghai North Transway International Trading Co.,shanghainorthtranswayinternationaltradingco.,True,True
+575,"Shanghai Tianhai Composite Cylinders Co., Ltd. （上海天海复合气瓶有限公司）","shanghaitianhaicompositecylindersco.,ltd.(上海天海复合气瓶有限公司)",1,2,READY_ADD,"Shanghai Tianhai Composite Cylinders Co., Ltd. （上海天海复合气瓶有限公司）","shanghaitianhaicompositecylindersco.,ltd.(上海天海复合气瓶有限公司)",True,True
+576,"SHANGHAI PEOPLE'S INNOVATION INDUSTRIAL CO., LTD. （上海人创实业有限公司）","shanghaipeople'sinnovationindustrialco.,ltd.(上海人创实业有限公司)",1,2,READY_ADD,"SHANGHAI PEOPLE'S INNOVATION INDUSTRIAL CO., LTD. （上海人创实业有限公司）","shanghaipeople'sinnovationindustrialco.,ltd.(上海人创实业有限公司)",True,True
+577,"Shanghai Xinli Machine Factory Co., Ltd （上海新力機器廠有限公司）","shanghaixinlimachinefactoryco.,ltd(上海新力機器廠有限公司)",1,2,READY_ADD,"Shanghai Xinli Machine Factory Co., Ltd （上海新力機器廠有限公司）","shanghaixinlimachinefactoryco.,ltd(上海新力機器廠有限公司)",True,True
+578,SHENZHEN CASPRO TECHNOLOGY CO.， LTD,"shenzhencasprotechnologyco.,ltd",4,5,READY_TAG_EXISTING,SHENZHEN CASPRO TECHNOLOGY CO.， LTD,"shenzhencasprotechnologyco.,ltd",True,True
+579,"Shenzhen Iprogift Technology Co., Ltd","shenzheniprogifttechnologyco.,ltd",3,4,NOOP_ALREADY_METI,"Shenzhen Iprogift Technology Co., Ltd","shenzheniprogifttechnologyco.,ltd",True,True
+580,SHENZHEN JIASIBO TECHNOLOGY CO.， LTD. （深圳嘉思博科技有限公司）,"shenzhenjiasibotechnologyco.,ltd.(深圳嘉思博科技有限公司)",1,2,READY_ADD,SHENZHEN JIASIBO TECHNOLOGY CO.， LTD. （深圳嘉思博科技有限公司）,"shenzhenjiasibotechnologyco.,ltd.(深圳嘉思博科技有限公司)",True,True
+581,Shenzhen Shunjinxin Import & Export Co. Ltd,shenzhenshunjinxinimport&exportco.ltd,1,2,NOOP_ALREADY_METI,Shenzhen Shunjinxin Import & Export Co. Ltd,shenzhenshunjinxinimport&exportco.ltd,True,True
+582,Shunji Electrinice Co. Ltd (深圳市顺吉电子科技有限公司),shunjielectriniceco.ltd(深圳市顺吉电子科技有限公司),0,1,READY_ADD,Shunji Electrinice Co. Ltd (深圳市顺吉电子科技有限公司),shunjielectriniceco.ltd(深圳市顺吉电子科技有限公司),True,True
+583,Shvabe Opto-Electronics Co. LTD,shvabeopto-electronicsco.ltd,3,4,READY_ADD,Shvabe Opto-Electronics Co. LTD,shvabeopto-electronicsco.ltd,True,True
+584,Sinotech Dalian Carbon and Graphite Manufacturing Corporation,sinotechdaliancarbonandgraphitemanufacturingcorporation,0,1,NOOP_ALREADY_METI,Sinotech Dalian Carbon and Graphite Manufacturing Corporation,sinotechdaliancarbonandgraphitemanufacturingcorporation,True,True
+585,"Sinotech Industry Co., Ltd.","sinotechindustryco.,ltd.",0,1,NOOP_ALREADY_METI,"Sinotech Industry Co., Ltd.","sinotechindustryco.,ltd.",True,True
+586,"Sinno Electronics Co., Ltd.","sinnoelectronicsco.,ltd.",3,4,READY_ADD,"Sinno Electronics Co., Ltd.","sinnoelectronicsco.,ltd.",True,True
+587,Sky Rise Technology Ltd.,skyrisetechnologyltd.,1,2,NOOP_ALREADY_METI,Sky Rise Technology Ltd.,skyrisetechnologyltd.,True,True
+588,Success Move Ltd.,successmoveltd.,0,1,NOOP_ALREADY_METI,Success Move Ltd.,successmoveltd.,True,True
+589,"Sunway Tech Co., Ltd （北京旭润科技有限公司 ）","sunwaytechco.,ltd(北京旭润科技有限公司)",0,1,READY_ADD,"Sunway Tech Co., Ltd （北京旭润科技有限公司 ）","sunwaytechco.,ltd(北京旭润科技有限公司)",True,True
+590,"SUZHOU A-ONE SPECIAL ALLOY CO., LTD. (苏州埃⽂特种合⾦有限公司)","suzhoua-onespecialalloyco.,ltd.(苏州埃文特种合金有限公司)",1,2,READY_ADD,"SUZHOU A-ONE SPECIAL ALLOY CO., LTD. (苏州埃⽂特种合⾦有限公司)","suzhoua-onespecialalloyco.,ltd.(苏州埃文特种合金有限公司)",True,True
+591,"SUZHOU ZHONGSHENG MAGNETIC INDUSTRY CO., LTD. (苏州中盛磁业有限公司)","suzhouzhongshengmagneticindustryco.,ltd.(苏州中盛磁业有限公司)",1,2,READY_ADD,"SUZHOU ZHONGSHENG MAGNETIC INDUSTRY CO., LTD. (苏州中盛磁业有限公司)","suzhouzhongshengmagneticindustryco.,ltd.(苏州中盛磁业有限公司)",True,True
+592,S&C TRADE PTY CO.， LTD,"s&ctradeptyco.,ltd",3,4,READY_TAG_EXISTING,S&C TRADE PTY CO.， LTD,"s&ctradeptyco.,ltd",True,True
+593,Tereal Industry and Trade Limited,terealindustryandtradelimited,0,1,NOOP_ALREADY_METI,Tereal Industry and Trade Limited,terealindustryandtradelimited,True,True
+594,"Tianniao High Technology Co., Ltd. （江蘇天鳥高新技術有限責任公司）","tianniaohightechnologyco.,ltd.(江蘇天鳥高新技術有限責任公司)",0,1,READY_ADD,"Tianniao High Technology Co., Ltd. （江蘇天鳥高新技術有限責任公司）","tianniaohightechnologyco.,ltd.(江蘇天鳥高新技術有限責任公司)",True,True
+595,University of Electronic Science and Technology of China (UESTC) (電子科技大学),universityofelectronicscienceandtechnologyofchina(uestc)(電子科技大学),0,1,READY_ADD,University of Electronic Science and Technology of China (UESTC) (電子科技大学),universityofelectronicscienceandtechnologyofchina(uestc)(電子科技大学),True,True
+596,"VOHOM TECHNOLOGY HK CO., LIMITED （華弘科技香港有限公司）",limited(華弘科技香港有限公司)vohomtechnologyhkco.,0,1,READY_ADD,"VOHOM TECHNOLOGY HK CO., LIMITED （華弘科技香港有限公司）",limited(華弘科技香港有限公司)vohomtechnologyhkco.,True,True
+597,Wuhan Sanjiang Import and Export Co. Ltd,wuhansanjiangimportandexportco.ltd,3,4,NOOP_ALREADY_METI,Wuhan Sanjiang Import and Export Co. Ltd,wuhansanjiangimportandexportco.ltd,True,True
+598,"Xinghe Xingyong Carbon Co., Ltd.","xinghexingyongcarbonco.,ltd.",0,1,NOOP_ALREADY_METI,"Xinghe Xingyong Carbon Co., Ltd.","xinghexingyongcarbonco.,ltd.",True,True
+599,YINKE HK ELECTRONICS COMPANY LIMITED （盈科香港電子有限公司）,yinkehkelectronicscompanylimited(盈科香港電子有限公司),1,2,READY_ADD,YINKE HK ELECTRONICS COMPANY LIMITED （盈科香港電子有限公司）,yinkehkelectronicscompanylimited(盈科香港電子有限公司),True,True
+600,"ZHEJIANG QINGJI IND. CO., LTD （浙江轻机实业有限公司）","zhejiangqingjiind.co.,ltd(浙江轻机实业有限公司)",2,3,READY_ADD,"ZHEJIANG QINGJI IND. CO., LTD （浙江轻机实业有限公司）","zhejiangqingjiind.co.,ltd(浙江轻机实业有限公司)",True,True
+601,Zibo Shenbo Machinelectronics Co Ltd （淄博申博机电有限公司）,ziboshenbomachinelectronicscoltd(淄博申博机电有限公司),1,2,READY_ADD,Zibo Shenbo Machinelectronics Co Ltd （淄博申博机电有限公司）,ziboshenbomachinelectronicscoltd(淄博申博机电有限公司),True,True
+602,Advanced Engineering Research Organization (AERO),advancedengineeringresearchorganization(aero),2,3,NOOP_ALREADY_METI,Advanced Engineering Research Organization (AERO),advancedengineeringresearchorganization(aero),True,True
+603,Advance Multicom,advancemulticom,0,1,NOOP_ALREADY_METI,Advance Multicom,advancemulticom,True,True
+604,Ahad International,ahadinternational,0,1,NOOP_ALREADY_METI,Ahad International,ahadinternational,True,True
+605,Air Weapons Complex (AWC),airweaponscomplex(awc),0,1,NOOP_ALREADY_METI,Air Weapons Complex (AWC),airweaponscomplex(awc),True,True
+606,Akhtar & Munir,akhtar&munir,1,2,NOOP_ALREADY_METI,Akhtar & Munir,akhtar&munir,True,True
+607,"Al Technique Corporation of Pakistan, Ltd. (ATCOP)","altechniquecorporationofpakistan,ltd.(atcop)",1,2,NOOP_ALREADY_METI,"Al Technique Corporation of Pakistan, Ltd. (ATCOP)","altechniquecorporationofpakistan,ltd.(atcop)",True,True
+608,Allied Trading Co.,alliedtradingco.,2,3,NOOP_ALREADY_METI,Allied Trading Co.,alliedtradingco.,True,True
+609,Blue Chip International,bluechipinternational,0,1,NOOP_ALREADY_METI,Blue Chip International,bluechipinternational,True,True
+610,Broad Engineering,broadengineering,0,1,NOOP_ALREADY_METI,Broad Engineering,broadengineering,True,True
+611,Busan International,busaninternational,0,1,NOOP_ALREADY_METI,Busan International,busaninternational,True,True
+612,Business Empire International,businessempireinternational,1,2,NOOP_ALREADY_METI,Business Empire International,businessempireinternational,True,True
+613,Chashma Nuclear Power Plant (CHASNUPP),chashmanuclearpowerplant(chasnupp),2,3,NOOP_ALREADY_METI,Chashma Nuclear Power Plant (CHASNUPP),chashmanuclearpowerplant(chasnupp),True,True
+614,Creative Dynamics Engineering,creativedynamicsengineering,1,2,NOOP_ALREADY_METI,Creative Dynamics Engineering,creativedynamicsengineering,True,True
+615,Defense Science and Technology Organization (DESTO),defensescienceandtechnologyorganization(desto),2,3,NOOP_ALREADY_METI,Defense Science and Technology Organization (DESTO),defensescienceandtechnologyorganization(desto),True,True
+616,Dynamic Engineering Corporation (DEC),dynamicengineeringcorporation(dec),2,3,NOOP_ALREADY_METI,Dynamic Engineering Corporation (DEC),dynamicengineeringcorporation(dec),True,True
+617,"EnerQuip Private, Ltd.","enerquipprivate,ltd.",0,1,NOOP_ALREADY_METI,"EnerQuip Private, Ltd.","enerquipprivate,ltd.",True,True
+618,Engineering and Commercial Services (ECS),engineeringandcommercialservices(ecs),0,1,NOOP_ALREADY_METI,Engineering and Commercial Services (ECS),engineeringandcommercialservices(ecs),True,True
+619,Engineering Solutions Pvt. Ltd.,engineeringsolutionspvt.ltd.,0,1,NOOP_ALREADY_METI,Engineering Solutions Pvt. Ltd.,engineeringsolutionspvt.ltd.,True,True
+620,ERDC Metal Paint Products (Pvt) Ltd.,erdcmetalpaintproducts(pvt)ltd.,2,3,NOOP_ALREADY_METI,ERDC Metal Paint Products (Pvt) Ltd.,erdcmetalpaintproducts(pvt)ltd.,True,True
+621,FabCon International,fabconinternational,0,1,NOOP_ALREADY_METI,FabCon International,fabconinternational,True,True
+622,FACO Trading,facotrading,0,1,NOOP_ALREADY_METI,FACO Trading,facotrading,True,True
+623,Future Systems Pvt. Ltd.,futuresystemspvt.ltd.,0,1,NOOP_ALREADY_METI,Future Systems Pvt. Ltd.,futuresystemspvt.ltd.,True,True
+624,H and A International,handainternational,1,2,NOOP_ALREADY_METI,H and A International,handainternational,True,True
+625,Hassan Scientific Corporation,hassanscientificcorporation,1,2,NOOP_ALREADY_METI,Hassan Scientific Corporation,hassanscientificcorporation,True,True
+626,Heavy Mechanical Complex,heavymechanicalcomplex,0,1,NOOP_ALREADY_METI,Heavy Mechanical Complex,heavymechanicalcomplex,True,True
+627,Heavy Mechanical Complex-3,heavymechanicalcomplex-3,0,1,NOOP_ALREADY_METI,Heavy Mechanical Complex-3,heavymechanicalcomplex-3,True,True
+628,High Landers Scientific Systems,highlandersscientificsystems,0,1,NOOP_ALREADY_METI,High Landers Scientific Systems,highlandersscientificsystems,True,True
+629,Iman Group,imangroup,1,2,NOOP_ALREADY_METI,Iman Group,imangroup,True,True
+630,IMCO Technology and Services,imcotechnologyandservices,1,2,NOOP_ALREADY_METI,IMCO Technology and Services,imcotechnologyandservices,True,True
+631,Impex Trade & Services,impextrade&services,0,1,NOOP_ALREADY_METI,Impex Trade & Services,impextrade&services,True,True
+632,Industrial Galaxy,industrialgalaxy,0,1,NOOP_ALREADY_METI,Industrial Galaxy,industrialgalaxy,True,True
+633,Insight Enterprises Inc.,insightenterprisesinc.,0,1,NOOP_ALREADY_METI,Insight Enterprises Inc.,insightenterprisesinc.,True,True
+634,Inspectech,inspectech,0,1,NOOP_ALREADY_METI,Inspectech,inspectech,True,True
+635,Interscan,interscan,0,1,NOOP_ALREADY_METI,Interscan,interscan,True,True
+636,Intralink Incorporated,intralinkincorporated,0,1,NOOP_ALREADY_METI,Intralink Incorporated,intralinkincorporated,True,True
+637,Iqbal Enterprises,iqbalenterprises,0,1,NOOP_ALREADY_METI,Iqbal Enterprises,iqbalenterprises,True,True
+638,Jim Corporation,jimcorporation,0,1,NOOP_ALREADY_METI,Jim Corporation,jimcorporation,True,True
+639,Karachi Nuclear Power Complex (KANUPP),karachinuclearpowercomplex(kanupp),1,2,NOOP_ALREADY_METI,Karachi Nuclear Power Complex (KANUPP),karachinuclearpowercomplex(kanupp),True,True
+640,Kepler Corporation,keplercorporation,0,1,NOOP_ALREADY_METI,Kepler Corporation,keplercorporation,True,True
+641,Khan Research Laboratories (KRL),khanresearchlaboratories(krl),5,6,NOOP_ALREADY_METI,Khan Research Laboratories (KRL),khanresearchlaboratories(krl),True,True
+642,KK International Traders (KKIT）,kkinternationaltraders(kkit),0,1,NOOP_ALREADY_METI,KK International Traders (KKIT）,kkinternationaltraders(kkit),True,True
+643,KMA International Import and Export Co.,kmainternationalimportandexportco.,0,1,NOOP_ALREADY_METI,KMA International Import and Export Co.,kmainternationalimportandexportco.,True,True
+644,KTK Engineering (Pvt) LTD,ktkengineering(pvt)ltd,0,1,NOOP_ALREADY_METI,KTK Engineering (Pvt) LTD,ktkengineering(pvt)ltd,True,True
+645,K-SOFT Enterprises,k-softenterprises,0,1,NOOP_ALREADY_METI,K-SOFT Enterprises,k-softenterprises,True,True
+646,L.T. Engineering & Trade Services (Pvt) Ltd.,l.t.engineering&tradeservices(pvt)ltd.,2,3,NOOP_ALREADY_METI,L.T. Engineering & Trade Services (Pvt) Ltd.,l.t.engineering&tradeservices(pvt)ltd.,True,True
+647,Link Lines (Pvt.) Limited,linklines(pvt.)limited,1,2,READY_ADD,Link Lines (Pvt.) Limited,linklines(pvt.)limited,True,True
+648,Makkays Hi-Tech Systems,makkayshi-techsystems,1,2,NOOP_ALREADY_METI,Makkays Hi-Tech Systems,makkayshi-techsystems,True,True
+649,Maira Trade International,mairatradeinternational,0,1,NOOP_ALREADY_METI,Maira Trade International,mairatradeinternational,True,True
+650,Marine Systems Pvt. Ltd.,marinesystemspvt.ltd.,0,1,NOOP_ALREADY_METI,Marine Systems Pvt. Ltd.,marinesystemspvt.ltd.,True,True
+651,Maritime Technology Complex (MTC),maritimetechnologycomplex(mtc),0,1,NOOP_ALREADY_METI,Maritime Technology Complex (MTC),maritimetechnologycomplex(mtc),True,True
+652,Mecatech (Private) Limited,mecatech(private)limited,1,2,NOOP_ALREADY_METI,Mecatech (Private) Limited,mecatech(private)limited,True,True
+653,Micado,micado,2,3,NOOP_ALREADY_METI,Micado,micado,True,True
+654,Middle East Automation & Controls Services,middleeastautomation&controlsservices,2,3,NOOP_ALREADY_METI,Middle East Automation & Controls Services,middleeastautomation&controlsservices,True,True
+655,Mirza and Co,mirzaandco,1,2,NOOP_ALREADY_METI,Mirza and Co,mirzaandco,True,True
+656,MSN International,msninternational,0,1,NOOP_ALREADY_METI,MSN International,msninternational,True,True
+657,Muhandis Corporation,muhandiscorporation,0,1,NOOP_ALREADY_METI,Muhandis Corporation,muhandiscorporation,True,True
+658,NA Enterprises,naenterprises,0,1,READY_ADD,NA Enterprises,naenterprises,True,True
+659,National Centre for Non Destructive Testing (NCNDT),nationalcentrefornondestructivetesting(ncndt),0,1,NOOP_ALREADY_METI,National Centre for Non Destructive Testing (NCNDT),nationalcentrefornondestructivetesting(ncndt),True,True
+660,National Development Complex (NDC),nationaldevelopmentcomplex(ndc),2,3,NOOP_ALREADY_METI,National Development Complex (NDC),nationaldevelopmentcomplex(ndc),True,True
+661,National Engineering and Scientific Commission (NESCOM),nationalengineeringandscientificcommission(nescom),0,1,NOOP_ALREADY_METI,National Engineering and Scientific Commission (NESCOM),nationalengineeringandscientificcommission(nescom),True,True
+662,National Engineering Service Trading and Consultancy Company,nationalengineeringservicetradingandconsultancycompany,1,2,NOOP_ALREADY_METI,National Engineering Service Trading and Consultancy Company,nationalengineeringservicetradingandconsultancycompany,True,True
+663,National Institute of Lasers and Optronics (NILOP),nationalinstituteoflasersandoptronics(nilop),1,2,NOOP_ALREADY_METI,National Institute of Lasers and Optronics (NILOP),nationalinstituteoflasersandoptronics(nilop),True,True
+664,Nazir and Sons International,nazirandsonsinternational,0,1,NOOP_ALREADY_METI,Nazir and Sons International,nazirandsonsinternational,True,True
+665,New Auto Engineering (NAE),newautoengineering(nae),0,1,NOOP_ALREADY_METI,New Auto Engineering (NAE),newautoengineering(nae),True,True
+666,Oriental Engineers,orientalengineers,4,5,NOOP_ALREADY_METI,Oriental Engineers,orientalengineers,True,True
+667,Orion Eleven Pvt. Ltd.,orionelevenpvt.ltd.,0,1,NOOP_ALREADY_METI,Orion Eleven Pvt. Ltd.,orionelevenpvt.ltd.,True,True
+668,Pakistan Aeronautical Complex (PAC),pakistanaeronauticalcomplex(pac),0,1,NOOP_ALREADY_METI,Pakistan Aeronautical Complex (PAC),pakistanaeronauticalcomplex(pac),True,True
+669,Pakistan Atomic Energy Commission (PAEC),pakistanatomicenergycommission(paec),1,2,NOOP_ALREADY_METI,Pakistan Atomic Energy Commission (PAEC),pakistanatomicenergycommission(paec),True,True
+670,Pakistan Institute of Engineering & Applied Sciences (PIEAS),pakistaninstituteofengineering&appliedsciences(pieas),0,1,NOOP_ALREADY_METI,Pakistan Institute of Engineering & Applied Sciences (PIEAS),pakistaninstituteofengineering&appliedsciences(pieas),True,True
+671,Pakistan Institute of Nuclear Science and Technology (PINSTECH),pakistaninstituteofnuclearscienceandtechnology(pinstech),0,1,NOOP_ALREADY_METI,Pakistan Institute of Nuclear Science and Technology (PINSTECH),pakistaninstituteofnuclearscienceandtechnology(pinstech),True,True
+672,Pakistan Ordnance Factories (POF),pakistanordnancefactories(pof),0,1,NOOP_ALREADY_METI,Pakistan Ordnance Factories (POF),pakistanordnancefactories(pof),True,True
+673,Paktech Engineers,paktechengineers,0,1,NOOP_ALREADY_METI,Paktech Engineers,paktechengineers,True,True
+674,Pentium Engineering Solutions,pentiumengineeringsolutions,0,1,NOOP_ALREADY_METI,Pentium Engineering Solutions,pentiumengineeringsolutions,True,True
+675,People's Steel Mills Ltd.,people'ssteelmillsltd.,3,4,NOOP_ALREADY_METI,People's Steel Mills Ltd.,people'ssteelmillsltd.,True,True
+676,Pervaiz Commercial Trading Co. (PCTC),pervaizcommercialtradingco.(pctc),0,1,NOOP_ALREADY_METI,Pervaiz Commercial Trading Co. (PCTC),pervaizcommercialtradingco.(pctc),True,True
+677,Pie Trading House,pietradinghouse,0,1,NOOP_ALREADY_METI,Pie Trading House,pietradinghouse,True,True
+678,Premier International,premierinternational,1,2,NOOP_ALREADY_METI,Premier International,premierinternational,True,True
+679,Prime Tech,primetech,0,1,NOOP_ALREADY_METI,Prime Tech,primetech,True,True
+680,Proficient Engineers,proficientengineers,0,1,NOOP_ALREADY_METI,Proficient Engineers,proficientengineers,True,True
+681,Profile Engineering Works,profileengineeringworks,0,1,NOOP_ALREADY_METI,Profile Engineering Works,profileengineeringworks,True,True
+682,QTech,qtech,1,2,NOOP_ALREADY_METI,QTech,qtech,True,True
+683,RAINBOW SOLUTIONS,rainbowsolutions,0,1,NOOP_ALREADY_METI,RAINBOW SOLUTIONS,rainbowsolutions,True,True
+684,Rohtas Enterprises,rohtasenterprises,0,1,NOOP_ALREADY_METI,Rohtas Enterprises,rohtasenterprises,True,True
+685,S.M.B Associates,s.m.bassociates,1,2,NOOP_ALREADY_METI,S.M.B Associates,s.m.bassociates,True,True
+686,Samina Pvt. Ltd.,saminapvt.ltd.,0,1,NOOP_ALREADY_METI,Samina Pvt. Ltd.,saminapvt.ltd.,True,True
+687,Sayyed Brothers Engineering Co. （SBEC）,sayyedbrothersengineeringco.(sbec),0,1,NOOP_ALREADY_METI,Sayyed Brothers Engineering Co. （SBEC）,sayyedbrothersengineeringco.(sbec),True,True
+688,Sci-Tech Global,sci-techglobal,0,1,NOOP_ALREADY_METI,Sci-Tech Global,sci-techglobal,True,True
+689,Sitara Chemical Industries Ltd.,sitarachemicalindustriesltd.,1,2,NOOP_ALREADY_METI,Sitara Chemical Industries Ltd.,sitarachemicalindustriesltd.,True,True
+690,Solutions Engineering Pvt. Ltd.,solutionsengineeringpvt.ltd.,2,3,NOOP_ALREADY_METI,Solutions Engineering Pvt. Ltd.,solutionsengineeringpvt.ltd.,True,True
+691,Space and Upper Atmosphere Research Commission (SUPARCO),spaceandupperatmosphereresearchcommission(suparco),1,2,NOOP_ALREADY_METI,Space and Upper Atmosphere Research Commission (SUPARCO),spaceandupperatmosphereresearchcommission(suparco),True,True
+692,Sumico Technologies,sumicotechnologies,0,1,NOOP_ALREADY_METI,Sumico Technologies,sumicotechnologies,True,True
+693,Swan International Trading,swaninternationaltrading,0,1,NOOP_ALREADY_METI,Swan International Trading,swaninternationaltrading,True,True
+694,Techlink Communications,techlinkcommunications,0,1,NOOP_ALREADY_METI,Techlink Communications,techlinkcommunications,True,True
+695,Techlinks,techlinks,0,1,NOOP_ALREADY_METI,Techlinks,techlinks,True,True
+696,Techno-Commercial,techno-commercial,2,3,NOOP_ALREADY_METI,Techno-Commercial,techno-commercial,True,True
+697,Teko Global Vision Pvt Ltd,tekoglobalvisionpvtltd,1,2,NOOP_ALREADY_METI,Teko Global Vision Pvt Ltd,tekoglobalvisionpvtltd,True,True
+698,TELEC Electronics & Machinery (Pvt) Ltd.,telecelectronics&machinery(pvt)ltd.,1,2,NOOP_ALREADY_METI,TELEC Electronics & Machinery (Pvt) Ltd.,telecelectronics&machinery(pvt)ltd.,True,True
+699,The Sadidians,thesadidians,0,1,READY_ADD,The Sadidians,thesadidians,True,True
+700,Time & Tune,time&tune,0,1,NOOP_ALREADY_METI,Time & Tune,time&tune,True,True
+701,Triton Educational Equipment & Consultancy Co.,tritoneducationalequipment&consultancyco.,0,1,NOOP_ALREADY_METI,Triton Educational Equipment & Consultancy Co.,tritoneducationalequipment&consultancyco.,True,True
+702,UEC (Pvt.) Ltd.,uec(pvt.)ltd.,0,1,NOOP_ALREADY_METI,UEC (Pvt.) Ltd.,uec(pvt.)ltd.,True,True
+703,Universal Tooling Services,universaltoolingservices,3,4,NOOP_ALREADY_METI,Universal Tooling Services,universaltoolingservices,True,True
+704,Value Additions (Pvt) Limited.,valueadditions(pvt)limited.,0,1,NOOP_ALREADY_METI,Value Additions (Pvt) Limited.,valueadditions(pvt)limited.,True,True
+705,"ADVANTAGE TRADING CO., LIMITED",limitedadvantagetradingco.,2,3,READY_TAG_EXISTING,"ADVANTAGE TRADING CO., LIMITED",limitedadvantagetradingco.,True,True
+706,ARTTRONIX INTERNATIONAL HK LIMITED （億電國際香港有限公司）,arttronixinternationalhklimited(億電國際香港有限公司),2,3,READY_ADD,ARTTRONIX INTERNATIONAL HK LIMITED （億電國際香港有限公司）,arttronixinternationalhklimited(億電國際香港有限公司),True,True
+707,BRIGHT SHORE INC LIMITED,brightshoreinclimited,0,1,READY_TAG_EXISTING,BRIGHT SHORE INC LIMITED,brightshoreinclimited,True,True
+708,BTW INTERNATIONAL LIMITED,btwinternationallimited,0,1,READY_TAG_EXISTING,BTW INTERNATIONAL LIMITED,btwinternationallimited,True,True
+709,CHINA CHLORATE TECH CO LIMITED,chinachloratetechcolimited,0,1,READY_TAG_EXISTING,CHINA CHLORATE TECH CO LIMITED,chinachloratetechcolimited,True,True
+710,CLOUD ELEMENT COMPANY LIMITED,cloudelementcompanylimited,0,1,READY_TAG_EXISTING,CLOUD ELEMENT COMPANY LIMITED,cloudelementcompanylimited,True,True
+711,"DALI RF TECHNOLOGY CO., LIMITED （大立射頻技術有限公司）",limited(大立射頻技術有限公司)dalirftechnologyco.,0,1,READY_ADD,"DALI RF TECHNOLOGY CO., LIMITED （大立射頻技術有限公司）",limited(大立射頻技術有限公司)dalirftechnologyco.,True,True
+712,Detail Technology (HK) Limited,detailtechnology(hk)limited,0,1,NOOP_ALREADY_METI,Detail Technology (HK) Limited,detailtechnology(hk)limited,True,True
+713,DIRAC TECHNOLOGY HK LIMITED,diractechnologyhklimited,1,2,READY_TAG_EXISTING,DIRAC TECHNOLOGY HK LIMITED,diractechnologyhklimited,True,True
+714,DULING TECHNOLOGY (HK) LIMITED. （都灵科技香港有限公司）,dulingtechnology(hk)limited.(都灵科技香港有限公司),1,2,READY_ADD,DULING TECHNOLOGY (HK) LIMITED. （都灵科技香港有限公司）,dulingtechnology(hk)limited.(都灵科技香港有限公司),True,True
+715,"FY INTERNATIONAL TRADING CO., LIMITED （伊國際貿易有限公司）",limited(伊國際貿易有限公司)fyinternationaltradingco.,1,2,READY_ADD,"FY INTERNATIONAL TRADING CO., LIMITED （伊國際貿易有限公司）",limited(伊國際貿易有限公司)fyinternationaltradingco.,True,True
+716,General Technology Limited（大眾科技有限公司 ）,generaltechnologylimited(大眾科技有限公司),0,1,READY_ADD,General Technology Limited（大眾科技有限公司 ）,generaltechnologylimited(大眾科技有限公司),True,True
+717,HONGKONG HIMARK ELECTRON MODEL LIMITED （香港華邁電子模型有限公司）,hongkonghimarkelectronmodellimited(香港華邁電子模型有限公司),1,2,READY_ADD,HONGKONG HIMARK ELECTRON MODEL LIMITED （香港華邁電子模型有限公司）,hongkonghimarkelectronmodellimited(香港華邁電子模型有限公司),True,True
+718,"HONG KONG KE.DO INTERNATIONAL TRADE CO., LIMITED（香港科鬥國際貿易有限公司）",limited(香港科鬥國際貿易有限公司)hongkongke.dointernationaltradeco.,1,2,READY_ADD,"HONG KONG KE.DO INTERNATIONAL TRADE CO., LIMITED（香港科鬥國際貿易有限公司）",limited(香港科鬥國際貿易有限公司)hongkongke.dointernationaltradeco.,True,True
+719,ICGOO ELECTRONICS LIMITED（創新在線電子有限公 司）,icgooelectronicslimited(創新在線電子有限公司),1,2,READY_ADD,ICGOO ELECTRONICS LIMITED（創新在線電子有限公 司）,icgooelectronicslimited(創新在線電子有限公司),True,True
+720,JOTRIN ELECTRONICS LIMITED,jotrinelectronicslimited,3,4,READY_TAG_EXISTING,JOTRIN ELECTRONICS LIMITED,jotrinelectronicslimited,True,True
+721,K Logistics (China) Limited （快急送物流(中國)有限公司）,klogistics(china)limited(快急送物流(中國)有限公司),4,5,READY_ADD,K Logistics (China) Limited （快急送物流(中國)有限公司）,klogistics(china)limited(快急送物流(中國)有限公司),True,True
+722,"NANXIGU TECHNOLOGY CO., LIMITED（南溪穀科技有 限公司）",limited(南溪穀科技有限公司)nanxigutechnologyco.,0,1,READY_ADD,"NANXIGU TECHNOLOGY CO., LIMITED（南溪穀科技有 限公司）",limited(南溪穀科技有限公司)nanxigutechnologyco.,True,True
+723,LINGOE PROCESS ENGINEERING LIMITED,lingoeprocessengineeringlimited,1,2,READY_TAG_EXISTING,LINGOE PROCESS ENGINEERING LIMITED,lingoeprocessengineeringlimited,True,True
+724,RAVEN INTERNATIONAL TRADE LIMITED（瑞文機械有 限公司）,raveninternationaltradelimited(瑞文機械有限公司),0,1,READY_ADD,RAVEN INTERNATIONAL TRADE LIMITED（瑞文機械有 限公司）,raveninternationaltradelimited(瑞文機械有限公司),True,True
+725,TAS TECHNOLOGY COMPANY LIMITED,tastechnologycompanylimited,1,2,READY_TAG_EXISTING,TAS TECHNOLOGY COMPANY LIMITED,tastechnologycompanylimited,True,True
+726,WIN KEY LIMITED,winkeylimited,0,1,NOOP_ALREADY_METI,WIN KEY LIMITED,winkeylimited,True,True
+727,Best Electronics S.A.L,bestelectronicss.a.l,0,1,NOOP_ALREADY_METI,Best Electronics S.A.L,bestelectronicss.a.l,True,True
+728,Denise Company,denisecompany,0,1,READY_TAG_EXISTING,Denise Company,denisecompany,True,True
+729,EFAB S.A.R.L,efabs.a.r.l,0,1,NOOP_ALREADY_METI,EFAB S.A.R.L,efabs.a.r.l,True,True
+730,EKT Electronics,ektelectronics,19,20,NOOP_ALREADY_METI,EKT Electronics,ektelectronics,True,True
+731,POLO TRADING,polotrading,0,1,READY_TAG_EXISTING,POLO TRADING,polotrading,True,True
+732,Shadi for Cars Trading,shadiforcarstrading,0,1,NOOP_ALREADY_METI,Shadi for Cars Trading,shadiforcarstrading,True,True
+733,Technolab,technolab,1,2,NOOP_ALREADY_METI,Technolab,technolab,True,True
+734,TOP TECHNOLOGIES SARL,toptechnologiessarl,0,1,READY_TAG_EXISTING,TOP TECHNOLOGIES SARL,toptechnologiessarl,True,True
+735,Vibes International Inc Sarl,vibesinternationalincsarl,0,1,NOOP_ALREADY_METI,Vibes International Inc Sarl,vibesinternationalincsarl,True,True
+736,27th Scientific Center of the Russian Ministry of Defense,27thscientificcenteroftherussianministryofdefense,2,3,NOOP_ALREADY_METI,27th Scientific Center of the Russian Ministry of Defense,27thscientificcenteroftherussianministryofdefense,True,True
+737,33rd Scientific Research and Testing Institute,33rdscientificresearchandtestinginstitute,2,3,NOOP_ALREADY_METI,33rd Scientific Research and Testing Institute,33rdscientificresearchandtestinginstitute,True,True
+738,Admiralty Shipyard JSC,admiraltyshipyardjsc,0,1,NOOP_ALREADY_METI,Admiralty Shipyard JSC,admiraltyshipyardjsc,True,True
+739,AO GNPP Region,aognppregion,1,2,READY_TAG_EXISTING,AO GNPP Region,aognppregion,True,True
+740,AO Kronshtadt,aokronshtadt,4,5,READY_TAG_EXISTING,AO Kronshtadt,aokronshtadt,True,True
+741,AO PKK Milandr,aopkkmilandr,5,6,READY_TAG_EXISTING,AO PKK Milandr,aopkkmilandr,True,True
+742,"""Avangard"" JSC","avangard""jsc",1,2,READY_ADD,"""Avangard"" JSC","avangard""jsc",True,True
+743,"""Central Design Bureau for Automatics Engineering"" JSC","centraldesignbureauforautomaticsengineering""jsc",4,5,READY_ADD,"""Central Design Bureau for Automatics Engineering"" JSC","centraldesignbureauforautomaticsengineering""jsc",True,True
+744,chimmed group,chimmedgroup,6,7,NOOP_ALREADY_METI,chimmed group,chimmedgroup,True,True
+745,Engineering Center Ltd.,engineeringcenterltd.,3,4,NOOP_ALREADY_METI,Engineering Center Ltd.,engineeringcenterltd.,True,True
+746,Federal Security Service（FSB）,federalsecurityservice(fsb),0,1,NOOP_ALREADY_METI,Federal Security Service（FSB）,federalsecurityservice(fsb),True,True
+747,Federal State Unitary Enterprise Dukhov Automatics Research Institute（VNIIA）,federalstateunitaryenterprisedukhovautomaticsresearchinstitute(vniia),0,1,NOOP_ALREADY_METI,Federal State Unitary Enterprise Dukhov Automatics Research Institute（VNIIA）,federalstateunitaryenterprisedukhovautomaticsresearchinstitute(vniia),True,True
+748,Foreign Intelligence Service（SVR）,foreignintelligenceservice(svr),0,1,NOOP_ALREADY_METI,Foreign Intelligence Service（SVR）,foreignintelligenceservice(svr),True,True
+749,"FSUE ""The Federal Center for Dual-Use Technologies ""Soyuz""","fsue""thefederalcenterfordual-usetechnologies""soyuz",2,3,NOOP_ALREADY_METI,"FSUE ""The Federal Center for Dual-Use Technologies ""Soyuz""","fsue""thefederalcenterfordual-usetechnologies""soyuz",True,True
+750,Ilyushin Aviation Complex Branch: Myasishcheva Experimental Mechanical Engineering Plant,ilyushinaviationcomplexbranch:myasishchevaexperimentalmechanicalengineeringplant,1,2,NOOP_ALREADY_METI,Ilyushin Aviation Complex Branch: Myasishcheva Experimental Mechanical Engineering Plant,ilyushinaviationcomplexbranch:myasishchevaexperimentalmechanicalengineeringplant,True,True
+751,International Center for Quantum Optics and Quantum Technologies LLS,internationalcenterforquantumopticsandquantumtechnologieslls,3,4,NOOP_ALREADY_METI,International Center for Quantum Optics and Quantum Technologies LLS,internationalcenterforquantumopticsandquantumtechnologieslls,True,True
+752,Intertech Rus LLC,intertechrusllc,1,2,NOOP_ALREADY_METI,Intertech Rus LLC,intertechrusllc,True,True
+753,"""Iskra"" Engineering Design Bureau JSC named after I.I. Kartukov","iskra""engineeringdesignbureaujscnamedafteri.i.kartukov",3,4,READY_ADD,"""Iskra"" Engineering Design Bureau JSC named after I.I. Kartukov","iskra""engineeringdesignbureaujscnamedafteri.i.kartukov",True,True
+754,Joint Stock Company Angstrem,jointstockcompanyangstrem,1,2,READY_TAG_EXISTING,Joint Stock Company Angstrem,jointstockcompanyangstrem,True,True
+755,Joint Stock Company Angstrem-T,jointstockcompanyangstrem-t,1,2,NOOP_ALREADY_METI,Joint Stock Company Angstrem-T,jointstockcompanyangstrem-t,True,True
+756,Joint-Stock Company Concern Almaz-Antey,joint-stockcompanyconcernalmaz-antey,4,5,READY_TAG_EXISTING,Joint-Stock Company Concern Almaz-Antey,joint-stockcompanyconcernalmaz-antey,True,True
+757,Joint Stock Company Concern Avrora Scientific and Production Association,jointstockcompanyconcernavrorascientificandproductionassociation,8,9,READY_TAG_EXISTING,Joint Stock Company Concern Avrora Scientific and Production Association,jointstockcompanyconcernavrorascientificandproductionassociation,True,True
+758,Joint Stock Company Concern Avtomatika,jointstockcompanyconcernavtomatika,3,4,READY_TAG_EXISTING,Joint Stock Company Concern Avtomatika,jointstockcompanyconcernavtomatika,True,True
+759,Joint Stock Company Concern Sozvezdie,jointstockcompanyconcernsozvezdie,4,5,NOOP_ALREADY_METI,Joint Stock Company Concern Sozvezdie,jointstockcompanyconcernsozvezdie,True,True
+760,Joint Stock Company Design Bureau of Special Machine Building,jointstockcompanydesignbureauofspecialmachinebuilding,9,10,NOOP_ALREADY_METI,Joint Stock Company Design Bureau of Special Machine Building,jointstockcompanydesignbureauofspecialmachinebuilding,True,True
+761,Joint Stock Company Experimental Design Bureau Novator,jointstockcompanyexperimentaldesignbureaunovator,2,3,READY_TAG_EXISTING,Joint Stock Company Experimental Design Bureau Novator,jointstockcompanyexperimentaldesignbureaunovator,True,True
+762,"Joint Stock Company ""Federal Center of Science and High Technologies ""SNPO ""Eleron""","jointstockcompany""federalcenterofscienceandhightechnologies""snpo""eleron",3,4,NOOP_ALREADY_METI,"Joint Stock Company ""Federal Center of Science and High Technologies ""SNPO ""Eleron""","jointstockcompany""federalcenterofscienceandhightechnologies""snpo""eleron",True,True
+763,Joint Stock Company Federal Scientific and Production Center Titan-Barrikady,jointstockcompanyfederalscientificandproductioncentertitan-barrikady,3,4,READY_ADD,Joint Stock Company Federal Scientific and Production Center Titan-Barrikady,jointstockcompanyfederalscientificandproductioncentertitan-barrikady,True,True
+764,Joint Stock Company Institute for Scientific Research Microelectronic Equipment Progress,jointstockcompanyinstituteforscientificresearchmicroelectronicequipmentprogress,4,5,READY_TAG_EXISTING,Joint Stock Company Institute for Scientific Research Microelectronic Equipment Progress,jointstockcompanyinstituteforscientificresearchmicroelectronicequipmentprogress,True,True
+765,Joint Stock Company Machine-Building Engineering Office Fakel Named After Akademika P.D. Grushina,jointstockcompanymachine-buildingengineeringofficefakelnamedafterakademikap.d.grushina,4,5,READY_TAG_EXISTING,Joint Stock Company Machine-Building Engineering Office Fakel Named After Akademika P.D. Grushina,jointstockcompanymachine-buildingengineeringofficefakelnamedafterakademikap.d.grushina,True,True
+766,Joint Stock Company North Western Regional Center of Almaz Antey Concern Obukhovsky Plant,jointstockcompanynorthwesternregionalcenterofalmazanteyconcernobukhovskyplant,5,6,READY_TAG_EXISTING,Joint Stock Company North Western Regional Center of Almaz Antey Concern Obukhovsky Plant,jointstockcompanynorthwesternregionalcenterofalmazanteyconcernobukhovskyplant,True,True
+767,Joint Stock Company NPO Elektromechaniki,jointstockcompanynpoelektromechaniki,1,2,NOOP_ALREADY_METI,Joint Stock Company NPO Elektromechaniki,jointstockcompanynpoelektromechaniki,True,True
+768,Joint Stock Company Precision Engineering Design Bureau named after A.E. Nudelman,jointstockcompanyprecisionengineeringdesignbureaunamedaftera.e.nudelman,6,7,READY_TAG_EXISTING,Joint Stock Company Precision Engineering Design Bureau named after A.E. Nudelman,jointstockcompanyprecisionengineeringdesignbureaunamedaftera.e.nudelman,True,True
+769,JOINT STOCK COMPANY RESEARCH AND PRODUCTION CORPORATION KONSTRUKTORSKOYE BYURO MASHYNOSTROYENIYA,jointstockcompanyresearchandproductioncorporationkonstruktorskoyebyuromashynostroyeniya,3,4,READY_TAG_EXISTING,JOINT STOCK COMPANY RESEARCH AND PRODUCTION CORPORATION KONSTRUKTORSKOYE BYURO MASHYNOSTROYENIYA,jointstockcompanyresearchandproductioncorporationkonstruktorskoyebyuromashynostroyeniya,True,True
+770,"Joint Stock Company""Severniy press""","jointstockcompany""severniypress",3,4,READY_ADD,"Joint Stock Company""Severniy press""","jointstockcompany""severniypress",True,True
+771,Joint Stock Company Scientific Research Institute of Computer Engineering NII SVT,jointstockcompanyscientificresearchinstituteofcomputerengineeringniisvt,4,5,NOOP_ALREADY_METI,Joint Stock Company Scientific Research Institute of Computer Engineering NII SVT,jointstockcompanyscientificresearchinstituteofcomputerengineeringniisvt,True,True
+772,Joint Stock Company Tekhnodinamika,jointstockcompanytekhnodinamika,3,4,READY_TAG_EXISTING,Joint Stock Company Tekhnodinamika,jointstockcompanytekhnodinamika,True,True
+773,Joint Stock Company Ufa Aggregate Enterprise “Gidravlika”,"jointstockcompanyufaaggregateenterprise""gidravlika",0,1,READY_ADD,Joint Stock Company Ufa Aggregate Enterprise “Gidravlika”,"jointstockcompanyufaaggregateenterprise""gidravlika",True,True
+774,Joint Stock Company Uraltransmash,jointstockcompanyuraltransmash,4,5,READY_ADD,Joint Stock Company Uraltransmash,jointstockcompanyuraltransmash,True,True
+775,Joint Stock Company Votkinsky Zavod,jointstockcompanyvotkinskyzavod,0,1,NOOP_ALREADY_METI,Joint Stock Company Votkinsky Zavod,jointstockcompanyvotkinskyzavod,True,True
+776,JSC Concern Granit-Electron,jscconcerngranit-electron,0,1,READY_TAG_EXISTING,JSC Concern Granit-Electron,jscconcerngranit-electron,True,True
+777,JSC Concern Radio-Electronic Technologies（KRET）,jscconcernradio-electronictechnologies(kret),0,1,READY_TAG_EXISTING,JSC Concern Radio-Electronic Technologies（KRET）,jscconcernradio-electronictechnologies(kret),True,True
+778,JSC Omsk Transport Machine Factory Omsktransmash,jscomsktransportmachinefactoryomsktransmash,0,1,READY_TAG_EXISTING,JSC Omsk Transport Machine Factory Omsktransmash,jscomsktransportmachinefactoryomsktransmash,True,True
+779,JSC SEZ Alabuga,jscsezalabuga,3,4,READY_ADD,JSC SEZ Alabuga,jscsezalabuga,True,True
+780,Kalashnikov Concern,kalashnikovconcern,8,9,READY_TAG_EXISTING,Kalashnikov Concern,kalashnikovconcern,True,True
+781,KAMAZ Publicly Traded Company,kamazpubliclytradedcompany,4,5,READY_TAG_EXISTING,KAMAZ Publicly Traded Company,kamazpubliclytradedcompany,True,True
+782,Konstruktorskoe Byuro Priborostroeniya Otkrytoe Aktsionernoe Obshchestvo,konstruktorskoebyuropriborostroeniyaotkrytoeaktsionernoeobshchestvo,5,6,READY_TAG_EXISTING,Konstruktorskoe Byuro Priborostroeniya Otkrytoe Aktsionernoe Obshchestvo,konstruktorskoebyuropriborostroeniyaotkrytoeaktsionernoeobshchestvo,True,True
+783,Laboratory Systems and Technologies LTD,laboratorysystemsandtechnologiesltd,1,2,NOOP_ALREADY_METI,Laboratory Systems and Technologies LTD,laboratorysystemsandtechnologiesltd,True,True
+784,LLC Alabuga Development,llcalabugadevelopment,1,2,NOOP_ALREADY_METI,LLC Alabuga Development,llcalabugadevelopment,True,True
+785,Main Intelligence Directorate,mainintelligencedirectorate,3,4,NOOP_ALREADY_METI,Main Intelligence Directorate,mainintelligencedirectorate,True,True
+786,Mikron,mikron,7,8,NOOP_ALREADY_METI,Mikron,mikron,True,True
+787,"""Military Industrial Corporation NPO Mashinostroenia"" JSC","militaryindustrialcorporationnpomashinostroenia""jsc",8,9,READY_ADD,"""Military Industrial Corporation NPO Mashinostroenia"" JSC","militaryindustrialcorporationnpomashinostroenia""jsc",True,True
+788,Ministry of Defence of the Russian Federation,ministryofdefenceoftherussianfederation,0,1,NOOP_ALREADY_METI,Ministry of Defence of the Russian Federation,ministryofdefenceoftherussianfederation,True,True
+789,N.A. Dollezhal Research and Design Institute of Power Engineering,n.a.dollezhalresearchanddesigninstituteofpowerengineering,3,4,NOOP_ALREADY_METI,N.A. Dollezhal Research and Design Institute of Power Engineering,n.a.dollezhalresearchanddesigninstituteofpowerengineering,True,True
+790,Nilco Group,nilcogroup,3,4,NOOP_ALREADY_METI,Nilco Group,nilcogroup,True,True
+791,NPK Tekhmash OAO,npktekhmashoao,5,6,READY_TAG_EXISTING,NPK Tekhmash OAO,npktekhmashoao,True,True
+792,NPO High Precision Systems JSC,npohighprecisionsystemsjsc,0,1,NOOP_ALREADY_METI,NPO High Precision Systems JSC,npohighprecisionsystemsjsc,True,True
+793,NPO of Electromechanics,npoofelectromechanics,1,2,READY_TAG_EXISTING,NPO of Electromechanics,npoofelectromechanics,True,True
+794,NPO Splav JSC,nposplavjsc,0,1,NOOP_ALREADY_METI,NPO Splav JSC,nposplavjsc,True,True
+795,NPP Istok,nppistok,0,1,NOOP_ALREADY_METI,NPP Istok,nppistok,True,True
+796,OOO Albatross,oooalbatross,2,3,NOOP_ALREADY_METI,OOO Albatross,oooalbatross,True,True
+797,OAO GosNIIkhimanalit,oaogosniikhimanalit,1,2,NOOP_ALREADY_METI,OAO GosNIIkhimanalit,oaogosniikhimanalit,True,True
+798,OOO Intertech Instruments,ooointertechinstruments,1,2,NOOP_ALREADY_METI,OOO Intertech Instruments,ooointertechinstruments,True,True
+799,Open Joint Stock Company Aviadvigatel,openjointstockcompanyaviadvigatel,0,1,READY_TAG_EXISTING,Open Joint Stock Company Aviadvigatel,openjointstockcompanyaviadvigatel,True,True
+800,POLYUS Research Institute of M.F. Stelmakh Joint Stock Company,polyusresearchinstituteofm.f.stelmakhjointstockcompany,0,1,NOOP_ALREADY_METI,POLYUS Research Institute of M.F. Stelmakh Joint Stock Company,polyusresearchinstituteofm.f.stelmakhjointstockcompany,True,True
+801,Public Joint Stock Company Kurganmashzavod,publicjointstockcompanykurganmashzavod,5,6,READY_TAG_EXISTING,Public Joint Stock Company Kurganmashzavod,publicjointstockcompanykurganmashzavod,True,True
+802,Public Joint Stock Company UEC-Ufa Engine Industrial Association,publicjointstockcompanyuec-ufaengineindustrialassociation,14,15,READY_ADD,Public Joint Stock Company UEC-Ufa Engine Industrial Association,publicjointstockcompanyuec-ufaengineindustrialassociation,True,True
+803,Public Joint Stock Company United Aircraft Corporation,publicjointstockcompanyunitedaircraftcorporation,0,1,READY_TAG_EXISTING,Public Joint Stock Company United Aircraft Corporation,publicjointstockcompanyunitedaircraftcorporation,True,True
+804,Radiotechnical and Information Systems (RTI) Concern,radiotechnicalandinformationsystems(rti)concern,0,1,NOOP_ALREADY_METI,Radiotechnical and Information Systems (RTI) Concern,radiotechnicalandinformationsystems(rti)concern,True,True
+805,"""Raduga"" State Engineering Design Bureau JSC named after A.Y. Bereznyak","raduga""stateengineeringdesignbureaujscnamedaftera.y.bereznyak",6,7,READY_ADD,"""Raduga"" State Engineering Design Bureau JSC named after A.Y. Bereznyak","raduga""stateengineeringdesignbureaujscnamedaftera.y.bereznyak",True,True
+806,Rosoboronexport OJSC (ROE),rosoboronexportojsc(roe),12,13,NOOP_ALREADY_METI,Rosoboronexport OJSC (ROE),rosoboronexportojsc(roe),True,True
+807,Rostec（Russian Technologies State Corporation）,rostec(russiantechnologiesstatecorporation),0,1,NOOP_ALREADY_METI,Rostec（Russian Technologies State Corporation）,rostec(russiantechnologiesstatecorporation),True,True
+808,Ruselectronics JSC,ruselectronicsjsc,0,1,NOOP_ALREADY_METI,Ruselectronics JSC,ruselectronicsjsc,True,True
+809,Russian Aircraft Corporation MiG,russianaircraftcorporationmig,0,1,NOOP_ALREADY_METI,Russian Aircraft Corporation MiG,russianaircraftcorporationmig,True,True
+810,Russian Helicopters JSC,russianhelicoptersjsc,0,1,READY_TAG_EXISTING,Russian Helicopters JSC,russianhelicoptersjsc,True,True
+811,Scientific Research Institute of Applied Acoustics,scientificresearchinstituteofappliedacoustics,2,3,NOOP_ALREADY_METI,Scientific Research Institute of Applied Acoustics,scientificresearchinstituteofappliedacoustics,True,True
+812,"""Scientific Research Institute for Mechanical Engineering"" JSC","scientificresearchinstituteformechanicalengineering""jsc",8,9,READY_ADD,"""Scientific Research Institute for Mechanical Engineering"" JSC","scientificresearchinstituteformechanicalengineering""jsc",True,True
+813,Severnoye Design Bureau Joint Stock Company,severnoyedesignbureaujointstockcompany,5,6,READY_ADD,Severnoye Design Bureau Joint Stock Company,severnoyedesignbureaujointstockcompany,True,True
+814,SMT-iLogic,smt-ilogic,2,3,NOOP_ALREADY_METI,SMT-iLogic,smt-ilogic,True,True
+815,Special Technology Center,specialtechnologycenter,2,3,READY_TAG_EXISTING,Special Technology Center,specialtechnologycenter,True,True
+816,St. Petersburg Marine Bureau of Machine Building Malakhit,st.petersburgmarinebureauofmachinebuildingmalakhit,2,3,NOOP_ALREADY_METI,St. Petersburg Marine Bureau of Machine Building Malakhit,st.petersburgmarinebureauofmachinebuildingmalakhit,True,True
+817,State Scientific Research Institute of Organic Chemistry and Technology,statescientificresearchinstituteoforganicchemistryandtechnology,1,2,NOOP_ALREADY_METI,State Scientific Research Institute of Organic Chemistry and Technology,statescientificresearchinstituteoforganicchemistryandtechnology,True,True
+818,"""Strela"" Production Association JSC","strela""productionassociationjsc",2,3,READY_ADD,"""Strela"" Production Association JSC","strela""productionassociationjsc",True,True
+819,Sukhoi Aviation JSC,sukhoiaviationjsc,0,1,NOOP_ALREADY_METI,Sukhoi Aviation JSC,sukhoiaviationjsc,True,True
+820,Systems of Biological Synthesis LLC,systemsofbiologicalsynthesisllc,3,4,READY_TAG_EXISTING,Systems of Biological Synthesis LLC,systemsofbiologicalsynthesisllc,True,True
+821,Tactical Missiles Corporation JSC,tacticalmissilescorporationjsc,0,1,READY_TAG_EXISTING,Tactical Missiles Corporation JSC,tacticalmissilescorporationjsc,True,True
+822,"""Temp-Avia"" Arzamas Research and Production Association JSC","temp-avia""arzamasresearchandproductionassociationjsc",9,10,READY_ADD,"""Temp-Avia"" Arzamas Research and Production Association JSC","temp-avia""arzamasresearchandproductionassociationjsc",True,True
+823,TsKB MT Rubin,tskbmtrubin,2,3,NOOP_ALREADY_METI,TsKB MT Rubin,tskbmtrubin,True,True
+824,Tupolev JSC,tupolevjsc,0,1,READY_TAG_EXISTING,Tupolev JSC,tupolevjsc,True,True
+825,Turayev Machine Building Design Bureau Soyuz,turayevmachinebuildingdesignbureausoyuz,1,2,NOOP_ALREADY_METI,Turayev Machine Building Design Bureau Soyuz,turayevmachinebuildingdesignbureausoyuz,True,True
+826,UEC-Saturn,uec-saturn,0,1,READY_TAG_EXISTING,UEC-Saturn,uec-saturn,True,True
+827,United Engine Corporation,unitedenginecorporation,0,1,NOOP_ALREADY_METI,United Engine Corporation,unitedenginecorporation,True,True
+828,United Instrument Manufacturing Corporation,unitedinstrumentmanufacturingcorporation,0,1,NOOP_ALREADY_METI,United Instrument Manufacturing Corporation,unitedinstrumentmanufacturingcorporation,True,True
+829,United Shipbuilding Corporation,unitedshipbuildingcorporation,4,5,READY_TAG_EXISTING,United Shipbuilding Corporation,unitedshipbuildingcorporation,True,True
+830,"United Shipbuilding Corporation JSC ""SC ""Zvyozdochka""","unitedshipbuildingcorporationjsc""sc""zvyozdochka",1,2,NOOP_ALREADY_METI,"United Shipbuilding Corporation JSC ""SC ""Zvyozdochka""","unitedshipbuildingcorporationjsc""sc""zvyozdochka",True,True
+831,United Shipbuilding Corporation “Production Association Northern Machine Building Enterprise”,"unitedshipbuildingcorporation""productionassociationnorthernmachinebuildingenterprise",1,2,NOOP_ALREADY_METI,United Shipbuilding Corporation “Production Association Northern Machine Building Enterprise”,"unitedshipbuildingcorporation""productionassociationnorthernmachinebuildingenterprise",True,True
+832,Ural Research Institute of Composite Materials,uralresearchinstituteofcompositematerials,1,2,NOOP_ALREADY_METI,Ural Research Institute of Composite Materials,uralresearchinstituteofcompositematerials,True,True
+833,Uralvagonzavod,uralvagonzavod,8,9,READY_TAG_EXISTING,Uralvagonzavod,uralvagonzavod,True,True
+834,"""Vympel"" State Engineering Design Bureau JSC named after I.I. Toropov","vympel""stateengineeringdesignbureaujscnamedafteri.i.toropov",3,4,READY_ADD,"""Vympel"" State Engineering Design Bureau JSC named after I.I. Toropov","vympel""stateengineeringdesignbureaujscnamedafteri.i.toropov",True,True
+835,"Zavod ""Miass""","zavod""miass",3,4,NOOP_ALREADY_METI,"Zavod ""Miass""","zavod""miass",True,True

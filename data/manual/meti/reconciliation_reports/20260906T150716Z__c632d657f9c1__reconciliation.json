@@ -1,0 +1,38 @@
+{
+  "action_counts": {
+    "HOLD_MULTI_PARTY_COLLISION": 2,
+    "HOLD_WEAK_ALIAS": 22,
+    "NOOP_ALREADY_METI": 1462,
+    "READY_ADD": 314,
+    "READY_TAG_EXISTING": 432
+  },
+  "actionable_master_count": 2208,
+  "application_id": "20260905T205306Z__c632d657f9c1__apply",
+  "apply_status": "APPLIED_WITH_HOLDS",
+  "evidence_path": "data/evidence/meti_foreign_user_list.csv",
+  "evidence_record_count": 835,
+  "generated_at": "2026-09-06T15:07:16Z",
+  "master_apply_count": 88373,
+  "master_apply_sha256": "f9032645a88c2172016c58c46a1f02cdc24e5a9917519acaf2faa1bfbcd63f0f",
+  "master_current_count": 88373,
+  "master_current_sha256": "f9032645a88c2172016c58c46a1f02cdc24e5a9917519acaf2faa1bfbcd63f0f",
+  "master_unchanged_since_apply": true,
+  "parsed_record_count": 835,
+  "plan_path": "data/manual/meti/apply_plans/c632d657f9c1__master_5a8cb9b1ece5__plan.csv",
+  "primary_action_counts": {
+    "NOOP_ALREADY_METI": 436,
+    "READY_ADD": 234,
+    "READY_TAG_EXISTING": 165
+  },
+  "primary_hold_count": 0,
+  "primary_outcome_count": 835,
+  "raw_path": "data/raw/meti_manual/20260905T201914Z__c632d657f9c1__20250929_3.pdf",
+  "raw_pdf_sha256": "c632d657f9c13b1250d688394eb7c99956a994527cb56f4a77c86ed61ff1dbda",
+  "record_count": 835,
+  "records_path": "data/manual/meti/records/20260905T201914Z__c632d657f9c1.csv",
+  "review_id": "20260905T202922Z__c632d657f9c1__approved",
+  "source_hash": "c632d657f9c13b1250d688394eb7c99956a994527cb56f4a77c86ed61ff1dbda",
+  "source_token_count": 2250,
+  "source_url": "https://www.meti.go.jp/policy/anpo/20250929_3.pdf",
+  "status": "PASS"
+}
