@@ -1,0 +1,18 @@
+{
+  "issues": {
+    "anpo_revision": {
+      "detected_at": "2026-09-06T14:32:28+00:00",
+      "fingerprint": "5f554d7869fff37fb9f4b2bf2717b340ad0f38c3d42d1f094945203ac0c86e2e",
+      "message": "403 Client Error: Forbidden for url: https://www.meti.go.jp/policy/anpo/law09-2.html",
+      "type": "HTTPError"
+    },
+    "press_external_economy": {
+      "detected_at": "2026-09-06T14:32:28+00:00",
+      "fingerprint": "1d2ec22f86df249a434f900a72a65e52d725e37b9c56986b4315458a28f51b06",
+      "message": "403 Client Error: Forbidden for url: https://www.meti.go.jp/press/category_02.html",
+      "type": "HTTPError"
+    }
+  },
+  "sources": {},
+  "version": 1
+}
