@@ -1,0 +1,6 @@
+﻿classification,display_name,match_key,sources,invalid_reason,review_flag,source_has_ofac,bad_delist_reason,party_ids,current_primary,current_strong_alias,current_weak_alias
+EXPECTED_WEAK_ALIAS,27,27,OFAC,数字のみで人名・団体名として成立しない（27）,,True,False,SDN:43596,0,0,1
+EXPECTED_WEAK_ALIAS,Abou Hamza,abouhamza,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,,False,True,SDN:7831,0,0,1
+EXPECTED_WEAK_ALIAS_MULTI_PARTY,Hamza,hamza,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,,False,True,SDN:7830;SDN:7831,0,0,2
+EXPECTED_WEAK_ALIAS,Mullah Fazlullah,mullahfazlullah,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,,False,True,SDN:17668,0,0,1
+EXPECTED_WEAK_ALIAS,Mullah Radio,mullahradio,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,,False,True,SDN:17668,0,0,1

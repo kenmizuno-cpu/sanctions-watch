@@ -32,6 +32,48 @@ RISK_LEVEL = "高"
 # 消すと登録時間が失われ、過去時点での照合状況を説明できなくなる。
 DELISTED = "全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）"
 
+# OFAC Advanced XML の Weak Alias は一次ソース上はcurrentでも、
+# 通常の自動スクリーニングmasterへはactive投入しない。
+#
+# 完全な一次ソース証跡は ofac_alias_history.csv に保持する。
+# masterに旧データ由来の同名行が残っている場合だけ、
+# 「delist」と誤説明しないよう理由・review_flagを同期する。
+OFAC_WEAK_ALIAS_REASON = (
+    "OFAC現役Weak Aliasのため通常スクリーニング対象外"
+)
+OFAC_WEAK_ALIAS_MULTI_REASON = (
+    "OFAC現役Weak Alias（複数Party）のため通常スクリーニング対象外"
+)
+
+OFAC_WEAK_ALIAS_FLAG = "OFAC_WEAK_ALIAS_CURRENT"
+OFAC_WEAK_ALIAS_MULTI_FLAG = "OFAC_WEAK_ALIAS_MULTI_PARTY"
+
+OFAC_WEAK_ALIAS_REASONS = {
+    OFAC_WEAK_ALIAS_REASON,
+    OFAC_WEAK_ALIAS_MULTI_REASON,
+}
+
+OFAC_WEAK_ALIAS_FLAGS = {
+    OFAC_WEAK_ALIAS_FLAG,
+    OFAC_WEAK_ALIAS_MULTI_FLAG,
+}
+
+# Weak Aliasが後日Strong/Primaryへ昇格した場合は
+# 通常スクリーニング対象へ安全に復帰させる。
+REACTIVATABLE_REASONS = {
+    DELISTED,
+    *OFAC_WEAK_ALIAS_REASONS,
+}
+
+DIFF_AUDIT_FIELDS = (
+    "status",
+    "sources",
+    "categories",
+    "remark",
+    "invalid_reason",
+    "review_flag",
+)
+
 
 def now_ms() -> int:
     return int(time.time() * 1000)
@@ -165,9 +207,12 @@ def merge(master: dict[str, dict], records: list[dict], source: str,
         row["categories"] = _join(cats)
 
         # 一度掲載が消えて再掲載された場合は有効に戻す
-        if row.get("invalid_reason") == DELISTED:
+        if row.get("invalid_reason") in REACTIVATABLE_REASONS:
             row["status"] = STATUS_ACTIVE
             row["invalid_reason"] = ""
+
+            if row.get("review_flag") in OFAC_WEAK_ALIAS_FLAGS:
+                row["review_flag"] = ""
 
         _recompute(row)
         after = {c: row.get(c, "") for c in ("status", "sources", "categories", "remark")}
@@ -242,10 +287,15 @@ def render_markdown(diffs: list[Diff]) -> str:
                 out.append(f"#### `{c['name']}`")
                 out.append("| 項目 | 変更前 | 変更後 |")
                 out.append("| --- | --- | --- |")
-                for f_ in ("status", "sources", "categories", "remark"):
-                    if c["before"][f_] != c["after"][f_]:
-                        out.append(f"| {f_} | {c['before'][f_] or '—'} | "
-                                   f"{c['after'][f_] or '—'} |")
+                for f_ in DIFF_AUDIT_FIELDS:
+                    before_v = c["before"].get(f_, "")
+                    after_v = c["after"].get(f_, "")
+
+                    if before_v != after_v:
+                        out.append(
+                            f"| {f_} | {before_v or '—'} | "
+                            f"{after_v or '—'} |"
+                        )
                 out.append("")
             if len(d.changed) > 100:
                 out.append(f"…他 {len(d.changed) - 100} 件")
@@ -270,8 +320,42 @@ def diff_rows(diffs: list[Diff]) -> list[list]:
             out.append([d.source, kind, r["name"],
                         r["before"]["remark"], r["after"]["remark"]])
         for c in d.changed:
-            out.append([d.source, "変更", c["name"],
-                        c["before"]["remark"], c["after"]["remark"]])
+            before_text = c["before"].get("remark", "")
+            after_text = c["after"].get("remark", "")
+
+            extra_fields = [
+                field_
+                for field_ in ("invalid_reason", "review_flag")
+                if (
+                    c["before"].get(field_, "")
+                    != c["after"].get(field_, "")
+                )
+            ]
+
+            if extra_fields:
+                before_extra = " / ".join(
+                    f"{field_}={c['before'].get(field_, '') or '—'}"
+                    for field_ in extra_fields
+                )
+                after_extra = " / ".join(
+                    f"{field_}={c['after'].get(field_, '') or '—'}"
+                    for field_ in extra_fields
+                )
+
+                before_text = " | ".join(
+                    x for x in (before_text, before_extra) if x
+                )
+                after_text = " | ".join(
+                    x for x in (after_text, after_extra) if x
+                )
+
+            out.append([
+                d.source,
+                "変更",
+                c["name"],
+                before_text,
+                after_text,
+            ])
     return out
 
 

@@ -1,0 +1,6 @@
+﻿display_name,match_key,status,sources,before_invalid_reason,after_invalid_reason,before_review_flag,after_review_flag,party_ids
+27,27,無効,OFAC,数字のみで人名・団体名として成立しない（27）,数字のみで人名・団体名として成立しない（27）,,,SDN:43596
+Abou Hamza,abouhamza,無効,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,OFAC現役Weak Aliasのため通常スクリーニング対象外,,OFAC_WEAK_ALIAS_CURRENT,SDN:7831
+Hamza,hamza,無効,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,OFAC現役Weak Alias（複数Party）のため通常スクリーニング対象外,,OFAC_WEAK_ALIAS_MULTI_PARTY,SDN:7830;SDN:7831
+Mullah Fazlullah,mullahfazlullah,無効,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,OFAC現役Weak Aliasのため通常スクリーニング対象外,,OFAC_WEAK_ALIAS_CURRENT,SDN:17668
+Mullah Radio,mullahradio,無効,,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,OFAC現役Weak Aliasのため通常スクリーニング対象外,,OFAC_WEAK_ALIAS_CURRENT,SDN:17668

@@ -791,6 +791,186 @@ def test_ofac_screening_policy() -> None:
     )
 
 
+def test_ofac_weak_alias_master_audit() -> None:
+    import src.watch as W
+
+    rows: dict[str, dict] = {}
+
+    # 旧財務省等からactive登録され、その後actionable sourceが消えた
+    # legacy行を再現する。
+    M.merge(
+        rows,
+        [
+            _rec(
+                "Abou Hamza",
+                cat="タリバーン関係者等",
+                src="財務省",
+            ),
+            _rec(
+                "Hamza",
+                cat="タリバーン関係者等",
+                src="財務省",
+            ),
+        ],
+        "財務省",
+        ts=1000,
+    )
+
+    M.merge(
+        rows,
+        [],
+        "財務省",
+        ts=2000,
+    )
+
+    # 「27」は独立したvalidate理由を持つため、
+    # Weak Alias同期で理由を上書きしてはいけない。
+    M.merge(
+        rows,
+        [_rec("27")],
+        "OFAC",
+        ts=1000,
+        delist=False,
+    )
+
+    numeric_reason = rows[
+        match_key("27")
+    ]["invalid_reason"]
+
+    def weak(
+        name: str,
+        party_id: str,
+    ) -> dict:
+        return dict(
+            list="SDN",
+            party_id=party_id,
+            name=name,
+            match_key=match_key(name),
+            alias_current="1",
+            party_current="1",
+            primary="0",
+            low_quality="1",
+        )
+
+    history = {
+        ("SDN", "7831", "Abou Hamza"):
+            weak("Abou Hamza", "7831"),
+
+        ("SDN", "7830", "Hamza"):
+            weak("Hamza", "7830"),
+
+        ("SDN", "7831", "Hamza"):
+            weak("Hamza", "7831"),
+
+        ("SDN", "43596", "27"):
+            weak("27", "43596"),
+    }
+
+    d = M.Diff(
+        source="OFAC",
+    )
+
+    changed = W._sync_ofac_weak_alias_audit(
+        rows,
+        history,
+        d,
+        ts=3000,
+    )
+
+    abou = rows[
+        match_key("Abou Hamza")
+    ]
+
+    hamza = rows[
+        match_key("Hamza")
+    ]
+
+    twenty_seven = rows[
+        match_key("27")
+    ]
+
+    check(
+        "OFAC Weak audit: 2 legacy行を補正",
+        changed,
+        2,
+    )
+
+    check(
+        "OFAC Weak audit: 単独Weakは無効維持",
+        abou["status"],
+        M.STATUS_INACTIVE,
+    )
+
+    check(
+        "OFAC Weak audit: 単独Weak理由",
+        abou["invalid_reason"],
+        M.OFAC_WEAK_ALIAS_REASON,
+    )
+
+    check(
+        "OFAC Weak audit: 単独Weak flag",
+        abou["review_flag"],
+        M.OFAC_WEAK_ALIAS_FLAG,
+    )
+
+    check(
+        "OFAC Weak audit: Weakはactionable sourceへ昇格させない",
+        abou["sources"],
+        "",
+    )
+
+    check(
+        "OFAC Weak audit: Multi Party理由",
+        hamza["invalid_reason"],
+        M.OFAC_WEAK_ALIAS_MULTI_REASON,
+    )
+
+    check(
+        "OFAC Weak audit: Multi Party flag",
+        hamza["review_flag"],
+        M.OFAC_WEAK_ALIAS_MULTI_FLAG,
+    )
+
+    check(
+        "OFAC Weak audit: 独立invalid理由を保持",
+        twenty_seven["invalid_reason"],
+        numeric_reason,
+    )
+
+    # 後日WeakからStrongへ昇格した場合は
+    # 通常screeningへ自動復帰しなければならない。
+    M.merge(
+        rows,
+        [_rec("Abou Hamza")],
+        "OFAC",
+        ts=4000,
+        delist=False,
+        report_missing=False,
+    )
+
+    abou = rows[
+        match_key("Abou Hamza")
+    ]
+
+    check(
+        "OFAC Weak audit: Strong昇格で有効復帰",
+        abou["status"],
+        M.STATUS_ACTIVE,
+    )
+
+    check(
+        "OFAC Weak audit: Strong昇格で理由解除",
+        abou["invalid_reason"],
+        "",
+    )
+
+    check(
+        "OFAC Weak audit: Strong昇格でWeak flag解除",
+        abou["review_flag"],
+        "",
+    )
+
+
 def test_ofac_master_rollout_pending() -> None:
     import src.watch as W
 
@@ -1350,7 +1530,10 @@ def test_dashboard() -> None:
 def main() -> int:
     for fn in (test_surname_order, test_match_key, test_clean_name, test_split_aliases, test_validate,
                test_remark, test_remark_roundtrip, test_mof_parser, test_parsers, test_merge,
-               test_ofac_party_index, test_ofac_screening_policy, test_ofac_master_rollout_pending, test_roundtrip, test_archive_roundtrip, test_resolve_raw,
+               test_ofac_party_index, test_ofac_screening_policy,
+               test_ofac_weak_alias_master_audit,
+               test_ofac_master_rollout_pending, test_roundtrip,
+               test_archive_roundtrip, test_resolve_raw,
                test_prune_raw,
                test_source_audit_ledger,
                test_dashboard):

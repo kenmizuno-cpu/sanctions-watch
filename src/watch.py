@@ -205,6 +205,154 @@ def run_mof(session, st, rows, hb, opts=None) -> list[M.Diff]:
 
 # ------------------------------------------------------------------ OFAC
 
+def _sync_ofac_weak_alias_audit(
+    rows: dict[str, dict],
+    history: dict,
+    diff: M.Diff,
+    ts: int | None = None,
+) -> int:
+    """既存master行へOFAC現役Weak Aliasの監査状態を同期する。
+
+    Weak Aliasそのものを新規master行として追加はしない。
+    通常スクリーニングmasterとFixedRef/Alias Evidenceを分離する
+    現行設計を維持する。
+
+    対象:
+    - 旧データ由来でmasterに既に存在する
+    - 現在無効
+    - DELISTEDまたは既存Weak理由
+
+    独立したvalidate理由（数字のみ等）は上書きしない。
+    """
+    ts = ts or M.now_ms()
+
+    current_weak: dict[str, set[tuple[str, str]]] = {}
+    current_strong: set[str] = set()
+
+    for item in history.values():
+        if (
+            item.get("party_current") != "1"
+            or item.get("alias_current") != "1"
+        ):
+            continue
+
+        key = str(item.get("match_key") or "").strip()
+
+        if not key:
+            continue
+
+        if item.get("low_quality") == "1":
+            current_weak.setdefault(
+                key,
+                set(),
+            ).add((
+                str(item.get("list") or ""),
+                str(item.get("party_id") or ""),
+            ))
+        else:
+            current_strong.add(key)
+
+    # 同じmatch_keyにStrong/Primaryが1件でもあれば
+    # Weak-onlyとは扱わない。
+    weak_only = {
+        key: parties
+        for key, parties in current_weak.items()
+        if key not in current_strong
+    }
+
+    changed = 0
+
+    for key, row in rows.items():
+        before = {
+            field_: row.get(field_, "")
+            for field_ in M.DIFF_AUDIT_FIELDS
+        }
+
+        if key in weak_only:
+            # Weak Aliasだけを理由にactive行を無効化しない。
+            # 他ソースまたはStrong名称でactiveならそのまま。
+            if row.get("status") != M.STATUS_INACTIVE:
+                continue
+
+            reason = row.get("invalid_reason", "")
+
+            # 「27」の数字のみ判定など、Weakとは独立した
+            # invalid理由は絶対に上書きしない。
+            if (
+                reason != M.DELISTED
+                and reason not in M.OFAC_WEAK_ALIAS_REASONS
+            ):
+                continue
+
+            parties = weak_only[key]
+
+            if len(parties) > 1:
+                row["invalid_reason"] = (
+                    M.OFAC_WEAK_ALIAS_MULTI_REASON
+                )
+                row["review_flag"] = (
+                    M.OFAC_WEAK_ALIAS_MULTI_FLAG
+                )
+            else:
+                row["invalid_reason"] = (
+                    M.OFAC_WEAK_ALIAS_REASON
+                )
+                row["review_flag"] = (
+                    M.OFAC_WEAK_ALIAS_FLAG
+                )
+
+        elif (
+            row.get("invalid_reason") in M.OFAC_WEAK_ALIAS_REASONS
+            or row.get("review_flag") in M.OFAC_WEAK_ALIAS_FLAGS
+        ):
+            # Weak Aliasではなくなった。
+            #
+            # Strong/Primary昇格なら先行するM.merge()がactiveへ戻す。
+            # OFACから完全に消えてactionable sourceも無いなら
+            # 通常のDELISTEDへ戻す。
+            if row.get("status") == M.STATUS_ACTIVE:
+                row["invalid_reason"] = ""
+
+                if row.get("review_flag") in M.OFAC_WEAK_ALIAS_FLAGS:
+                    row["review_flag"] = ""
+
+            elif not row.get("sources"):
+                row["status"] = M.STATUS_INACTIVE
+                row["invalid_reason"] = M.DELISTED
+
+                if row.get("review_flag") in M.OFAC_WEAK_ALIAS_FLAGS:
+                    row["review_flag"] = ""
+
+            else:
+                continue
+
+        else:
+            continue
+
+        after = {
+            field_: row.get(field_, "")
+            for field_ in M.DIFF_AUDIT_FIELDS
+        }
+
+        if before == after:
+            continue
+
+        row["last_updated_ms"] = str(ts)
+
+        diff.changed.append(
+            dict(
+                key=key,
+                name=row.get("display_name", ""),
+                before=before,
+                after=after,
+            )
+        )
+
+        changed += 1
+
+    return changed
+
+
 def _ofac_master_rollout_pending(st: dict, enabled=None) -> bool:
     """Advanced baselineはあるがmaster同期が未完了ならTrue。
 
@@ -467,7 +615,42 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     )
 
     if not fetched_any and not rollout_pending:
-        return []
+        # OFAC一次ソース自体に変更が無い場合でも、
+        # 既存FixedRef/Alias indexを使ってWeak Alias監査理由の
+        # 整合性だけは修復できる。
+        history = OI.load(
+            OFAC_INDEX,
+        )
+
+        d = M.Diff(
+            source=ofac.SOURCE,
+        )
+
+        weak_updates = _sync_ofac_weak_alias_audit(
+            rows,
+            history,
+            d,
+        )
+
+        if not weak_updates:
+            return []
+
+        log(
+            "weak-audit",
+            "OFAC",
+            f"現役Weak Alias監査証跡更新={weak_updates}",
+        )
+
+        audit.append(
+            A.entry(
+                source="ofac",
+                document_role="weak_alias_metadata_reconcile",
+                status="changed",
+                diff_counts=d.counts,
+            )
+        )
+
+        return [d]
 
     if not fetched_any and rollout_pending:
         log(
@@ -587,13 +770,30 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     #
     # Weak AKAはParty indexに残るが、
     # 高リスク名称としてmasterへ直接投入しない。
+    merge_ts = M.now_ms()
+
     d = M.merge(
         rows,
         screening_records,
         ofac.SOURCE,
+        ts=merge_ts,
         delist=False,
         report_missing=False,
     )
+
+    weak_updates = _sync_ofac_weak_alias_audit(
+        rows,
+        history,
+        d,
+        merge_ts,
+    )
+
+    if weak_updates:
+        log(
+            "weak-audit",
+            "OFAC",
+            f"現役Weak Alias監査証跡更新={weak_updates}",
+        )
 
     # mergeまで正常完了したsnapshotだけmaster同期済みとする。
     # main() はmaster保存後にstateを保存するため、途中失敗時は
