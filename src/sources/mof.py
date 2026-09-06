@@ -201,6 +201,18 @@ def extract_original_script_names(row: dict) -> list[str]:
         value = value.lstrip("(（").strip()
         value = value.rstrip(")）").strip()
 
+        # 財務省の一部レコードには
+        #
+        #   originalscript: （original script: 原綴り）
+        #
+        # のような二重ラベルが存在する。
+        #
+        # 外側markerから抽出した値が再びoriginal-script markerで
+        # 始まる場合、その値自体は名前ではない。
+        # 内側markerは正規表現iteratorが別途処理するのでここでは捨てる。
+        if _ORIGINAL_SCRIPT_RE.match(value):
+            continue
+
         if not value:
             continue
 

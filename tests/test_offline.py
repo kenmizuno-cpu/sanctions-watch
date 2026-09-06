@@ -446,6 +446,28 @@ def test_mof_parser() -> None:
         [],
     )
 
+    nested_marker = {
+        "氏名（英語）": "IBRAHIM TEST",
+        "外務省告示情報":
+            "IBRAHIM TEST"
+            "originalscript: （original script: ابر اهیم عیسی حاجي محمد البکر ）"
+            "(a.k.a.: TEST)"
+    }
+    check(
+        "財務省: 二重original-script markerを名称化しない",
+        mof.extract_original_script_names(nested_marker),
+        ["ابر اهیم عیسی حاجي محمد البکر"],
+    )
+    check(
+        "財務省: original scriptラベル文字列をscreening nameにしない",
+        any(
+            str(n).lower().startswith("original script")
+            or str(n).lower().startswith("original scipt")
+            for n in mof.extract_names(nested_marker)
+        ),
+        False,
+    )
+
     role_only = {
         "役職（英語）": "Founder of Example Company",
         "外務省告示情報": "Founder of Example Company"
