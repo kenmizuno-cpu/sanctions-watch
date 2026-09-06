@@ -365,6 +365,18 @@ def test_mof_parser() -> None:
     except mof.SchemaError:
         check("財務省: 列構成変更で例外", True, True)
 
+    try:
+        mof.parse(
+            _F(
+                "区分,番号,氏名（日本語）,氏名（英語）\\n"
+                "2,1,テスト,TEST\\n"
+            ),
+            kubun_map={"2": "タリバーン関係者等"},
+        )
+        check("財務省: 外務省告示情報列消失で例外", False, True)
+    except mof.SchemaError:
+        check("財務省: 外務省告示情報列消失で例外", True, True)
+
     check("財務省: 深さ0の；でだけ分割",
           mof.split_top_level("A（x；y）；B"), ["A（x；y）", "B"])
     check("財務省: 説明括弧を除去",
@@ -372,6 +384,77 @@ def test_mof_parser() -> None:
     check("財務省: 通常の括弧は残す",
           mof.strip_descriptor("ABDALLAH AZZAM BRIGADES (AAB)"),
           "ABDALLAH AZZAM BRIGADES (AAB)")
+
+    # 外務省告示情報に明示されたoriginal scriptだけを限定抽出する。
+    original_ar = {
+        "氏名（英語）": "Abdul Rahman Yasin",
+        "外務省告示情報":
+            "Abdul Rahman Yasin (original script: عبد الرحمن ياسين) "
+            "(a.k.a.: Abdul Rahman Yaseen)"
+    }
+    check(
+        "財務省: Arabic original scriptを抽出",
+        mof.extract_original_script_names(original_ar),
+        ["عبد الرحمن ياسين"],
+    )
+    check(
+        "財務省: original scriptをscreening nameへ統合",
+        "عبد الرحمن ياسين" in mof.extract_names(original_ar),
+        True,
+    )
+
+    original_cy = {
+        "氏名（英語）": "Magomed Abdurakhmanov",
+        "外務省告示情報":
+            "Magomed Abdurakhmanov "
+            "(original scipt: Абдурахманов Магомед Магомедзакирович) "
+            "(DOB: 1974)"
+    }
+    check(
+        "財務省: typo original sciptも公式表記として抽出",
+        mof.extract_original_script_names(original_cy),
+        ["Абдурахманов Магомед Магомедзакирович"],
+    )
+
+    latin_only = {
+        "外務省告示情報":
+            "Example (original script: ABC CORPORATION) (a.k.a.: ABC)"
+    }
+    check(
+        "財務省: Latinだけのoriginal scriptは追加しない",
+        mof.extract_original_script_names(latin_only),
+        [],
+    )
+
+    null_original = {
+        "外務省告示情報":
+            "Example (original script: 不明) (a.k.a.: Example)"
+    }
+    check(
+        "財務省: original scriptの不明placeholderは追加しない",
+        mof.extract_original_script_names(null_original),
+        [],
+    )
+
+    no_terminator = {
+        "外務省告示情報":
+            "Example original script: عبد الرحمن ياسين"
+    }
+    check(
+        "財務省: 終端不明original scriptはfail-closed",
+        mof.extract_original_script_names(no_terminator),
+        [],
+    )
+
+    role_only = {
+        "役職（英語）": "Founder of Example Company",
+        "外務省告示情報": "Founder of Example Company"
+    }
+    check(
+        "財務省: 役職自由文はoriginal scriptとして生成しない",
+        mof.extract_original_script_names(role_only),
+        [],
+    )
 
 
 def test_parsers() -> None:

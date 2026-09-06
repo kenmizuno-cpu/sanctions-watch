@@ -39,6 +39,7 @@ KUBUN_MAP = Path(__file__).resolve().parent.parent.parent / "data" / "kubun_map.
 COL_KUBUN = "区分"
 COL_ID = "番号"
 COL_NOTICE = "告示日付"
+COL_MOFA_NOTICE = "外務省告示情報"
 
 # 名前として採用する列。称号(ムラー/ハッジ)と役職は敬称・肩書きであって
 # 名前ではないため、意図的に除外している。
@@ -56,6 +57,176 @@ _DESCRIPTOR = re.compile(
     re.I)
 
 NULL_NAMES = {"-", "‐", "―", "ー", "なし", "不明", "N/A", "n/a"}
+
+# 財務省CSVの「外務省告示情報」には、国連等の一次情報から転記された
+# 原綴りが `original script:` として明示される。
+#
+# これは Arabic / Cyrillic 等による実スクリーニングに重要なので、
+# 自由文全体を名前として解析するのではなく、この明示ラベルだけを
+# 保守的に抽出する。
+_ORIGINAL_SCRIPT_RE = re.compile(
+    r"original\s*(?:script|scipt)\s*[：:]\s*",
+    re.I,
+)
+
+_ORIGINAL_SCRIPT_FIELD_MARKERS = (
+    "(a.k.a", "（a.k.a",
+    "(f.k.a", "（f.k.a",
+    "(n.k.a", "（n.k.a",
+    "称号：", "称号:",
+    "役職：", "役職:",
+    "生年月日：", "生年月日:",
+    "出生地：", "出生地:",
+    "国籍：", "国籍:",
+    "旅券番号：", "旅券番号:",
+    "ＩＤ番号：", "ＩＤ番号:",
+    "所在地：", "所在地:",
+    "国連制裁委員会",
+)
+
+
+def _has_native_script(value: str) -> bool:
+    """original script として採用可能な非Latin原綴りを含むか。"""
+    for ch in value:
+        o = ord(ch)
+
+        # Arabic / Arabic supplement / presentation forms
+        if (
+            0x0600 <= o <= 0x06FF
+            or 0x0750 <= o <= 0x077F
+            or 0x08A0 <= o <= 0x08FF
+            or 0xFB50 <= o <= 0xFDFF
+            or 0xFE70 <= o <= 0xFEFF
+        ):
+            return True
+
+        # Cyrillic
+        if (
+            0x0400 <= o <= 0x052F
+            or 0x2DE0 <= o <= 0x2DFF
+            or 0xA640 <= o <= 0xA69F
+        ):
+            return True
+
+        # CJK / Kana
+        if (
+            0x3040 <= o <= 0x30FF
+            or 0x3400 <= o <= 0x4DBF
+            or 0x4E00 <= o <= 0x9FFF
+            or 0xF900 <= o <= 0xFAFF
+        ):
+            return True
+
+        # Hangul
+        if (
+            0xAC00 <= o <= 0xD7AF
+            or 0x1100 <= o <= 0x11FF
+        ):
+            return True
+
+        # Hebrew
+        if 0x0590 <= o <= 0x05FF:
+            return True
+
+        # Devanagari
+        if 0x0900 <= o <= 0x097F:
+            return True
+
+        # Greek
+        if 0x0370 <= o <= 0x03FF:
+            return True
+
+    return False
+
+
+def _original_script_stop(tail: str) -> tuple[int, str]:
+    """original script 値の安全な終端を返す。"""
+    stops: list[tuple[int, str]] = []
+
+    for closer in (")", "）"):
+        pos = tail.find(closer)
+        if pos >= 0:
+            stops.append((pos, "close_parenthesis"))
+
+    low = tail.casefold()
+
+    for marker in _ORIGINAL_SCRIPT_FIELD_MARKERS:
+        pos = low.find(marker.casefold())
+        if pos >= 0:
+            stops.append((pos, "field_marker"))
+
+    if not stops:
+        return len(tail), "no_explicit_terminator"
+
+    return min(stops, key=lambda x: x[0])
+
+
+def extract_original_script_names(row: dict) -> list[str]:
+    """外務省告示情報の明示 `original script:` 原綴りだけを抽出する。
+
+    安全条件:
+      - original script / original scipt の明示ラベル
+      - 非Latin native script を含む
+      - 2〜200文字
+      - 閉じ括弧または既知フィールドマーカーによる明示終端
+
+    条件を満たさない自由文は名前として取り込まない。
+    """
+    notice = clean_name(row.get(COL_MOFA_NOTICE, ""))
+
+    if not notice:
+        return []
+
+    out: list[str] = []
+
+    for marker in _ORIGINAL_SCRIPT_RE.finditer(notice):
+        tail = notice[marker.end():].lstrip()
+
+        end, termination = _original_script_stop(tail)
+
+        # 終端不明の自由文は fail-closed。
+        if termination == "no_explicit_terminator":
+            continue
+
+        value = clean_name(tail[:end])
+
+        value = value.strip(
+            " \t\r\n"
+            ";；"
+            ",，、"
+            ":："
+        )
+
+        # original script: (xxx) のような外側ラッパのみ除去。
+        value = value.lstrip("(（").strip()
+        value = value.rstrip(")）").strip()
+
+        if not value:
+            continue
+
+        if not (2 <= len(value) <= 200):
+            continue
+
+        if not _has_native_script(value):
+            continue
+
+        if value in NULL_NAMES:
+            continue
+
+        out.append(value)
+
+    # 同一source row内でのみmatch_key重複排除。
+    seen: set[str] = set()
+    result: list[str] = []
+
+    for name in out:
+        key = match_key(name)
+
+        if key and key not in seen:
+            seen.add(key)
+            result.append(name)
+
+    return result
 
 
 class SchemaError(RuntimeError):
@@ -131,8 +302,10 @@ def strip_descriptor(name: str) -> str:
 
 
 def extract_names(row: dict) -> list[str]:
-    """1レコードから名前を全て取り出す。"""
+    """1レコードからscreening nameを全て取り出す。"""
     out: list[str] = []
+
+    # 構造化された氏名・別名・旧称等。
     for col in NAME_COLS:
         raw = clean_name(row.get(col, ""))
         if not raw or raw in NULL_NAMES:
@@ -141,12 +314,21 @@ def extract_names(row: dict) -> list[str]:
             n = strip_descriptor(part)
             if n and n not in NULL_NAMES and len(n) > 1:
                 out.append(n)
+
+    # 外務省告示情報に明示された非Latin original script。
+    #
+    # 自由文からの推測抽出は禁止し、
+    # extract_original_script_names() の安全条件を満たすものだけ。
+    out.extend(extract_original_script_names(row))
+
     seen, res = set(), []
+
     for n in out:
         k = match_key(n)
         if k and k not in seen:
             seen.add(k)
             res.append(n)
+
     return res
 
 
@@ -204,7 +386,7 @@ def parse(f: Fetched, kubun_map=None) -> list:
         raise SchemaError("財務省CSVが空だった")
 
     header = [h.strip() for h in rows[0].keys() if h]
-    need = [COL_KUBUN, COL_ID] + NAME_COLS[:2]
+    need = [COL_KUBUN, COL_ID, COL_MOFA_NOTICE] + NAME_COLS[:2]
     missing = [c for c in need if c not in header]
     if missing:
         raise SchemaError(
