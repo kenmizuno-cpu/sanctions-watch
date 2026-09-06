@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import unittest
 
+from src.fetch import Fetched
 from src.meti_html import (
+    SensorFetchError,
     SensorSchemaError,
+    _validate_fetched,
     law_semantic_text,
     parse_press_entries,
 )
@@ -105,6 +108,41 @@ class TestMetiHtml(unittest.TestCase):
             "改正",
             text,
         )
+
+    def test_http_202_empty_is_fetch_error(self):
+        fetched = Fetched(
+            url="https://www.meti.go.jp/example.html",
+            body=b"",
+            http_status=202,
+            headers={
+                "Content-Type": "text/html",
+            },
+        )
+
+        with self.assertRaises(
+            SensorFetchError
+        ):
+            _validate_fetched(
+                fetched
+            )
+
+    def test_http_200_non_html_is_schema_error(self):
+        fetched = Fetched(
+            url="https://www.meti.go.jp/example.html",
+            body=b"not html",
+            http_status=200,
+            headers={
+                "Content-Type": "application/json",
+            },
+        )
+
+        with self.assertRaises(
+            SensorSchemaError
+        ):
+            _validate_fetched(
+                fetched
+            )
+
 
     def test_law_page_missing_marker_blocks(self):
         with self.assertRaises(

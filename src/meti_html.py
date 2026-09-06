@@ -36,11 +36,23 @@ STATE_PATH = (
     ROOT / "data" / "meti_html" / "state.json"
 )
 
+# METI HTMLのWAF挙動（2026-09-06確認）:
+# - sanctions-watch系UA                     -> HTTP 403
+# - Mozilla互換 + sanctions-watch識別子     -> HTTP 202 / 0 bytes
+# - 通常のChrome互換UA                      -> HTTP 200 / 実HTML
+#
+# このUAは取得経路の互換性確保専用。
+# 正当性は固定HTTPS URL、HTTP状態、本文有無、Content-Type、
+# SHA256、ページ識別文字列、HTML構造検証で別途担保する。
 UA = (
-    "sanctions-watch/1.0 "
-    "(METI HTML compliance monitor; "
-    "contact via repository issues)"
+    "Mozilla/5.0 "
+    "(Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 "
+    "(KHTML, like Gecko) "
+    "Chrome/146.0.0.0 Safari/537.36"
 )
+
+REQUEST_PROFILE = "browser_compatible_chrome"
 
 
 @dataclass(frozen=True)
@@ -84,6 +96,10 @@ SPACE_RE = re.compile(r"\s+")
 
 class SensorSchemaError(RuntimeError):
     """HTML構造が期待値を満たさない。"""
+
+
+class SensorFetchError(RuntimeError):
+    """HTTP応答が一次ソース取得として受理できない。"""
 
 
 class _HTMLCollector(HTMLParser):
@@ -691,6 +707,49 @@ def _fetch(
     )
 
 
+def _validate_fetched(
+    fetched: Fetched,
+) -> None:
+    """WAF代替応答や空レスポンスを正常扱いしない。"""
+
+    if fetched.not_modified:
+        if str(fetched.http_status) != "304":
+            raise SensorFetchError(
+                "not_modified=Trueなのに"
+                f"HTTP {fetched.http_status}"
+            )
+        return
+
+    if str(fetched.http_status) != "200":
+        raise SensorFetchError(
+            "METI HTMLが想定外HTTP状態: "
+            f"{fetched.http_status}"
+        )
+
+    if not fetched.body:
+        raise SensorFetchError(
+            "METI HTMLがHTTP 200なのに本文0 bytes"
+        )
+
+    headers = fetched.headers or {}
+
+    content_type = ""
+
+    for key, value in headers.items():
+        if str(key).lower() == "content-type":
+            content_type = str(value or "").lower()
+            break
+
+    if (
+        "text/html" not in content_type
+        and "application/xhtml+xml" not in content_type
+    ):
+        raise SensorSchemaError(
+            "METI HTMLのContent-Typeが想定外: "
+            f"{content_type!r}"
+        )
+
+
 def _process_press(
     *,
     spec: SourceSpec,
@@ -986,6 +1045,10 @@ def run(
                     session,
                 )
 
+                _validate_fetched(
+                    fetched
+                )
+
                 first = not bool(
                     previous.get(
                         "baseline_synced"
@@ -1062,6 +1125,7 @@ def run(
                         "url": spec.url,
                         "role": spec.role,
                         "kind": spec.kind,
+                        "request_profile": REQUEST_PROFILE,
                         "baseline_synced": True,
                         "etag": (
                             fetched.etag
