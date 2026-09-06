@@ -1,11 +1,16 @@
-name: watch-meti-rss
+name: watch-meti-html
 
-# METI RSSは更新候補の検知センサー。
-# Slack通知は使わず data/dashboard/changes.csv へ記録し、
-# 既存のGoogle Sheets 15分同期で制裁リスト監視ダッシュボードへ表示する。
+# METI RSSはGitHub Hosted Runnerから403となるため、
+# METI公式HTMLを15分ごとの更新候補センサーとして二重監視する。
+#
+# A: 対外経済ニュースリリース一覧
+# B: 安全保障貿易管理「改正情報」
+#
+# 候補検知 != 正式反映。
+# 候補時のみ既存のMETI公式リスト確認へ進む。
+
 on:
   schedule:
-    # RSS更新候補を15分以内に検知。
     # OFAC(17分)・国内監視(37分)との同時実行を避ける。
     - cron: "5,20,35,50 * * * *"
   workflow_dispatch:
@@ -33,28 +38,28 @@ jobs:
       - name: 依存関係
         run: pip install -r requirements.txt
 
-      - name: METI RSS オフラインテスト
-        run: python -m unittest tests.test_meti_rss
+      - name: METI HTML オフラインテスト
+        run: python -m unittest tests.test_meti_html
 
-      - name: RSS新着検知
-        id: rss
+      - name: METI公式HTML更新候補検知
+        id: sensor
         continue-on-error: true
-        run: python -m src.meti_rss
+        run: python -m src.meti_html
 
       - name: 候補検知時に外国ユーザーリスト公式側を即時確認
         id: confirm
-        if: steps.rss.outcome == 'success' && steps.rss.outputs.candidate == 'true'
+        if: steps.sensor.outputs.candidate == 'true'
         continue-on-error: true
         run: python -m src.watch --sources meti
 
-      - name: ダッシュボード記録・監査証跡をコミット
+      - name: ダッシュボード・監査証跡をコミット
         if: always()
         env:
-          CANDIDATE: ${{ steps.rss.outputs.candidate }}
-          RSS_OUTCOME: ${{ steps.rss.outcome }}
+          CANDIDATE: ${{ steps.sensor.outputs.candidate }}
+          SENSOR_OUTCOME: ${{ steps.sensor.outcome }}
           CONFIRM_OUTCOME: ${{ steps.confirm.outcome }}
         run: |
-          git config user.name  "sanctions-watch[bot]"
+          git config user.name "sanctions-watch[bot]"
           git config user.email "sanctions-watch@users.noreply.github.com"
 
           git add -A data/
@@ -64,12 +69,12 @@ jobs:
             exit 0
           fi
 
-          if [ "$RSS_OUTCOME" != "success" ]; then
-            MSG="fix(meti-rss): RSS監視異常をダッシュボードへ記録"
+          if [ "$SENSOR_OUTCOME" != "success" ]; then
+            MSG="fix(meti-html): HTML監視異常を記録"
           elif [ "$CANDIDATE" = "true" ]; then
-            MSG="feat(meti-rss): 外国ユーザーリスト更新候補を検知"
+            MSG="feat(meti-html): 外国ユーザーリスト更新候補を検知"
           else
-            MSG="chore(meti-rss): RSS baseline/state更新"
+            MSG="chore(meti-html): HTML baseline/state更新"
           fi
 
           git commit -m "$MSG"
@@ -81,15 +86,14 @@ jobs:
 
           exit 1
 
-      - name: RSSセンサー異常をWorkflow失敗として確定
-        if: steps.rss.outcome != 'success'
+      - name: HTMLセンサー異常をWorkflow失敗として確定
+        if: steps.sensor.outcome != 'success'
         run: |
-          echo "METI RSSセンサーが失敗。ダッシュボードへ異常記録済み。"
+          echo "METI HTMLセンサーが失敗。監査証跡を記録済み。"
           exit 1
 
       - name: 公式確認工程の異常をWorkflow失敗として確定
         if: steps.confirm.outcome == 'failure'
         run: |
-          echo "METI公式側の確認工程が失敗。GitHub監査証跡を確認してください。"
+          echo "METI公式側の確認工程が失敗。監査証跡を確認してください。"
           exit 1
-
