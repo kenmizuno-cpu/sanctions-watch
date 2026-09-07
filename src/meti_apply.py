@@ -1091,7 +1091,7 @@ def _write_and_verify_dashboard(
     *,
     root: Path = ROOT,
 ) -> Path:
-    """dashboard/list.csvを再生成し、その場でmasterと全件照合する。"""
+    """dashboard一覧とscreening gzipを再生成し、masterとの整合性を検証する。"""
 
     path = D.write_list(
         root,
@@ -1101,6 +1101,13 @@ def _write_and_verify_dashboard(
     _assert_dashboard_list_consistent(
         master,
         path,
+    )
+
+    # active-only screening配布データも同じmasterから再生成する。
+    # write_screening_gzip内部で圧縮後データまで完全一致検証する。
+    D.write_screening_gzip(
+        root,
+        master,
     )
 
     return path

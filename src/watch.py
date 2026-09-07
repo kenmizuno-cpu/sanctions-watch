@@ -1309,6 +1309,14 @@ def main() -> int:
     if diffs or not (ROOT / D.DASH / "list.csv").exists():
         D.write_list(ROOT, rows)
 
+    # screening用gzipは毎回決定論的に再生成する。
+    # source差分が無い回でもscreening正規化ロジック変更を反映する。
+    # gzip内部がactive masterと一致しなければ例外でfail closedする。
+    D.write_screening_gzip(
+        ROOT,
+        rows,
+    )
+
     # 後続ステップ用の出力
     gh = os.environ.get("GITHUB_OUTPUT")
     if gh:

@@ -14,10 +14,13 @@ master.csv (15MB) や latest.csv は大きくなりうるので直接読ませ�
 from __future__ import annotations
 
 import csv
+from collections import Counter
+import gzip
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from .normalize import canonical_display_name, is_trailing_unknown_artifact
+from .screening import secondary_screening_key
 
 JST = timezone(timedelta(hours=9))
 
@@ -26,6 +29,18 @@ DASH = Path("data") / "dashboard"
 STATUS_COLS = ["出所", "状態", "最終チェック", "最終更新", "件数", "内容ハッシュ"]
 CHANGE_COLS = ["検知日時", "出所", "種別", "受取人名", "変更前", "変更後"]
 LIST_COLS = ["受取人名", "リスクタイプ", "状態", "リスク度"]
+
+SCREENING_COLS = [
+    "match_key",
+    "secondary_key",
+    "受取人名",
+    "出所",
+    "カテゴリ",
+    "リスクタイプ",
+    "リスク度",
+    "状態",
+    "要確認",
+]
 
 # 変更履歴の保持行数。1行約80バイトなので5000行で約400KB。
 MAX_CHANGES = 5000
@@ -296,3 +311,357 @@ def write_list(root: Path, rows) -> Path:
             w.writerow([name, r.get("risk_type", ""),
                         r.get("status", ""), r.get("risk_level", "")])
     return p
+
+def write_screening_list(root: Path, rows) -> Path:
+    """Google Sheets の名簿検索専用一覧を生成する。
+
+    dashboard/list.csv は master 全件との完全一致監査に使われているため、
+    既存仕様を変更しない。
+
+    このファイルは通常 screening 用なので:
+      - 有効レコードだけを出力
+      - canonical match_key をそのまま保持
+      - screening 専用 secondary_key を別列で保持
+      - 無効レコードや旧parser artifactは検索対象にしない
+
+    secondary_key は master identity には使用しない。
+    """
+
+    values = (
+        rows.values()
+        if isinstance(rows, dict)
+        else rows
+    )
+
+    d = root / DASH
+    d.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    p = d / "screening.csv"
+
+    with p.open(
+        "w",
+        encoding="utf-8",
+        newline="",
+    ) as f:
+
+        w = csv.writer(
+            f,
+            lineterminator="\n",
+        )
+
+        w.writerow(
+            SCREENING_COLS
+        )
+
+        for r in values:
+
+            if str(
+                r.get("status", "")
+            ).strip() != "有効":
+                continue
+
+            name = canonical_display_name(
+                r.get(
+                    "display_name",
+                    "",
+                )
+            )
+
+            if not name:
+                raise ValueError(
+                    "active master rowに空のdisplay_name"
+                )
+
+            if is_trailing_unknown_artifact(
+                name
+            ):
+                continue
+
+            exact_key = str(
+                r.get(
+                    "match_key",
+                    "",
+                )
+            ).strip()
+
+            if not exact_key:
+                raise ValueError(
+                    f"active master rowに空match_key: {name}"
+                )
+
+            secondary_key = (
+                secondary_screening_key(
+                    name
+                )
+            )
+
+            if not secondary_key:
+                raise ValueError(
+                    f"secondary_key生成失敗: {name}"
+                )
+
+            w.writerow([
+                exact_key,
+                secondary_key,
+                name,
+                r.get(
+                    "sources",
+                    "",
+                ),
+                r.get(
+                    "categories",
+                    "",
+                ),
+                r.get(
+                    "risk_type",
+                    "",
+                ),
+                r.get(
+                    "risk_level",
+                    "",
+                ),
+                r.get(
+                    "status",
+                    "",
+                ),
+                r.get(
+                    "review_flag",
+                    "",
+                ),
+            ])
+
+    return p
+
+def _expected_screening_rows(rows) -> Counter:
+    """masterからscreening.csvの期待行集合を生成する。"""
+
+    values = (
+        rows.values()
+        if isinstance(rows, dict)
+        else rows
+    )
+
+    expected = Counter()
+
+    for r in values:
+
+        if str(
+            r.get("status", "")
+        ).strip() != "有効":
+            continue
+
+        name = canonical_display_name(
+            r.get(
+                "display_name",
+                "",
+            )
+        )
+
+        if not name:
+            raise ValueError(
+                "active master rowに空のdisplay_name"
+            )
+
+        if is_trailing_unknown_artifact(
+            name
+        ):
+            continue
+
+        exact_key = str(
+            r.get(
+                "match_key",
+                "",
+            )
+        ).strip()
+
+        if not exact_key:
+            raise ValueError(
+                f"active master rowに空match_key: {name}"
+            )
+
+        secondary_key = (
+            secondary_screening_key(
+                name
+            )
+        )
+
+        if not secondary_key:
+            raise ValueError(
+                f"secondary_key生成失敗: {name}"
+            )
+
+        expected[
+            (
+                exact_key,
+                secondary_key,
+                name,
+                str(
+                    r.get(
+                        "sources",
+                        "",
+                    )
+                ),
+                str(
+                    r.get(
+                        "categories",
+                        "",
+                    )
+                ),
+                str(
+                    r.get(
+                        "risk_type",
+                        "",
+                    )
+                ),
+                str(
+                    r.get(
+                        "risk_level",
+                        "",
+                    )
+                ),
+                str(
+                    r.get(
+                        "status",
+                        "",
+                    )
+                ),
+                str(
+                    r.get(
+                        "review_flag",
+                        "",
+                    )
+                ),
+            )
+        ] += 1
+
+    return expected
+
+
+def assert_screening_gzip_consistent(
+    rows,
+    path: Path,
+) -> None:
+    """gzip内のscreeningデータがactive masterと完全一致することを検証する。"""
+
+    expected = _expected_screening_rows(
+        rows
+    )
+
+    try:
+        with gzip.open(
+            path,
+            "rt",
+            encoding="utf-8",
+            newline="",
+        ) as f:
+            data = list(
+                csv.reader(f)
+            )
+
+    except (
+        OSError,
+        EOFError,
+        csv.Error,
+        UnicodeError,
+    ) as exc:
+        raise ValueError(
+            "screening.csv.gz読込失敗: "
+            f"{exc}"
+        ) from exc
+
+    if not data:
+        raise ValueError(
+            "screening.csv.gzが空"
+        )
+
+    if data[0] != SCREENING_COLS:
+        raise ValueError(
+            "screening.csv.gzヘッダー不一致: "
+            f"{data[0]!r}"
+        )
+
+    actual = Counter(
+        tuple(row)
+        for row in data[1:]
+    )
+
+    missing = expected - actual
+    extra = actual - expected
+
+    if missing or extra:
+        raise ValueError(
+            "master/screening gzip不一致: "
+            f"expected={sum(expected.values())} "
+            f"actual={sum(actual.values())} "
+            f"missing={sum(missing.values())} "
+            f"extra={sum(extra.values())}"
+        )
+
+
+def write_screening_gzip(root: Path, rows) -> Path:
+    """active masterの検索用CSVを決定論的gzipとして安全に生成する。
+
+    canonical match_key は変更しない。
+
+    処理順:
+      1. raw screening.csv生成
+      2. temporary gzip生成
+      3. masterとの完全一致検証
+      4. 検証成功時のみ正式gzipへatomic replace
+
+    同じ入力なら mtime=0 / filename="" により
+    同一バイト列・同一SHA256となる。
+    """
+
+    stable_rows = (
+        rows
+        if isinstance(rows, dict)
+        else list(rows)
+    )
+
+    csv_path = write_screening_list(
+        root,
+        stable_rows,
+    )
+
+    gz_path = csv_path.with_suffix(
+        csv_path.suffix + ".gz"
+    )
+
+    tmp_path = gz_path.with_name(
+        gz_path.name + ".tmp"
+    )
+
+    raw = csv_path.read_bytes()
+
+    try:
+        with tmp_path.open(
+            "wb"
+        ) as raw_out:
+
+            with gzip.GzipFile(
+                filename="",
+                mode="wb",
+                fileobj=raw_out,
+                mtime=0,
+                compresslevel=9,
+            ) as gz:
+                gz.write(raw)
+
+        assert_screening_gzip_consistent(
+            stable_rows,
+            tmp_path,
+        )
+
+        tmp_path.replace(
+            gz_path
+        )
+
+    finally:
+        if tmp_path.exists():
+            tmp_path.unlink()
+
+    return gz_path

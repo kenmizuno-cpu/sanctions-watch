@@ -12,3 +12,4 @@ migrate-raw.py
 migrate-raw.py
 
 .runtime/
+data/dashboard/screening.csv
