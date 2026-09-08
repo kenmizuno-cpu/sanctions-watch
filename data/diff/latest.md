@@ -1,13 +1,88 @@
 # 制裁リスト差分レポート
 
-## OFAC　追加 7 / 削除 0 / 変更 0
+## OFAC　追加 82 / 削除 0 / 変更 0
 
 ### 追加
-- `Golden Global Yatirim Bankasi Anonim Sirketi` — 制裁リスト（OFAC：SDN）
-- `GOLDEN GLOBAL YATIRIM BANKASI ANONİM ŞİRKETİ` — 制裁リスト（OFAC：SDN）
-- `Golden Global Investment Bank` — 制裁リスト（OFAC：SDN）
-- `Golden Global Varlik Kiralama Anonim Sirketi` — 制裁リスト（OFAC：SDN）
-- `GOLDEN GLOBAL VARLIK KİRALAMA ANONİM ŞİRKETİ` — 制裁リスト（OFAC：SDN）
-- `Golden Global Portfoy Yonetimi Anonim Sirketi` — 制裁リスト（OFAC：SDN）
-- `GOLDEN GLOBAL PORTFÖY YÖNETİMİ ANONİM ŞİRKETİ` — 制裁リスト（OFAC：SDN）
+- `S Sistem Lojistik Hizmetler Anonim Sirketi` — 制裁リスト（OFAC：SDN）
+- `S SİSTEM LOJİSTİK HİZMETLERİ ANONİM ŞİRKETİ` — 制裁リスト（OFAC：SDN）
+- `S Sistem Logistics Services Joint Stock Company` — 制裁リスト（OFAC：SDN）
+- `ATA Airlines Company` — 制裁リスト（OFAC：SDN）
+- `IRAN AIR TOUR` — 制裁リスト（OFAC：SDN）
+- `Iran AirTour Airline` — 制裁リスト（OFAC：SDN）
+- `Iran AirTour Airlines` — 制裁リスト（OFAC：SDN）
+- `Iran Air Tours Company` — 制裁リスト（OFAC：SDN）
+- `Icargo SDN BHD` — 制裁リスト（OFAC：SDN）
+- `Schedule Feeders SDN BHD` — 制裁リスト（OFAC：SDN）
+- `IRAN ASEMAN AIRLINES` — 制裁リスト（OFAC：SDN）
+- `Aseman Air Services` — 制裁リスト（OFAC：SDN）
+- `Karun Airlines Company` — 制裁リスト（OFAC：SDN）
+- `Karoon Airlines` — 制裁リスト（OFAC：SDN）
+- `Tour Invest LLC` — 制裁リスト（OFAC：SDN）
+- `Limited Liability Company Tour Invest` — 制裁リスト（OFAC：SDN）
+- `Tour Invest TOO` — 制裁リスト（OFAC：SDN）
+- `Tur Invest TOO` — 制裁リスト（OFAC：SDN）
+- `Mes Cargo Transportation Tourism and Foreign Trade Limited Company` — 制裁リスト（OFAC：SDN）
+- `MES KARGO TAŞIMACILIK TURİZM VE DIŞ TİCARET LİMİTED ŞİRKETİ` — 制裁リスト（OFAC：SDN）
+- `Mes Kargo Tasimacilik Turizm Ve Dis Ticaret Limited Sirketi` — 制裁リスト（OFAC：SDN）
+- `Mehmet Sarp Cargo` — 制裁リスト（OFAC：SDN）
+- `ECT Aviation Support LLC` — 制裁リスト（OFAC：SDN）
+- `إي سي تي أفيييشن سابورت ذ م م` — 制裁リスト（OFAC：SDN）
+- `Varesh Airlines` — 制裁リスト（OFAC：SDN）
+- `Air Shiraz` — 制裁リスト（OFAC：SDN）
+- `Kish Airlines` — 制裁リスト（OFAC：SDN）
+- `Kish Air` — 制裁リスト（OFAC：SDN）
+- `Toos Airlines` — 制裁リスト（OFAC：SDN）
+- `هواپيمايی طوس` — 制裁リスト（OFAC：SDN）
+- `Toos Parsian Kish Airlines Company` — 制裁リスト（OFAC：SDN）
+- `شرکت هواپيمايی طوس پارسيان کيش` — 制裁リスト（OFAC：SDN）
+- `Toos Airline` — 制裁リスト（OFAC：SDN）
+- `Erwan Airline Company` — 制裁リスト（OFAC：SDN）
+- `Arvan Airlines` — 制裁リスト（OFAC：SDN）
+- `Erwan Airlines` — 制裁リスト（OFAC：SDN）
+- `Air1Air Company` — 制裁リスト（OFAC：SDN）
+- `Asa Jet Airline` — 制裁リスト（OFAC：SDN）
+- `Soroush Air` — 制裁リスト（OFAC：SDN）
+- `Atlas Aviation Group` — 制裁リスト（OFAC：SDN）
+- `Atlas Air Plus` — 制裁リスト（OFAC：SDN）
+- `Sepehran Airlines` — 制裁リスト（OFAC：SDN）
+- `شرکت هواپيمائی سپهران` — 制裁リスト（OFAC：SDN）
+- `FlySepehran` — 制裁リスト（OFAC：SDN）
+- `Qeshm Air` — 制裁リスト（OFAC：SDN）
+- `Qeshm Airlines` — 制裁リスト（OFAC：SDN）
+- `Qeshm Air Airline` — 制裁リスト（OFAC：SDN）
+- `Taban Airlines` — 制裁リスト（OFAC：SDN）
+- `Saha Airlines` — 制裁リスト（OFAC：SDN）
+- `Saha Airlines PJSC` — 制裁リスト（OFAC：SDN）
+- `Service Ertebaataat-e Havaaee Artesh` — 制裁リスト（OFAC：SDN）
+- `Armed Forces Air Transport Service` — 制裁リスト（OFAC：SDN）
+- `Sky Phoenix Hava Yollari Tasimaciligi Ticaret Limited Sirketi` — 制裁リスト（OFAC：SDN）
+- `SKY PHOENIX HAVA YOLLARI TAŞIMACILIĞI TİCARET LİMİTED ŞİRKETİ` — 制裁リスト（OFAC：SDN）
+- `Sky Phoenix Airways Transportation Trading Company Limited` — 制裁リスト（OFAC：SDN）
+- `ECT Aviation Support LTD` — 制裁リスト（OFAC：SDN）
+- `Mahran Ibrahim Ali Mohamed Mohamed` — 制裁リスト（OFAC：SDN）
+- `Ibrahim Mahran` — 制裁リスト（OFAC：SDN）
+- `Zagros Airlines` — 制裁リスト（OFAC：SDN）
+- `Zagros Airline Co` — 制裁リスト（OFAC：SDN）
+- `Aerobravo Airplane Management and Operation LLC` — 制裁リスト（OFAC：SDN）
+- `Ava Airlines` — 制裁リスト（OFAC：SDN）
+- `Chabahar Airlines Company` — 制裁リスト（OFAC：SDN）
+- `Chabahar Aviation Company` — 制裁リスト（OFAC：SDN）
+- `Chabahar Air` — 制裁リスト（OFAC：SDN）
+- `Chabahar Airlines` — 制裁リスト（OFAC：SDN）
+- `Fly Kish Airlines` — 制裁リスト（OFAC：SDN）
+- `Fly Persia Airlines` — 制裁リスト（OFAC：SDN）
+- `Fly Persia Private Joint Stock Company` — 制裁リスト（OFAC：SDN）
+- `Fly Persia Private Dana Airlines` — 制裁リスト（OFAC：SDN）
+- `Fly Persia` — 制裁リスト（OFAC：SDN）
+- `Jsky Airlines` — 制裁リスト（OFAC：SDN）
+- `Lad Airways` — 制裁リスト（OFAC：SDN）
+- `Lad Airline Services` — 制裁リスト（OFAC：SDN）
+- `Mehr Airways` — 制裁リスト（OFAC：SDN）
+- `Nasim Air` — 制裁リスト（OFAC：SDN）
+- `Pars Oghyanous Kish Company` — 制裁リスト（OFAC：SDN）
+- `Pars Airlines` — 制裁リスト（OFAC：SDN）
+- `Pars Air` — 制裁リスト（OFAC：SDN）
+- `Raimon Airways` — 制裁リスト（OFAC：SDN）
+- `MAHRAN, Ibrahim Ali Mohamed Mohamed` — 制裁リスト（OFAC：SDN）
+- `IBRAHIM, Mahran` — 制裁リスト（OFAC：SDN）
 
