@@ -59321,10 +59321,12 @@ SDN,48267,Han Chol Man,hancholman,1788483946814,1788483946814,1,1,advanced_xml_v
 SDN,48267,한 절 만,한절만,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,48268,O In Chun,oinchun,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,48268,O In Jun,oinjun,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,48268,O ln-chun,oln-chun,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
+SDN,48268,O In-chun,oin-chun,1788960822025,1788960822025,1,1,advanced_xml_v3,0,0
+SDN,48268,O ln-chun,oln-chun,1788483946814,1788960822025,0,1,advanced_xml_v3,0,0
 SDN,48268,"O, In Chun","o,inchun",1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,48268,"O, In Jun","o,injun",1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,48268,"O, ln-chun","o,ln-chun",1788483946814,1788483946814,1,1,classic_csv,0,0
+SDN,48268,"O, In-chun","o,in-chun",1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,48268,"O, ln-chun","o,ln-chun",1788483946814,1788960822025,0,1,classic_csv,0,0
 SDN,48268,오 인 준,오인준,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,48269,"CHO'NG, So'ng-ho",so'ng-hocho'ng,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,48269,Cho'ng So'ng-ho,cho'ngso'ng-ho,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
@@ -74348,7 +74350,8 @@ SDN,57034,Yun Song Guk,yunsongguk,1788483946814,1788483946814,1,1,advanced_xml_v
 SDN,57035,"HOANG, Minh Quang",minhquanghoang,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57035,Hoang Minh Quang,hoangminhquang,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57036,"CELESTINO HERRERA, York Louis",yorklouiscelestinoherrera,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,57036,Celestino Herrera York Louis,celestinoherrerayorklouis,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,57036,Celestino Herrera York Louis,celestinoherrerayorklouis,1788483946814,1788960822025,0,1,advanced_xml_v3,1,0
+SDN,57036,York Louis Celestino Herrera,yorklouiscelestinoherrera,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,57050,"ABEDINI, Mohammad",mohammadabedini,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57050,Abedini Mohammad,abedinimohammad,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57051,"ZAND, Mehdi",mehdizand,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -74468,7 +74471,7 @@ SDN,57109,Muslim Brotherhood in Sudan,muslimbrotherhoodinsudan,1788483946814,178
 SDN,57109,SUDANESE MUSLIM BROTHERHOOD,sudanesemuslimbrotherhood,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57109,Sudanese Islamic Movement,sudaneseislamicmovement,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
 SDN,57109,Sudanese Muslim Brotherhood,sudanesemuslimbrotherhood,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,57109,الحركة الاسلامية السودانية,الحركةالاسلاميةالسودانية,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,57109,الحركة الاسلامية السودانية,الحركةالاسلاميةالسودانية,1788483946814,1788960822025,1,1,advanced_xml_v3,0,1
 SDN,57110,ZHONG FU DEVELOPMENT S.A.,zhongfudevelopments.a.,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57110,Zhong Fu Development S.A.,zhongfudevelopments.a.,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57112,BROTHER METAL S.A.,brothermetals.a.,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -75848,10 +75851,12 @@ SDN,57960,Ziba Leisure Limited,zibaleisurelimited,1788483946814,1788483946814,1,
 SDN,57961,"ABDERRAHMANE, Miloud",miloudabderrahmane,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57961,Abderrahmane Miloud,abderrahmanemiloud,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57961,Ghazi Ibrahim,ghaziibrahim,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
-SDN,57962,"ABDELHAKIM, Boukich",boukichabdelhakim,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,57962,Abdelhakim Boukich,abdelhakimboukich,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,57962,"ABDELHAKIM, Boukich",boukichabdelhakim,1788483946814,1788960822025,0,1,classic_csv,0,0
+SDN,57962,Abdelhakim Boukich,abdelhakimboukich,1788483946814,1788960822025,0,1,advanced_xml_v3,1,0
 SDN,57962,Alholandi Abu Sulayman,alholandiabusulayman,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
+SDN,57962,"BOUKICH, Abdelhakim","boukich,abdelhakim",1788960822025,1788960822025,1,1,classic_csv,0,0
 SDN,57962,Babili Muhammad,babilimuhammad,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
+SDN,57962,Boukich Abdelhakim,boukichabdelhakim,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,57963,BITCOIN EXCHANGE AGENT IDLIB'S NO.1 COIN EXCHANGE,bitcoinexchangeagentidlib'sno.1coinexchange,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57963,Bitcoin Exchange Agent Idlib's No.1 Coin Exchange,bitcoinexchangeagentidlib'sno.1coinexchange,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57963,Bitcoin Xchange,bitcoinxchange,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
@@ -75946,6 +75951,10 @@ SDN,58002,Sanchez Tamayo Hugo Alejandro,sancheztamayohugoalejandro,1788483946814
 SDN,58003,MEDIN PRODUCTS,medinproducts,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,58003,MEDIN PRODUCTS S.A.S.,medinproductss.a.s.,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
 SDN,58004,MUNDO FIT SUPLEMENTOS S.A. DE C.V.,mundofitsuplementoss.a.dec.v.,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58005,LOS TIGUERONES,lostiguerones,1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58005,Los Fenix,losfenix,1788960822025,1788960822025,1,1,advanced_xml_v3,0,1
+SDN,58005,Los Igualitos,losigualitos,1788960822025,1788960822025,1,1,advanced_xml_v3,0,1
+SDN,58005,Los Tiguerones,lostiguerones,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,58013,"BOTELLO ROSALES, Gerardo",gerardobotellorosales,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58013,"BOTELLO ROZALEZ, Gerardo",gerardobotellorozalez,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58013,Botello Rosales Gerardo,botellorosalesgerardo,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
@@ -76235,9 +76244,9 @@ SDN,58176,DOT ONE VALUE CREATION GROUP,dotonevaluecreationgroup,1788483946814,17
 SDN,58176,DOTONE,dotone,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58176,Dot One Holding,dotoneholding,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
 SDN,58176,DotOne,dotone,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,58176,ONE GROUP,onegroup,1788483946814,1788483946814,1,1,classic_csv,0,0
+SDN,58176,ONE GROUP,onegroup,1788483946814,1788960822025,0,1,classic_csv,0,0
 SDN,58176,ONE INTERNATIONAL FINANCIAL AND ECONOMIC DEVELOPMENT GROUP,oneinternationalfinancialandeconomicdevelopmentgroup,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,58176,One Group,onegroup,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
+SDN,58176,One Group,onegroup,1788483946814,1788960822025,1,1,advanced_xml_v3,0,1
 SDN,58176,One International Financial and Economic Development Group,oneinternationalfinancialandeconomicdevelopmentgroup,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
 SDN,58176,گروه بین‌ المللی توسعه مالی و اقتصادی آوان,گروهبین‌المللیتوسعهمالیواقتصادیآوان,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58177,ZEDX DMCC,zedxdmcc,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -76707,9 +76716,18 @@ SDN,58359,Vast Mart Sdn Bhd,vastmartsdnbhd,1788483946814,1788483946814,1,1,advan
 SDN,58360,HK JIATAI TECHNOLOGY LIMITED,hkjiataitechnologylimited,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58360,HK Jiatai Technology Limited,hkjiataitechnologylimited,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58360,香港嘉泰科技有限公司,香港嘉泰科技有限公司,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58361,XINBI GUARANTEE,xinbiguarantee,1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58361,Xinbi,xinbi,1788960822025,1788960822025,1,1,advanced_xml_v3,0,1
+SDN,58361,Xinbi Guarantee,xinbiguarantee,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
+SDN,58361,新币担保,新币担保,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
+SDN,58362,"ANWEN TECHNOLOGY CO., LTD.","anwentechnologyco.,ltd.",1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58362,"Anwen Technology Co., Ltd.","anwentechnologyco.,ltd.",1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,58363,SIEMPRE MI ARCA,siempremiarca,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,58364,"MERO ARCENTALES, Roberth Alfonso",roberthalfonsomeroarcentales,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58364,Roberth Alfonso Mero Arcentales,roberthalfonsomeroarcentales,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58365,"SAFEW TECHNOLOGY CO., LTD.","safewtechnologyco.,ltd.",1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58365,"SafeW Technology Co., Ltd.","safewtechnologyco.,ltd.",1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
+SDN,58365,赛方科技有限公司,赛方科技有限公司,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,58366,Javico,javico,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
 SDN,58366,Julio Javier Mero Franco,juliojaviermerofranco,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58366,"MERO FRANCO, Julio Javier",juliojaviermerofranco,1788483946814,1788483946814,1,1,classic_csv,0,0

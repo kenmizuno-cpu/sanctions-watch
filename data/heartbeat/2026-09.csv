@@ -479,3 +479,5 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-09-09T12:37:56Z,ofac_cons,unchanged,c0cdbcc3c7cb9c6bc4af5e1cff6110220aaa7628cb8216882a4feac5e71ab971,"Thu, 03 Sep 2026 15:37:43 GMT",3371,
 2026-09-09T12:50:54Z,mof,no_effective_change,c46ccaf88a98ab9c4209c4032c91190fa740ac106767fe32331879d73de99d03,令和8年9月10日,14743,data/raw/mof/20260909T125053Z__shisantouketsu20260910.csv.gz
 2026-09-09T12:50:54Z,meti,blocked,,,,
+2026-09-09T13:33:45Z,ofac_sdn,fetched,994f8983546138b7f0f87c34ea55462bedae325aa156921d308ae63d6472368b,"Wed, 09 Sep 2026 13:31:58 GMT",89430,data/raw/ofac_sdn_advanced/20260909T133331Z__sdn_advanced.xml.gz
+2026-09-09T13:33:45Z,ofac_cons,unchanged,c0cdbcc3c7cb9c6bc4af5e1cff6110220aaa7628cb8216882a4feac5e71ab971,"Thu, 03 Sep 2026 15:37:43 GMT",3371,
