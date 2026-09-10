@@ -26,6 +26,7 @@ runs:
       run: |
         python -m tests.test_offline
         python -m tests.test_mof_record_diff
+        python -m tests.test_mof_re_review
 
     - name: 取得と差分抽出
       id: watch
@@ -37,6 +38,11 @@ runs:
       if: contains(inputs.sources, 'mof') || inputs.sources == 'all'
       shell: bash
       run: python -m src.mof_record_diff
+
+    - name: 財務省 再審査キュー生成
+      if: contains(inputs.sources, 'mof') || inputs.sources == 'all'
+      shell: bash
+      run: python -m src.mof_re_review
 
     - name: Excel を再生成
       # マスターに実変更があった回だけ作り直す。毎時バイナリをコミットすると
