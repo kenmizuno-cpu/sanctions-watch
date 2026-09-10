@@ -1,15 +1,85 @@
 # 制裁リスト差分レポート
 
-## OFAC　追加 9 / 削除 0 / 変更 0
+## OFAC　追加 79 / 削除 0 / 変更 0
 
 ### 追加
-- `O In-chun` — 制裁リスト（OFAC：SDN）
-- `Los Tiguerones` — 制裁リスト（OFAC：SDN）
-- `Xinbi Guarantee` — 制裁リスト（OFAC：SDN）
-- `新币担保` — 制裁リスト（OFAC：SDN）
-- `Anwen Technology Co., Ltd.` — 制裁リスト（OFAC：SDN）
-- `SafeW Technology Co., Ltd.` — 制裁リスト（OFAC：SDN）
-- `赛方科技有限公司` — 制裁リスト（OFAC：SDN）
-- `BOUKICH, Abdelhakim` — 制裁リスト（OFAC：SDN）
-- `O, In-chun` — 制裁リスト（OFAC：SDN）
+- `Al-Dhuhaibawi Hussein Ahmed Hussein` — 制裁リスト（OFAC：SDN）
+- `Al-Shaikhli Mohamed Ameen Fadhil Ali` — 制裁リスト（OFAC：SDN）
+- `Al-Hraishawi Karrar Mohammed Qasim` — 制裁リスト（OFAC：SDN）
+- `Al-Lami Ali Hasan Farhan` — 制裁リスト（OFAC：SDN）
+- `Shams and Bahr Trading Company L.L.C.` — 制裁リスト（OFAC：SDN）
+- `شركة شمس وبحر للتجارة ذ م م` — 制裁リスト（OFAC：SDN）
+- `Sun Sea General Trading LLC` — 制裁リスト（OFAC：SDN）
+- `Shams and Bahir` — 制裁リスト（OFAC：SDN）
+- `Shams wa Bahr` — 制裁リスト（OFAC：SDN）
+- `Sun & Sea General Trading Co LLC` — 制裁リスト（OFAC：SDN）
+- `Shams & Bahr Trading Company L.L.C.` — 制裁リスト（OFAC：SDN）
+- `Al-Mandalawi Majid Ali Akbar Namdar` — 制裁リスト（OFAC：SDN）
+- `al-Kurdi Majid 'Ali Akbar` — 制裁リスト（OFAC：SDN）
+- `AL-Mandalawi Abdulhasan Ali Akbar Namdar` — 制裁リスト（OFAC：SDN）
+- `Namdar Abdulhasan` — 制裁リスト（OFAC：SDN）
+- `Namdar Abdulhasan Ali Akbar` — 制裁リスト（OFAC：SDN）
+- `نامدار عبدالحسن علي اكبر` — 制裁リスト（OFAC：SDN）
+- `Ibrahim Hussein` — 制裁リスト（OFAC：SDN）
+- `ابراهيم حسين` — 制裁リスト（OFAC：SDN）
+- `Hamieh Abdallah` — 制裁リスト（OFAC：SDN）
+- `Hameye Abdallah` — 制裁リスト（OFAC：SDN）
+- `Hamiyah Abdallah` — 制裁リスト（OFAC：SDN）
+- `Wehbe Ghaith Hussein` — 制裁リスト（OFAC：SDN）
+- `Wahibi Ghayth Husayn` — 制裁リスト（OFAC：SDN）
+- `Zahreldine Mervat Jamil` — 制裁リスト（OFAC：SDN）
+- `زهر الدين ميرفت جميل` — 制裁リスト（OFAC：SDN）
+- `Zahreddine Mervat Jamil` — 制裁リスト（OFAC：SDN）
+- `Zahr Eddine Mirvat` — 制裁リスト（OFAC：SDN）
+- `Zahreddine Marwa Jamil` — 制裁リスト（OFAC：SDN）
+- `Yousef Ibrahim Mansour and Partner for Exchange` — 制裁リスト（OFAC：SDN）
+- `شركة یوسف ابراھیم منصور وشریكھ للصیرفة` — 制裁リスト（OFAC：SDN）
+- `Youssef Ibrahim Mansour and Co. for Exchange` — 制裁リスト（OFAC：SDN）
+- `Youssef Ibrahim Mansour for Exchange` — 制裁リスト（OFAC：SDN）
+- `Gold Pro SARL` — 制裁リスト（OFAC：SDN）
+- `Al-Makansi Amir` — 制裁リスト（OFAC：SDN）
+- `Makansi Amir` — 制裁リスト（OFAC：SDN）
+- `Al-Tameemi Abbas Jawad Kadhim` — 制裁リスト（OFAC：SDN）
+- `al-Tamimi Abbas Jawad Kazim` — 制裁リスト（OFAC：SDN）
+- `Al Ameri Abdullah Nadhim Luaibi` — 制裁リスト（OFAC：SDN）
+- `Al Amiri Abdallah Nazim Luaybi` — 制裁リスト（OFAC：SDN）
+- `Al Brouj for General Contracting Company` — 制裁リスト（OFAC：SDN）
+- `‫شركة البروج للمقاولات العامة محدود المسؤولية‬` — 制裁リスト（OFAC：SDN）
+- `Al-Broj Company for Contracting, General Trading, Transportation LTD` — 制裁リスト（OFAC：SDN）
+- `Ain Al Iraq for Protection Systems Technology and Audio, Visual, and Communications Solutions Company Ltd` — 制裁リスト（OFAC：SDN）
+- `شركة عين العراق لتكنولوجيا انظمة الحماية وحلول الصوت والصورة والاتصالات المحدودة` — 制裁リスト（OFAC：SDN）
+- `Ein Al-Iraq Company` — 制裁リスト（OFAC：SDN）
+- `Ayn Al-Iraq Company` — 制裁リスト（OFAC：SDN）
+- `Eye of Iraq Company` — 制裁リスト（OFAC：SDN）
+- `Al Abada Khaldoon Naser Maryoosh` — 制裁リスト（OFAC：SDN）
+- `Al-Abada Khaldun Nasir Mariush` — 制裁リスト（OFAC：SDN）
+- `al-'Ibada Khaldun Nasir Mariyush` — 制裁リスト（OFAC：SDN）
+- `AL-DHUHAIBAWI, Hussein Ahmed Hussein` — 制裁リスト（OFAC：SDN）
+- `AL-SHAIKHLI, Mohamed Ameen Fadhil Ali` — 制裁リスト（OFAC：SDN）
+- `AL-HRAISHAWI, Karrar Mohammed Qasim` — 制裁リスト（OFAC：SDN）
+- `AL-LAMI, Ali Hasan Farhan` — 制裁リスト（OFAC：SDN）
+- `AL-MANDALAWI, Majid Ali Akbar Namdar` — 制裁リスト（OFAC：SDN）
+- `AL-MANDALAWI, Abdulhasan Ali Akbar Namdar` — 制裁リスト（OFAC：SDN）
+- `IBRAHIM, Hussein` — 制裁リスト（OFAC：SDN）
+- `HAMIEH, Abdallah` — 制裁リスト（OFAC：SDN）
+- `WEHBE, Ghaith Hussein` — 制裁リスト（OFAC：SDN）
+- `ZAHRELDINE, Mervat Jamil` — 制裁リスト（OFAC：SDN）
+- `AL-MAKANSI, Amir` — 制裁リスト（OFAC：SDN）
+- `AL-TAMEEMI, Abbas Jawad Kadhim` — 制裁リスト（OFAC：SDN）
+- `AL AMERI, Abdullah Nadhim Luaibi` — 制裁リスト（OFAC：SDN）
+- `AL ABADA, Khaldoon Naser Maryoosh` — 制裁リスト（OFAC：SDN）
+- `AL-KURDI, Majid 'Ali Akbar` — 制裁リスト（OFAC：SDN）
+- `NAMDAR, Abdulhasan` — 制裁リスト（OFAC：SDN）
+- `NAMDAR, Abdulhasan Ali Akbar` — 制裁リスト（OFAC：SDN）
+- `HAMEYE, Abdallah` — 制裁リスト（OFAC：SDN）
+- `HAMIYAH, Abdallah` — 制裁リスト（OFAC：SDN）
+- `WAHIBI, Ghayth Husayn` — 制裁リスト（OFAC：SDN）
+- `ZAHREDDINE, Mervat Jamil` — 制裁リスト（OFAC：SDN）
+- `ZAHR EDDINE, Mirvat` — 制裁リスト（OFAC：SDN）
+- `ZAHREDDINE, Marwa Jamil` — 制裁リスト（OFAC：SDN）
+- `MAKANSI, Amir` — 制裁リスト（OFAC：SDN）
+- `AL-TAMIMI, Abbas Jawad Kazim` — 制裁リスト（OFAC：SDN）
+- `AL AMIRI, Abdallah Nazim Luaybi` — 制裁リスト（OFAC：SDN）
+- `AL-ABADA, Khaldun Nasir Mariush` — 制裁リスト（OFAC：SDN）
+- `AL-'IBADA, Khaldun Nasir Mariyush` — 制裁リスト（OFAC：SDN）
 
