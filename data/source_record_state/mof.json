@@ -1,0 +1,21 @@
+{
+  "processed_raw": "data/raw/mof/20260909T125053Z__shisantouketsu20260910.csv.gz",
+  "processed_content_sha256": "c46ccaf88a98ab9c4209c4032c91190fa740ac106767fe32331879d73de99d03",
+  "processed_at": "2026-09-10 10:54:53+0900",
+  "record_count": 2866,
+  "last_diff": {
+    "source_changed": true,
+    "material_changed": true,
+    "added": 0,
+    "removed": 0,
+    "amended": 2,
+    "raw_amended": 2,
+    "field_changes": 11,
+    "raw_field_changes": 23,
+    "cosmetic_changes": 5,
+    "aggregate_changes": 2,
+    "structure_changes": 5,
+    "dashboard_rows": 11,
+    "transitions": 1
+  }
+}

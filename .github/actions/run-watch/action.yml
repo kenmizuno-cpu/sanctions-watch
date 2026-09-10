@@ -23,12 +23,20 @@ runs:
 
     - name: 自己テスト
       shell: bash
-      run: python -m tests.test_offline
+      run: |
+        python -m tests.test_offline
+        python -m tests.test_mof_record_diff
 
     - name: 取得と差分抽出
       id: watch
       shell: bash
       run: python -m src.watch --sources ${{ inputs.sources }}
+
+    - name: 財務省 原本レコード差分
+      id: mof_record_diff
+      if: contains(inputs.sources, 'mof') || inputs.sources == 'all'
+      shell: bash
+      run: python -m src.mof_record_diff
 
     - name: Excel を再生成
       # マスターに実変更があった回だけ作り直す。毎時バイナリをコミットすると
@@ -60,6 +68,8 @@ runs:
       shell: bash
       env:
         HAS_DIFF: ${{ steps.watch.outputs.has_diff }}
+        MOF_SOURCE_CHANGED: ${{ steps.mof_record_diff.outputs.source_changed }}
+        MOF_MATERIAL_CHANGED: ${{ steps.mof_record_diff.outputs.material_changed }}
       run: |
         git config user.name  "sanctions-watch[bot]"
         git config user.email "sanctions-watch@users.noreply.github.com"
@@ -68,9 +78,13 @@ runs:
           echo "コミットするものが無い"
           exit 0
         fi
-        # 意味のある履歴だけ後から追えるよう、メッセージを3種に分ける
+        # 意味のある履歴だけ後から追えるよう、メッセージを用途別に分ける
         if [ "$HAS_DIFF" = "true" ]; then
           MSG="feat(diff): 制裁リスト差分 追加${{ steps.watch.outputs.added }} 削除${{ steps.watch.outputs.removed }} 変更${{ steps.watch.outputs.changed }}"
+        elif [ "$MOF_MATERIAL_CHANGED" = "true" ]; then
+          MSG="feat(mof): 原本差分 追加${{ steps.mof_record_diff.outputs.added }} 削除${{ steps.mof_record_diff.outputs.removed }} 情報改訂${{ steps.mof_record_diff.outputs.amended }}"
+        elif [ "$MOF_SOURCE_CHANGED" = "true" ]; then
+          MSG="chore(mof): 原本更新・実質変更なし"
         elif git diff --cached --name-only | grep -qv '^data/heartbeat/'; then
           MSG="chore(state): 取得状態を更新"
         else
