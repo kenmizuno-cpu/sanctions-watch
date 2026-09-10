@@ -59321,10 +59321,12 @@ SDN,48267,Han Chol Man,hancholman,1788483946814,1788483946814,1,1,advanced_xml_v
 SDN,48267,한 절 만,한절만,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,48268,O In Chun,oinchun,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,48268,O In Jun,oinjun,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,48268,O ln-chun,oln-chun,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
+SDN,48268,O In-chun,oin-chun,1788960822025,1788960822025,1,1,advanced_xml_v3,0,0
+SDN,48268,O ln-chun,oln-chun,1788483946814,1788960822025,0,1,advanced_xml_v3,0,0
 SDN,48268,"O, In Chun","o,inchun",1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,48268,"O, In Jun","o,injun",1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,48268,"O, ln-chun","o,ln-chun",1788483946814,1788483946814,1,1,classic_csv,0,0
+SDN,48268,"O, In-chun","o,in-chun",1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,48268,"O, ln-chun","o,ln-chun",1788483946814,1788960822025,0,1,classic_csv,0,0
 SDN,48268,오 인 준,오인준,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,48269,"CHO'NG, So'ng-ho",so'ng-hocho'ng,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,48269,Cho'ng So'ng-ho,cho'ngso'ng-ho,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
@@ -74348,7 +74350,8 @@ SDN,57034,Yun Song Guk,yunsongguk,1788483946814,1788483946814,1,1,advanced_xml_v
 SDN,57035,"HOANG, Minh Quang",minhquanghoang,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57035,Hoang Minh Quang,hoangminhquang,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57036,"CELESTINO HERRERA, York Louis",yorklouiscelestinoherrera,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,57036,Celestino Herrera York Louis,celestinoherrerayorklouis,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,57036,Celestino Herrera York Louis,celestinoherrerayorklouis,1788483946814,1788960822025,0,1,advanced_xml_v3,1,0
+SDN,57036,York Louis Celestino Herrera,yorklouiscelestinoherrera,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,57050,"ABEDINI, Mohammad",mohammadabedini,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57050,Abedini Mohammad,abedinimohammad,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57051,"ZAND, Mehdi",mehdizand,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -74468,7 +74471,7 @@ SDN,57109,Muslim Brotherhood in Sudan,muslimbrotherhoodinsudan,1788483946814,178
 SDN,57109,SUDANESE MUSLIM BROTHERHOOD,sudanesemuslimbrotherhood,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57109,Sudanese Islamic Movement,sudaneseislamicmovement,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
 SDN,57109,Sudanese Muslim Brotherhood,sudanesemuslimbrotherhood,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,57109,الحركة الاسلامية السودانية,الحركةالاسلاميةالسودانية,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,57109,الحركة الاسلامية السودانية,الحركةالاسلاميةالسودانية,1788483946814,1788960822025,1,1,advanced_xml_v3,0,1
 SDN,57110,ZHONG FU DEVELOPMENT S.A.,zhongfudevelopments.a.,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57110,Zhong Fu Development S.A.,zhongfudevelopments.a.,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57112,BROTHER METAL S.A.,brothermetals.a.,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -75848,10 +75851,12 @@ SDN,57960,Ziba Leisure Limited,zibaleisurelimited,1788483946814,1788483946814,1,
 SDN,57961,"ABDERRAHMANE, Miloud",miloudabderrahmane,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57961,Abderrahmane Miloud,abderrahmanemiloud,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57961,Ghazi Ibrahim,ghaziibrahim,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
-SDN,57962,"ABDELHAKIM, Boukich",boukichabdelhakim,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,57962,Abdelhakim Boukich,abdelhakimboukich,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,57962,"ABDELHAKIM, Boukich",boukichabdelhakim,1788483946814,1788960822025,0,1,classic_csv,0,0
+SDN,57962,Abdelhakim Boukich,abdelhakimboukich,1788483946814,1788960822025,0,1,advanced_xml_v3,1,0
 SDN,57962,Alholandi Abu Sulayman,alholandiabusulayman,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
+SDN,57962,"BOUKICH, Abdelhakim","boukich,abdelhakim",1788960822025,1788960822025,1,1,classic_csv,0,0
 SDN,57962,Babili Muhammad,babilimuhammad,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
+SDN,57962,Boukich Abdelhakim,boukichabdelhakim,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,57963,BITCOIN EXCHANGE AGENT IDLIB'S NO.1 COIN EXCHANGE,bitcoinexchangeagentidlib'sno.1coinexchange,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57963,Bitcoin Exchange Agent Idlib's No.1 Coin Exchange,bitcoinexchangeagentidlib'sno.1coinexchange,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57963,Bitcoin Xchange,bitcoinxchange,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
@@ -75946,6 +75951,10 @@ SDN,58002,Sanchez Tamayo Hugo Alejandro,sancheztamayohugoalejandro,1788483946814
 SDN,58003,MEDIN PRODUCTS,medinproducts,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,58003,MEDIN PRODUCTS S.A.S.,medinproductss.a.s.,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
 SDN,58004,MUNDO FIT SUPLEMENTOS S.A. DE C.V.,mundofitsuplementoss.a.dec.v.,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58005,LOS TIGUERONES,lostiguerones,1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58005,Los Fenix,losfenix,1788960822025,1788960822025,1,1,advanced_xml_v3,0,1
+SDN,58005,Los Igualitos,losigualitos,1788960822025,1788960822025,1,1,advanced_xml_v3,0,1
+SDN,58005,Los Tiguerones,lostiguerones,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,58013,"BOTELLO ROSALES, Gerardo",gerardobotellorosales,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58013,"BOTELLO ROZALEZ, Gerardo",gerardobotellorozalez,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58013,Botello Rosales Gerardo,botellorosalesgerardo,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
@@ -76235,9 +76244,9 @@ SDN,58176,DOT ONE VALUE CREATION GROUP,dotonevaluecreationgroup,1788483946814,17
 SDN,58176,DOTONE,dotone,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58176,Dot One Holding,dotoneholding,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
 SDN,58176,DotOne,dotone,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,58176,ONE GROUP,onegroup,1788483946814,1788483946814,1,1,classic_csv,0,0
+SDN,58176,ONE GROUP,onegroup,1788483946814,1788960822025,0,1,classic_csv,0,0
 SDN,58176,ONE INTERNATIONAL FINANCIAL AND ECONOMIC DEVELOPMENT GROUP,oneinternationalfinancialandeconomicdevelopmentgroup,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,58176,One Group,onegroup,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
+SDN,58176,One Group,onegroup,1788483946814,1788960822025,1,1,advanced_xml_v3,0,1
 SDN,58176,One International Financial and Economic Development Group,oneinternationalfinancialandeconomicdevelopmentgroup,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
 SDN,58176,گروه بین‌ المللی توسعه مالی و اقتصادی آوان,گروهبین‌المللیتوسعهمالیواقتصادیآوان,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58177,ZEDX DMCC,zedxdmcc,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -76707,9 +76716,18 @@ SDN,58359,Vast Mart Sdn Bhd,vastmartsdnbhd,1788483946814,1788483946814,1,1,advan
 SDN,58360,HK JIATAI TECHNOLOGY LIMITED,hkjiataitechnologylimited,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58360,HK Jiatai Technology Limited,hkjiataitechnologylimited,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58360,香港嘉泰科技有限公司,香港嘉泰科技有限公司,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58361,XINBI GUARANTEE,xinbiguarantee,1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58361,Xinbi,xinbi,1788960822025,1788960822025,1,1,advanced_xml_v3,0,1
+SDN,58361,Xinbi Guarantee,xinbiguarantee,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
+SDN,58361,新币担保,新币担保,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
+SDN,58362,"ANWEN TECHNOLOGY CO., LTD.","anwentechnologyco.,ltd.",1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58362,"Anwen Technology Co., Ltd.","anwentechnologyco.,ltd.",1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,58363,SIEMPRE MI ARCA,siempremiarca,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,58364,"MERO ARCENTALES, Roberth Alfonso",roberthalfonsomeroarcentales,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58364,Roberth Alfonso Mero Arcentales,roberthalfonsomeroarcentales,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58365,"SAFEW TECHNOLOGY CO., LTD.","safewtechnologyco.,ltd.",1788960822025,1788960822025,1,1,classic_csv,0,0
+SDN,58365,"SafeW Technology Co., Ltd.","safewtechnologyco.,ltd.",1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
+SDN,58365,赛方科技有限公司,赛方科技有限公司,1788960822025,1788960822025,1,1,advanced_xml_v3,1,0
 SDN,58366,Javico,javico,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
 SDN,58366,Julio Javier Mero Franco,juliojaviermerofranco,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58366,"MERO FRANCO, Julio Javier",juliojaviermerofranco,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -76909,6 +76927,160 @@ SDN,58490,BANCO EXTERIOR DE CUBA,bancoexteriordecuba,1788483946814,1788483946814
 SDN,58490,Banco Exterior De Cuba,bancoexteriordecuba,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58491,"CASTRO CALIS, Fidel Ernesto",fidelernestocastrocalis,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58491,Fidel Ernesto Castro Calis,fidelernestocastrocalis,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58492,S SISTEM LOGISTICS SERVICES JOINT STOCK COMPANY,ssistemlogisticsservicesjointstockcompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58492,S SISTEM LOJISTIK HIZMETLER ANONIM SIRKETI,ssistemlojistikhizmetleranonimsirketi,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58492,S Sistem Logistics Services Joint Stock Company,ssistemlogisticsservicesjointstockcompany,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58492,S Sistem Lojistik Hizmetler Anonim Sirketi,ssistemlojistikhizmetleranonimsirketi,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58492,S SİSTEM LOJİSTİK HİZMETLERİ ANONİM ŞİRKETİ,ssi̇stemloji̇sti̇khi̇zmetleri̇anoni̇mşi̇rketi̇,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58494,ATA AIRLINES COMPANY,ataairlinescompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58494,ATA Airlines Company,ataairlinescompany,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58495,IRAN AIR TOUR,iranairtour,1788878019106,1788878019106,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58495,IRAN AIR TOURS COMPANY,iranairtourscompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58495,IRAN AIRTOUR AIRLINE,iranairtourairline,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58495,IRAN AIRTOUR AIRLINES,iranairtourairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58495,Iran Air Tours Company,iranairtourscompany,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58495,Iran AirTour Airline,iranairtourairline,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58495,Iran AirTour Airlines,iranairtourairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58496,ICARGO SDN BHD,icargosdnbhd,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58496,Icargo SDN BHD,icargosdnbhd,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58496,SCHEDULE FEEDERS SDN BHD,schedulefeederssdnbhd,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58496,Schedule Feeders SDN BHD,schedulefeederssdnbhd,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58497,ASEMAN AIR SERVICES,asemanairservices,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58497,Aseman Air Services,asemanairservices,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58497,IRAN ASEMAN AIRLINES,iranasemanairlines,1788878019106,1788878019106,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58498,KAROON AIRLINES,karoonairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58498,KARUN AIRLINES COMPANY,karunairlinescompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58498,Karoon Airlines,karoonairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58498,Karun Airlines Company,karunairlinescompany,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58499,LIMITED LIABILITY COMPANY TOUR INVEST,limitedliabilitycompanytourinvest,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58499,Limited Liability Company Tour Invest,limitedliabilitycompanytourinvest,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58499,TOUR INVEST LLC,tourinvestllc,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58499,TOUR INVEST TOO,tourinvesttoo,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58499,TUR INVEST TOO,turinvesttoo,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58499,Tour Invest LLC,tourinvestllc,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58499,Tour Invest TOO,tourinvesttoo,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58499,Tur Invest TOO,turinvesttoo,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58500,MEHMET SARP CARGO,mehmetsarpcargo,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58500,MES CARGO TRANSPORTATION TOURISM AND FOREIGN TRADE LIMITED COMPANY,mescargotransportationtourismandforeigntradelimitedcompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58500,MES KARGO TASIMACILIK TURIZM VE DIS TICARET LIMITED SIRKETI,meskargotasimacilikturizmvedisticaretlimitedsirketi,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58500,MES KARGO TAŞIMACILIK TURİZM VE DIŞ TİCARET LİMİTED ŞİRKETİ,meskargotaşimacilikturi̇zmvedişti̇caretli̇mi̇tedşi̇rketi̇,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58500,Mehmet Sarp Cargo,mehmetsarpcargo,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58500,Mes Cargo Transportation Tourism and Foreign Trade Limited Company,mescargotransportationtourismandforeigntradelimitedcompany,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58500,Mes Kargo Tasimacilik Turizm Ve Dis Ticaret Limited Sirketi,meskargotasimacilikturizmvedisticaretlimitedsirketi,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58505,ECT AVIATION SUPPORT LLC,ectaviationsupportllc,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58505,ECT Aviation Support LLC,ectaviationsupportllc,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58505,إي سي تي أفيييشن سابورت ذ م م,إيسيتيأفيييشنسابورتذمم,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58508,VARESH AIRLINES,vareshairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58508,Varesh Airlines,vareshairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58509,AIR SHIRAZ,airshiraz,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58509,Air Shiraz,airshiraz,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58510,KISH AIR,kishair,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58510,KISH AIRLINES,kishairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58510,Kish Air,kishair,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58510,Kish Airlines,kishairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58511,TOOS AIRLINE,toosairline,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58511,TOOS AIRLINES,toosairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58511,TOOS PARSIAN KISH AIRLINES COMPANY,toosparsiankishairlinescompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58511,Toos Airline,toosairline,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58511,Toos Airlines,toosairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58511,Toos Parsian Kish Airlines Company,toosparsiankishairlinescompany,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58511,شرکت هواپيمايی طوس پارسيان کيش,شرکتهواپيمايیطوسپارسيانکيش,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58511,هواپيمايی طوس,هواپيمايیطوس,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58512,AIR1AIR COMPANY,air1aircompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58512,ARVAN AIRLINES,arvanairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58512,Air1,air1,1788878019106,1788878019106,1,1,advanced_xml_v3,0,1
+SDN,58512,Air1Air Company,air1aircompany,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58512,Arvan Airlines,arvanairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58512,ERWAN AIRLINE COMPANY,erwanairlinecompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58512,ERWAN AIRLINES,erwanairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58512,Erwan Airline Company,erwanairlinecompany,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58512,Erwan Airlines,erwanairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58513,ASA JET AIRLINE,asajetairline,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58513,Asa Jet Airline,asajetairline,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58514,SOROUSH AIR,soroushair,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58514,Soroush Air,soroushair,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58515,ATLAS AIR PLUS,atlasairplus,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58515,ATLAS AVIATION GROUP,atlasaviationgroup,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58515,Atlas Air Plus,atlasairplus,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58515,Atlas Aviation Group,atlasaviationgroup,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58516,FLYSEPEHRAN,flysepehran,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58516,FlySepehran,flysepehran,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58516,SEPEHRAN AIRLINES,sepehranairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58516,Sepehran Airlines,sepehranairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58516,شرکت هواپيمائی سپهران,شرکتهواپيمائیسپهران,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58517,QESHM AIR,qeshmair,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58517,QESHM AIR AIRLINE,qeshmairairline,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58517,QESHM AIRLINES,qeshmairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58517,Qeshm Air,qeshmair,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58517,Qeshm Air Airline,qeshmairairline,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58517,Qeshm Airlines,qeshmairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58517,Qeshm Aviation Company,qeshmaviationcompany,1788878019106,1788878019106,1,1,advanced_xml_v3,0,1
+SDN,58518,TABAN AIRLINES,tabanairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58518,Taban Airlines,tabanairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58519,ARMED FORCES AIR TRANSPORT SERVICE,armedforcesairtransportservice,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58519,Armed Forces Air Transport Service,armedforcesairtransportservice,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58519,SAHA AIRLINES,sahaairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58519,SAHA AIRLINES PJSC,sahaairlinespjsc,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58519,SERVICE ERTEBAATAAT-E HAVAAEE ARTESH,serviceertebaataat-ehavaaeeartesh,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58519,Saha Airlines,sahaairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58519,Saha Airlines PJSC,sahaairlinespjsc,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58519,Service Ertebaataat-e Havaaee Artesh,serviceertebaataat-ehavaaeeartesh,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58520,SKY PHOENIX AIRWAYS TRANSPORTATION TRADING COMPANY LIMITED,skyphoenixairwaystransportationtradingcompanylimited,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58520,SKY PHOENIX HAVA YOLLARI TASIMACILIGI TICARET LIMITED SIRKETI,skyphoenixhavayollaritasimaciligiticaretlimitedsirketi,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58520,SKY PHOENIX HAVA YOLLARI TAŞIMACILIĞI TİCARET LİMİTED ŞİRKETİ,skyphoenixhavayollaritaşimaciliğiti̇caretli̇mi̇tedşi̇rketi̇,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58520,Sky Phoenix Airways Transportation Trading Company Limited,skyphoenixairwaystransportationtradingcompanylimited,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58520,Sky Phoenix Hava Yollari Tasimaciligi Ticaret Limited Sirketi,skyphoenixhavayollaritasimaciligiticaretlimitedsirketi,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58521,ECT AVIATION SUPPORT LTD,ectaviationsupportltd,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58521,ECT Aviation Support LTD,ectaviationsupportltd,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58522,"IBRAHIM, Mahran",mahranibrahim,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58522,Ibrahim Mahran,ibrahimmahran,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58522,"MAHRAN, Ibrahim Ali Mohamed Mohamed",ibrahimalimohamedmohamedmahran,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58522,Mahran Ibrahim Ali Mohamed Mohamed,mahranibrahimalimohamedmohamed,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58523,ZAGROS AIRLINE CO,zagrosairlineco,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58523,ZAGROS AIRLINES,zagrosairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58523,Zagros Airline Co,zagrosairlineco,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58523,Zagros Airlines,zagrosairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58524,AEROBRAVO AIRPLANE MANAGEMENT AND OPERATION LLC,aerobravoairplanemanagementandoperationllc,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58524,Aerobravo Airplane Management and Operation LLC,aerobravoairplanemanagementandoperationllc,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58526,AVA AIRLINES,avaairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58526,Ava Airlines,avaairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58529,CHABAHAR AIR,chabaharair,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58529,CHABAHAR AIRLINES,chabaharairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58529,CHABAHAR AIRLINES COMPANY,chabaharairlinescompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58529,CHABAHAR AVIATION COMPANY,chabaharaviationcompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58529,Chabahar Air,chabaharair,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58529,Chabahar Airlines,chabaharairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58529,Chabahar Airlines Company,chabaharairlinescompany,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58529,Chabahar Aviation Company,chabaharaviationcompany,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58530,FLY KISH AIRLINES,flykishairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58530,Fly Kish Airlines,flykishairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58531,FLY PERSIA,flypersia,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58531,FLY PERSIA AIRLINES,flypersiaairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58531,FLY PERSIA PRIVATE DANA AIRLINES,flypersiaprivatedanaairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58531,FLY PERSIA PRIVATE JOINT STOCK COMPANY,flypersiaprivatejointstockcompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58531,Fly Persia,flypersia,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58531,Fly Persia Airlines,flypersiaairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58531,Fly Persia Private Dana Airlines,flypersiaprivatedanaairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58531,Fly Persia Private Joint Stock Company,flypersiaprivatejointstockcompany,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58532,J Sky,jsky,1788878019106,1788878019106,1,1,advanced_xml_v3,0,1
+SDN,58532,JSKY AIRLINES,jskyairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58532,Jsky Airlines,jskyairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58533,LAD AIRLINE SERVICES,ladairlineservices,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58533,LAD AIRWAYS,ladairways,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58533,Lad Airline Services,ladairlineservices,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58533,Lad Airways,ladairways,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58534,MEHR AIRWAYS,mehrairways,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58534,Mehr Airways,mehrairways,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58535,NASIM AIR,nasimair,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58535,Nasim Air,nasimair,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58537,PARS AIR,parsair,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58537,PARS AIRLINES,parsairlines,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58537,PARS OGHYANOUS KISH COMPANY,parsoghyanouskishcompany,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58537,Pars Air,parsair,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58537,Pars Airlines,parsairlines,1788878019106,1788878019106,1,1,advanced_xml_v3,0,0
+SDN,58537,Pars Oghyanous Kish Company,parsoghyanouskishcompany,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
+SDN,58538,RAIMON AIRWAYS,raimonairways,1788878019106,1788878019106,1,1,classic_csv,0,0
+SDN,58538,Raimon Airways,raimonairways,1788878019106,1788878019106,1,1,advanced_xml_v3,1,0
 SDN,58544,GOLDEN GLOBAL INVESTMENT BANK,goldenglobalinvestmentbank,1788532201185,1788532201185,1,1,classic_csv,0,0
 SDN,58544,GOLDEN GLOBAL YATIRIM BANKASI ANONIM SIRKETI,goldenglobalyatirimbankasianonimsirketi,1788532201185,1788532201185,1,1,classic_csv,0,0
 SDN,58544,GOLDEN GLOBAL YATIRIM BANKASI ANONİM ŞİRKETİ,goldenglobalyatirimbankasianoni̇mşi̇rketi̇,1788532201185,1788532201185,1,1,advanced_xml_v3,1,0
