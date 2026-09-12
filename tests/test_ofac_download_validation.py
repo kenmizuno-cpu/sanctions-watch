@@ -39,6 +39,22 @@ class OfacDownloadValidationTest(unittest.TestCase):
             "SDN",
         )
 
+    def test_valid_classic_csv_without_headers_is_accepted(self):
+        body = (
+            b'12345,"TEST PERSON","Individual","SDGT","-0-","-0-",'
+            b'"-0-","-0-","-0-","-0-","-0-","-0-"\n'
+        )
+
+        class HeaderlessFetched:
+            def __init__(self, raw: bytes):
+                self.body = raw
+                self.text = raw.decode("utf-8")
+
+        self.validator()(
+            HeaderlessFetched(body),
+            "SDN",
+        )
+
     def test_html_response_is_rejected(self):
         body = (
             b"<!doctype html>"
