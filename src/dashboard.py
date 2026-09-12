@@ -16,11 +16,14 @@ from __future__ import annotations
 import csv
 from collections import Counter
 import gzip
+import logging
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from .normalize import canonical_display_name, is_trailing_unknown_artifact
 from .screening import secondary_screening_key
+
+LOGGER = logging.getLogger(__name__)
 
 JST = timezone(timedelta(hours=9))
 
@@ -662,6 +665,13 @@ def write_screening_gzip(root: Path, rows) -> Path:
 
     finally:
         if tmp_path.exists():
-            tmp_path.unlink()
+            try:
+                tmp_path.unlink()
+            except Exception as cleanup_error:
+                LOGGER.error(
+                    "screening gzip temp cleanup failed: %s: %s",
+                    tmp_path,
+                    cleanup_error,
+                )
 
     return gz_path

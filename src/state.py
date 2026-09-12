@@ -26,26 +26,57 @@ def load_state(root: Path) -> dict:
 
 
 def save_state(root: Path, state: dict) -> None:
-    p = root / STATE
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-                 encoding="utf-8")
+    write_state(root / STATE, state)
 
 
-def heartbeat(root: Path, entries: list[dict]) -> Path:
-    """チェック結果を月別CSVに追記する。304のときも必ず1行残す。"""
-    now = datetime.now(timezone.utc)
-    d = root / HEARTBEAT_DIR
-    d.mkdir(parents=True, exist_ok=True)
-    p = d / f"{now:%Y-%m}.csv"
-    new = not p.exists()
-    with p.open("a", encoding="utf-8", newline="") as f:
+def write_state(path: Path, state: dict) -> None:
+    """指定パスへstate JSONを書き出す。tempへのstagingでも使用する。"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(
+            state,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        ) + "\n",
+        encoding="utf-8",
+    )
+
+
+def append_heartbeat(
+    path: Path,
+    entries: list[dict],
+    *,
+    now: datetime | None = None,
+) -> Path:
+    """指定CSVへheartbeatを追記する。tempへのstagingでも使用する。"""
+    now = now or datetime.now(timezone.utc)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    new = not path.exists() or path.stat().st_size == 0
+
+    with path.open("a", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=HB_COLS)
+
         if new:
             w.writeheader()
+
         for e in entries:
             row = {c: "" for c in HB_COLS}
             row.update(e)
             row["checked_at"] = now.strftime("%Y-%m-%dT%H:%M:%SZ")
             w.writerow(row)
-    return p
+
+    return path
+
+
+def heartbeat(
+    root: Path,
+    entries: list[dict],
+    *,
+    now: datetime | None = None,
+) -> Path:
+    """チェック結果を月別CSVに追記する。304のときも必ず1行残す。"""
+    now = now or datetime.now(timezone.utc)
+    d = root / HEARTBEAT_DIR
+    p = d / f"{now:%Y-%m}.csv"
+    return append_heartbeat(p, entries, now=now)
