@@ -59,6 +59,64 @@ class SchemaError(RuntimeError):
     pass
 
 
+def validate_classic_download(fetched: Fetched, label: str) -> None:
+    """OFAC Classic CSV が実データとして妥当か検証する。
+
+    HTTP 200だけでは正常取得とみなさない。
+    HTML/JSON/空レスポンスや、Party IDを1件も含まない内容は
+    schema異常としてfail closedする。
+    """
+    if not fetched.body:
+        raise SchemaError(
+            f"OFAC {label} Classic CSV が空レスポンス"
+        )
+
+    content_type = (
+        fetched.headers.get("Content-Type", "")
+        or fetched.headers.get("content-type", "")
+    ).split(";", 1)[0].strip().lower()
+
+    if content_type in {
+        "text/html",
+        "application/xhtml+xml",
+        "application/json",
+        "text/json",
+    }:
+        raise SchemaError(
+            f"OFAC {label} Classic CSV のContent-Typeが異常: "
+            f"{content_type or '(empty)'}"
+        )
+
+    head = fetched.body.lstrip()[:512].lower()
+
+    if (
+        head.startswith(b"<!doctype html")
+        or head.startswith(b"<html")
+        or head.startswith(b"{")
+        or head.startswith(b"[")
+    ):
+        raise SchemaError(
+            f"OFAC {label} Classic CSV の本文形式が異常"
+        )
+
+    try:
+        reader = csv.reader(io.StringIO(fetched.text))
+        valid_party_row = any(
+            len(row) >= 2
+            and row[0].strip().isdigit()
+            for row in reader
+        )
+    except csv.Error as exc:
+        raise SchemaError(
+            f"OFAC {label} Classic CSV を解析できない: {exc}"
+        ) from exc
+
+    if not valid_party_row:
+        raise SchemaError(
+            f"OFAC {label} Classic CSV に有効なParty ID行がない"
+        )
+
+
 def _rows(text: str, cols: list[str], label: str) -> list[dict]:
     rdr = csv.reader(io.StringIO(text))
     out = []
@@ -179,6 +237,7 @@ def classic_party_ids(prim: Fetched, label: str) -> set[str]:
     1列だけで存在することがあるが、_rows() は2列未満を除外するため
     Party ID として誤認しない。
     """
+    validate_classic_download(prim, label)
     rows = _rows(prim.text, PRIM_COLS, label)
     ids = {
         r.get("ent_num", "").strip()
