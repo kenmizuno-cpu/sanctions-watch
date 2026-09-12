@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import os
 import sys
 import traceback
@@ -388,6 +389,24 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     """
     opts = opts or {}
     audit = opts.setdefault("audit", [])
+
+    # OFAC SDN + Consolidated を1つのトランザクションとして扱う。
+    #
+    # 途中で片側取得失敗・coverage不一致・Party終了検査・
+    # master merge失敗等が起きても、呼出元のstate/masterは触らない。
+    original_st = st
+    original_rows = rows
+
+    st = copy.deepcopy(st)
+    rows = copy.deepcopy(rows)
+
+    def commit_staged() -> None:
+        original_st.clear()
+        original_st.update(st)
+
+        original_rows.clear()
+        original_rows.update(rows)
+
     records: list = []
     unchanged: list[tuple[str, dict]] = []
     fetched_any = False
@@ -633,6 +652,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         )
 
         if not weak_updates:
+            commit_staged()
             return []
 
         log(
@@ -650,6 +670,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             )
         )
 
+        commit_staged()
         return [d]
 
     if not fetched_any and rollout_pending:
@@ -719,10 +740,11 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             "自動無効化せず処理を停止する"
         )
 
-    # failure時には保存しないよう、
-    # Party終了検査を通過してからoptsへ渡す。
-    opts["ofac_index_rows"] = history
-    opts["ofac_index_diff"] = index_diff
+    # Party Indexもまだ呼出元へ公開しない。
+    # master側を含むOFACトランザクション全体が成功した時だけ
+    # optsへpublishする。
+    staged_index_rows = history
+    staged_index_diff = index_diff
 
     screening_records = (
         ofac.screening_records(
@@ -764,6 +786,10 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             ),
         )
 
+        opts["ofac_index_rows"] = staged_index_rows
+        opts["ofac_index_diff"] = staged_index_diff
+
+        commit_staged()
         return []
 
     # 通常スクリーニングはStrong名称のみ。
@@ -841,6 +867,15 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             else "実質変更なし"
         ),
     )
+
+    # ここまで到達して初めてOFAC snapshot全体を確定する。
+    #
+    # audit / heartbeatは取得過程の証跡なので既に呼出元へ残っているが、
+    # state / master / Party Indexはここで初めて一括反映する。
+    opts["ofac_index_rows"] = staged_index_rows
+    opts["ofac_index_diff"] = staged_index_diff
+
+    commit_staged()
 
     return [d] if d else []
 
