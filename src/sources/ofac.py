@@ -71,9 +71,11 @@ def validate_classic_download(fetched: Fetched, label: str) -> None:
             f"OFAC {label} Classic CSV が空レスポンス"
         )
 
+    headers = getattr(fetched, "headers", {}) or {}
+
     content_type = (
-        fetched.headers.get("Content-Type", "")
-        or fetched.headers.get("content-type", "")
+        headers.get("Content-Type", "")
+        or headers.get("content-type", "")
     ).split(";", 1)[0].strip().lower()
 
     if content_type in {

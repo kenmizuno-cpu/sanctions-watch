@@ -27,6 +27,7 @@ runs:
         python -m tests.test_offline
         python -m tests.test_mof_record_diff
         python -m tests.test_mof_re_review
+        python -m unittest
 
     - name: 取得と差分抽出
       id: watch
@@ -158,7 +159,7 @@ runs:
       run: |
         set -u
 
-        EVIDENCE=".failure-evidence"
+        EVIDENCE="failure-evidence"
         rm -rf "$EVIDENCE"
 
         mkdir -p           "$EVIDENCE/data/source_audit"           "$EVIDENCE/data/heartbeat"           "$EVIDENCE/data/dashboard"           "$EVIDENCE/data/raw"
@@ -232,7 +233,7 @@ runs:
       uses: actions/upload-artifact@v4
       with:
         name: ofac-failure-evidence-${{ github.run_id }}-${{ github.run_attempt }}
-        path: .failure-evidence/
+        path: failure-evidence/
         retention-days: 90
         if-no-files-found: error
 

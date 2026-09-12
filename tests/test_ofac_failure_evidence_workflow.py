@@ -76,7 +76,7 @@ class OfacFailureEvidenceWorkflowTest(unittest.TestCase):
                 self.assertIn(path, step)
 
         self.assertIn(
-            'EVIDENCE=".failure-evidence"',
+            'EVIDENCE="failure-evidence"',
             step,
         )
 
@@ -94,7 +94,7 @@ class OfacFailureEvidenceWorkflowTest(unittest.TestCase):
         )
 
         self.assertIn(
-            "path: .failure-evidence/",
+            "path: failure-evidence/",
             step,
         )
 
