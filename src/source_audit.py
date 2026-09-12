@@ -15,8 +15,10 @@ ETag / Last-Modified / SHA256、取得URL、原本、件数、差分、
 from __future__ import annotations
 
 import csv
+import re
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 
 
 AUDIT_DIR = "data/source_audit"
@@ -54,11 +56,57 @@ def _flag(value: bool) -> str:
     return "1" if value else "0"
 
 
+def safe_audit_url(value: str) -> str:
+    """監査台帳へ保存するURLからAWS一時署名を除去する。
+
+    通常のquery parameterは監査情報として維持する。
+    X-Amz-* を含むpresigned URLの場合だけ、
+    query / fragmentを捨ててscheme/host/pathを残す。
+    """
+    raw = str(value or "")
+
+    if not raw:
+        return ""
+
+    try:
+        parts = urlsplit(raw)
+    except ValueError:
+        return raw
+
+    if not parts.query:
+        return raw
+
+    if "x-amz-" not in parts.query.lower():
+        return raw
+
+    return urlunsplit((
+        parts.scheme,
+        parts.netloc,
+        parts.path,
+        "",
+        "",
+    ))
+
+
+_URL_RE = re.compile(r"""https?://[^\s<>"']+""")
+
+
 def _clean_error(value) -> str:
     if value is None:
         return ""
-    # CSV内で巨大なtracebackや改行が増殖しないよう1行化する。
-    return " ".join(str(value).replace("\x00", "").splitlines())[:4000]
+
+    cleaned = " ".join(
+        str(value).replace("\x00", "").splitlines()
+    )
+
+    # requests.HTTPError等のメッセージ内に
+    # presigned URLが含まれる場合も除去する。
+    cleaned = _URL_RE.sub(
+        lambda match: safe_audit_url(match.group(0)),
+        cleaned,
+    )
+
+    return cleaned[:4000]
 
 
 def entry(
@@ -100,14 +148,18 @@ def entry(
         row["etag"] = getattr(fetched, "etag", "") or ""
         row["last_modified"] = getattr(fetched, "last_modified", "") or ""
         row["content_hash"] = getattr(fetched, "sha256", "") or ""
-        row["url"] = getattr(fetched, "url", "") or ""
-        row["final_url"] = getattr(fetched, "final_url", "") or ""
+        row["url"] = safe_audit_url(
+            getattr(fetched, "url", "") or ""
+        )
+        row["final_url"] = safe_audit_url(
+            getattr(fetched, "final_url", "") or ""
+        )
         row["fetched_file"] = getattr(fetched, "filename", "") or ""
         row["raw_path"] = getattr(fetched, "raw_path", "") or ""
 
     # 明示指定値を優先。
     if url:
-        row["url"] = url
+        row["url"] = safe_audit_url(url)
     if content_hash:
         row["content_hash"] = content_hash
     if fetched_file:
@@ -175,7 +227,7 @@ def error_entry(
 
         response_url = getattr(response, "url", "") or ""
         if response_url:
-            row["final_url"] = response_url
+            row["final_url"] = safe_audit_url(response_url)
 
         if request is None:
             request = getattr(response, "request", None)
@@ -187,14 +239,14 @@ def error_entry(
         ) or ""
 
         if request_url:
-            row["url"] = request_url
+            row["url"] = safe_audit_url(request_url)
         elif response_url:
-            row["url"] = response_url
+            row["url"] = safe_audit_url(response_url)
 
     elif request is not None:
         request_url = getattr(request, "url", "") or ""
         if request_url:
-            row["url"] = request_url
+            row["url"] = safe_audit_url(request_url)
 
     return row
 
