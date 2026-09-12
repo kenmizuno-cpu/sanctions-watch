@@ -12,9 +12,13 @@ from __future__ import annotations
 
 import argparse
 import copy
+import logging
 import os
+import shutil
 import sys
+import tempfile
 import traceback
+from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
@@ -22,21 +26,210 @@ import requests
 from . import dashboard as D
 from . import master as M
 from . import ofac_index as OI
+from . import persistence as P
 from . import state as S
 from . import source_audit as A
 from .fetch import archive, fetch, prune_raw, read_raw
 from .sources import meti, mof, ofac
 
+LOGGER = logging.getLogger(__name__)
+
 ROOT = Path(__file__).resolve().parent.parent
-MASTER = ROOT / "data" / "master" / "master.csv"
-DIFF_MD = ROOT / "data" / "diff" / "latest.md"
-DIFF_CSV = ROOT / "data" / "diff" / "latest.csv"
-OFAC_INDEX = ROOT / "data" / "master" / "ofac_alias_history.csv"
+MASTER_REL = Path("data/master/master.csv")
+DIFF_MD_REL = Path("data/diff/latest.md")
+DIFF_CSV_REL = Path("data/diff/latest.csv")
+OFAC_INDEX_REL = Path("data/master/ofac_alias_history.csv")
+MASTER = ROOT / MASTER_REL
+DIFF_MD = ROOT / DIFF_MD_REL
+DIFF_CSV = ROOT / DIFF_CSV_REL
+OFAC_INDEX = ROOT / OFAC_INDEX_REL
 
 # Advanced XML / Party indexをmainへ導入しても、
 # 明示的に解禁するまでmaster/社内取込には反映しない。
 # 初回はParty/Alias baselineだけを確立する。
 OFAC_ADVANCED_MASTER_ENABLED = True
+
+
+def _persist_outputs_atomically(
+    *,
+    root: Path,
+    rows: dict[str, dict],
+    state: dict,
+    heartbeat: list[dict],
+    diffs: list[M.Diff],
+    ofac_index_rows=None,
+    now: datetime | None = None,
+) -> None:
+    """watchの正式成果物とdashboard投影を1世代として保存する。
+
+    全tempの書込成功後だけ正式パスへ進み、置換途中のI/O例外では
+    既に置換したファイルを旧世代へ戻す。
+
+    一次ソース原本とSource Audit Ledgerは失敗時にも残す証跡なので、
+    この正式世代の対象外とする。
+    """
+    now = now or datetime.now(timezone.utc)
+    writes: list[P.FileWrite] = []
+
+    if ofac_index_rows is not None:
+        writes.append(
+            P.FileWrite(
+                target=(
+                    root
+                    / OFAC_INDEX_REL
+                ),
+                writer=lambda path: OI.save(
+                    ofac_index_rows,
+                    path,
+                ),
+            )
+        )
+
+    heartbeat_path = (
+        root
+        / S.HEARTBEAT_DIR
+        / f"{now:%Y-%m}.csv"
+    )
+    writes.append(
+        P.FileWrite(
+            target=heartbeat_path,
+            writer=lambda path: S.append_heartbeat(
+                path,
+                heartbeat,
+                now=now,
+            ),
+            seed_existing=True,
+        )
+    )
+
+    if diffs:
+        writes.extend([
+            P.FileWrite(
+                target=root / MASTER_REL,
+                writer=lambda path: M.save(rows, path),
+            ),
+            P.FileWrite(
+                target=root / DIFF_MD_REL,
+                writer=lambda path: path.write_text(
+                    M.render_markdown(diffs),
+                    encoding="utf-8",
+                ),
+            ),
+            P.FileWrite(
+                target=root / DIFF_CSV_REL,
+                writer=lambda path: M.write_diff_csv(
+                    diffs,
+                    path,
+                ),
+            ),
+        ])
+
+    projection_root = Path(tempfile.mkdtemp(
+        prefix="sanctions-watch-dashboard-",
+    ))
+
+    try:
+        source_heartbeat_dir = root / S.HEARTBEAT_DIR
+        projection_heartbeat_dir = (
+            projection_root
+            / S.HEARTBEAT_DIR
+        )
+
+        if source_heartbeat_dir.exists():
+            shutil.copytree(
+                source_heartbeat_dir,
+                projection_heartbeat_dir,
+            )
+
+        S.heartbeat(
+            projection_root,
+            heartbeat,
+            now=now,
+        )
+
+        changes_rel = D.DASH / "changes.csv"
+        source_changes = root / changes_rel
+        projection_changes = projection_root / changes_rel
+
+        if source_changes.exists():
+            projection_changes.parent.mkdir(
+                parents=True,
+                exist_ok=True,
+            )
+            shutil.copy2(
+                source_changes,
+                projection_changes,
+            )
+
+        D.write_status(
+            projection_root,
+            heartbeat,
+            state,
+        )
+        D.append_changes(
+            projection_root,
+            M.diff_rows(diffs) if diffs else [],
+            when=now.astimezone(D.JST).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            ),
+        )
+
+        projection_paths = [
+            D.DASH / "status.csv",
+            changes_rel,
+        ]
+
+        list_rel = D.DASH / "list.csv"
+
+        if diffs or not (root / list_rel).exists():
+            D.write_list(
+                projection_root,
+                rows,
+            )
+            projection_paths.append(list_rel)
+
+        D.write_screening_gzip(
+            projection_root,
+            rows,
+        )
+        projection_paths.extend([
+            D.DASH / "screening.csv",
+            D.DASH / "screening.csv.gz",
+        ])
+
+        for relative_path in projection_paths:
+            source_path = projection_root / relative_path
+            writes.append(
+                P.FileWrite(
+                    target=root / relative_path,
+                    writer=(
+                        lambda path, source_path=source_path:
+                        shutil.copyfile(source_path, path)
+                    ),
+                )
+            )
+
+        # stateを最後のcommit markerとして確定する。
+        writes.append(
+            P.FileWrite(
+                target=root / S.STATE,
+                writer=lambda path: S.write_state(
+                    path,
+                    state,
+                ),
+            )
+        )
+
+        P.atomic_replace_many(writes)
+    finally:
+        try:
+            shutil.rmtree(projection_root)
+        except Exception as cleanup_error:
+            LOGGER.error(
+                "dashboard projection cleanup failed: %s: %s",
+                projection_root,
+                cleanup_error,
+            )
 
 
 def log(status: str, name: str, msg: str = "") -> None:
@@ -822,8 +1015,8 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         )
 
     # mergeまで正常完了したsnapshotだけmaster同期済みとする。
-    # main() はmaster保存後にstateを保存するため、途中失敗時は
-    # 次回もう一度安全にrolloutを再実行できる。
+    # main() はmaster/state/Party Indexを永続化トランザクションで
+    # 確定するため、保存失敗時は旧世代へ戻して次回再実行できる。
     for key in ofac.LISTS:
         state_row = st.get(key)
 
@@ -1319,37 +1512,13 @@ def main() -> int:
         print(M.render_markdown(diffs))
         return 1 if failed else 0
 
-    if opts.get("ofac_index_rows") is not None:
-        OI.save(
-            opts["ofac_index_rows"],
-            OFAC_INDEX,
-        )
-
-    S.heartbeat(ROOT, hb)
-    if diffs:
-        M.save(rows, MASTER)
-        DIFF_MD.parent.mkdir(parents=True, exist_ok=True)
-        DIFF_MD.write_text(M.render_markdown(diffs), encoding="utf-8")
-        M.write_diff_csv(diffs, DIFF_CSV)
-    S.save_state(ROOT, st)
-
-    # スプレッドシート取込用。status は変更が無い回も必ず書く。
-    # ここが古いままなら Actions が止まっていると判断できるため。
-    D.write_status(ROOT, hb, st)
-
-    # changes と list は差分が無くても、無ければ作る。差分が出るまで
-    # ファイルが存在しないと、シート側の設定時に404で詰まる。
-    # 内容が変わらなければ git 上は差分にならないので毎回書いてよい。
-    D.append_changes(ROOT, M.diff_rows(diffs) if diffs else [])
-    if diffs or not (ROOT / D.DASH / "list.csv").exists():
-        D.write_list(ROOT, rows)
-
-    # screening用gzipは毎回決定論的に再生成する。
-    # source差分が無い回でもscreening正規化ロジック変更を反映する。
-    # gzip内部がactive masterと一致しなければ例外でfail closedする。
-    D.write_screening_gzip(
-        ROOT,
-        rows,
+    _persist_outputs_atomically(
+        root=ROOT,
+        rows=rows,
+        state=st,
+        heartbeat=hb,
+        diffs=diffs,
+        ofac_index_rows=opts.get("ofac_index_rows"),
     )
 
     # 後続ステップ用の出力

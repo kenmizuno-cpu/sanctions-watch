@@ -2,6 +2,7 @@ import csv
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from src import dashboard as D
 from src.normalize import match_key
@@ -266,6 +267,41 @@ class DashboardScreeningTest(
                 restored,
                 raw,
             )
+
+    def test_gzip_cleanup_failure_does_not_mask_write_failure(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            real_unlink = Path.unlink
+
+            def fail_tmp_cleanup(path, *args, **kwargs):
+                if path.name.endswith(".tmp"):
+                    raise OSError("injected gzip cleanup failure")
+
+                return real_unlink(path, *args, **kwargs)
+
+            with (
+                patch.object(
+                    D.gzip.GzipFile,
+                    "write",
+                    side_effect=OSError(
+                        "injected gzip write failure"
+                    ),
+                ),
+                patch.object(
+                    Path,
+                    "unlink",
+                    side_effect=fail_tmp_cleanup,
+                    autospec=True,
+                ),
+            ):
+                with self.assertRaisesRegex(
+                    OSError,
+                    "injected gzip write failure",
+                ):
+                    D.write_screening_gzip(
+                        root,
+                        [entry("ALPHA CORP")],
+                    )
 
     def test_gzip_is_deterministic(self):
         import hashlib
