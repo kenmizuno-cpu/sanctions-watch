@@ -152,6 +152,90 @@ runs:
         SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook }}
       run: python -m src.notify --kind meti
 
+    - name: OFAC 失敗証跡を準備
+      if: failure() && (contains(inputs.sources, 'ofac') || inputs.sources == 'all')
+      shell: bash
+      run: |
+        set -u
+
+        EVIDENCE=".failure-evidence"
+        rm -rf "$EVIDENCE"
+
+        mkdir -p           "$EVIDENCE/data/source_audit"           "$EVIDENCE/data/heartbeat"           "$EVIDENCE/data/dashboard"           "$EVIDENCE/data/raw"
+
+        {
+          echo "captured_at_utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          echo "GITHUB_RUN_ID=${GITHUB_RUN_ID:-}"
+          echo "GITHUB_RUN_ATTEMPT=${GITHUB_RUN_ATTEMPT:-}"
+          echo "GITHUB_SHA=${GITHUB_SHA:-}"
+          echo "sources=${{ inputs.sources }}"
+          echo ""
+          echo "===== git status --short ====="
+          git status --short --untracked-files=all || true
+        } > "$EVIDENCE/manifest.txt"
+
+        git status --short --untracked-files=all           > "$EVIDENCE/git-status.txt" || true
+
+        git diff           > "$EVIDENCE/worktree.diff" || true
+
+        git diff --cached           > "$EVIDENCE/index.diff" || true
+
+        if [ -d data/source_audit/ ]; then
+          cp -a             data/source_audit/.             "$EVIDENCE/data/source_audit/"
+        fi
+
+        if [ -d data/heartbeat/ ]; then
+          cp -a             data/heartbeat/.             "$EVIDENCE/data/heartbeat/"
+        fi
+
+        if [ -f data/state.json ]; then
+          cp -p             data/state.json             "$EVIDENCE/data/state.json"
+        fi
+
+        if [ -f data/dashboard/status.csv ]; then
+          cp -p             data/dashboard/status.csv             "$EVIDENCE/data/dashboard/status.csv"
+        fi
+
+        # 今回のrunで新規取得したOFAC rawだけを保存する。
+        # 過去全世代をArtifactへ重複保存しない。
+        for RAW_ROOT in           data/raw/ofac_sdn/           data/raw/ofac_sdn_advanced/           data/raw/ofac_cons/           data/raw/ofac_cons_advanced/
+        do
+          ROOT_NO_SLASH="${RAW_ROOT%/}"
+
+          if [ ! -d "$ROOT_NO_SLASH" ]; then
+            continue
+          fi
+
+          git ls-files             --others             --exclude-standard             -- "$ROOT_NO_SLASH" |
+          while IFS= read -r SRC
+          do
+            [ -f "$SRC" ] || continue
+
+            DEST="$EVIDENCE/$SRC"
+            mkdir -p "$(dirname "$DEST")"
+            cp -p "$SRC" "$DEST"
+
+            {
+              printf '%s  ' "$(shasum -a 256 "$SRC" | awk '{print $1}')"
+              wc -c < "$SRC" | tr -d ' '
+              printf ' bytes  %s\n' "$SRC"
+            } >> "$EVIDENCE/raw-files.txt"
+          done
+        done
+
+        echo ""
+        echo "===== FAILURE EVIDENCE ====="
+        find "$EVIDENCE" -type f -print | sort
+
+    - name: OFAC 失敗証跡を保存
+      if: failure() && (contains(inputs.sources, 'ofac') || inputs.sources == 'all')
+      uses: actions/upload-artifact@v4
+      with:
+        name: ofac-failure-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+        path: .failure-evidence/
+        retention-days: 90
+        if-no-files-found: error
+
     - name: 失敗を通知
       if: failure()
       shell: bash
