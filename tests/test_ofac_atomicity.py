@@ -61,12 +61,15 @@ class OfacAtomicityTest(unittest.TestCase):
                 "sha256": f"{key}-primary-sha",
                 "etag": f'"{key}-primary-etag"',
                 "last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "filename": f"{key}-primary.csv",
                 "alt_sha256": f"{key}-alias-sha",
                 "alt_etag": f'"{key}-alias-etag"',
                 "alt_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "alt_filename": f"{key}-alias.csv",
                 "advanced_sha256": f"{key}-advanced-sha",
                 "advanced_etag": f'"{key}-advanced-etag"',
                 "advanced_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "advanced_filename": f"{key}-advanced.xml",
                 "raw_advanced": f"data/raw/old/{key}.xml.gz",
                 "advanced_baseline_synced": True,
                 "advanced_master_synced": True,
@@ -96,6 +99,15 @@ class OfacAtomicityTest(unittest.TestCase):
             fetched = FakeFetched(
                 url,
                 sha256=previous.get("sha256", ""),
+            )
+            fetched.etag = previous.get("etag", "")
+            fetched.last_modified = previous.get(
+                "last_modified",
+                "",
+            )
+            fetched.filename = previous.get(
+                "filename",
+                "",
             )
             fetched.not_modified = True
             fetched.body = None
@@ -128,7 +140,11 @@ class OfacAtomicityTest(unittest.TestCase):
             )
 
         expected_urls = []
-        expected_sha = {}
+        expected_previous = {}
+        expected_filenames = []
+        last_modified = (
+            "Sat, 12 Sep 2026 00:00:00 GMT"
+        )
 
         for key, cfg in ofac.LISTS.items():
             expected_urls.extend([
@@ -136,15 +152,31 @@ class OfacAtomicityTest(unittest.TestCase):
                 cfg["alt"],
                 cfg["advanced"],
             ])
-            expected_sha[cfg["prim"]] = (
-                f"{key}-primary-sha"
-            )
-            expected_sha[cfg["alt"]] = (
-                f"{key}-alias-sha"
-            )
-            expected_sha[cfg["advanced"]] = (
-                f"{key}-advanced-sha"
-            )
+
+            expected_previous[cfg["prim"]] = {
+                "sha256": f"{key}-primary-sha",
+                "etag": f'"{key}-primary-etag"',
+                "last_modified": last_modified,
+                "filename": f"{key}-primary.csv",
+            }
+            expected_previous[cfg["alt"]] = {
+                "sha256": f"{key}-alias-sha",
+                "etag": f'"{key}-alias-etag"',
+                "last_modified": last_modified,
+                "filename": f"{key}-alias.csv",
+            }
+            expected_previous[cfg["advanced"]] = {
+                "sha256": f"{key}-advanced-sha",
+                "etag": f'"{key}-advanced-etag"',
+                "last_modified": last_modified,
+                "filename": f"{key}-advanced.xml",
+            }
+
+            expected_filenames.extend([
+                f"{key}-primary.csv",
+                f"{key}-alias.csv",
+                f"{key}-advanced.xml",
+            ])
 
         self.assertCountEqual(
             [url for url, _, _ in seen],
@@ -160,12 +192,138 @@ class OfacAtomicityTest(unittest.TestCase):
         )
         self.assertEqual(
             {
-                url: previous.get("sha256")
+                url: previous
                 for url, previous, _ in seen
             },
-            expected_sha,
-            "文書ごとに独立した前回SHAを使用する",
+            expected_previous,
+            "文書ごとに独立した前回メタデータを使用する",
         )
+        self.assertCountEqual(
+            [
+                row["fetched_file"]
+                for row in opts["audit"]
+                if row["status"] == "unchanged"
+            ],
+            expected_filenames,
+            "304監査行にも各文書名を残す",
+        )
+        self.assertEqual(result, [])
+
+    def test_same_sha_http_200_refreshes_document_metadata(self):
+        st = {}
+        role_by_url = {}
+
+        for key, cfg in ofac.LISTS.items():
+            st[key] = {
+                "sha256": f"{key}-primary-sha",
+                "etag": f'"{key}-old-primary-etag"',
+                "last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "filename": f"{key}-old-primary.csv",
+                "alt_sha256": f"{key}-alt-sha",
+                "alt_etag": f'"{key}-old-alt-etag"',
+                "alt_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "alt_filename": f"{key}-old-alt.csv",
+                "advanced_sha256": f"{key}-advanced-sha",
+                "advanced_etag": f'"{key}-old-advanced-etag"',
+                "advanced_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "advanced_filename": f"{key}-old-advanced.xml",
+                "raw_advanced": f"data/raw/old/{key}.xml.gz",
+                "advanced_baseline_synced": True,
+                "advanced_master_synced": True,
+                "record_count": 1,
+            }
+
+            role_by_url[cfg["prim"]] = (key, "primary")
+            role_by_url[cfg["alt"]] = (key, "alt")
+            role_by_url[cfg["advanced"]] = (key, "advanced")
+
+        rows = {}
+        hb = []
+        opts = {"audit": []}
+
+        def fake_fetch(
+            url,
+            prev=None,
+            session=None,
+            allow_conditional=True,
+        ):
+            key, role = role_by_url[url]
+            fetched = FakeFetched(
+                url,
+                sha256=(prev or {}).get("sha256", ""),
+            )
+            fetched.etag = f'"{key}-new-{role}-etag"'
+            fetched.last_modified = (
+                "Sun, 13 Sep 2026 00:00:00 GMT"
+            )
+            fetched.filename = f"{key}-new-{role}.dat"
+            fetched.not_modified = False
+            fetched.http_status = 200
+            return fetched
+
+        with (
+            patch.object(
+                watch,
+                "fetch",
+                side_effect=fake_fetch,
+            ),
+            patch.object(
+                watch.OI,
+                "load",
+                return_value={},
+            ),
+            patch.object(
+                watch,
+                "_sync_ofac_weak_alias_audit",
+                return_value=0,
+            ),
+        ):
+            result = watch.run_ofac(
+                session=object(),
+                st=st,
+                rows=rows,
+                hb=hb,
+                opts=opts,
+            )
+
+        for key in ofac.LISTS:
+            self.assertEqual(
+                st[key]["etag"],
+                f'"{key}-new-primary-etag"',
+            )
+            self.assertEqual(
+                st[key]["last_modified"],
+                "Sun, 13 Sep 2026 00:00:00 GMT",
+            )
+            self.assertEqual(
+                st[key]["filename"],
+                f"{key}-new-primary.dat",
+            )
+            self.assertEqual(
+                st[key]["alt_etag"],
+                f'"{key}-new-alt-etag"',
+            )
+            self.assertEqual(
+                st[key]["alt_last_modified"],
+                "Sun, 13 Sep 2026 00:00:00 GMT",
+            )
+            self.assertEqual(
+                st[key]["alt_filename"],
+                f"{key}-new-alt.dat",
+            )
+            self.assertEqual(
+                st[key]["advanced_etag"],
+                f'"{key}-new-advanced-etag"',
+            )
+            self.assertEqual(
+                st[key]["advanced_last_modified"],
+                "Sun, 13 Sep 2026 00:00:00 GMT",
+            )
+            self.assertEqual(
+                st[key]["advanced_filename"],
+                f"{key}-new-advanced.dat",
+            )
+
         self.assertEqual(result, [])
 
     def test_alias_or_advanced_only_change_triggers_validation(self):
@@ -500,6 +658,12 @@ class OfacAtomicityTest(unittest.TestCase):
             rows,
             before_rows,
             "OFAC失敗時にmaster rowsを部分更新してはいけない",
+        )
+
+        self.assertEqual(
+            hb,
+            [],
+            "OFAC全体失敗時に正常heartbeatを残してはいけない",
         )
 
 

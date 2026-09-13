@@ -586,12 +586,15 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     # OFAC SDN + Consolidated を1つのトランザクションとして扱う。
     #
     # 途中で片側取得失敗・coverage不一致・Party終了検査・
-    # master merge失敗等が起きても、呼出元のstate/masterは触らない。
+    # master merge失敗等が起きても、
+    # 呼出元のstate/master/heartbeatは触らない。
     original_st = st
     original_rows = rows
+    original_hb = hb
 
     st = copy.deepcopy(st)
     rows = copy.deepcopy(rows)
+    hb = []
 
     def commit_staged() -> None:
         original_st.clear()
@@ -599,6 +602,8 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
 
         original_rows.clear()
         original_rows.update(rows)
+
+        original_hb.extend(hb)
 
     records: list = []
     unchanged: list[tuple[str, dict]] = []
@@ -627,6 +632,10 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                         "last_modified",
                         "",
                     ),
+                    "filename": prev.get(
+                        "filename",
+                        "",
+                    ),
                 },
                 "audit_role": "classic_primary",
             },
@@ -637,6 +646,10 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                     "etag": prev.get("alt_etag", ""),
                     "last_modified": prev.get(
                         "alt_last_modified",
+                        "",
+                    ),
+                    "filename": prev.get(
+                        "alt_filename",
                         "",
                     ),
                 },
@@ -655,6 +668,10 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                     ),
                     "last_modified": prev.get(
                         "advanced_last_modified",
+                        "",
+                    ),
+                    "filename": prev.get(
+                        "advanced_filename",
                         "",
                     ),
                 },
@@ -719,6 +736,51 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                 detail,
             )
 
+            # SHA256が同一でもHTTP 200で返された場合は、
+            # 次回の条件付きGETに使う取得メタデータを更新する。
+            # 304だった文書と、実質更新を示すsource_updated等は維持する。
+            refreshed_prev = copy.deepcopy(prev)
+
+            metadata_fields = {
+                "prim": (
+                    "sha256",
+                    "etag",
+                    "last_modified",
+                    "filename",
+                ),
+                "alt": (
+                    "alt_sha256",
+                    "alt_etag",
+                    "alt_last_modified",
+                    "alt_filename",
+                ),
+                "advanced": (
+                    "advanced_sha256",
+                    "advanced_etag",
+                    "advanced_last_modified",
+                    "advanced_filename",
+                ),
+            }
+
+            for role, fields in metadata_fields.items():
+                fetched = fetched_documents[role]
+
+                if fetched.not_modified:
+                    continue
+
+                values = (
+                    fetched.sha256,
+                    fetched.etag,
+                    fetched.last_modified,
+                    fetched.filename,
+                )
+
+                refreshed_prev.update(
+                    dict(zip(fields, values))
+                )
+
+            st[key] = refreshed_prev
+
             hb.append(
                 dict(
                     source=key,
@@ -763,7 +825,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                 ]
             )
 
-            unchanged.append((key, prev))
+            unchanged.append((key, refreshed_prev))
             continue
 
         fetched_any = True
