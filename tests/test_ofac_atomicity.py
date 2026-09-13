@@ -55,6 +55,475 @@ def record(label: str, fmt: str) -> dict:
 
 class OfacAtomicityTest(unittest.TestCase):
 
+    def test_unchanged_primary_still_checks_alias_and_advanced(self):
+        def make_state(key):
+            return {
+                "sha256": f"{key}-primary-sha",
+                "etag": f'"{key}-primary-etag"',
+                "last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "filename": f"{key}-primary.csv",
+                "alt_sha256": f"{key}-alias-sha",
+                "alt_etag": f'"{key}-alias-etag"',
+                "alt_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "alt_filename": f"{key}-alias.csv",
+                "advanced_sha256": f"{key}-advanced-sha",
+                "advanced_etag": f'"{key}-advanced-etag"',
+                "advanced_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "advanced_filename": f"{key}-advanced.xml",
+                "raw_advanced": f"data/raw/old/{key}.xml.gz",
+                "advanced_baseline_synced": True,
+                "advanced_master_synced": True,
+                "record_count": 1,
+            }
+
+        st = {
+            key: make_state(key)
+            for key in ofac.LISTS
+        }
+        rows = {}
+        hb = []
+        opts = {"audit": []}
+        seen = []
+
+        def fake_fetch(
+            url,
+            prev=None,
+            session=None,
+            allow_conditional=True,
+        ):
+            previous = copy.deepcopy(prev or {})
+            seen.append(
+                (url, previous, allow_conditional)
+            )
+
+            fetched = FakeFetched(
+                url,
+                sha256=previous.get("sha256", ""),
+            )
+            fetched.etag = previous.get("etag", "")
+            fetched.last_modified = previous.get(
+                "last_modified",
+                "",
+            )
+            fetched.filename = previous.get(
+                "filename",
+                "",
+            )
+            fetched.not_modified = True
+            fetched.body = None
+            fetched.http_status = 304
+            return fetched
+
+        with (
+            patch.object(
+                watch,
+                "fetch",
+                side_effect=fake_fetch,
+            ),
+            patch.object(
+                watch.OI,
+                "load",
+                return_value={},
+            ),
+            patch.object(
+                watch,
+                "_sync_ofac_weak_alias_audit",
+                return_value=0,
+            ),
+        ):
+            result = watch.run_ofac(
+                session=object(),
+                st=st,
+                rows=rows,
+                hb=hb,
+                opts=opts,
+            )
+
+        expected_urls = []
+        expected_previous = {}
+        expected_filenames = []
+        last_modified = (
+            "Sat, 12 Sep 2026 00:00:00 GMT"
+        )
+
+        for key, cfg in ofac.LISTS.items():
+            expected_urls.extend([
+                cfg["prim"],
+                cfg["alt"],
+                cfg["advanced"],
+            ])
+
+            expected_previous[cfg["prim"]] = {
+                "sha256": f"{key}-primary-sha",
+                "etag": f'"{key}-primary-etag"',
+                "last_modified": last_modified,
+                "filename": f"{key}-primary.csv",
+            }
+            expected_previous[cfg["alt"]] = {
+                "sha256": f"{key}-alias-sha",
+                "etag": f'"{key}-alias-etag"',
+                "last_modified": last_modified,
+                "filename": f"{key}-alias.csv",
+            }
+            expected_previous[cfg["advanced"]] = {
+                "sha256": f"{key}-advanced-sha",
+                "etag": f'"{key}-advanced-etag"',
+                "last_modified": last_modified,
+                "filename": f"{key}-advanced.xml",
+            }
+
+            expected_filenames.extend([
+                f"{key}-primary.csv",
+                f"{key}-alias.csv",
+                f"{key}-advanced.xml",
+            ])
+
+        self.assertCountEqual(
+            [url for url, _, _ in seen],
+            expected_urls,
+            "Primaryが304でもAliasとAdvancedを確認する",
+        )
+        self.assertTrue(
+            all(
+                allow_conditional
+                for _, _, allow_conditional in seen
+            ),
+            "3文書すべて条件付きGETで確認する",
+        )
+        self.assertEqual(
+            {
+                url: previous
+                for url, previous, _ in seen
+            },
+            expected_previous,
+            "文書ごとに独立した前回メタデータを使用する",
+        )
+        self.assertCountEqual(
+            [
+                row["fetched_file"]
+                for row in opts["audit"]
+                if row["status"] == "unchanged"
+            ],
+            expected_filenames,
+            "304監査行にも各文書名を残す",
+        )
+        self.assertEqual(result, [])
+
+    def test_same_sha_http_200_refreshes_document_metadata(self):
+        st = {}
+        role_by_url = {}
+
+        for key, cfg in ofac.LISTS.items():
+            st[key] = {
+                "sha256": f"{key}-primary-sha",
+                "etag": f'"{key}-old-primary-etag"',
+                "last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "filename": f"{key}-old-primary.csv",
+                "alt_sha256": f"{key}-alt-sha",
+                "alt_etag": f'"{key}-old-alt-etag"',
+                "alt_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "alt_filename": f"{key}-old-alt.csv",
+                "advanced_sha256": f"{key}-advanced-sha",
+                "advanced_etag": f'"{key}-old-advanced-etag"',
+                "advanced_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "advanced_filename": f"{key}-old-advanced.xml",
+                "raw_advanced": f"data/raw/old/{key}.xml.gz",
+                "advanced_baseline_synced": True,
+                "advanced_master_synced": True,
+                "record_count": 1,
+            }
+
+            role_by_url[cfg["prim"]] = (key, "primary")
+            role_by_url[cfg["alt"]] = (key, "alt")
+            role_by_url[cfg["advanced"]] = (key, "advanced")
+
+        rows = {}
+        hb = []
+        opts = {"audit": []}
+
+        def fake_fetch(
+            url,
+            prev=None,
+            session=None,
+            allow_conditional=True,
+        ):
+            key, role = role_by_url[url]
+            fetched = FakeFetched(
+                url,
+                sha256=(prev or {}).get("sha256", ""),
+            )
+            fetched.etag = f'"{key}-new-{role}-etag"'
+            fetched.last_modified = (
+                "Sun, 13 Sep 2026 00:00:00 GMT"
+            )
+            fetched.filename = f"{key}-new-{role}.dat"
+            fetched.not_modified = False
+            fetched.http_status = 200
+            return fetched
+
+        with (
+            patch.object(
+                watch,
+                "fetch",
+                side_effect=fake_fetch,
+            ),
+            patch.object(
+                watch.OI,
+                "load",
+                return_value={},
+            ),
+            patch.object(
+                watch,
+                "_sync_ofac_weak_alias_audit",
+                return_value=0,
+            ),
+        ):
+            result = watch.run_ofac(
+                session=object(),
+                st=st,
+                rows=rows,
+                hb=hb,
+                opts=opts,
+            )
+
+        for key in ofac.LISTS:
+            self.assertEqual(
+                st[key]["etag"],
+                f'"{key}-new-primary-etag"',
+            )
+            self.assertEqual(
+                st[key]["last_modified"],
+                "Sun, 13 Sep 2026 00:00:00 GMT",
+            )
+            self.assertEqual(
+                st[key]["filename"],
+                f"{key}-new-primary.dat",
+            )
+            self.assertEqual(
+                st[key]["alt_etag"],
+                f'"{key}-new-alt-etag"',
+            )
+            self.assertEqual(
+                st[key]["alt_last_modified"],
+                "Sun, 13 Sep 2026 00:00:00 GMT",
+            )
+            self.assertEqual(
+                st[key]["alt_filename"],
+                f"{key}-new-alt.dat",
+            )
+            self.assertEqual(
+                st[key]["advanced_etag"],
+                f'"{key}-new-advanced-etag"',
+            )
+            self.assertEqual(
+                st[key]["advanced_last_modified"],
+                "Sun, 13 Sep 2026 00:00:00 GMT",
+            )
+            self.assertEqual(
+                st[key]["advanced_filename"],
+                f"{key}-new-advanced.dat",
+            )
+
+        self.assertEqual(result, [])
+
+    def test_alias_or_advanced_only_change_triggers_validation(self):
+        def old_sha(key, role):
+            if role == "prim":
+                return f"{key}-primary-sha"
+            return f"{key}-{role}-sha"
+
+        for changed_role in ("alt", "advanced"):
+            with self.subTest(changed_role=changed_role):
+                st = {}
+                role_by_url = {}
+
+                for key, cfg in ofac.LISTS.items():
+                    st[key] = {
+                        "sha256": old_sha(key, "prim"),
+                        "etag": f'"{key}-primary-etag"',
+                        "last_modified": (
+                            "Sat, 12 Sep 2026 00:00:00 GMT"
+                        ),
+                        "alt_sha256": old_sha(key, "alt"),
+                        "alt_etag": f'"{key}-alt-etag"',
+                        "alt_last_modified": (
+                            "Sat, 12 Sep 2026 00:00:00 GMT"
+                        ),
+                        "advanced_sha256": old_sha(
+                            key,
+                            "advanced",
+                        ),
+                        "advanced_etag": (
+                            f'"{key}-advanced-etag"'
+                        ),
+                        "advanced_last_modified": (
+                            "Sat, 12 Sep 2026 00:00:00 GMT"
+                        ),
+                        "raw_advanced": (
+                            f"data/raw/old/{key}.xml.gz"
+                        ),
+                        "advanced_baseline_synced": True,
+                        "advanced_master_synced": True,
+                        "record_count": 1,
+                    }
+
+                    role_by_url[cfg["prim"]] = (
+                        key,
+                        "prim",
+                    )
+                    role_by_url[cfg["alt"]] = (
+                        key,
+                        "alt",
+                    )
+                    role_by_url[cfg["advanced"]] = (
+                        key,
+                        "advanced",
+                    )
+
+                rows = {}
+                hb = []
+                opts = {"audit": []}
+
+                def fake_fetch(
+                    url,
+                    prev=None,
+                    session=None,
+                    allow_conditional=True,
+                ):
+                    key, role = role_by_url[url]
+                    previous_sha = (prev or {}).get(
+                        "sha256",
+                        "",
+                    )
+
+                    sha256 = (
+                        f"{key}-{role}-changed-sha"
+                        if role == changed_role
+                        else previous_sha
+                    )
+
+                    fetched = FakeFetched(
+                        url,
+                        sha256=sha256,
+                    )
+
+                    if (
+                        allow_conditional
+                        and role != changed_role
+                    ):
+                        fetched.not_modified = True
+                        fetched.body = None
+                        fetched.http_status = 304
+
+                    return fetched
+
+                def fake_advanced(fetched, label):
+                    return (
+                        [
+                            record(
+                                label,
+                                "advanced_xml_v3",
+                            )
+                        ],
+                        {"1"},
+                    )
+
+                def fake_classic(prim, alt, label):
+                    return [
+                        record(
+                            label,
+                            "classic_csv",
+                        )
+                    ]
+
+                with (
+                    patch.object(
+                        watch,
+                        "fetch",
+                        side_effect=fake_fetch,
+                    ),
+                    patch.object(watch, "archive"),
+                    patch.object(watch, "prune_raw"),
+                    patch.object(
+                        watch.ofac,
+                        "classic_party_ids",
+                        return_value={"1"},
+                    ),
+                    patch.object(
+                        watch.ofac,
+                        "parse_advanced",
+                        side_effect=fake_advanced,
+                    ) as parse_advanced_mock,
+                    patch.object(
+                        watch.ofac,
+                        "parse",
+                        side_effect=fake_classic,
+                    ) as parse_classic_mock,
+                    patch.object(
+                        watch.ofac,
+                        "validate_party_coverage",
+                    ) as coverage_mock,
+                    patch.object(
+                        watch.OI,
+                        "load",
+                        return_value={},
+                    ),
+                    patch.object(
+                        watch.OI,
+                        "update",
+                        return_value=watch.OI.IndexDiff(),
+                    ),
+                    patch.object(
+                        watch.M,
+                        "merge",
+                        return_value=watch.M.Diff(
+                            source=ofac.SOURCE,
+                        ),
+                    ),
+                    patch.object(
+                        watch,
+                        "_sync_ofac_weak_alias_audit",
+                        return_value=0,
+                    ),
+                ):
+                    watch.run_ofac(
+                        session=object(),
+                        st=st,
+                        rows=rows,
+                        hb=hb,
+                        opts=opts,
+                    )
+
+                expected_calls = len(ofac.LISTS)
+
+                self.assertEqual(
+                    parse_advanced_mock.call_count,
+                    expected_calls,
+                    f"{changed_role}単独変更でもAdvancedを検証する",
+                )
+                self.assertEqual(
+                    parse_classic_mock.call_count,
+                    expected_calls,
+                    f"{changed_role}単独変更でもClassicを検証する",
+                )
+                self.assertEqual(
+                    coverage_mock.call_count,
+                    expected_calls,
+                    f"{changed_role}単独変更でもcoverageを検証する",
+                )
+
+                state_field = (
+                    "alt_sha256"
+                    if changed_role == "alt"
+                    else "advanced_sha256"
+                )
+
+                for key in ofac.LISTS:
+                    self.assertEqual(
+                        st[key][state_field],
+                        f"{key}-{changed_role}-changed-sha",
+                    )
+
     def test_second_list_failure_does_not_mutate_state_or_rows(self):
         st = {
             "ofac_sdn": {
@@ -189,6 +658,12 @@ class OfacAtomicityTest(unittest.TestCase):
             rows,
             before_rows,
             "OFAC失敗時にmaster rowsを部分更新してはいけない",
+        )
+
+        self.assertEqual(
+            hb,
+            [],
+            "OFAC全体失敗時に正常heartbeatを残してはいけない",
         )
 
 

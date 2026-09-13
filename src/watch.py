@@ -586,12 +586,15 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     # OFAC SDN + Consolidated を1つのトランザクションとして扱う。
     #
     # 途中で片側取得失敗・coverage不一致・Party終了検査・
-    # master merge失敗等が起きても、呼出元のstate/masterは触らない。
+    # master merge失敗等が起きても、
+    # 呼出元のstate/master/heartbeatは触らない。
     original_st = st
     original_rows = rows
+    original_hb = hb
 
     st = copy.deepcopy(st)
     rows = copy.deepcopy(rows)
+    hb = []
 
     def commit_staged() -> None:
         original_st.clear()
@@ -599,6 +602,8 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
 
         original_rows.clear()
         original_rows.update(rows)
+
+        original_hb.extend(hb)
 
     records: list = []
     unchanged: list[tuple[str, dict]] = []
@@ -615,31 +620,166 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             and prev.get("advanced_baseline_synced")
         )
 
-        prim = fetch(
-            cfg["prim"],
-            prev=prev,
-            session=session,
-        )
+        # Primary・Alias・Advancedは別々の公開文書なので、
+        # ETag / Last-Modified / SHAを文書単位で独立して照合する。
+        document_specs = {
+            "prim": {
+                "url": cfg["prim"],
+                "previous": {
+                    "sha256": prev.get("sha256", ""),
+                    "etag": prev.get("etag", ""),
+                    "last_modified": prev.get(
+                        "last_modified",
+                        "",
+                    ),
+                    "filename": prev.get(
+                        "filename",
+                        "",
+                    ),
+                },
+                "audit_role": "classic_primary",
+            },
+            "alt": {
+                "url": cfg["alt"],
+                "previous": {
+                    "sha256": prev.get("alt_sha256", ""),
+                    "etag": prev.get("alt_etag", ""),
+                    "last_modified": prev.get(
+                        "alt_last_modified",
+                        "",
+                    ),
+                    "filename": prev.get(
+                        "alt_filename",
+                        "",
+                    ),
+                },
+                "audit_role": "classic_alias",
+            },
+            "advanced": {
+                "url": cfg["advanced"],
+                "previous": {
+                    "sha256": prev.get(
+                        "advanced_sha256",
+                        "",
+                    ),
+                    "etag": prev.get(
+                        "advanced_etag",
+                        "",
+                    ),
+                    "last_modified": prev.get(
+                        "advanced_last_modified",
+                        "",
+                    ),
+                    "filename": prev.get(
+                        "advanced_filename",
+                        "",
+                    ),
+                },
+                "audit_role": "advanced_xml",
+            },
+        }
 
-        classic_unchanged = (
-            prim.not_modified
-            or (
-                bool(prev.get("sha256"))
-                and prim.sha256 == prev.get("sha256")
+        fetched_documents = {}
+        document_unchanged = {}
+
+        for role, spec in document_specs.items():
+            fetched = fetch(
+                spec["url"],
+                prev=spec["previous"],
+                session=session,
             )
-        )
+            fetched_documents[role] = fetched
 
-        if classic_unchanged and not bootstrap_advanced:
+            previous_sha = spec["previous"].get(
+                "sha256",
+                "",
+            )
+
+            document_unchanged[role] = (
+                fetched.not_modified
+                or (
+                    bool(previous_sha)
+                    and fetched.sha256 == previous_sha
+                )
+            )
+
+        changed_roles = {
+            role
+            for role, value in document_unchanged.items()
+            if not value
+        }
+
+        if (
+            not changed_roles
+            and not bootstrap_advanced
+        ):
+            http_304_count = sum(
+                1
+                for fetched in fetched_documents.values()
+                if fetched.not_modified
+            )
+
+            detail = (
+                "Primary・Alias・Advanced "
+                "すべて変更なし"
+            )
+
+            if http_304_count:
+                detail += (
+                    " — 304 Not Modified "
+                    f"{http_304_count}/3"
+                )
+
             log(
                 "unchanged",
                 cfg["name"],
-                "変更なし"
-                + (
-                    " — 304 Not Modified（ダウンロードなし）"
-                    if prim.not_modified
-                    else ""
-                ),
+                detail,
             )
+
+            # SHA256が同一でもHTTP 200で返された場合は、
+            # 次回の条件付きGETに使う取得メタデータを更新する。
+            # 304だった文書と、実質更新を示すsource_updated等は維持する。
+            refreshed_prev = copy.deepcopy(prev)
+
+            metadata_fields = {
+                "prim": (
+                    "sha256",
+                    "etag",
+                    "last_modified",
+                    "filename",
+                ),
+                "alt": (
+                    "alt_sha256",
+                    "alt_etag",
+                    "alt_last_modified",
+                    "alt_filename",
+                ),
+                "advanced": (
+                    "advanced_sha256",
+                    "advanced_etag",
+                    "advanced_last_modified",
+                    "advanced_filename",
+                ),
+            }
+
+            for role, fields in metadata_fields.items():
+                fetched = fetched_documents[role]
+
+                if fetched.not_modified:
+                    continue
+
+                values = (
+                    fetched.sha256,
+                    fetched.etag,
+                    fetched.last_modified,
+                    fetched.filename,
+                )
+
+                refreshed_prev.update(
+                    dict(zip(fields, values))
+                )
+
+            st[key] = refreshed_prev
 
             hb.append(
                 dict(
@@ -650,50 +790,64 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                         or prev.get("sha256", "")
                     ),
                     source_updated=prev.get(
-                        "source_updated", ""
+                        "source_updated",
+                        "",
                     ),
                     record_count=prev.get(
-                        "record_count", ""
+                        "record_count",
+                        "",
                     ),
                 )
             )
 
-            audit.append(
-                A.entry(
-                    source=key,
-                    document_role="classic_primary",
-                    status="unchanged",
-                    fetched=prim,
-                    source_updated=prev.get("source_updated", ""),
-                    record_count=prev.get("record_count", ""),
-                )
+            audit.extend(
+                [
+                    A.entry(
+                        source=key,
+                        document_role=spec[
+                            "audit_role"
+                        ],
+                        status="unchanged",
+                        fetched=fetched_documents[
+                            role
+                        ],
+                        source_updated=prev.get(
+                            "source_updated",
+                            "",
+                        ),
+                        record_count=prev.get(
+                            "record_count",
+                            "",
+                        ),
+                    )
+                    for role, spec
+                    in document_specs.items()
+                ]
             )
 
-            unchanged.append((key, prev))
+            unchanged.append((key, refreshed_prev))
             continue
 
         fetched_any = True
 
-        # 304 で body が無いが Advanced bootstrap が必要な場合。
-        # 最新ClassicのParty ID照合が必要なので無条件GETを1回だけ行う。
-        if prim.not_modified or prim.body is None:
-            prim = fetch(
-                cfg["prim"],
-                session=session,
-                allow_conditional=False,
-            )
+        # 1文書でも変更された場合は、304でbodyが無い残りの文書も
+        # 無条件GETし、3文書が揃った完全snapshotで再検証する。
+        for role, spec in document_specs.items():
+            fetched = fetched_documents[role]
 
-        alt = fetch(
-            cfg["alt"],
-            session=session,
-            allow_conditional=False,
-        )
+            if (
+                fetched.not_modified
+                or fetched.body is None
+            ):
+                fetched_documents[role] = fetch(
+                    spec["url"],
+                    session=session,
+                    allow_conditional=False,
+                )
 
-        advanced = fetch(
-            cfg["advanced"],
-            session=session,
-            allow_conditional=False,
-        )
+        prim = fetched_documents["prim"]
+        alt = fetched_documents["alt"]
+        advanced = fetched_documents["advanced"]
 
         # HTTP取得に成功した時点の証跡。
         # 後段のパース/coverage検証で失敗した場合でも、
@@ -761,8 +915,28 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         records += part
         records += classic_part
 
+        changed_source_updated = next(
+            (
+                fetched_documents[role].last_modified
+                for role in (
+                    "advanced",
+                    "alt",
+                    "prim",
+                )
+                if (
+                    role in changed_roles
+                    and fetched_documents[
+                        role
+                    ].last_modified
+                )
+            ),
+            "",
+        )
+
         source_updated = (
-            advanced.last_modified
+            changed_source_updated
+            or advanced.last_modified
+            or alt.last_modified
             or prim.last_modified
         )
 
@@ -780,6 +954,10 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             classic_party_count=len(classic_ids),
             baseline_synced=True,
             advanced_baseline_synced=True,
+            alt_sha256=alt.sha256,
+            alt_etag=alt.etag,
+            alt_last_modified=alt.last_modified,
+            alt_url=cfg["alt"],
             advanced_sha256=advanced.sha256,
             advanced_etag=advanced.etag,
             advanced_last_modified=advanced.last_modified,
