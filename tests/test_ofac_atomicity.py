@@ -55,6 +55,317 @@ def record(label: str, fmt: str) -> dict:
 
 class OfacAtomicityTest(unittest.TestCase):
 
+    def test_unchanged_primary_still_checks_alias_and_advanced(self):
+        def make_state(key):
+            return {
+                "sha256": f"{key}-primary-sha",
+                "etag": f'"{key}-primary-etag"',
+                "last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "alt_sha256": f"{key}-alias-sha",
+                "alt_etag": f'"{key}-alias-etag"',
+                "alt_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "advanced_sha256": f"{key}-advanced-sha",
+                "advanced_etag": f'"{key}-advanced-etag"',
+                "advanced_last_modified": "Sat, 12 Sep 2026 00:00:00 GMT",
+                "raw_advanced": f"data/raw/old/{key}.xml.gz",
+                "advanced_baseline_synced": True,
+                "advanced_master_synced": True,
+                "record_count": 1,
+            }
+
+        st = {
+            key: make_state(key)
+            for key in ofac.LISTS
+        }
+        rows = {}
+        hb = []
+        opts = {"audit": []}
+        seen = []
+
+        def fake_fetch(
+            url,
+            prev=None,
+            session=None,
+            allow_conditional=True,
+        ):
+            previous = copy.deepcopy(prev or {})
+            seen.append(
+                (url, previous, allow_conditional)
+            )
+
+            fetched = FakeFetched(
+                url,
+                sha256=previous.get("sha256", ""),
+            )
+            fetched.not_modified = True
+            fetched.body = None
+            fetched.http_status = 304
+            return fetched
+
+        with (
+            patch.object(
+                watch,
+                "fetch",
+                side_effect=fake_fetch,
+            ),
+            patch.object(
+                watch.OI,
+                "load",
+                return_value={},
+            ),
+            patch.object(
+                watch,
+                "_sync_ofac_weak_alias_audit",
+                return_value=0,
+            ),
+        ):
+            result = watch.run_ofac(
+                session=object(),
+                st=st,
+                rows=rows,
+                hb=hb,
+                opts=opts,
+            )
+
+        expected_urls = []
+        expected_sha = {}
+
+        for key, cfg in ofac.LISTS.items():
+            expected_urls.extend([
+                cfg["prim"],
+                cfg["alt"],
+                cfg["advanced"],
+            ])
+            expected_sha[cfg["prim"]] = (
+                f"{key}-primary-sha"
+            )
+            expected_sha[cfg["alt"]] = (
+                f"{key}-alias-sha"
+            )
+            expected_sha[cfg["advanced"]] = (
+                f"{key}-advanced-sha"
+            )
+
+        self.assertCountEqual(
+            [url for url, _, _ in seen],
+            expected_urls,
+            "Primaryが304でもAliasとAdvancedを確認する",
+        )
+        self.assertTrue(
+            all(
+                allow_conditional
+                for _, _, allow_conditional in seen
+            ),
+            "3文書すべて条件付きGETで確認する",
+        )
+        self.assertEqual(
+            {
+                url: previous.get("sha256")
+                for url, previous, _ in seen
+            },
+            expected_sha,
+            "文書ごとに独立した前回SHAを使用する",
+        )
+        self.assertEqual(result, [])
+
+    def test_alias_or_advanced_only_change_triggers_validation(self):
+        def old_sha(key, role):
+            if role == "prim":
+                return f"{key}-primary-sha"
+            return f"{key}-{role}-sha"
+
+        for changed_role in ("alt", "advanced"):
+            with self.subTest(changed_role=changed_role):
+                st = {}
+                role_by_url = {}
+
+                for key, cfg in ofac.LISTS.items():
+                    st[key] = {
+                        "sha256": old_sha(key, "prim"),
+                        "etag": f'"{key}-primary-etag"',
+                        "last_modified": (
+                            "Sat, 12 Sep 2026 00:00:00 GMT"
+                        ),
+                        "alt_sha256": old_sha(key, "alt"),
+                        "alt_etag": f'"{key}-alt-etag"',
+                        "alt_last_modified": (
+                            "Sat, 12 Sep 2026 00:00:00 GMT"
+                        ),
+                        "advanced_sha256": old_sha(
+                            key,
+                            "advanced",
+                        ),
+                        "advanced_etag": (
+                            f'"{key}-advanced-etag"'
+                        ),
+                        "advanced_last_modified": (
+                            "Sat, 12 Sep 2026 00:00:00 GMT"
+                        ),
+                        "raw_advanced": (
+                            f"data/raw/old/{key}.xml.gz"
+                        ),
+                        "advanced_baseline_synced": True,
+                        "advanced_master_synced": True,
+                        "record_count": 1,
+                    }
+
+                    role_by_url[cfg["prim"]] = (
+                        key,
+                        "prim",
+                    )
+                    role_by_url[cfg["alt"]] = (
+                        key,
+                        "alt",
+                    )
+                    role_by_url[cfg["advanced"]] = (
+                        key,
+                        "advanced",
+                    )
+
+                rows = {}
+                hb = []
+                opts = {"audit": []}
+
+                def fake_fetch(
+                    url,
+                    prev=None,
+                    session=None,
+                    allow_conditional=True,
+                ):
+                    key, role = role_by_url[url]
+                    previous_sha = (prev or {}).get(
+                        "sha256",
+                        "",
+                    )
+
+                    sha256 = (
+                        f"{key}-{role}-changed-sha"
+                        if role == changed_role
+                        else previous_sha
+                    )
+
+                    fetched = FakeFetched(
+                        url,
+                        sha256=sha256,
+                    )
+
+                    if (
+                        allow_conditional
+                        and role != changed_role
+                    ):
+                        fetched.not_modified = True
+                        fetched.body = None
+                        fetched.http_status = 304
+
+                    return fetched
+
+                def fake_advanced(fetched, label):
+                    return (
+                        [
+                            record(
+                                label,
+                                "advanced_xml_v3",
+                            )
+                        ],
+                        {"1"},
+                    )
+
+                def fake_classic(prim, alt, label):
+                    return [
+                        record(
+                            label,
+                            "classic_csv",
+                        )
+                    ]
+
+                with (
+                    patch.object(
+                        watch,
+                        "fetch",
+                        side_effect=fake_fetch,
+                    ),
+                    patch.object(watch, "archive"),
+                    patch.object(watch, "prune_raw"),
+                    patch.object(
+                        watch.ofac,
+                        "classic_party_ids",
+                        return_value={"1"},
+                    ),
+                    patch.object(
+                        watch.ofac,
+                        "parse_advanced",
+                        side_effect=fake_advanced,
+                    ) as parse_advanced_mock,
+                    patch.object(
+                        watch.ofac,
+                        "parse",
+                        side_effect=fake_classic,
+                    ) as parse_classic_mock,
+                    patch.object(
+                        watch.ofac,
+                        "validate_party_coverage",
+                    ) as coverage_mock,
+                    patch.object(
+                        watch.OI,
+                        "load",
+                        return_value={},
+                    ),
+                    patch.object(
+                        watch.OI,
+                        "update",
+                        return_value=watch.OI.IndexDiff(),
+                    ),
+                    patch.object(
+                        watch.M,
+                        "merge",
+                        return_value=watch.M.Diff(
+                            source=ofac.SOURCE,
+                        ),
+                    ),
+                    patch.object(
+                        watch,
+                        "_sync_ofac_weak_alias_audit",
+                        return_value=0,
+                    ),
+                ):
+                    watch.run_ofac(
+                        session=object(),
+                        st=st,
+                        rows=rows,
+                        hb=hb,
+                        opts=opts,
+                    )
+
+                expected_calls = len(ofac.LISTS)
+
+                self.assertEqual(
+                    parse_advanced_mock.call_count,
+                    expected_calls,
+                    f"{changed_role}単独変更でもAdvancedを検証する",
+                )
+                self.assertEqual(
+                    parse_classic_mock.call_count,
+                    expected_calls,
+                    f"{changed_role}単独変更でもClassicを検証する",
+                )
+                self.assertEqual(
+                    coverage_mock.call_count,
+                    expected_calls,
+                    f"{changed_role}単独変更でもcoverageを検証する",
+                )
+
+                state_field = (
+                    "alt_sha256"
+                    if changed_role == "alt"
+                    else "advanced_sha256"
+                )
+
+                for key in ofac.LISTS:
+                    self.assertEqual(
+                        st[key][state_field],
+                        f"{key}-{changed_role}-changed-sha",
+                    )
+
     def test_second_list_failure_does_not_mutate_state_or_rows(self):
         st = {
             "ofac_sdn": {
