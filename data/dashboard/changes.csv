@@ -1,4 +1,5 @@
 検知日時,出所,種別,受取人名,変更前,変更後
+2026-09-15 12:23:59,経済産業省,RSS鮮度異常,METIニュースリリースRSS,"RSS最終entryが古すぎる: latest=2026-06-19T05:00:00Z, age=2110.4h, threshold=168h",https://www.meti.go.jp/ml_index_release_atom.xml
 2026-09-15 12:07:49,経済産業省,RSS監視エラー,METIニュースリリースRSS,"ReadTimeout: HTTPSConnectionPool(host='www.meti.go.jp', port=443): Read timed out. (read timeout=45)",https://www.meti.go.jp/ml_index_release_atom.xml
 2026-09-11 03:32:43,OFAC,追加,Al-Dhuhaibawi Hussein Ahmed Hussein,,制裁リスト（OFAC：SDN）
 2026-09-11 03:32:43,OFAC,追加,Al-Shaikhli Mohamed Ameen Fadhil Ali,,制裁リスト（OFAC：SDN）
@@ -4998,4 +4999,3 @@
 2026-09-04 10:26:50,OFAC,追加,Malofeyev Konstantin,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,追加,Малофеев Константин,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,追加,Malofeev Konstantin Valerevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,追加,Malofeev Konstantin Valerievich,,制裁リスト（OFAC：SDN）
