@@ -16,7 +16,7 @@
     },
     "press_external_economy": {
       "baseline_synced": true,
-      "content_hash": "9b01ae5538e478519ae5b86db3af12ef1c3405eae46f4201e013e179b115ddf4",
+      "content_hash": "ced101fd8cc9d073e166cb491d146b8e4208936cf3fe569fe98e33403544c49e",
       "current_ids": [
         "https://www.meti.go.jp/press/2026/07/20260703001/20260703001.html",
         "https://www.meti.go.jp/press/2026/07/20260703002/20260703002.html",
@@ -488,10 +488,10 @@
         "https://www.meti.go.jp/press/2024/04/20240405001/20240405001.html",
         "https://www.meti.go.jp/press/2024/04/20240404003/20240404003.html"
       ],
-      "etag": "W/\"cfd786c39173a1a4508f32f375e30b64\"",
+      "etag": "W/\"c8932ff35a3b97b01592362539482273\"",
       "filename": "category_02.html",
       "kind": "press",
-      "last_modified": "Tue, 15 Sep 2026 07:49:13 GMT",
+      "last_modified": "Tue, 15 Sep 2026 10:43:44 GMT",
       "record_count": 469,
       "request_profile": "browser_compatible_chrome",
       "role": "METI_EXTERNAL_ECONOMY_PRESS_HTML",
