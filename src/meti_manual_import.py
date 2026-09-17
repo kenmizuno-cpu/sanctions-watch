@@ -17,6 +17,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import hashlib
 import json
@@ -31,7 +32,8 @@ from urllib.parse import urlparse
 
 import pdfplumber
 
-from . import source_audit
+from . import dashboard, meti_manual_event, persistence, source_audit
+from . import state as state_store
 from .dashboard import CHANGE_COLS
 from .normalize import canonical_display_name, match_key
 
@@ -314,6 +316,13 @@ def validate_source_url(value: str) -> str:
 
     parsed = urlparse(url)
 
+    try:
+        port = parsed.port
+    except ValueError as exc:
+        raise PdfValidationError(
+            "source URLのport指定が不正"
+        ) from exc
+
     if parsed.scheme.lower() != "https":
         raise PdfValidationError(
             "source URLはhttpsでなければならない"
@@ -342,6 +351,11 @@ def validate_source_url(value: str) -> str:
     if parsed.username or parsed.password:
         raise PdfValidationError(
             "source URLにuserinfoを含めてはいけない"
+        )
+
+    if port is not None or parsed.netloc.lower() != parsed.hostname:
+        raise PdfValidationError(
+            "source URLに明示portを含めてはいけない"
         )
 
     if parsed.fragment:
@@ -700,12 +714,14 @@ def update_evidence(
     publication_date: str,
     effective_date: str,
     seen_at: str,
+    path: Path | None = None,
 ) -> None:
-    EVIDENCE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    target = path or EVIDENCE_PATH
+    target.parent.mkdir(parents=True, exist_ok=True)
 
     old_rows: list[dict] = []
-    if EVIDENCE_PATH.exists():
-        with EVIDENCE_PATH.open(encoding="utf-8", newline="") as f:
+    if target.exists():
+        with target.open(encoding="utf-8", newline="") as f:
             old_rows = list(csv.DictReader(f))
 
     first_seen_by_key: dict[str, str] = {}
@@ -745,7 +761,7 @@ def update_evidence(
             }
         )
 
-    with EVIDENCE_PATH.open("w", encoding="utf-8", newline="") as f:
+    with target.open("w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(
             f, fieldnames=EVIDENCE_COLS, lineterminator="\n"
         )
@@ -780,6 +796,397 @@ def _relative(path: Path) -> str:
         return str(path)
 
 
+_IMPORT_OPERATOR = "manual-import"
+_REPLAY_STATES = {
+    "REVIEW_REQUIRED",
+    "APPROVED",
+    "REJECTED",
+    "APPLIED",
+    "APPLIED_WITH_HOLDS",
+}
+
+
+def _write_text(path: Path, value: str) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(value, encoding="utf-8")
+    return path
+
+
+def _validate_detection_link(
+    state: dict,
+    *,
+    detection_id: str,
+    source_hash: str,
+) -> bool:
+    """Validate a routine import before any repository file is changed.
+
+    Return True only for an already-completed replay of the same detection and
+    source bytes.  A historical baseline has no current hash and remains
+    intentionally exempt from detection linkage.
+    """
+
+    if not str(state.get("current_source_hash") or "").strip():
+        return False
+
+    detection_id = str(detection_id or "").strip()
+    if not detection_id:
+        raise ManualImportError(
+            "既存baseline後の取込には--detection-idが必要"
+        )
+
+    state_detection = str(state.get("detection_id") or "").strip()
+    pending = state.get("pending_detection") or {}
+    pending_detection = str(
+        pending.get("detection_id") or ""
+    ).strip()
+    lifecycle = str(state.get("lifecycle_state") or "").strip()
+
+    if (
+        lifecycle in _REPLAY_STATES
+        and state_detection == detection_id
+        and str(state.get("current_source_hash") or "") == source_hash
+    ):
+        return True
+
+    if lifecycle != "MANUAL_FETCH_REQUIRED":
+        raise ManualImportError(
+            "METI手動取込の状態がMANUAL_FETCH_REQUIREDではない: "
+            f"{lifecycle!r}"
+        )
+    if state_detection != detection_id:
+        raise ManualImportError(
+            "--detection-idが現在の検知IDと一致しない"
+        )
+    if pending_detection != detection_id:
+        raise ManualImportError(
+            "--detection-idが未完了検知IDと一致しない"
+        )
+    return False
+
+
+def _projection_data(
+    *,
+    state: dict,
+    events: list[dict],
+    heartbeat_status: str,
+    dashboard_event: list[str],
+    now: datetime,
+    paths: meti_manual_event.LifecyclePaths,
+    source_hash: str,
+    raw_path: str,
+) -> tuple[list[dict], dict, list[list[str]], str]:
+    existing_events = meti_manual_event.load_events(paths.events)
+    if events[:len(existing_events)] != existing_events:
+        raise ManualImportError(
+            "METI lifecycle event ledgerの履歴を書き換えることはできない"
+        )
+    if len(dashboard_event) != 5:
+        raise ManualImportError(
+            "dashboard eventは5列でなければならない"
+        )
+
+    pending = state.get("pending_detection") or {}
+    heartbeat_entry = {
+        "source": "meti",
+        "status": heartbeat_status,
+        "content_hash": source_hash,
+        "source_updated": (
+            state.get("effective_date")
+            or state.get("publication_date")
+            or pending.get("publication_at")
+            or ""
+        ),
+        "record_count": state.get("current_record_count", ""),
+        "raw_path": raw_path,
+    }
+    repository_state = state_store.load_state(paths.root)
+    status_rows = dashboard.build_status_rows(
+        paths.root,
+        [heartbeat_entry],
+        repository_state,
+        now=now,
+        meti_state=state,
+    )
+    changed_at = now.astimezone(dashboard.JST).strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+    return (
+        events[len(existing_events):],
+        heartbeat_entry,
+        status_rows,
+        changed_at,
+    )
+
+
+def _projection_writes(
+    *,
+    state: dict,
+    events: list[dict],
+    heartbeat_status: str,
+    dashboard_event: list[str],
+    audit_row: dict,
+    now: datetime,
+    paths: meti_manual_event.LifecyclePaths,
+    source_hash: str,
+    raw_path: str,
+) -> dict[str, persistence.FileWrite]:
+    (
+        new_events,
+        heartbeat_entry,
+        status_rows,
+        changed_at,
+    ) = _projection_data(
+        state=state,
+        events=events,
+        heartbeat_status=heartbeat_status,
+        dashboard_event=dashboard_event,
+        now=now,
+        paths=paths,
+        source_hash=source_hash,
+        raw_path=raw_path,
+    )
+    return {
+        "state": persistence.FileWrite(
+            target=paths.state,
+            writer=lambda path: state_store.write_state(path, state),
+        ),
+        "events": persistence.FileWrite(
+            target=paths.events,
+            writer=lambda path: meti_manual_event._append_event_rows(
+                path,
+                new_events,
+            ),
+            seed_existing=True,
+        ),
+        "heartbeat": persistence.FileWrite(
+            target=paths.heartbeat,
+            writer=lambda path: state_store.append_heartbeat(
+                path,
+                [heartbeat_entry],
+                now=now,
+            ),
+            seed_existing=True,
+        ),
+        "status": persistence.FileWrite(
+            target=paths.status,
+            writer=lambda path: dashboard.write_status_rows(
+                path,
+                status_rows,
+            ),
+        ),
+        "changes": persistence.FileWrite(
+            target=paths.changes,
+            writer=lambda path: dashboard.prepend_change_rows(
+                path,
+                [dashboard_event],
+                when=changed_at,
+            ),
+            seed_existing=True,
+        ),
+        "audit": persistence.FileWrite(
+            target=paths.audit,
+            writer=lambda path: source_audit.append_rows(
+                path,
+                [audit_row],
+                now=now,
+            ),
+            seed_existing=True,
+        ),
+    }
+
+
+def _commit_success_generation(
+    *,
+    state: dict,
+    events: list[dict],
+    records: list[Record],
+    full_text: str,
+    diff: DiffResult,
+    report: dict,
+    text_path: Path,
+    record_path: Path,
+    diff_path: Path,
+    report_path: Path,
+    source_hash: str,
+    source_url: str,
+    source_document: str,
+    publication_date: str,
+    effective_date: str,
+    seen_at: str,
+    dashboard_event: list[str],
+    audit_row: dict,
+    now: datetime,
+    paths: meti_manual_event.LifecyclePaths,
+) -> None:
+    projection = _projection_writes(
+        state=state,
+        events=events,
+        heartbeat_status="manual_review",
+        dashboard_event=dashboard_event,
+        audit_row=audit_row,
+        now=now,
+        paths=paths,
+        source_hash=source_hash,
+        raw_path=source_document,
+    )
+    persistence.atomic_replace_many([
+        projection["state"],
+        projection["events"],
+        persistence.FileWrite(
+            target=text_path,
+            writer=lambda path: _write_text(path, full_text),
+        ),
+        persistence.FileWrite(
+            target=record_path,
+            writer=lambda path: save_records(records, path),
+        ),
+        persistence.FileWrite(
+            target=diff_path,
+            writer=lambda path: save_diff(diff, path),
+        ),
+        persistence.FileWrite(
+            target=report_path,
+            writer=lambda path: write_report(path, report),
+        ),
+        persistence.FileWrite(
+            target=EVIDENCE_PATH,
+            writer=lambda path: update_evidence(
+                records,
+                source_hash=source_hash,
+                source_url=source_url,
+                source_document=source_document,
+                publication_date=publication_date,
+                effective_date=effective_date,
+                seen_at=seen_at,
+                path=path,
+            ),
+            seed_existing=True,
+        ),
+        projection["heartbeat"],
+        projection["status"],
+        projection["changes"],
+        projection["audit"],
+    ])
+
+
+def _commit_blocked_generation(
+    *,
+    state: dict,
+    events: list[dict],
+    error: Exception,
+    report: dict,
+    report_path: Path,
+    source_hash: str,
+    source_url: str,
+    raw_path: str,
+    now: datetime,
+    paths: meti_manual_event.LifecyclePaths,
+) -> int:
+    blocked_state, blocked_events, _ = meti_manual_event.advance(
+        state,
+        events,
+        new_state="BLOCKED",
+        event_at=now,
+        operator=_IMPORT_OPERATOR,
+        source_url=source_url,
+        source_hash=source_hash,
+        detail=str(error),
+        detection_id=str(state.get("detection_id") or ""),
+    )
+    audit_row = source_audit.entry(
+        "meti_manual",
+        "foreign_user_list_pdf",
+        "parse_blocked",
+        url=source_url,
+        content_hash=source_hash,
+        fetched_file=Path(report.get("input_file", "")).name,
+        raw_path=raw_path,
+        fetch_failed=False,
+        schema_changed=isinstance(error, PdfStructureError),
+        error=error,
+    )
+    dashboard_event = [
+        "経済産業省",
+        "手動正本解析BLOCKED",
+        "外国ユーザーリスト",
+        str(error),
+        source_url,
+    ]
+    projection = _projection_writes(
+        state=blocked_state,
+        events=blocked_events,
+        heartbeat_status="manual_blocked",
+        dashboard_event=dashboard_event,
+        audit_row=audit_row,
+        now=now,
+        paths=paths,
+        source_hash=source_hash,
+        raw_path=raw_path,
+    )
+    persistence.atomic_replace_many([
+        projection["state"],
+        projection["events"],
+        persistence.FileWrite(
+            target=report_path,
+            writer=lambda path: write_report(path, report),
+        ),
+        projection["heartbeat"],
+        projection["status"],
+        projection["changes"],
+        projection["audit"],
+    ])
+    print(f"[BLOCKED] {type(error).__name__}: {error}", file=sys.stderr)
+    if raw_path:
+        print(f"raw: {raw_path}")
+    print(f"report: {_relative(report_path)}")
+    print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
+    return 2
+
+
+def _legacy_blocked(
+    *,
+    error: Exception,
+    report: dict,
+    report_path: Path,
+    source_url: str,
+    source_hash: str,
+    raw_path: str,
+    source_file: Path,
+) -> int:
+    """Retain the pre-lifecycle error path for first historical baseline."""
+
+    write_report(report_path, report)
+    source_audit.write(
+        ROOT,
+        [
+            source_audit.entry(
+                "meti_manual",
+                "foreign_user_list_pdf",
+                "parse_blocked",
+                url=source_url,
+                content_hash=source_hash,
+                fetched_file=source_file.name,
+                raw_path=raw_path,
+                fetch_failed=False,
+                schema_changed=isinstance(error, PdfStructureError),
+                error=error,
+            )
+        ],
+    )
+    append_dashboard_row(
+        "手動正本解析BLOCKED",
+        "外国ユーザーリスト",
+        str(error),
+        source_url,
+    )
+    print(f"[BLOCKED] {type(error).__name__}: {error}", file=sys.stderr)
+    if raw_path:
+        print(f"raw: {raw_path}")
+    print(f"report: {_relative(report_path)}")
+    print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
+    return 2
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("pdf", help="ブラウザで取得した経産省公式PDF")
@@ -791,6 +1198,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--publication-date", default="")
     ap.add_argument("--effective-date", default="")
     ap.add_argument("--expected-count", type=int, default=None)
+    ap.add_argument("--detection-id", default="")
     args = ap.parse_args(argv)
 
     try:
@@ -808,6 +1216,30 @@ def main(argv: list[str] | None = None) -> int:
     # SHAはPDF妥当性判定前でも取得し、拒否HTML等を識別できるようにする。
     digest = sha256_file(src) if src.exists() and src.is_file() else ""
     report_path = REPORT_DIR / f"{stamp}__manual_import.json"
+    paths = meti_manual_event.LifecyclePaths.for_root(ROOT, now)
+    state = load_state()
+    events = meti_manual_event.load_events(paths.events)
+    historical_baseline = not bool(
+        str(state.get("current_source_hash") or "").strip()
+    )
+
+    try:
+        replay = _validate_detection_link(
+            state,
+            detection_id=args.detection_id,
+            source_hash=digest,
+        )
+    except ManualImportError as exc:
+        print(f"[BLOCKED] {exc}", file=sys.stderr)
+        print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
+        return 2
+
+    if replay:
+        print("[duplicate] 同一検知ID・同一SHA256のPDFは既に取込済み")
+        print(f"SHA256: {digest}")
+        print(f"records: {state.get('current_record_count', '')}")
+        print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
+        return 0
 
     try:
         size, digest = validate_pdf_file(src)
@@ -832,49 +1264,49 @@ def main(argv: list[str] | None = None) -> int:
             "quarantine_path": quarantine,
             "checked_at": seen_at,
         }
-        write_report(report_path, report)
-
-        source_audit.write(
-            ROOT,
-            [
-                source_audit.entry(
-                    "meti_manual",
-                    "foreign_user_list_pdf",
-                    "manual_input_invalid",
-                    url=source_url,
-                    content_hash=digest,
-                    fetched_file=src.name,
-                    raw_path=quarantine,
-                    fetch_failed=False,
-                    schema_changed=True,
-                    error=exc,
-                )
-            ],
+        if not historical_baseline:
+            return _commit_blocked_generation(
+                state=state,
+                events=events,
+                error=exc,
+                report=report,
+                report_path=report_path,
+                source_hash=digest,
+                source_url=source_url,
+                raw_path=quarantine,
+                now=now,
+                paths=paths,
+            )
+        return _legacy_blocked(
+            error=exc,
+            report=report,
+            report_path=report_path,
+            source_url=source_url,
+            source_hash=digest,
+            raw_path=quarantine,
+            source_file=src,
         )
-        append_dashboard_row(
-            "手動正本解析BLOCKED",
-            "外国ユーザーリスト",
-            str(exc),
-            source_url,
-        )
-        print(f"[BLOCKED] {exc}", file=sys.stderr)
-        print(f"report: {_relative(report_path)}")
-        return 2
-
-    state = load_state()
-
-    if state.get("current_source_hash") == digest:
-        print("[duplicate] 同一SHA256のPDFは既に取込済み")
-        print(f"SHA256: {digest}")
-        print(f"records: {state.get('current_record_count', '')}")
-        print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
-        return 0
 
     raw_path = _archive_copy(src, RAW_DIR, digest, stamp)
     text_path = TEXT_DIR / f"{stamp}__{digest[:12]}.txt"
     record_path = RECORD_DIR / f"{stamp}__{digest[:12]}.csv"
     diff_path = DIFF_DIR / f"{stamp}__{digest[:12]}.csv"
 
+    working_state = copy.deepcopy(state)
+    working_events = list(events)
+    if not historical_baseline:
+        working_state, working_events, _ = meti_manual_event.advance(
+            working_state,
+            working_events,
+            new_state="FILE_RECEIVED",
+            event_at=now,
+            operator=_IMPORT_OPERATOR,
+            source_url=source_url,
+            source_hash=digest,
+            detection_id=args.detection_id,
+        )
+
+    parse_error = None
     try:
         records, full_text, pages = extract_pdf(raw_path)
 
@@ -883,9 +1315,6 @@ def main(argv: list[str] | None = None) -> int:
                 "公表件数とPDF抽出件数が一致しない: "
                 f"expected={args.expected_count} actual={len(records)}"
             )
-
-        TEXT_DIR.mkdir(parents=True, exist_ok=True)
-        text_path.write_text(full_text, encoding="utf-8")
 
         previous_raw = str(
             state.get("current_records_path") or ""
@@ -918,136 +1347,16 @@ def main(argv: list[str] | None = None) -> int:
             if old_records
             else DiffResult([], [], [])
         )
-
-        save_records(records, record_path)
-        save_diff(diff, diff_path)
-
-        update_evidence(
-            records,
-            source_hash=digest,
-            source_url=source_url,
-            source_document=_relative(raw_path),
-            publication_date=args.publication_date,
-            effective_date=args.effective_date,
-            seen_at=seen_at,
-        )
-
-        baseline = not bool(old_records)
-        report = {
-            "version": 1,
-            "status": "REVIEW_REQUIRED",
-            "review_required": True,
-            "auto_import": "BLOCKED",
-            "baseline": baseline,
-            "checked_at": seen_at,
-            "source_url": source_url,
-            "publication_date": args.publication_date,
-            "effective_date": args.effective_date,
-            "input_file": str(src),
-            "raw_path": _relative(raw_path),
-            "text_path": _relative(text_path),
-            "records_path": _relative(record_path),
-            "diff_path": _relative(diff_path),
-            "source_hash": digest,
-            "file_size": size,
-            "page_count": pages,
-            "record_count": len(records),
-            "expected_count": args.expected_count,
-            "diff": diff.counts,
-            "previous_source_hash": state.get("current_source_hash", ""),
-            "previous_record_count": state.get("current_record_count", ""),
-        }
-        write_report(report_path, report)
-
-        state = {
-            "version": 1,
-            "current_source_hash": digest,
-            "current_raw_path": _relative(raw_path),
-            "current_records_path": _relative(record_path),
-            "current_report_path": _relative(report_path),
-            "current_diff_path": _relative(diff_path),
-            "current_record_count": len(records),
-            "publication_date": args.publication_date,
-            "effective_date": args.effective_date,
-            "source_url": source_url,
-            "last_imported_at": seen_at,
-            "review_status": "REVIEW_REQUIRED",
-            "approved": False,
-            "applied": False,
-        }
-        save_state(state)
-
-        source_audit.write(
-            ROOT,
-            [
-                source_audit.entry(
-                    "meti_manual",
-                    "foreign_user_list_pdf",
-                    "baseline_review_required" if baseline else "diff_review_required",
-                    url=source_url,
-                    content_hash=digest,
-                    fetched_file=src.name,
-                    raw_path=_relative(raw_path),
-                    source_updated=args.effective_date,
-                    record_count=len(records),
-                    diff_counts=diff.counts,
-                    fetch_failed=False,
-                    schema_changed=False,
-                )
-            ],
-        )
-
-        if baseline:
-            append_dashboard_row(
-                "手動正本baseline（要レビュー）",
-                "外国ユーザーリスト",
-                "",
-                f"{len(records)}件 / SHA256 {digest[:12]} / {source_url}",
-            )
-        else:
-            c = diff.counts
-            append_dashboard_row(
-                "手動正本差分（要レビュー）",
-                "外国ユーザーリスト",
-                f"前版 {len(old_records)}件",
-                (
-                    f"現版 {len(records)}件 / "
-                    f"追加{c['追加']} 変更{c['変更']} 削除{c['削除']} / "
-                    f"{source_url}"
-                ),
-            )
-
-        print("===== METI MANUAL IMPORT =====")
-        print(f"PDF             : OK")
-        print(f"pages           : {pages}")
-        print(f"SHA256          : {digest}")
-        print(f"records         : {len(records)}")
-        print(f"baseline        : {baseline}")
-        print(
-            "diff            : "
-            f"追加{diff.counts['追加']} "
-            f"変更{diff.counts['変更']} "
-            f"削除{diff.counts['削除']}"
-        )
-        print(f"raw             : {_relative(raw_path)}")
-        print(f"records         : {_relative(record_path)}")
-        print(f"diff            : {_relative(diff_path)}")
-        print(f"report          : {_relative(report_path)}")
-        print(f"evidence        : {_relative(EVIDENCE_PATH)}")
-        print("")
-        print("AUTO IMPORT     = BLOCKED")
-        print("REVIEW REQUIRED = YES")
-        print("master反映      = 未実施")
-        return 0
-
     except Exception as exc:
-        schema_changed = isinstance(exc, PdfStructureError)
+        parse_error = exc
+
+    if parse_error is not None:
         report = {
             "version": 1,
             "status": "BLOCKED",
             "review_required": True,
             "auto_import": "BLOCKED",
-            "reason": str(exc),
+            "reason": str(parse_error),
             "checked_at": seen_at,
             "source_url": source_url,
             "publication_date": args.publication_date,
@@ -1057,38 +1366,179 @@ def main(argv: list[str] | None = None) -> int:
             "source_hash": digest,
             "file_size": size,
         }
-        write_report(report_path, report)
+        if not historical_baseline:
+            return _commit_blocked_generation(
+                state=working_state,
+                events=working_events,
+                error=parse_error,
+                report=report,
+                report_path=report_path,
+                source_hash=digest,
+                source_url=source_url,
+                raw_path=_relative(raw_path),
+                now=now,
+                paths=paths,
+            )
+        return _legacy_blocked(
+            error=parse_error,
+            report=report,
+            report_path=report_path,
+            source_url=source_url,
+            source_hash=digest,
+            raw_path=_relative(raw_path),
+            source_file=src,
+        )
 
-        source_audit.write(
-            ROOT,
-            [
-                source_audit.entry(
-                    "meti_manual",
-                    "foreign_user_list_pdf",
-                    "parse_blocked",
-                    url=source_url,
-                    content_hash=digest,
-                    fetched_file=src.name,
-                    raw_path=_relative(raw_path),
-                    fetch_failed=False,
-                    schema_changed=schema_changed,
-                    error=exc,
-                )
-            ],
-        )
-        append_dashboard_row(
-            "手動正本解析BLOCKED",
+    if not historical_baseline:
+        for lifecycle_state in (
+            "VALIDATED",
+            "DIFFED",
+            "REVIEW_REQUIRED",
+        ):
+            working_state, working_events, _ = meti_manual_event.advance(
+                working_state,
+                working_events,
+                new_state=lifecycle_state,
+                event_at=now,
+                operator=_IMPORT_OPERATOR,
+                source_url=source_url,
+                source_hash=digest,
+                detection_id=args.detection_id,
+            )
+
+    baseline = historical_baseline
+    next_state = copy.deepcopy(working_state)
+    next_state.update({
+        "version": 1,
+        "current_source_hash": digest,
+        "current_raw_path": _relative(raw_path),
+        "current_records_path": _relative(record_path),
+        "current_report_path": _relative(report_path),
+        "current_diff_path": _relative(diff_path),
+        "current_record_count": len(records),
+        "publication_date": args.publication_date,
+        "effective_date": args.effective_date,
+        "source_url": source_url,
+        "last_imported_at": seen_at,
+        "review_status": "REVIEW_REQUIRED",
+        "approved": False,
+        "applied": False,
+    })
+    for obsolete_review_field in (
+        "reviewed_at",
+        "reviewed_by",
+        "review_note",
+        "review_id",
+        "review_artifact_path",
+    ):
+        next_state.pop(obsolete_review_field, None)
+
+    report = {
+        "version": 1,
+        "status": "REVIEW_REQUIRED",
+        "review_required": True,
+        "auto_import": "BLOCKED",
+        "baseline": baseline,
+        "checked_at": seen_at,
+        "source_url": source_url,
+        "publication_date": args.publication_date,
+        "effective_date": args.effective_date,
+        "input_file": str(src),
+        "raw_path": _relative(raw_path),
+        "text_path": _relative(text_path),
+        "records_path": _relative(record_path),
+        "diff_path": _relative(diff_path),
+        "source_hash": digest,
+        "file_size": size,
+        "page_count": pages,
+        "record_count": len(records),
+        "expected_count": args.expected_count,
+        "diff": diff.counts,
+        "previous_source_hash": state.get("current_source_hash", ""),
+        "previous_record_count": state.get("current_record_count", ""),
+    }
+    audit_row = source_audit.entry(
+        "meti_manual",
+        "foreign_user_list_pdf",
+        "baseline_review_required" if baseline else "diff_review_required",
+        url=source_url,
+        content_hash=digest,
+        fetched_file=src.name,
+        raw_path=_relative(raw_path),
+        source_updated=args.effective_date,
+        record_count=len(records),
+        diff_counts=diff.counts,
+        fetch_failed=False,
+        schema_changed=False,
+    )
+    if baseline:
+        dashboard_event = [
+            "経済産業省",
+            "手動正本baseline（要レビュー）",
             "外国ユーザーリスト",
-            str(exc),
-            source_url,
-        )
-        print(f"[BLOCKED] {type(exc).__name__}: {exc}", file=sys.stderr)
-        print(f"raw: {_relative(raw_path)}")
-        print(f"report: {_relative(report_path)}")
-        print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
-        return 2
+            "",
+            f"{len(records)}件 / SHA256 {digest[:12]} / {source_url}",
+        ]
+    else:
+        counts = diff.counts
+        dashboard_event = [
+            "経済産業省",
+            "手動正本差分（要レビュー）",
+            "外国ユーザーリスト",
+            f"前版 {len(old_records)}件",
+            (
+                f"現版 {len(records)}件 / "
+                f"追加{counts['追加']} 変更{counts['変更']} "
+                f"削除{counts['削除']} / {source_url}"
+            ),
+        ]
+
+    _commit_success_generation(
+        state=next_state,
+        events=working_events,
+        records=records,
+        full_text=full_text,
+        diff=diff,
+        report=report,
+        text_path=text_path,
+        record_path=record_path,
+        diff_path=diff_path,
+        report_path=report_path,
+        source_hash=digest,
+        source_url=source_url,
+        source_document=_relative(raw_path),
+        publication_date=args.publication_date,
+        effective_date=args.effective_date,
+        seen_at=seen_at,
+        dashboard_event=dashboard_event,
+        audit_row=audit_row,
+        now=now,
+        paths=paths,
+    )
+
+    print("===== METI MANUAL IMPORT =====")
+    print("PDF             : OK")
+    print(f"pages           : {pages}")
+    print(f"SHA256          : {digest}")
+    print(f"records         : {len(records)}")
+    print(f"baseline        : {baseline}")
+    print(
+        "diff            : "
+        f"追加{diff.counts['追加']} "
+        f"変更{diff.counts['変更']} "
+        f"削除{diff.counts['削除']}"
+    )
+    print(f"raw             : {_relative(raw_path)}")
+    print(f"records         : {_relative(record_path)}")
+    print(f"diff            : {_relative(diff_path)}")
+    print(f"report          : {_relative(report_path)}")
+    print(f"evidence        : {_relative(EVIDENCE_PATH)}")
+    print("")
+    print("AUTO IMPORT     = BLOCKED")
+    print("REVIEW REQUIRED = YES")
+    print("master反映      = 未実施")
+    return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

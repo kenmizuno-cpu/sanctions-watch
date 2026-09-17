@@ -193,8 +193,13 @@ class TestMetiManualImportRealPdfGuards(unittest.TestCase):
     def test_accept_official_meti_pdf_url(self):
         from src.meti_manual_import import validate_source_url
 
-        url = "https://www.meti.go.jp/policy/anpo/20250929_3.pdf"
-        self.assertEqual(validate_source_url(url), url)
+        urls = [
+            "https://www.meti.go.jp/policy/anpo/20250929_3.pdf",
+            "https://meti.go.jp/policy/anpo/20250929_3.pdf",
+        ]
+        for url in urls:
+            with self.subTest(url=url):
+                self.assertEqual(validate_source_url(url), url)
 
     def test_reject_markdown_source_url(self):
         from src.meti_manual_import import (
@@ -218,6 +223,26 @@ class TestMetiManualImportRealPdfGuards(unittest.TestCase):
             validate_source_url(
                 "https://example.com/policy/anpo/x.pdf"
             )
+
+    def test_reject_unsafe_or_non_pdf_source_urls(self):
+        from src.meti_manual_import import (
+            PdfValidationError,
+            validate_source_url,
+        )
+
+        urls = [
+            "http://www.meti.go.jp/policy/anpo/x.pdf",
+            "https://www.meti.go.jp.example.com/policy/anpo/x.pdf",
+            "https://operator@www.meti.go.jp/policy/anpo/x.pdf",
+            "https://www.meti.go.jp:443/policy/anpo/x.pdf",
+            "https://www.meti.go.jp/policy/anpo/x.pdf#page=1",
+            "https://www.meti.go.jp/press/x.pdf",
+            "https://www.meti.go.jp/policy/anpo/x.html",
+        ]
+        for url in urls:
+            with self.subTest(url=url):
+                with self.assertRaises(PdfValidationError):
+                    validate_source_url(url)
 
 
 class TestMetiManualImportBaselinePathRegression(unittest.TestCase):
