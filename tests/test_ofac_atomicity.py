@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import copy
+import csv
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
+from src import ofac_removal as OR
 from src import watch
 from src.sources import ofac
 
@@ -982,6 +986,327 @@ class OfacAtomicityTest(unittest.TestCase):
             "ofac_index_diff",
             opts,
         )
+
+
+class OfacRemovalTransactionTest(unittest.TestCase):
+    snapshot_hash = "a" * 64
+    official_url = (
+        "https://ofac.treasury.gov/recent-actions/20260916"
+    )
+
+    @staticmethod
+    def _state() -> dict:
+        def item(key: str) -> dict:
+            return {
+                "sha256": f"old-{key}-primary",
+                "alt_sha256": f"old-{key}-alias",
+                "advanced_sha256": f"old-{key}-advanced",
+                "raw_advanced": f"data/raw/old/{key}.xml.gz",
+                "advanced_baseline_synced": True,
+                "advanced_master_synced": True,
+            }
+
+        return {key: item(key) for key in ofac.LISTS}
+
+    @staticmethod
+    def _master_rows() -> dict:
+        return {
+            "alpha": {
+                "match_key": "alpha",
+                "display_name": "ALPHA",
+                "status": watch.M.STATUS_ACTIVE,
+                "risk_type": watch.M.RISK_TYPE,
+                "risk_level": watch.M.RISK_LEVEL,
+                "first_seen_ms": "1000",
+                "last_updated_ms": "1000",
+                "sources": "OFAC",
+                "categories": "OFAC:SDN",
+                "remark": "OFAC SDN",
+                "invalid_reason": "",
+                "review_flag": "",
+                "variants": '["ALPHA"]',
+            },
+        }
+
+    @staticmethod
+    def _history() -> dict:
+        def item(
+            list_name: str,
+            party_id: str,
+            name: str,
+            key: str,
+        ) -> dict:
+            return {
+                "list": list_name,
+                "party_id": party_id,
+                "name": name,
+                "match_key": key,
+                "first_seen_ms": "1000",
+                "last_changed_ms": "1000",
+                "alias_current": "1",
+                "party_current": "1",
+                "formats": "advanced_xml_v3;classic_csv",
+                "primary": "1",
+                "low_quality": "0",
+            }
+
+        return {
+            ("SDN", "100", "ALPHA"): item(
+                "SDN", "100", "ALPHA", "alpha"
+            ),
+            ("SDN", "1", "SDN TEST NAME"): item(
+                "SDN", "1", "SDN TEST NAME", "sdntestname"
+            ),
+            (
+                "Consolidated",
+                "1",
+                "Consolidated TEST NAME",
+            ): item(
+                "Consolidated",
+                "1",
+                "Consolidated TEST NAME",
+                "consolidatedtestname",
+            ),
+        }
+
+    def _write_approval(
+        self,
+        path: Path,
+        *,
+        snapshot_hash: str | None = None,
+        extra_party: bool = False,
+    ) -> None:
+        rows = [{
+            "list": "SDN",
+            "snapshot_sha256": (
+                snapshot_hash or self.snapshot_hash
+            ),
+            "party_id": "100",
+            "party_name": "ALPHA",
+            "decision": "APPROVED",
+            "approved_by": "reviewer",
+            "approved_at": "2026-09-17T00:00:00Z",
+            "official_url": self.official_url,
+            "notes": "official deletion",
+        }]
+        if extra_party:
+            rows.append({
+                **rows[0],
+                "party_id": "999",
+                "party_name": "EXTRA",
+            })
+
+        with path.open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.DictWriter(
+                handle,
+                fieldnames=OR.APPROVAL_FIELDS,
+            )
+            writer.writeheader()
+            writer.writerows(rows)
+
+    def _run(
+        self,
+        approval_path: Path,
+        *,
+        audit_failure: bool = False,
+        st: dict | None = None,
+        rows: dict | None = None,
+        hb: list[dict] | None = None,
+        opts: dict | None = None,
+    ) -> tuple[dict, dict, list, dict]:
+        st = self._state() if st is None else st
+        rows = self._master_rows() if rows is None else rows
+        hb = [] if hb is None else hb
+        opts = {"audit": []} if opts is None else opts
+        history = self._history()
+
+        def fake_fetch(
+            url,
+            prev=None,
+            session=None,
+            allow_conditional=True,
+        ):
+            if url == ofac.LISTS["ofac_sdn"]["advanced"]:
+                sha256 = self.snapshot_hash
+            elif url == ofac.LISTS["ofac_cons"]["advanced"]:
+                sha256 = "b" * 64
+            else:
+                sha256 = "c" * 64
+            return FakeFetched(url, sha256=sha256)
+
+        def fake_advanced(fetched, label):
+            return [record(label, "advanced_xml_v3")], {"1"}
+
+        def fake_classic(prim, alt, label):
+            return [record(label, "classic_csv")]
+
+        audit_side_effect = (
+            OR.AuditError("forced audit failure")
+            if audit_failure
+            else None
+        )
+
+        with (
+            patch.object(watch, "OFAC_REMOVAL_APPROVALS", approval_path),
+            patch.object(watch, "fetch", side_effect=fake_fetch),
+            patch.object(watch, "archive"),
+            patch.object(watch, "prune_raw"),
+            patch.object(
+                watch.ofac,
+                "classic_party_ids",
+                return_value={"1"},
+            ),
+            patch.object(
+                watch.ofac,
+                "parse_advanced",
+                side_effect=fake_advanced,
+            ),
+            patch.object(
+                watch.ofac,
+                "parse",
+                side_effect=fake_classic,
+            ),
+            patch.object(watch.ofac, "validate_party_coverage"),
+            patch.object(watch.OI, "load", return_value=history),
+            patch.object(
+                watch.M,
+                "merge",
+                return_value=watch.M.Diff(source=ofac.SOURCE),
+            ),
+            patch.object(
+                watch,
+                "_sync_ofac_weak_alias_audit",
+                return_value=0,
+            ),
+            patch.object(
+                watch.OR,
+                "build_audit_rows",
+                side_effect=audit_side_effect,
+                wraps=(
+                    None
+                    if audit_failure
+                    else OR.build_audit_rows
+                ),
+            ),
+        ):
+            watch.run_ofac(
+                session=object(),
+                st=st,
+                rows=rows,
+                hb=hb,
+                opts=opts,
+            )
+
+        return st, rows, hb, opts
+
+    def test_exact_approval_commits_removal_index_and_audit_together(self):
+        with tempfile.TemporaryDirectory() as td:
+            approval_path = Path(td) / "approvals.csv"
+            self._write_approval(approval_path)
+
+            st, rows, hb, opts = self._run(approval_path)
+
+        self.assertEqual(rows["alpha"]["status"], watch.M.STATUS_INACTIVE)
+        self.assertEqual(rows["alpha"]["sources"], "")
+        self.assertEqual(rows["alpha"]["invalid_reason"], watch.M.DELISTED)
+        self.assertEqual(len(hb), 2)
+
+        index_rows = opts["ofac_index_rows"]
+        alpha_index = index_rows[("SDN", "100", "ALPHA")]
+        self.assertEqual(alpha_index["party_current"], "0")
+        self.assertEqual(alpha_index["alias_current"], "0")
+        self.assertEqual(
+            opts["ofac_index_diff"].removed_parties,
+            {("SDN", "100")},
+        )
+
+        audit_rows = opts["ofac_removal_audit_rows"]
+        self.assertEqual(len(audit_rows), 1)
+        self.assertEqual(audit_rows[0]["party_id"], "100")
+        self.assertEqual(audit_rows[0]["snapshot_sha256"], self.snapshot_hash)
+        for field in (
+            "master_before_sha256",
+            "master_after_sha256",
+            "index_before_sha256",
+            "index_after_sha256",
+        ):
+            self.assertEqual(len(audit_rows[0][field]), 64)
+        self.assertNotEqual(
+            audit_rows[0]["master_before_sha256"],
+            audit_rows[0]["master_after_sha256"],
+        )
+        self.assertNotEqual(
+            audit_rows[0]["index_before_sha256"],
+            audit_rows[0]["index_after_sha256"],
+        )
+
+    def test_non_exact_approval_keeps_transaction_unpublished(self):
+        cases = (
+            ("missing", None),
+            ("wrong hash", {"snapshot_hash": "d" * 64}),
+            ("extra party", {"extra_party": True}),
+        )
+
+        for label, approval_options in cases:
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as td:
+                approval_path = Path(td) / "approvals.csv"
+                if approval_options is not None:
+                    self._write_approval(
+                        approval_path,
+                        **approval_options,
+                    )
+
+                st = self._state()
+                rows = self._master_rows()
+                before_st = copy.deepcopy(st)
+                before_rows = copy.deepcopy(rows)
+                hb: list[dict] = []
+                opts = {"audit": []}
+
+                with self.assertRaises(OR.ApprovalError):
+                    self._run(
+                        approval_path,
+                        st=st,
+                        rows=rows,
+                        hb=hb,
+                        opts=opts,
+                    )
+
+                self.assertEqual(st, before_st)
+                self.assertEqual(rows, before_rows)
+                self.assertEqual(hb, [])
+                self.assertNotIn("ofac_index_rows", opts)
+                self.assertNotIn("ofac_removal_audit_rows", opts)
+
+    def test_audit_build_failure_rolls_back_removal_and_index(self):
+        with tempfile.TemporaryDirectory() as td:
+            approval_path = Path(td) / "approvals.csv"
+            self._write_approval(approval_path)
+            st = self._state()
+            rows = self._master_rows()
+            before_st = copy.deepcopy(st)
+            before_rows = copy.deepcopy(rows)
+            hb: list[dict] = []
+            opts = {"audit": []}
+
+            with self.assertRaisesRegex(
+                OR.AuditError,
+                "forced audit failure",
+            ):
+                self._run(
+                    approval_path,
+                    audit_failure=True,
+                    st=st,
+                    rows=rows,
+                    hb=hb,
+                    opts=opts,
+                )
+
+            self.assertEqual(st, before_st)
+            self.assertEqual(rows, before_rows)
+            self.assertEqual(hb, [])
+            self.assertNotIn("ofac_index_rows", opts)
+            self.assertNotIn("ofac_removal_audit_rows", opts)
 
 
 if __name__ == "__main__":

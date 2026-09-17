@@ -26,6 +26,7 @@ import requests
 from . import dashboard as D
 from . import master as M
 from . import ofac_index as OI
+from . import ofac_removal as OR
 from . import persistence as P
 from . import state as S
 from . import source_audit as A
@@ -39,10 +40,17 @@ MASTER_REL = Path("data/master/master.csv")
 DIFF_MD_REL = Path("data/diff/latest.md")
 DIFF_CSV_REL = Path("data/diff/latest.csv")
 OFAC_INDEX_REL = Path("data/master/ofac_alias_history.csv")
+OFAC_REMOVAL_APPROVALS_REL = Path(
+    "data/review/ofac_party_removal_approvals.csv"
+)
+OFAC_REMOVAL_AUDIT_REL = Path(
+    "data/review/ofac_party_removal_audit.csv"
+)
 MASTER = ROOT / MASTER_REL
 DIFF_MD = ROOT / DIFF_MD_REL
 DIFF_CSV = ROOT / DIFF_CSV_REL
 OFAC_INDEX = ROOT / OFAC_INDEX_REL
+OFAC_REMOVAL_APPROVALS = ROOT / OFAC_REMOVAL_APPROVALS_REL
 
 # Advanced XML / Party indexをmainへ導入しても、
 # 明示的に解禁するまでmaster/社内取込には反映しない。
@@ -58,6 +66,7 @@ def _persist_outputs_atomically(
     heartbeat: list[dict],
     diffs: list[M.Diff],
     ofac_index_rows=None,
+    ofac_removal_audit_rows=None,
     now: datetime | None = None,
 ) -> None:
     """watchの正式成果物とdashboard投影を1世代として保存する。
@@ -82,6 +91,22 @@ def _persist_outputs_atomically(
                     ofac_index_rows,
                     path,
                 ),
+            )
+        )
+
+    if ofac_removal_audit_rows:
+        writes.append(
+            P.FileWrite(
+                target=(
+                    root
+                    / OFAC_REMOVAL_AUDIT_REL
+                ),
+                writer=lambda path: OR.append_audit(
+                    path,
+                    ofac_removal_audit_rows,
+                    applied_at=now,
+                ),
+                seed_existing=True,
             )
         )
 
@@ -1088,6 +1113,9 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         OFAC_INDEX,
     )
 
+    master_before_sha256 = OR.master_state_sha256(rows)
+    index_before_sha256 = OR.index_state_sha256(history)
+
     index_diff = OI.update(
         history,
         records,
@@ -1097,18 +1125,56 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     # PartyそのもののFixedRef消失は、
     # name差分とは比較にならない重要イベント。
     #
-    # 現段階では自動解除せずfail-closed。
-    # workflow失敗通知を発生させ、人手監査する。
-    if index_diff.removed_parties:
-        sample = sorted(
-            index_diff.removed_parties
-        )[:20]
+    # Advanced XML snapshot hashとFixedRef集合が承認台帳に
+    # 完全一致した場合だけ後続処理へ進める。それ以外は
+    # ApprovalErrorでfail-closedし、st/master/indexを公開しない。
+    removal_approvals: list[OR.Approval] = []
 
-        raise ofac.SchemaError(
-            "OFAC Party FixedRef消失を検出: "
-            f"{len(index_diff.removed_parties)}件 "
-            f"sample={sample}。"
-            "自動無効化せず処理を停止する"
+    if index_diff.removed_parties:
+        snapshot_hashes = {
+            cfg["label"]: str(
+                st.get(key, {}).get(
+                    "advanced_sha256",
+                    "",
+                )
+            )
+            for key, cfg in ofac.LISTS.items()
+        }
+
+        removal_approvals = OR.load_and_authorize(
+            OFAC_REMOVAL_APPROVALS,
+            index_diff.removed_parties,
+            snapshot_hashes,
+            history,
+        )
+
+        first_approval = removal_approvals[0]
+        audit.append(
+            A.entry(
+                source="ofac",
+                document_role="party_removal_approval",
+                status="approval_validated",
+                record_count=len(removal_approvals),
+                diff_counts={
+                    "removed": len(
+                        index_diff.removed_parties
+                    ),
+                },
+                url=first_approval.official_url,
+                content_hash=(
+                    first_approval.snapshot_sha256
+                ),
+            )
+        )
+
+        log(
+            "approved-removal",
+            "OFAC",
+            (
+                "Party FixedRef消失の承認一致="
+                f"{len(removal_approvals)}件 / "
+                f"IDs={sorted(index_diff.removed_parties)}"
+            ),
         )
 
     # Party Indexもまだ呼出元へ公開しない。
@@ -1157,8 +1223,25 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             ),
         )
 
+        staged_removal_audit_rows = []
+        if removal_approvals:
+            staged_removal_audit_rows = OR.build_audit_rows(
+                removal_approvals,
+                [],
+                master_before_sha256=master_before_sha256,
+                master_after_sha256=master_before_sha256,
+                index_before_sha256=index_before_sha256,
+                index_after_sha256=OR.index_state_sha256(
+                    history
+                ),
+            )
+
         opts["ofac_index_rows"] = staged_index_rows
         opts["ofac_index_diff"] = staged_index_diff
+        if staged_removal_audit_rows:
+            opts["ofac_removal_audit_rows"] = (
+                staged_removal_audit_rows
+            )
 
         commit_staged()
         return []
@@ -1178,6 +1261,19 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         report_missing=False,
     )
 
+    removal_effects: list[dict] = []
+
+    if removal_approvals:
+        removal_diff, removal_effects = OR.apply_to_master(
+            rows,
+            history,
+            index_diff.removed_parties,
+            ts=merge_ts,
+        )
+        d.added.extend(removal_diff.added)
+        d.removed.extend(removal_diff.removed)
+        d.changed.extend(removal_diff.changed)
+
     weak_updates = _sync_ofac_weak_alias_audit(
         rows,
         history,
@@ -1190,6 +1286,22 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             "weak-audit",
             "OFAC",
             f"現役Weak Alias監査証跡更新={weak_updates}",
+        )
+
+    staged_removal_audit_rows = []
+
+    if removal_approvals:
+        OR.refresh_effects(
+            rows,
+            removal_effects,
+        )
+        staged_removal_audit_rows = OR.build_audit_rows(
+            removal_approvals,
+            removal_effects,
+            master_before_sha256=master_before_sha256,
+            master_after_sha256=OR.master_state_sha256(rows),
+            index_before_sha256=index_before_sha256,
+            index_after_sha256=OR.index_state_sha256(history),
         )
 
     # mergeまで正常完了したsnapshotだけmaster同期済みとする。
@@ -1245,6 +1357,11 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     # state / master / Party Indexはここで初めて一括反映する。
     opts["ofac_index_rows"] = staged_index_rows
     opts["ofac_index_diff"] = staged_index_diff
+
+    if staged_removal_audit_rows:
+        opts["ofac_removal_audit_rows"] = (
+            staged_removal_audit_rows
+        )
 
     commit_staged()
 
@@ -1697,6 +1814,9 @@ def main() -> int:
         heartbeat=hb,
         diffs=diffs,
         ofac_index_rows=opts.get("ofac_index_rows"),
+        ofac_removal_audit_rows=opts.get(
+            "ofac_removal_audit_rows"
+        ),
     )
 
     # 後続ステップ用の出力
