@@ -13,6 +13,7 @@ from src import persistence as P
 from src import dashboard as D
 from src import master as M
 from src import ofac_index as OI
+from src import ofac_removal as OR
 from src import state as S
 from src import watch
 
@@ -374,6 +375,27 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                     ],
                 ),
             ]
+            removal_audit_rows = [{
+                field: ""
+                for field in OR.AUDIT_FIELDS
+            }]
+            removal_audit_rows[0].update({
+                "list": "SDN",
+                "snapshot_sha256": "a" * 64,
+                "party_id": "1",
+                "party_name": "ALPHA",
+                "approved_by": "reviewer",
+                "approved_at": "2026-09-12T00:00:00Z",
+                "official_url": (
+                    "https://ofac.treasury.gov/recent-actions/20260912"
+                ),
+                "effect_count": "1",
+                "effects_json": "[]",
+                "master_before_sha256": "1" * 64,
+                "master_after_sha256": "2" * 64,
+                "index_before_sha256": "3" * 64,
+                "index_after_sha256": "4" * 64,
+            })
 
             watch._persist_outputs_atomically(
                 root=root,
@@ -382,6 +404,7 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                 heartbeat=heartbeat,
                 diffs=diffs,
                 ofac_index_rows=index_rows,
+                ofac_removal_audit_rows=removal_audit_rows,
                 now=fixed_now,
             )
 
@@ -407,6 +430,17 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                 saved_heartbeat[-1]["checked_at"],
                 "2026-09-12T01:02:03Z",
             )
+            with (
+                root / watch.OFAC_REMOVAL_AUDIT_REL
+            ).open(encoding="utf-8", newline="") as f:
+                saved_removals = list(csv.DictReader(f))
+
+            self.assertEqual(len(saved_removals), 1)
+            self.assertEqual(
+                saved_removals[0]["applied_at"],
+                "2026-09-12T01:02:03Z",
+            )
+            self.assertEqual(saved_removals[0]["party_id"], "1")
             self.assertIn(
                 "ALPHA",
                 (root / watch.DIFF_MD_REL).read_text(
@@ -644,6 +678,7 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
 
             targets = [
                 root / "data/master/ofac_alias_history.csv",
+                root / "data/review/ofac_party_removal_audit.csv",
                 root / "data/heartbeat/2026-09.csv",
                 root / "data/master/master.csv",
                 root / "data/diff/latest.md",
@@ -655,7 +690,12 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
 
             for number, target in enumerate(targets, start=1):
                 target.parent.mkdir(parents=True, exist_ok=True)
-                payload = f"old-{number}\n".encode()
+                if target.name == "ofac_party_removal_audit.csv":
+                    payload = (
+                        ",".join(OR.AUDIT_FIELDS) + "\n"
+                    ).encode()
+                else:
+                    payload = f"old-{number}\n".encode()
                 target.write_bytes(payload)
                 before[target] = payload
 
@@ -697,6 +737,17 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                     ],
                 ),
             ]
+            removal_audit_rows = [{
+                field: ""
+                for field in OR.AUDIT_FIELDS
+            }]
+            removal_audit_rows[0].update({
+                "list": "SDN",
+                "snapshot_sha256": "a" * 64,
+                "party_id": "1",
+                "party_name": "NEW NAME",
+                "effects_json": "[]",
+            })
 
             state_path = root / "data/state.json"
             real_replace = os.replace
@@ -727,6 +778,7 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                         heartbeat=heartbeat,
                         diffs=diffs,
                         ofac_index_rows=index_rows,
+                        ofac_removal_audit_rows=removal_audit_rows,
                         now=fixed_now,
                     )
 

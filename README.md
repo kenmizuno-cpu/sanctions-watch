@@ -201,6 +201,24 @@ OFAC の CSV : HANIYAH, Ismail Abdul Salah
 取り直さないと、そのリストの全件が掲載終了と判定される。304 のときは
 `data/raw/` の生ファイルから読み戻す。
 
+### OFAC Party削除の承認手順
+
+Advanced XMLから既存の `DistinctParty.FixedRef` が消えた場合は、名称差分より重大なため
+自動処理を停止する。OFAC公式の削除発表を照合したうえで、
+`data/review/ofac_party_removal_approvals.csv` に次の情報を追加した場合だけ処理を再開する。
+
+- 対象リストと、取得したAdvanced XMLそのもののSHA256
+- そのsnapshotで消えたFixedRefの完全な集合（不足・余分はどちらも失敗）
+- 履歴上の対象名、承認者、timezone付き承認日時、Treasury公式URL
+
+承認はsnapshot hashに固定される。同じFixedRefでも別のsnapshotには流用されない。
+将来の削除イベントでは必ず新しい行を追加し、過去の承認行は編集しない。
+
+承認後もmaster行とParty/Alias履歴は削除しない。対象名からOFAC出所だけを外し、
+他出所または別の現役Strong Partyがあれば有効のまま維持する。適用した名称ごとの差分、
+承認情報、適用前後のmaster/index hashは
+`data/review/ofac_party_removal_audit.csv` に原子的に追記される。
+
 ## 初回同期の扱い
 
 既存マスターは別のパイプラインで作られているため、名前の粒度が今のパーサと違う。
