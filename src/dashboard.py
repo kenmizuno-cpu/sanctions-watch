@@ -16,6 +16,7 @@ from __future__ import annotations
 import csv
 from collections import Counter
 import gzip
+import json
 import logging
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -28,6 +29,7 @@ LOGGER = logging.getLogger(__name__)
 JST = timezone(timedelta(hours=9))
 
 DASH = Path("data") / "dashboard"
+METI_MANUAL_STATE = Path("data") / "manual" / "meti" / "state.json"
 
 STATUS_COLS = ["出所", "状態", "最終チェック", "最終更新", "件数", "内容ハッシュ"]
 CHANGE_COLS = ["検知日時", "出所", "種別", "受取人名", "変更前", "変更後"]
@@ -80,6 +82,15 @@ STATUS_LABEL = {
 
     # 取得失敗・書式変更などの異常。
     "error": "エラー",
+
+    # 経産省: 自動接続を行わないmanual-first lifecycle。
+    "manual_ok": "手動監視（正常）",
+    "manual_pending": "要確認：正本取得待ち",
+    "manual_review": "要レビュー",
+    "manual_approved": "要確認：反映待ち",
+    "manual_critical": "重大：更新候補未検証",
+    "manual_blocked": "重大：正本解析BLOCKED",
+    "manual_rejected": "要確認：取込却下",
 }
 
 
@@ -174,6 +185,164 @@ def _state_source_updated(key: str, prev: dict) -> str:
     return ""
 
 
+def _load_meti_manual_state(root: Path) -> dict:
+    path = root / METI_MANUAL_STATE
+    if not path.exists():
+        return {}
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("METI manual state must be a JSON object")
+    return value
+
+
+def _manual_status(meti_state: dict) -> str:
+    lifecycle = str(meti_state.get("lifecycle_state", "")).strip()
+
+    if lifecycle in {
+        "CHECKED_NO_CHANGE",
+        "APPLIED",
+        "APPLIED_WITH_HOLDS",
+    }:
+        return "manual_ok"
+    if lifecycle in {
+        "DETECTED",
+        "MANUAL_FETCH_REQUIRED",
+        "FILE_RECEIVED",
+        "VALIDATED",
+    }:
+        if meti_state.get("sla_breached_at"):
+            return "manual_critical"
+        return "manual_pending"
+    if lifecycle in {"DIFFED", "REVIEW_REQUIRED"}:
+        return "manual_review"
+    if lifecycle == "APPROVED":
+        return "manual_approved"
+    if lifecycle == "BLOCKED":
+        return "manual_blocked"
+    if lifecycle == "REJECTED":
+        return "manual_rejected"
+    return ""
+
+
+def build_status_rows(
+    root: Path,
+    hb: list[dict],
+    st: dict,
+    *,
+    now: datetime | None = None,
+    meti_state: dict | None = None,
+) -> list[list[str]]:
+    """全監視ソースの現在状態を固定順で投影する。"""
+
+    now = now or datetime.now(timezone.utc)
+    if now.tzinfo is None or now.utcoffset() is None:
+        raise ValueError("now must include a timezone")
+    now_text = now.astimezone(timezone.utc).strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
+    )
+    latest = _latest_heartbeat_by_source(root)
+
+    # atomic transactionでは正式heartbeatより先にin-memory行を投影する。
+    # 同時刻なら今回渡された行を優先する。
+    for supplied in hb:
+        key = str(supplied.get("source", "")).strip()
+        if key not in SOURCE_LABEL:
+            continue
+
+        current = dict(supplied)
+        checked_at = str(current.get("checked_at", "")).strip() or now_text
+        current["checked_at"] = checked_at
+        previous = latest.get(key)
+        if (
+            previous is None
+            or checked_at >= str(previous.get("checked_at", ""))
+        ):
+            latest[key] = current
+
+    if meti_state is None:
+        meti_state = _load_meti_manual_state(root)
+
+    rows: list[list[str]] = []
+
+    # 順序を毎回固定する。
+    for key, source_label in SOURCE_LABEL.items():
+        entry = latest.get(key, {})
+        previous_state = st.get(key, {})
+        manual_active = (
+            key == "meti"
+            and bool(meti_state.get("lifecycle_state"))
+        )
+
+        if manual_active:
+            pending = meti_state.get("pending_detection") or {}
+            raw_status = _manual_status(meti_state)
+            checked_at = str(
+                meti_state.get("last_manual_check_at", "")
+            )
+            source_updated = str(
+                meti_state.get("effective_date")
+                or meti_state.get("publication_date")
+                or pending.get("publication_at")
+                or entry.get("source_updated")
+                or _state_source_updated(key, previous_state)
+                or ""
+            )
+            record_count = (
+                meti_state.get("current_record_count")
+                or meti_state.get("record_count")
+                or previous_state.get("record_count", "")
+            )
+            content_hash = (
+                meti_state.get("current_source_hash")
+                or meti_state.get("source_hash")
+                or previous_state.get("sha256")
+                or ""
+            )
+        else:
+            raw_status = str(entry.get("status", "")).strip()
+            checked_at = str(entry.get("checked_at", ""))
+            source_updated = str(
+                entry.get("source_updated")
+                or _state_source_updated(key, previous_state)
+                or ""
+            )
+            record_count = entry.get("record_count")
+            if record_count in ("", None):
+                record_count = previous_state.get("record_count", "")
+            content_hash = (
+                entry.get("content_hash")
+                or previous_state.get("sha256")
+                or ""
+            )
+
+        status_label = (
+            STATUS_LABEL.get(raw_status, raw_status)
+            if raw_status
+            else "未確認"
+        )
+        rows.append([
+            source_label,
+            status_label,
+            _jst(checked_at),
+            _http_date_to_jst(source_updated),
+            str(record_count),
+            str(content_hash)[:12],
+        ])
+
+    return rows
+
+
+def write_status_rows(path: Path, rows: list[list[str]]) -> Path:
+    """既に投影済みのstatus行を指定パスへ書く。"""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f, lineterminator="\n")
+        writer.writerow(STATUS_COLS)
+        writer.writerows(rows)
+    return path
+
+
 def write_status(root: Path, hb: list[dict], st: dict) -> Path:
     """全監視ソースの最新稼働状況を status.csv に書き出す。
 
@@ -187,85 +356,34 @@ def write_status(root: Path, hb: list[dict], st: dict) -> Path:
     heartbeat は変更なしでも毎回記録されるため、そこから各ソースの
     最新1行を取得することで、常に全ソースの状態を表示する。
     """
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    latest = _latest_heartbeat_by_source(root)
-
-    # 通常は S.heartbeat() が先に実行されるので latest に今回分も入っている。
-    # 単体テストや手動呼出しなど heartbeat 未書込のケースだけ hb で補完する。
-    for e in hb:
-        key = str(e.get("source", "")).strip()
-        if key not in SOURCE_LABEL or key in latest:
-            continue
-
-        current = dict(e)
-        current["checked_at"] = now
-        latest[key] = current
-
-    d = root / DASH
-    d.mkdir(parents=True, exist_ok=True)
-    p = d / "status.csv"
-
-    with p.open("w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f, lineterminator="\n")
-        w.writerow(STATUS_COLS)
-
-        # 順序を毎回固定する。
-        for key, source_label in SOURCE_LABEL.items():
-            e = latest.get(key, {})
-            prev = st.get(key, {})
-
-            raw_status = str(e.get("status", "")).strip()
-            status_label = (
-                STATUS_LABEL.get(raw_status, raw_status)
-                if raw_status
-                else "未確認"
-            )
-
-            source_updated = (
-                e.get("source_updated")
-                or _state_source_updated(key, prev)
-                or ""
-            )
-
-            record_count = e.get("record_count")
-            if record_count in ("", None):
-                record_count = prev.get("record_count", "")
-
-            content_hash = (
-                e.get("content_hash")
-                or prev.get("sha256")
-                or ""
-            )
-
-            w.writerow([
-                source_label,
-                status_label,
-                _jst(str(e.get("checked_at", ""))),
-                _http_date_to_jst(str(source_updated)),
-                record_count,
-                str(content_hash)[:12],
-            ])
-
-    return p
+    path = root / DASH / "status.csv"
+    rows = build_status_rows(root, hb, st)
+    return write_status_rows(path, rows)
 
 
-def append_changes(root: Path, diff_rows: list[list], when: str = "") -> Path:
-    """変更履歴に追記する。新しいものが上。
+def prepend_change_rows(
+    path: Path,
+    rows: list[list],
+    *,
+    when: str,
+) -> Path:
+    """指定されたchanges.csvへ新しい履歴を先頭追加する。
 
     latest.csv は毎回上書きされるため、過去に何が起きたかがどこにも残らない。
     スプレッドシートで経過を追えるようにここへ蓄積する。
     MAX_CHANGES 行で打ち切り、古いものから落とす。
     """
-    stamp = when or datetime.now(JST).strftime("%Y-%m-%d %H:%M:%S")
-    d = root / DASH
-    d.mkdir(parents=True, exist_ok=True)
-    p = d / "changes.csv"
+    path.parent.mkdir(parents=True, exist_ok=True)
 
     old: list[list] = []
-    if p.exists():
-        with p.open(encoding="utf-8", newline="") as f:
-            rows = list(csv.reader(f))
-        existing = rows[1:] if rows and rows[0] == CHANGE_COLS else rows
+    if path.exists():
+        with path.open(encoding="utf-8", newline="") as f:
+            existing_rows = list(csv.reader(f))
+        existing = (
+            existing_rows[1:]
+            if existing_rows and existing_rows[0] == CHANGE_COLS
+            else existing_rows
+        )
         for row in existing:
             if len(row) >= 4:
                 name = canonical_display_name(row[3])
@@ -275,7 +393,7 @@ def append_changes(root: Path, diff_rows: list[list], when: str = "") -> Path:
             old.append(row)
 
     clean_rows = []
-    for row in diff_rows:
+    for row in rows:
         row = list(row)
         if len(row) >= 3:
             name = canonical_display_name(row[2])
@@ -283,14 +401,22 @@ def append_changes(root: Path, diff_rows: list[list], when: str = "") -> Path:
                 continue
             row[2] = name
         clean_rows.append(row)
-    new = [[stamp] + row for row in clean_rows]
+    new = [[when] + row for row in clean_rows]
     keep = (new + old)[:MAX_CHANGES]
 
-    with p.open("w", encoding="utf-8", newline="") as f:
+    with path.open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
         w.writerow(CHANGE_COLS)
         w.writerows(keep)
-    return p
+    return path
+
+
+def append_changes(root: Path, diff_rows: list[list], when: str = "") -> Path:
+    """変更履歴に追記する。新しいものが上。"""
+
+    stamp = when or datetime.now(JST).strftime("%Y-%m-%d %H:%M:%S")
+    path = root / DASH / "changes.csv"
+    return prepend_change_rows(path, diff_rows, when=stamp)
 
 
 def write_list(root: Path, rows) -> Path:

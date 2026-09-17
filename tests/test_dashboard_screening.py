@@ -1,12 +1,17 @@
 import csv
+import json
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 
 from src import dashboard as D
 from src.normalize import match_key
 from src.screening import secondary_screening_key
+
+
+NOW = datetime(2026, 9, 17, 6, 0, tzinfo=timezone.utc)
 
 
 def entry(
@@ -397,6 +402,158 @@ class DashboardScreeningTest(
                     rows,
                     gz_path,
                 )
+
+
+class DashboardManualLifecycleTest(unittest.TestCase):
+    def test_manual_status_labels_are_operator_readable(self):
+        expected = {
+            "manual_ok": "手動監視（正常）",
+            "manual_pending": "要確認：正本取得待ち",
+            "manual_review": "要レビュー",
+            "manual_approved": "要確認：反映待ち",
+            "manual_critical": "重大：更新候補未検証",
+            "manual_blocked": "重大：正本解析BLOCKED",
+            "manual_rejected": "要確認：取込却下",
+        }
+        for raw, label in expected.items():
+            with self.subTest(raw=raw):
+                self.assertEqual(D.STATUS_LABEL.get(raw), label)
+
+    def test_manual_lifecycle_projects_status_without_reordering_sources(self):
+        cases = [
+            (
+                {
+                    "lifecycle_state": "CHECKED_NO_CHANGE",
+                    "last_manual_check_at": "2026-09-17T06:00:00Z",
+                },
+                "手動監視（正常）",
+            ),
+            (
+                {
+                    "lifecycle_state": "MANUAL_FETCH_REQUIRED",
+                    "sla_due_at": "2026-09-17T07:00:00Z",
+                },
+                "要確認：正本取得待ち",
+            ),
+            (
+                {
+                    "lifecycle_state": "REVIEW_REQUIRED",
+                    "diffed_at": "2026-09-17T06:30:00Z",
+                },
+                "要レビュー",
+            ),
+            (
+                {
+                    "lifecycle_state": "APPROVED",
+                    "diffed_at": "2026-09-17T06:30:00Z",
+                },
+                "要確認：反映待ち",
+            ),
+            (
+                {
+                    "lifecycle_state": "MANUAL_FETCH_REQUIRED",
+                    "sla_due_at": "2026-09-17T07:00:00Z",
+                    "sla_breached_at": "2026-09-17T07:01:00Z",
+                },
+                "重大：更新候補未検証",
+            ),
+            ({"lifecycle_state": "BLOCKED"}, "重大：正本解析BLOCKED"),
+            ({"lifecycle_state": "REJECTED"}, "要確認：取込却下"),
+        ]
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            for meti_state, expected_status in cases:
+                with self.subTest(state=meti_state["lifecycle_state"]):
+                    rows = D.build_status_rows(
+                        root,
+                        [],
+                        {},
+                        now=NOW,
+                        meti_state=meti_state,
+                    )
+                    self.assertEqual(
+                        [row[0] for row in rows],
+                        [
+                            "財務省",
+                            "経済産業省",
+                            "OFAC SDN",
+                            "OFAC Consolidated",
+                        ],
+                    )
+                    meti = next(row for row in rows if row[0] == "経済産業省")
+                    self.assertEqual(meti[1], expected_status)
+
+    def test_manual_dates_populate_check_and_update_columns(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            rows = D.build_status_rows(
+                root,
+                [],
+                {},
+                now=NOW,
+                meti_state={
+                    "lifecycle_state": "CHECKED_NO_CHANGE",
+                    "last_manual_check_at": "2026-09-17T06:00:00Z",
+                    "publication_date": "2026-09-16T00:00:00Z",
+                    "effective_date": "2026-09-17T00:00:00Z",
+                },
+            )
+            meti = next(row for row in rows if row[0] == "経済産業省")
+            self.assertEqual(meti[2], "2026-09-17 15:00:00")
+            self.assertEqual(meti[3], "2026-09-17 09:00:00")
+
+    def test_omitted_manual_state_loads_committed_snapshot(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            path = root / "data/manual/meti/state.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(
+                json.dumps({"lifecycle_state": "BLOCKED"}),
+                encoding="utf-8",
+            )
+
+            rows = D.build_status_rows(root, [], {}, now=NOW)
+            meti = next(row for row in rows if row[0] == "経済産業省")
+            self.assertEqual(meti[1], "重大：正本解析BLOCKED")
+
+    def test_supplied_heartbeat_newer_than_history_wins(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            path = root / "data/heartbeat/2026-09.csv"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with path.open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(
+                    f,
+                    fieldnames=[
+                        "checked_at",
+                        "source",
+                        "status",
+                        "content_hash",
+                        "source_updated",
+                        "record_count",
+                        "raw_path",
+                    ],
+                )
+                writer.writeheader()
+                writer.writerow(
+                    {
+                        "checked_at": "2026-09-17T05:00:00Z",
+                        "source": "ofac_sdn",
+                        "status": "unchanged",
+                    }
+                )
+
+            rows = D.build_status_rows(
+                root,
+                [{"source": "ofac_sdn", "status": "changed"}],
+                {},
+                now=NOW,
+                meti_state={},
+            )
+            ofac = next(row for row in rows if row[0] == "OFAC SDN")
+            self.assertEqual(ofac[1], "更新あり")
+            self.assertEqual(ofac[2], "2026-09-17 15:00:00")
 
 
 if __name__ == "__main__":

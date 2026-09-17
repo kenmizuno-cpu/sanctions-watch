@@ -251,24 +251,20 @@ def error_entry(
     return row
 
 
-def write(root: Path, entries: list[dict]) -> Path | None:
-    """月別CSVへ追記する。
-
-    既存CSVのヘッダーが想定外なら追記せず停止する。
-    列ずれした監査証跡を正常扱いしないため。
-    """
+def append_rows(
+    path: Path,
+    entries: list[dict],
+    *,
+    now: datetime,
+) -> Path | None:
+    """指定された監査CSVへ追記する。transaction stagingでも使用する。"""
     if not entries:
         return None
 
-    now = datetime.now(timezone.utc)
+    path.parent.mkdir(parents=True, exist_ok=True)
 
-    d = root / AUDIT_DIR
-    d.mkdir(parents=True, exist_ok=True)
-
-    p = d / f"{now:%Y-%m}.csv"
-
-    if p.exists() and p.stat().st_size:
-        with p.open("r", encoding="utf-8", newline="") as f:
+    if path.exists() and path.stat().st_size:
+        with path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.reader(f)
             actual = next(reader, [])
 
@@ -278,11 +274,13 @@ def write(root: Path, entries: list[dict]) -> Path | None:
                 f" expected={AUDIT_COLS} actual={actual}"
             )
 
-    new = not p.exists() or p.stat().st_size == 0
+    new = not path.exists() or path.stat().st_size == 0
 
-    checked_at = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    checked_at = now.astimezone(timezone.utc).strftime(
+        "%Y-%m-%dT%H:%M:%SZ"
+    )
 
-    with p.open("a", encoding="utf-8", newline="") as f:
+    with path.open("a", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(
             f,
             fieldnames=AUDIT_COLS,
@@ -299,4 +297,18 @@ def write(root: Path, entries: list[dict]) -> Path | None:
             row["checked_at"] = checked_at
             writer.writerow(row)
 
-    return p
+    return path
+
+
+def write(root: Path, entries: list[dict]) -> Path | None:
+    """月別CSVへ追記する。
+
+    既存CSVのヘッダーが想定外なら追記せず停止する。
+    列ずれした監査証跡を正常扱いしないため。
+    """
+    if not entries:
+        return None
+
+    now = datetime.now(timezone.utc)
+    path = root / AUDIT_DIR / f"{now:%Y-%m}.csv"
+    return append_rows(path, entries, now=now)

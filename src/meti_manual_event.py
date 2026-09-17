@@ -1,17 +1,25 @@
-"""Pure lifecycle model for METI manual-first monitoring.
+"""Lifecycle model and local operator boundary for METI manual monitoring.
 
-This module validates operator-provided metadata and updates in-memory state.
-It deliberately performs no network or filesystem I/O.
+The core transition functions are pure.  The CLI persists repository-local
+evidence atomically and deliberately contains no network client or URL opener.
 """
 
 from __future__ import annotations
 
+import argparse
+import csv
 import hashlib
 import json
+import sys
 from copy import deepcopy
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict, List, Tuple
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
+
+from . import dashboard, persistence, source_audit
+from . import state as state_store
 
 
 EVENT_COLS = [
@@ -43,6 +51,7 @@ ALLOWED_TRANSITIONS = {
 
 _TERMINAL_STATES = {"REJECTED", "APPLIED", "APPLIED_WITH_HOLDS"}
 _OFFICIAL_HOSTS = {"meti.go.jp", "www.meti.go.jp"}
+ROOT = Path(__file__).resolve().parent.parent
 
 
 class LifecycleError(ValueError):
@@ -334,3 +343,359 @@ def record_no_change(
     next_state["last_manual_check_at"] = _timestamp(checked_at)
     next_state["last_manual_check_by"] = operator.strip()
     return next_state, next_events
+
+
+@dataclass(frozen=True)
+class LifecyclePaths:
+    """Every mutable file in one manual-lifecycle generation."""
+
+    root: Path
+    state: Path
+    events: Path
+    heartbeat: Path
+    status: Path
+    changes: Path
+    audit: Path
+
+    @classmethod
+    def for_root(cls, root: Path, now: datetime) -> "LifecyclePaths":
+        normalized = _normalize_now(now)
+        root = Path(root)
+        month = normalized.strftime("%Y-%m")
+        return cls(
+            root=root,
+            state=root / "data/manual/meti/state.json",
+            events=root / "data/manual/meti/events.csv",
+            heartbeat=root / f"data/heartbeat/{month}.csv",
+            status=root / "data/dashboard/status.csv",
+            changes=root / "data/dashboard/changes.csv",
+            audit=root / f"data/source_audit/{month}.csv",
+        )
+
+    def transaction_targets(self) -> Tuple[Path, ...]:
+        return (
+            self.state,
+            self.events,
+            self.heartbeat,
+            self.status,
+            self.changes,
+            self.audit,
+        )
+
+
+def _normalize_now(value: datetime) -> datetime:
+    if not isinstance(value, datetime):
+        raise LifecycleError("now must be a datetime")
+    if value.tzinfo is None or value.utcoffset() is None:
+        raise LifecycleError("now must include a timezone")
+    return value.astimezone(timezone.utc)
+
+
+def _parse_utc(value: str, field: str) -> datetime:
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ")
+    except ValueError as exc:
+        raise LifecycleError(
+            "%s must use UTC YYYY-MM-DDTHH:MM:SSZ" % field
+        ) from exc
+    return parsed.replace(tzinfo=timezone.utc)
+
+
+def _load_manual_state(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        raise LifecycleError("failed to load METI manual state") from exc
+    if not isinstance(value, dict):
+        raise LifecycleError("METI manual state must be a JSON object")
+    return value
+
+
+def load_events(path: Path) -> List[dict]:
+    """Load and validate the append-only lifecycle event ledger."""
+
+    if not path.exists() or path.stat().st_size == 0:
+        return []
+    try:
+        with path.open("r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            if reader.fieldnames != EVENT_COLS:
+                raise LifecycleError(
+                    "METI lifecycle event columns do not match: %s"
+                    % (reader.fieldnames,)
+                )
+            return [dict(row) for row in reader]
+    except csv.Error as exc:
+        raise LifecycleError("failed to parse METI lifecycle events") from exc
+
+
+def _append_event_rows(path: Path, events: List[dict]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    new = not path.exists() or path.stat().st_size == 0
+    if not new:
+        load_events(path)
+
+    with path.open("a", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=EVENT_COLS,
+            extrasaction="ignore",
+            lineterminator="\n",
+        )
+        if new:
+            writer.writeheader()
+        for event in events:
+            row = {column: "" for column in EVENT_COLS}
+            row.update(event)
+            writer.writerow(row)
+    return path
+
+
+def persist_lifecycle(
+    *,
+    state: dict,
+    events: List[dict],
+    heartbeat_status: str,
+    dashboard_event: Optional[List[str]],
+    audit_row: Optional[dict],
+    now: datetime,
+    paths: LifecyclePaths,
+) -> None:
+    """Commit state, ledger, heartbeat, dashboard, and audit as one generation."""
+
+    now = _normalize_now(now)
+    if dashboard_event is not None and len(dashboard_event) != 5:
+        raise LifecycleError("dashboard event must contain five columns")
+
+    existing_events = load_events(paths.events)
+    if events[:len(existing_events)] != existing_events:
+        raise LifecycleError("event ledger history cannot be rewritten")
+    new_events = events[len(existing_events):]
+
+    pending = state.get("pending_detection") or {}
+    heartbeat_entry = {
+        "source": "meti",
+        "status": heartbeat_status,
+        "content_hash": (
+            state.get("current_source_hash")
+            or state.get("source_hash")
+            or ""
+        ),
+        "source_updated": (
+            state.get("effective_date")
+            or state.get("publication_date")
+            or pending.get("publication_at")
+            or ""
+        ),
+        "record_count": (
+            state.get("current_record_count")
+            or state.get("record_count")
+            or ""
+        ),
+        "raw_path": state.get("current_raw_path", ""),
+    }
+    repository_state = state_store.load_state(paths.root)
+    status_rows = dashboard.build_status_rows(
+        paths.root,
+        [heartbeat_entry],
+        repository_state,
+        now=now,
+        meti_state=state,
+    )
+    change_rows = [dashboard_event] if dashboard_event is not None else []
+    audit_rows = [audit_row] if audit_row is not None else []
+    changed_at = now.astimezone(dashboard.JST).strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+
+    persistence.atomic_replace_many([
+        persistence.FileWrite(
+            target=paths.state,
+            writer=lambda path: state_store.write_state(path, state),
+        ),
+        persistence.FileWrite(
+            target=paths.events,
+            writer=lambda path: _append_event_rows(path, new_events),
+            seed_existing=True,
+        ),
+        persistence.FileWrite(
+            target=paths.heartbeat,
+            writer=lambda path: state_store.append_heartbeat(
+                path,
+                [heartbeat_entry],
+                now=now,
+            ),
+            seed_existing=True,
+        ),
+        persistence.FileWrite(
+            target=paths.status,
+            writer=lambda path: dashboard.write_status_rows(
+                path,
+                status_rows,
+            ),
+        ),
+        persistence.FileWrite(
+            target=paths.changes,
+            writer=lambda path: dashboard.prepend_change_rows(
+                path,
+                change_rows,
+                when=changed_at,
+            ),
+            seed_existing=True,
+        ),
+        persistence.FileWrite(
+            target=paths.audit,
+            writer=lambda path: source_audit.append_rows(
+                path,
+                audit_rows,
+                now=now,
+            ),
+            seed_existing=True,
+        ),
+    ])
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Record METI manual monitoring without network access",
+    )
+    commands = parser.add_subparsers(dest="command", required=True)
+
+    check = commands.add_parser("check")
+    check.add_argument("--operator", required=True)
+    check.add_argument("--source-url", required=True)
+    check.add_argument("--note", default="")
+    check.add_argument("--checked-at", default="")
+
+    detect = commands.add_parser("detect")
+    detect.add_argument("--operator", required=True)
+    detect.add_argument("--notice-url", required=True)
+    detect.add_argument("--title", required=True)
+    detect.add_argument("--publication-at", default="")
+    detect.add_argument("--note", default="")
+    detect.add_argument("--detected-at", default="")
+    return parser
+
+
+def main(
+    argv: Optional[List[str]] = None,
+    *,
+    paths: Optional[LifecyclePaths] = None,
+    now: Optional[datetime] = None,
+) -> int:
+    """Run the local-only check/detect operator command."""
+
+    args = _parser().parse_args(argv)
+    base_now = _normalize_now(now or datetime.now(timezone.utc))
+
+    try:
+        if args.command == "check":
+            event_at = (
+                _parse_utc(args.checked_at, "checked-at")
+                if args.checked_at
+                else base_now
+            )
+        else:
+            event_at = (
+                _parse_utc(args.detected_at, "detected-at")
+                if args.detected_at
+                else base_now
+            )
+
+        paths = paths or LifecyclePaths.for_root(ROOT, event_at)
+        old_state = _load_manual_state(paths.state)
+        old_events = load_events(paths.events)
+        before = str(old_state.get("lifecycle_state", ""))
+
+        if args.command == "check":
+            state, events = record_no_change(
+                old_state,
+                old_events,
+                operator=args.operator,
+                source_url=args.source_url,
+                checked_at=event_at,
+                note=args.note,
+            )
+            changed = len(events) != len(old_events)
+            dashboard_event = (
+                [
+                    "経済産業省",
+                    "手動監視確認",
+                    "外国ユーザーリスト",
+                    before,
+                    "変更なし",
+                ]
+                if changed
+                else None
+            )
+            audit_row = source_audit.entry(
+                "meti_manual",
+                "official_page_check",
+                "checked_no_change",
+                url=args.source_url,
+            )
+            persist_lifecycle(
+                state=state,
+                events=events,
+                heartbeat_status="manual_ok",
+                dashboard_event=dashboard_event,
+                audit_row=audit_row,
+                now=event_at,
+                paths=paths,
+            )
+            return 0
+
+        publication_at = ""
+        if args.publication_at:
+            publication_at = _timestamp(
+                _parse_utc(args.publication_at, "publication-at")
+            )
+        state, events, detection_id = open_detection(
+            old_state,
+            old_events,
+            operator=args.operator,
+            notice_url=args.notice_url,
+            title=args.title,
+            detected_at=event_at,
+            publication_at=publication_at,
+            note=args.note,
+        )
+        changed = len(events) != len(old_events)
+        dashboard_event = (
+            [
+                "経済産業省",
+                "更新候補検知",
+                "外国ユーザーリスト",
+                before,
+                "正本取得待ち",
+            ]
+            if changed
+            else None
+        )
+        audit_row = source_audit.entry(
+            "meti_manual",
+            "official_notice",
+            "manual_fetch_required",
+            url=args.notice_url,
+            source_updated=publication_at,
+        )
+        persist_lifecycle(
+            state=state,
+            events=events,
+            heartbeat_status="manual_pending",
+            dashboard_event=dashboard_event,
+            audit_row=audit_row,
+            now=event_at,
+            paths=paths,
+        )
+        print("DETECTION_ID=%s" % detection_id)
+        return 0
+    except LifecycleError as error:
+        print("ERROR: %s" % error, file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
