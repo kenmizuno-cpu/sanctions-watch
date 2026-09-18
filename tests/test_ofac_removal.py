@@ -107,6 +107,31 @@ class OfacRemovalApprovalTest(unittest.TestCase):
             self.assertEqual(approved[0].approved_by, "reviewer")
             self.assertEqual(approved[0].official_url, OFFICIAL_URL)
 
+    def test_official_sls_snapshot_url_is_accepted(self):
+        url = "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN_ADVANCED.XML"
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "approvals.csv"
+            write_approvals(path, [approval_row(official_url=url)])
+            approved = R.load_and_authorize(
+                path, {("SDN", "100")}, {"SDN": SNAPSHOT_HASH}, history_rows()
+            )
+            self.assertEqual(approved[0].official_url, url)
+
+    def test_sls_lookalikes_and_insecure_urls_are_rejected(self):
+        for url in (
+            "http://sanctionslistservice.ofac.treas.gov/file.xml",
+            "https://sanctionslistservice.ofac.treas.gov.evil.example/file.xml",
+            "https://evil.example/sanctionslistservice.ofac.treas.gov",
+            "https://other.treas.gov/file.xml",
+        ):
+            with self.subTest(url=url), tempfile.TemporaryDirectory() as td:
+                path = Path(td) / "approvals.csv"
+                write_approvals(path, [approval_row(official_url=url)])
+                with self.assertRaises(R.ApprovalError):
+                    R.load_and_authorize(
+                        path, {("SDN", "100")}, {"SDN": SNAPSHOT_HASH}, history_rows()
+                    )
+
     def test_missing_approval_file_fails_closed(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "missing.csv"

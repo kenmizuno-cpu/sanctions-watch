@@ -101,6 +101,7 @@ def _validate_official_url(value: str, row_number: int) -> None:
     official_host = (
         hostname == "treasury.gov"
         or hostname.endswith(".treasury.gov")
+        or hostname == "sanctionslistservice.ofac.treas.gov"
     )
 
     if parsed.scheme != "https" or not official_host:
