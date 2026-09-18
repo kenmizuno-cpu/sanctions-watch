@@ -919,3 +919,5 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-09-17T18:48:19Z,meti,blocked,,,,
 2026-09-18T00:48:55Z,mof,unchanged,c46ccaf88a98ab9c4209c4032c91190fa740ac106767fe32331879d73de99d03,令和8年9月10日,14743,
 2026-09-18T00:48:55Z,meti,blocked,,,,
+2026-09-18T01:21:46Z,ofac_sdn,fetched,a092172349e389c768852b3600295f0296da017f756575954ef0efbcdb49b745,"Thu, 17 Sep 2026 17:33:04 GMT",89581,data/raw/ofac_sdn_advanced/20260918T012129Z__sdn_advanced.xml.gz
+2026-09-18T01:21:46Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,

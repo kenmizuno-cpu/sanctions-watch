@@ -3707,8 +3707,8 @@ SDN,10755,POLOTSK-STEKLOVOLOKNO OPEN JOINT-STOCK COMPANY,polotsk-steklovoloknoop
 SDN,10755,POLOTSKOE STEKLOVOLOKNO OAO,polotskoesteklovoloknooao,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
 SDN,10755,POLOTZK STEKLOVOLOKNO OAO,polotzksteklovoloknooao,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
 SDN,10755,STEKLOVOLOKNO,steklovolokno,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
-SDN,10756,LAKOKRASKA OAO,lakokraskaoao,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
-SDN,10756,LAKOKRASKA OPEN JOINT-STOCK COMPANY,lakokraskaopenjoint-stockcompany,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
+SDN,10756,LAKOKRASKA OAO,lakokraskaoao,1788483946814,1789694501137,0,0,advanced_xml_v3;classic_csv,1,0
+SDN,10756,LAKOKRASKA OPEN JOINT-STOCK COMPANY,lakokraskaopenjoint-stockcompany,1788483946814,1789694501137,0,0,advanced_xml_v3;classic_csv,0,0
 SDN,10761,AL-SHABAAB,al-shabaab,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,10761,AL-SHABAAB AL-ISLAAM,al-shabaabal-islaam,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
 SDN,10761,AL-SHABAAB AL-ISLAMIYA,al-shabaabal-islamiya,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
@@ -54975,14 +54975,14 @@ SDN,46476,Innocent Vitelhomme,innocentvitelhomme,1788483946814,1788483946814,1,1
 SDN,46476,"VITEL'HOMME, Innocent",innocentvitel'homme,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,46476,Vitel Homme,vitelhomme,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
 SDN,46476,Vitel'Homme Innocent,vitel'hommeinnocent,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,46477,BELARUSIAN PRODUCTION AND TRADE CONCERN OF TIMBER WOODWORKING AND PULP AND PAPER INDUSTRY,belarusianproductionandtradeconcernoftimberwoodworkingandpulpandpaperindustry,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
-SDN,46477,BIELARUSKI VYTVORCHA HANDLIOVY KANCERN LIASNOJ DREVAAPRACOWCHAJ I CELIULOZNA PAPIAROVAJ PRAMYSLOVASCI,bielaruskivytvorchahandliovykancernliasnojdrevaapracowchajiceliuloznapapiarovajpramyslovasci,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,46477,Bielaruski Vytvorcha Handliovy Kancern Liasnoj Drevaapracowchaj i Celiulozna Papiarovaj Pramyslovasci,bielaruskivytvorchahandliovykancernliasnojdrevaapracowchajiceliuloznapapiarovajpramyslovasci,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,46477,KONTSERN BELLESBUMPROM,kontsernbellesbumprom,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,46477,Kontsern Bellesbumprom,kontsernbellesbumprom,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,46477,Беларускі Вытворча Гандлёвы Канцэрн Лясной Дрэваапрацоўчай і Цэлюлозна Папяровай Прамысловасці,беларусківытворчагандлёвыканцэрнляснойдрэваапрацоўчайіцэлюлознапапяровайпрамысловасці,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,46477,Белорусский Производственно Торговый Концерн Лесной Деревообрабатывающей и Целлюлозно Бумажной Промышленности,белорусскийпроизводственноторговыйконцернлеснойдеревообрабатывающейицеллюлознобумажнойпромышленности,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,46477,Концерн Беллесбумпром,концернбеллесбумпром,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
+SDN,46477,BELARUSIAN PRODUCTION AND TRADE CONCERN OF TIMBER WOODWORKING AND PULP AND PAPER INDUSTRY,belarusianproductionandtradeconcernoftimberwoodworkingandpulpandpaperindustry,1788483946814,1789694501137,0,0,advanced_xml_v3;classic_csv,1,0
+SDN,46477,BIELARUSKI VYTVORCHA HANDLIOVY KANCERN LIASNOJ DREVAAPRACOWCHAJ I CELIULOZNA PAPIAROVAJ PRAMYSLOVASCI,bielaruskivytvorchahandliovykancernliasnojdrevaapracowchajiceliuloznapapiarovajpramyslovasci,1788483946814,1789694501137,0,0,classic_csv,0,0
+SDN,46477,Bielaruski Vytvorcha Handliovy Kancern Liasnoj Drevaapracowchaj i Celiulozna Papiarovaj Pramyslovasci,bielaruskivytvorchahandliovykancernliasnojdrevaapracowchajiceliuloznapapiarovajpramyslovasci,1788483946814,1789694501137,0,0,advanced_xml_v3,0,0
+SDN,46477,KONTSERN BELLESBUMPROM,kontsernbellesbumprom,1788483946814,1789694501137,0,0,classic_csv,0,0
+SDN,46477,Kontsern Bellesbumprom,kontsernbellesbumprom,1788483946814,1789694501137,0,0,advanced_xml_v3,0,0
+SDN,46477,Беларускі Вытворча Гандлёвы Канцэрн Лясной Дрэваапрацоўчай і Цэлюлозна Папяровай Прамысловасці,беларусківытворчагандлёвыканцэрнляснойдрэваапрацоўчайіцэлюлознапапяровайпрамысловасці,1788483946814,1789694501137,0,0,advanced_xml_v3,0,0
+SDN,46477,Белорусский Производственно Торговый Концерн Лесной Деревообрабатывающей и Целлюлозно Бумажной Промышленности,белорусскийпроизводственноторговыйконцернлеснойдеревообрабатывающейицеллюлознобумажнойпромышленности,1788483946814,1789694501137,0,0,advanced_xml_v3,1,0
+SDN,46477,Концерн Беллесбумпром,концернбеллесбумпром,1788483946814,1789694501137,0,0,advanced_xml_v3,0,0
 SDN,46478,BELARUSIAN CEMENT COMPANY HOLDING,belarusiancementcompanyholding,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
 SDN,46478,REPUBLICAN PRODUCTION AND TRADE UNITARY ENTERPRISE MANAGEMENT COMPANY OF THE HOLDING BELARUSIAN CEMENT COMPANY,republicanproductionandtradeunitaryenterprisemanagementcompanyoftheholdingbelarusiancementcompany,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,46478,RESPUBLIKANSKOE PROIZVODSTVENNO TORGOVOE UNITARNOE PREDPRIYATIE UPRAVLYAYUSHCHAYA KOMPANIYA KHOLDINGA BELORUSSKAYA TSEMENTNAYA KOMPANIYA,respublikanskoeproizvodstvennotorgovoeunitarnoepredpriyatieupravlyayushchayakompaniyakholdingabelorusskayatsementnayakompaniya,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
@@ -77191,6 +77191,75 @@ SDN,58562,"AL-ABADA, Khaldun Nasir Mariush",khaldunnasirmariushal-abada,17890651
 SDN,58562,Al Abada Khaldoon Naser Maryoosh,alabadakhaldoonnasermaryoosh,1789065159822,1789065159822,1,1,advanced_xml_v3,1,0
 SDN,58562,Al-Abada Khaldun Nasir Mariush,al-abadakhaldunnasirmariush,1789065159822,1789065159822,1,1,advanced_xml_v3,0,0
 SDN,58562,al-'Ibada Khaldun Nasir Mariyush,al-'ibadakhaldunnasirmariyush,1789065159822,1789065159822,1,1,advanced_xml_v3,0,0
+SDN,58614,EMPRESA DE SERVICIOS DE COMPUTACION COMUNICACIONES Y ELECTRONICA DEL NIQUEL RAFAEL FAUSTO OREJON FORMENT,empresadeserviciosdecomputacioncomunicacionesyelectronicadelniquelrafaelfaustoorejonforment,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58614,EMPRESA DE SERVICIOS TECNICOS DE COMPUTACION COMUNICACIONES Y ELECTRONICA,empresadeserviciostecnicosdecomputacioncomunicacionesyelectronica,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58614,Empresa De Servicios Tecnicos De Computacion Comunicaciones Y Electronica,empresadeserviciostecnicosdecomputacioncomunicacionesyelectronica,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58614,Empresa de Servicios de Computacion Comunicaciones y Electronica del Niquel Rafael Fausto Orejon Forment,empresadeserviciosdecomputacioncomunicacionesyelectronicadelniquelrafaelfaustoorejonforment,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58614,Serconi,serconi,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58615,CEPRONIQUEL,ceproniquel,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58615,Ceproniquel,ceproniquel,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58615,EMPRESA DE INGENIERIA Y PROYECTOS DEL NIQUEL,empresadeingenieriayproyectosdelniquel,1789694501137,1789694501137,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58616,CEDINIQ,cediniq,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58616,CENTRO DE INVESTIGACIONES DEL NIQUEL CAPITAN ALBERTO FERNANDEZ MONTES DE OCA,centrodeinvestigacionesdelniquelcapitanalbertofernandezmontesdeoca,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58616,Cediniq,cediniq,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58616,Ceinniq,ceinniq,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58616,Centro De Investigaciones Del Niquel Capitan Alberto Fernandez Montes De Oca,centrodeinvestigacionesdelniquelcapitanalbertofernandezmontesdeoca,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58617,PINARES S.A.,pinaress.a.,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58617,Pinares S.A.,pinaress.a.,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58618,PISHTAZ SIMORGH COMPANY,pishtazsimorghcompany,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58618,PISHTAZ SIMORGH ELECTRONIC TRADE COMPANY,pishtazsimorghelectronictradecompany,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58618,Pishtaz Simorgh Company,pishtazsimorghcompany,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58618,Pishtaz Simorgh Electronic Trade Company,pishtazsimorghelectronictradecompany,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58618,TEJARAT ELECTRONIC PISHTAZ SIMORGH,tejaratelectronicpishtazsimorgh,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58618,Tejarat Electronic Pishtaz Simorgh,tejaratelectronicpishtazsimorgh,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58618,شرکت تجارت الکترونیک پیشتاز سیمرغ,شرکتتجارتالکترونیکپیشتازسیمرغ,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58619,BITBANK,bitbank,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58619,BITBANK3,bitbank3,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58619,BitBank,bitbank,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58619,Bitbank3,bitbank3,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58619,بیتبانک,بیتبانک,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58620,"ZAKER HOSSEIN, Hossein Ali",hosseinalizakerhossein,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58620,Zaker Hossein Hossein Ali,zakerhosseinhosseinali,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58620,ذاکر حسین حسین‌علی,ذاکرحسینحسین‌علی,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58630,"ZAKER HOSSEIN, Hamed",hamedzakerhossein,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58630,"ZAKER HOSSEIN, Mohammad Mahdi",mohammadmahdizakerhossein,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58630,Zaker Hossein Hamed,zakerhosseinhamed,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58630,Zaker Hossein Mohammad Mahdi,zakerhosseinmohammadmahdi,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58630,ذاکر حسین حامد,ذاکرحسینحامد,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58630,ذاکر حسین محمد مهدی,ذاکرحسینمحمدمهدی,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58631,"HEIDARI, Seyed Adel",seyedadelheidari,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58631,Heidari Seyed Adel,heidariseyedadel,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58631,حیدری سید عادل,حیدریسیدعادل,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58647,CENTRO DE INVESTIGACION Y DESARROLLO DE SIMULADORES,centrodeinvestigacionydesarrollodesimuladores,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58647,CID-SIM,cid-sim,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58647,Centro De Investigacion y Desarrollo De Simuladores,centrodeinvestigacionydesarrollodesimuladores,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58647,ECTSIM,ectsim,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58647,EMPRESA DE CIENCIA Y TECNOLOGIA SIMULADORES,empresadecienciaytecnologiasimuladores,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58647,Empresa De Ciencia Y Tecnologia Simuladores,empresadecienciaytecnologiasimuladores,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58647,SIMPRO,simpro,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58648,"CANCIO MONTEAGUDO, Joaquin Francisco",joaquinfranciscocanciomonteagudo,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58648,Joaquin Cancio Monteagudo Francisco,joaquincanciomonteagudofrancisco,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58649,CENTRO DE INVESTIGACION Y DESARROLLO NAVAL,centrodeinvestigacionydesarrollonaval,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58649,CIDNAV,cidnav,1789694501137,1789694501137,1,1,advanced_xml_v3;classic_csv,0,0
+SDN,58649,Centro De Investigacion y Desarrollo Naval,centrodeinvestigacionydesarrollonaval,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58650,Dioglis Pedrera Arguello,dioglispedreraarguello,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58650,"PEDRERA ARGUELLO, Dioglis",dioglispedreraarguello,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58651,CENTRO DE INVESTIGACION Y DESARROLLO DE ARMAMENTO DE INFANTERIA,centrodeinvestigacionydesarrollodearmamentodeinfanteria,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58651,CIDAI,cidai,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58651,Centro De Investigacion y Desarrollo De Armamento De Infanteria,centrodeinvestigacionydesarrollodearmamentodeinfanteria,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58652,"HURTADO BETANCOURT, Julio",juliohurtadobetancourt,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58652,Julio Hurtado Betancourt,juliohurtadobetancourt,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58653,CENTRO DE INVESTIGACION Y DESARROLLO GRITO DE BAIRE,centrodeinvestigacionydesarrollogritodebaire,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58653,"CENTRO DE INVESTIGACION, DESARROLLO Y PRODUCCION GRITO DE BAIRE",desarrolloyproducciongritodebairecentrodeinvestigacion,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58653,CIDP GRITO DE BAIRE,cidpgritodebaire,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58653,CIDP Grito De Baire,cidpgritodebaire,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58653,CIDP-GB,cidp-gb,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58653,Centro De Investigacion Y Desarrollo Grito De Baire,centrodeinvestigacionydesarrollogritodebaire,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58653,"Centro De Investigacion, Desarrollo y Produccion Grito De Baire",desarrolloyproducciongritodebairecentrodeinvestigacion,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
+SDN,58653,GELCOM,gelcom,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
+SDN,58653,GRITO DE BAIRE CENTER FOR RESEARCH AND DEVELOPMENT AND PRODUCTION,gritodebairecenterforresearchanddevelopmentandproduction,1789694501137,1789694501137,1,1,classic_csv,0,0
+SDN,58653,Grito De Baire Center for Research and Development and Production,gritodebairecenterforresearchanddevelopmentandproduction,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
+SDN,58653,Grupo de la Electronica de Comunicaciones,grupodelaelectronicadecomunicaciones,1789694501137,1789694501137,1,1,advanced_xml_v3,0,1
 SDN,589,"CRYMSA - ARGENTINA, S.A.","crymsa-argentina,s.a.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,590,CUBACANCUN CIGARS AND GIFT SHOPS,cubacancuncigarsandgiftshops,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,591,CUBAEXPORT,cubaexport,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
