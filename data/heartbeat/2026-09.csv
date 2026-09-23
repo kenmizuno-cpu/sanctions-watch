@@ -993,3 +993,5 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-09-23T12:49:56Z,meti,blocked,,,,
 2026-09-23T13:37:44Z,ofac_sdn,fetched,8d64eef6932ad713709f1ea7cc0e0e003d68308eb9d1ac5637268d666fdc056f,"Fri, 18 Sep 2026 14:01:59 GMT",89559,data/raw/ofac_sdn_advanced/20260923T133732Z__sdn_advanced.xml.gz
 2026-09-23T13:37:44Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,
+2026-09-23T14:32:24Z,ofac_sdn,review_required,83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,"Wed, 23 Sep 2026 14:07:33 GMT",89540,data/raw/ofac_sdn_advanced/20260923T143212Z__sdn_advanced.xml.gz
+2026-09-23T14:32:24Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,
