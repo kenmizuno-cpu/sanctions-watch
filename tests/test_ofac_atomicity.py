@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from src import ofac_removal as OR
+from src import ofac_removal_queue as ORQ
 from src import watch
 from src.sources import ofac
 
@@ -1075,6 +1076,7 @@ class OfacRemovalTransactionTest(unittest.TestCase):
         *,
         snapshot_hash: str | None = None,
         extra_party: bool = False,
+        party_name: str = "ALPHA",
     ) -> None:
         rows = [{
             "list": "SDN",
@@ -1082,7 +1084,7 @@ class OfacRemovalTransactionTest(unittest.TestCase):
                 snapshot_hash or self.snapshot_hash
             ),
             "party_id": "100",
-            "party_name": "ALPHA",
+            "party_name": party_name,
             "decision": "APPROVED",
             "approved_by": "reviewer",
             "approved_at": "2026-09-17T00:00:00Z",
@@ -1109,16 +1111,22 @@ class OfacRemovalTransactionTest(unittest.TestCase):
         approval_path: Path,
         *,
         audit_failure: bool = False,
+        master_enabled: bool = True,
         st: dict | None = None,
         rows: dict | None = None,
         hb: list[dict] | None = None,
         opts: dict | None = None,
+        history: dict | None = None,
+        queue_rows: list[dict] | None = None,
     ) -> tuple[dict, dict, list, dict]:
         st = self._state() if st is None else st
         rows = self._master_rows() if rows is None else rows
         hb = [] if hb is None else hb
         opts = {"audit": []} if opts is None else opts
-        history = self._history()
+        history = self._history() if history is None else history
+        queue_path = approval_path.with_name("queue.csv")
+        if queue_rows is not None:
+            ORQ.save(queue_rows, queue_path)
 
         def fake_fetch(
             url,
@@ -1148,6 +1156,16 @@ class OfacRemovalTransactionTest(unittest.TestCase):
 
         with (
             patch.object(watch, "OFAC_REMOVAL_APPROVALS", approval_path),
+            patch.object(
+                watch,
+                "OFAC_REMOVAL_QUEUE",
+                queue_path,
+            ),
+            patch.object(
+                watch,
+                "OFAC_ADVANCED_MASTER_ENABLED",
+                master_enabled,
+            ),
             patch.object(watch, "fetch", side_effect=fake_fetch),
             patch.object(watch, "archive"),
             patch.object(watch, "prune_raw"),
@@ -1219,6 +1237,10 @@ class OfacRemovalTransactionTest(unittest.TestCase):
             opts["ofac_index_diff"].removed_parties,
             {("SDN", "100")},
         )
+        queue_rows = opts["ofac_removal_queue_rows"]
+        self.assertEqual(len(queue_rows), 1)
+        self.assertEqual(queue_rows[0]["party_id"], "100")
+        self.assertEqual(queue_rows[0]["status"], ORQ.APPLIED)
 
         audit_rows = opts["ofac_removal_audit_rows"]
         self.assertEqual(len(audit_rows), 1)
@@ -1240,11 +1262,10 @@ class OfacRemovalTransactionTest(unittest.TestCase):
             audit_rows[0]["index_after_sha256"],
         )
 
-    def test_non_exact_approval_keeps_transaction_unpublished(self):
+    def test_missing_or_wrong_hash_approval_is_quarantined(self):
         cases = (
             ("missing", None),
             ("wrong hash", {"snapshot_hash": "d" * 64}),
-            ("extra party", {"extra_party": True}),
         )
 
         for label, approval_options in cases:
@@ -1258,25 +1279,157 @@ class OfacRemovalTransactionTest(unittest.TestCase):
 
                 st = self._state()
                 rows = self._master_rows()
-                before_st = copy.deepcopy(st)
-                before_rows = copy.deepcopy(rows)
                 hb: list[dict] = []
                 opts = {"audit": []}
 
-                with self.assertRaises(OR.ApprovalError):
-                    self._run(
-                        approval_path,
-                        st=st,
-                        rows=rows,
-                        hb=hb,
-                        opts=opts,
-                    )
+                self._run(
+                    approval_path,
+                    st=st,
+                    rows=rows,
+                    hb=hb,
+                    opts=opts,
+                )
 
-                self.assertEqual(st, before_st)
-                self.assertEqual(rows, before_rows)
-                self.assertEqual(hb, [])
-                self.assertNotIn("ofac_index_rows", opts)
+                self.assertEqual(
+                    rows["alpha"]["status"],
+                    watch.M.STATUS_ACTIVE,
+                )
+                self.assertEqual(rows["alpha"]["sources"], "OFAC")
+                self.assertEqual(len(hb), 2)
+                self.assertEqual(
+                    {
+                        item["source"]: item["status"]
+                        for item in hb
+                    },
+                    {
+                        "ofac_sdn": "review_required",
+                        "ofac_cons": "fetched",
+                    },
+                )
+                self.assertEqual(
+                    opts["ofac_index_rows"][("SDN", "100", "ALPHA")][
+                        "party_current"
+                    ],
+                    "0",
+                )
+                queue_rows = opts["ofac_removal_queue_rows"]
+                self.assertEqual(len(queue_rows), 1)
+                self.assertEqual(queue_rows[0]["party_id"], "100")
+                self.assertEqual(
+                    queue_rows[0]["status"],
+                    ORQ.PENDING_REVIEW,
+                )
                 self.assertNotIn("ofac_removal_audit_rows", opts)
+
+    def test_extra_same_hash_approval_keeps_transaction_unpublished(self):
+        with tempfile.TemporaryDirectory() as td:
+            approval_path = Path(td) / "approvals.csv"
+            self._write_approval(approval_path, extra_party=True)
+            st = self._state()
+            rows = self._master_rows()
+            before_st = copy.deepcopy(st)
+            before_rows = copy.deepcopy(rows)
+            hb: list[dict] = []
+            opts = {"audit": []}
+
+            with self.assertRaisesRegex(
+                OR.ApprovalError,
+                "pending event approval set mismatch",
+            ):
+                self._run(
+                    approval_path,
+                    st=st,
+                    rows=rows,
+                    hb=hb,
+                    opts=opts,
+                )
+
+            self.assertEqual(st, before_st)
+            self.assertEqual(rows, before_rows)
+            self.assertEqual(hb, [])
+            self.assertNotIn("ofac_index_rows", opts)
+            self.assertNotIn("ofac_removal_queue_rows", opts)
+            self.assertNotIn("ofac_removal_audit_rows", opts)
+
+    def test_rollout_gate_off_keeps_exact_approval_pending(self):
+        with tempfile.TemporaryDirectory() as td:
+            approval_path = Path(td) / "approvals.csv"
+            self._write_approval(approval_path)
+
+            _st, rows, hb, opts = self._run(
+                approval_path,
+                master_enabled=False,
+            )
+
+        self.assertEqual(rows["alpha"]["status"], watch.M.STATUS_ACTIVE)
+        self.assertEqual(rows["alpha"]["sources"], "OFAC")
+        self.assertEqual(
+            opts["ofac_removal_queue_rows"][0]["status"],
+            ORQ.PENDING_REVIEW,
+        )
+        self.assertNotIn("ofac_removal_audit_rows", opts)
+        self.assertEqual(
+            {item["source"]: item["status"] for item in hb},
+            {
+                "ofac_sdn": "review_required",
+                "ofac_cons": "fetched",
+            },
+        )
+
+    def test_changed_snapshot_preserves_shared_name_for_other_pending_party(self):
+        with tempfile.TemporaryDirectory() as td:
+            approval_path = Path(td) / "approvals.csv"
+            self._write_approval(approval_path, party_name="SHARED")
+            history = self._history()
+            alpha = history.pop(("SDN", "100", "ALPHA"))
+            alpha.update(name="SHARED", match_key="shared")
+            history[("SDN", "100", "SHARED")] = alpha
+            pending = dict(alpha)
+            pending.update(
+                party_id="200",
+                party_current="0",
+                alias_current="0",
+            )
+            history[("SDN", "200", "SHARED")] = pending
+            queue_rows: list[dict] = []
+            ORQ.reconcile(
+                queue_rows,
+                removed_parties={("SDN", "200")},
+                current_parties={
+                    ("SDN", "1"),
+                    ("SDN", "100"),
+                    ("Consolidated", "1"),
+                },
+                snapshot_hashes={"SDN": "e" * 64},
+                history=history,
+                ts=1000,
+            )
+            rows = self._master_rows()
+            rows["shared"] = rows.pop("alpha")
+            rows["shared"].update(
+                match_key="shared",
+                display_name="SHARED",
+            )
+
+            _st, rows, _hb, opts = self._run(
+                approval_path,
+                rows=rows,
+                history=history,
+                queue_rows=queue_rows,
+            )
+
+        self.assertEqual(rows["shared"]["status"], watch.M.STATUS_ACTIVE)
+        self.assertEqual(rows["shared"]["sources"], "OFAC")
+        self.assertEqual(
+            {
+                row["party_id"]: row["status"]
+                for row in opts["ofac_removal_queue_rows"]
+            },
+            {
+                "100": ORQ.APPLIED,
+                "200": ORQ.PENDING_REVIEW,
+            },
+        )
 
     def test_audit_build_failure_rolls_back_removal_and_index(self):
         with tempfile.TemporaryDirectory() as td:
@@ -1306,7 +1459,284 @@ class OfacRemovalTransactionTest(unittest.TestCase):
             self.assertEqual(rows, before_rows)
             self.assertEqual(hb, [])
             self.assertNotIn("ofac_index_rows", opts)
+            self.assertNotIn("ofac_removal_queue_rows", opts)
             self.assertNotIn("ofac_removal_audit_rows", opts)
+
+
+class OfacRemovalUnchangedReviewTest(unittest.TestCase):
+    snapshot_hash = "a" * 64
+
+    @staticmethod
+    def _history() -> dict:
+        history = OfacRemovalTransactionTest._history()
+        history[("SDN", "100", "ALPHA")]["party_current"] = "0"
+        history[("SDN", "100", "ALPHA")]["alias_current"] = "0"
+        return history
+
+    def _state(self) -> dict:
+        hashes = {
+            "ofac_sdn": self.snapshot_hash,
+            "ofac_cons": "b" * 64,
+        }
+        state = {}
+        for key in ofac.LISTS:
+            state[key] = {
+                "sha256": "c" * 64,
+                "etag": '"primary"',
+                "last_modified": "Thu, 17 Sep 2026 00:00:00 GMT",
+                "filename": f"{key}-primary.csv",
+                "alt_sha256": "d" * 64,
+                "alt_etag": '"alias"',
+                "alt_last_modified": "Thu, 17 Sep 2026 00:00:00 GMT",
+                "alt_filename": f"{key}-alias.csv",
+                "advanced_sha256": hashes[key],
+                "advanced_etag": '"advanced"',
+                "advanced_last_modified": "Thu, 17 Sep 2026 00:00:00 GMT",
+                "advanced_filename": f"{key}-advanced.xml",
+                "raw_advanced": f"data/raw/old/{key}.xml.gz",
+                "advanced_baseline_synced": True,
+                "advanced_master_synced": True,
+                "record_count": 1,
+            }
+        return state
+
+    def _write_exact_approval(self, path: Path, *, wrong_hash=False) -> None:
+        OfacRemovalTransactionTest()._write_approval(
+            path,
+            snapshot_hash=("f" * 64 if wrong_hash else self.snapshot_hash),
+        )
+
+    def _run(
+        self,
+        root: Path,
+        *,
+        approval: str,
+        master_enabled: bool = True,
+        history: dict | None = None,
+        queue_rows: list[dict] | None = None,
+        rows: dict | None = None,
+    ) -> tuple:
+        queue_path = root / "queue.csv"
+        approval_path = root / "approvals.csv"
+        history = self._history() if history is None else history
+        if queue_rows is None:
+            queue_rows = []
+            ORQ.reconcile(
+                queue_rows,
+                removed_parties={("SDN", "100")},
+                current_parties={("SDN", "1"), ("Consolidated", "1")},
+                snapshot_hashes={
+                    "SDN": self.snapshot_hash,
+                    "Consolidated": "b" * 64,
+                },
+                history=history,
+                ts=1000,
+            )
+        ORQ.save(queue_rows, queue_path)
+
+        if approval == "exact":
+            self._write_exact_approval(approval_path)
+        elif approval == "wrong_hash":
+            self._write_exact_approval(approval_path, wrong_hash=True)
+
+        st = self._state()
+        rows = (
+            OfacRemovalTransactionTest._master_rows()
+            if rows is None
+            else rows
+        )
+        hb: list[dict] = []
+        opts = {"audit": []}
+
+        def unchanged_fetch(
+            url,
+            prev=None,
+            session=None,
+            allow_conditional=True,
+        ):
+            previous = prev or {}
+            fetched = FakeFetched(
+                url,
+                sha256=previous.get("sha256", ""),
+                body=None,
+            )
+            fetched.not_modified = True
+            fetched.http_status = 304
+            fetched.etag = previous.get("etag", "")
+            fetched.last_modified = previous.get("last_modified", "")
+            fetched.filename = previous.get("filename", "")
+            return fetched
+
+        with (
+            patch.object(watch, "OFAC_REMOVAL_QUEUE", queue_path),
+            patch.object(watch, "OFAC_REMOVAL_APPROVALS", approval_path),
+            patch.object(
+                watch,
+                "OFAC_ADVANCED_MASTER_ENABLED",
+                master_enabled,
+            ),
+            patch.object(watch, "fetch", side_effect=unchanged_fetch),
+            patch.object(watch.OI, "load", return_value=history),
+            patch.object(
+                watch,
+                "_sync_ofac_weak_alias_audit",
+                return_value=0,
+            ),
+        ):
+            diffs = watch.run_ofac(
+                session=object(),
+                st=st,
+                rows=rows,
+                hb=hb,
+                opts=opts,
+            )
+
+        return diffs, st, rows, hb, opts
+
+    def test_no_or_wrong_hash_approval_remains_pending_on_all_304(self):
+        for approval in ("missing", "wrong_hash"):
+            with self.subTest(approval=approval), tempfile.TemporaryDirectory() as td:
+                diffs, _st, rows, hb, opts = self._run(
+                    Path(td),
+                    approval=approval,
+                )
+
+                self.assertEqual(diffs, [])
+                self.assertEqual(
+                    rows["alpha"]["status"],
+                    watch.M.STATUS_ACTIVE,
+                )
+                self.assertEqual(
+                    {item["source"]: item["status"] for item in hb},
+                    {
+                        "ofac_sdn": "review_required",
+                        "ofac_cons": "unchanged",
+                    },
+                )
+                self.assertEqual(
+                    opts["ofac_removal_queue_rows"][0]["status"],
+                    ORQ.PENDING_REVIEW,
+                )
+                self.assertNotIn("ofac_removal_audit_rows", opts)
+
+    def test_exact_approval_applies_on_all_304(self):
+        with tempfile.TemporaryDirectory() as td:
+            diffs, _st, rows, hb, opts = self._run(
+                Path(td),
+                approval="exact",
+            )
+
+        self.assertEqual(len(diffs), 1)
+        self.assertEqual(len(diffs[0].removed), 1)
+        self.assertEqual(rows["alpha"]["status"], watch.M.STATUS_INACTIVE)
+        self.assertEqual(rows["alpha"]["sources"], "")
+        self.assertEqual(
+            {item["source"]: item["status"] for item in hb},
+            {
+                "ofac_sdn": "unchanged",
+                "ofac_cons": "unchanged",
+            },
+        )
+        self.assertEqual(
+            opts["ofac_removal_queue_rows"][0]["status"],
+            ORQ.APPLIED,
+        )
+        self.assertEqual(
+            opts["ofac_removal_audit_rows"][0]["party_id"],
+            "100",
+        )
+        self.assertEqual(
+            opts["ofac_removal_audit_rows"][0]["index_before_sha256"],
+            opts["ofac_removal_audit_rows"][0]["index_after_sha256"],
+        )
+
+    def test_rollout_gate_off_does_not_apply_exact_approval_on_all_304(self):
+        with tempfile.TemporaryDirectory() as td:
+            diffs, _st, rows, hb, opts = self._run(
+                Path(td),
+                approval="exact",
+                master_enabled=False,
+            )
+
+        self.assertEqual(diffs, [])
+        self.assertEqual(rows["alpha"]["status"], watch.M.STATUS_ACTIVE)
+        self.assertEqual(rows["alpha"]["sources"], "OFAC")
+        self.assertEqual(
+            opts["ofac_removal_queue_rows"][0]["status"],
+            ORQ.PENDING_REVIEW,
+        )
+        self.assertNotIn("ofac_removal_audit_rows", opts)
+        self.assertEqual(
+            {item["source"]: item["status"] for item in hb},
+            {
+                "ofac_sdn": "review_required",
+                "ofac_cons": "unchanged",
+            },
+        )
+
+    def test_all_304_preserves_shared_name_for_other_pending_party(self):
+        with tempfile.TemporaryDirectory() as td:
+            history = self._history()
+            history[("SDN", "100", "SHARED")] = {
+                **history[("SDN", "100", "ALPHA")],
+                "name": "SHARED",
+                "match_key": "shared",
+                "primary": "0",
+            }
+            history[("SDN", "200", "SHARED")] = {
+                **history[("SDN", "100", "SHARED")],
+                "party_id": "200",
+            }
+            queue_rows: list[dict] = []
+            ORQ.reconcile(
+                queue_rows,
+                removed_parties={("SDN", "100")},
+                current_parties={
+                    ("SDN", "1"),
+                    ("Consolidated", "1"),
+                },
+                snapshot_hashes={"SDN": self.snapshot_hash},
+                history=history,
+                ts=1000,
+            )
+            ORQ.reconcile(
+                queue_rows,
+                removed_parties={("SDN", "200")},
+                current_parties={
+                    ("SDN", "1"),
+                    ("Consolidated", "1"),
+                },
+                snapshot_hashes={"SDN": "e" * 64},
+                history=history,
+                ts=2000,
+            )
+            rows = OfacRemovalTransactionTest._master_rows()
+            rows["shared"] = rows.pop("alpha")
+            rows["shared"].update(
+                match_key="shared",
+                display_name="SHARED",
+            )
+
+            _diffs, _st, rows, _hb, opts = self._run(
+                Path(td),
+                approval="exact",
+                history=history,
+                queue_rows=queue_rows,
+                rows=rows,
+            )
+
+        self.assertEqual(rows["shared"]["status"], watch.M.STATUS_ACTIVE)
+        self.assertEqual(rows["shared"]["sources"], "OFAC")
+        self.assertEqual(
+            {
+                row["party_id"]: row["status"]
+                for row in opts["ofac_removal_queue_rows"]
+            },
+            {
+                "100": ORQ.APPLIED,
+                "200": ORQ.PENDING_REVIEW,
+            },
+        )
 
 
 if __name__ == "__main__":

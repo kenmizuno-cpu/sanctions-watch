@@ -40,6 +40,12 @@ class DashboardScreeningTest(
     unittest.TestCase
 ):
 
+    def test_review_required_has_operator_facing_label(self):
+        self.assertEqual(
+            D.STATUS_LABEL["review_required"],
+            "掲載終了候補・要レビュー",
+        )
+
     def read_csv(self, path):
         with Path(path).open(
             encoding="utf-8",

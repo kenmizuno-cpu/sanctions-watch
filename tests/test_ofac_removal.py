@@ -148,6 +148,119 @@ class OfacRemovalApprovalTest(unittest.TestCase):
                 )
 
 
+class OfacPendingApprovalTest(unittest.TestCase):
+
+    @staticmethod
+    def _group(*party_ids: str) -> dict:
+        return {
+            ("e" * 64, "SDN", SNAPSHOT_HASH): set(party_ids),
+        }
+
+    def test_missing_or_wrong_hash_approval_leaves_event_pending(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "approvals.csv"
+            self.assertEqual(
+                R.load_available_approvals(
+                    path,
+                    self._group("100"),
+                    history_rows(),
+                ),
+                [],
+            )
+
+            write_approvals(
+                path,
+                [approval_row(snapshot_sha256="b" * 64)],
+            )
+            self.assertEqual(
+                R.load_available_approvals(
+                    path,
+                    self._group("100"),
+                    history_rows(),
+                ),
+                [],
+            )
+
+    def test_exact_pending_event_is_authorized(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "approvals.csv"
+            write_approvals(
+                path,
+                [
+                    approval_row(),
+                    approval_row(
+                        party_id="200",
+                        party_name="BETA",
+                    ),
+                    approval_row(
+                        snapshot_sha256="b" * 64,
+                        party_id="300",
+                        party_name="GAMMA",
+                    ),
+                ],
+            )
+
+            approved = R.load_available_approvals(
+                path,
+                self._group("100", "200"),
+                history_rows(),
+            )
+
+        self.assertEqual(
+            [(item.list_name, item.party_id) for item in approved],
+            [("SDN", "100"), ("SDN", "200")],
+        )
+
+    def test_partial_or_extra_same_hash_fails_closed(self):
+        cases = {
+            "partial": [approval_row()],
+            "extra": [
+                approval_row(),
+                approval_row(party_id="200", party_name="BETA"),
+                approval_row(party_id="300", party_name="GAMMA"),
+            ],
+        }
+
+        for label, rows in cases.items():
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as td:
+                path = Path(td) / "approvals.csv"
+                write_approvals(path, rows)
+
+                with self.assertRaisesRegex(
+                    R.ApprovalError,
+                    "pending event approval set mismatch",
+                ):
+                    R.load_available_approvals(
+                        path,
+                        self._group("100", "200"),
+                        history_rows(),
+                    )
+
+    def test_duplicate_malformed_or_name_mismatch_fails_closed(self):
+        cases = {
+            "duplicate": (
+                [approval_row(), approval_row()],
+                "重複",
+            ),
+            "name": (
+                [approval_row(party_name="WRONG")],
+                "party_name",
+            ),
+        }
+
+        for label, (rows, message) in cases.items():
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as td:
+                path = Path(td) / "approvals.csv"
+                write_approvals(path, rows)
+
+                with self.assertRaisesRegex(R.ApprovalError, message):
+                    R.load_available_approvals(
+                        path,
+                        self._group("100"),
+                        history_rows(),
+                    )
+
+
 def master_row(
     name: str,
     key: str,
@@ -288,6 +401,48 @@ class OfacRemovalApplicationTest(unittest.TestCase):
                 "weak-shared": "deactivated",
             },
         )
+
+    def test_unapproved_pending_party_keeps_shared_name_until_its_approval(self):
+        rows = {
+            "shared": master_row("SHARED", "shared"),
+        }
+        history = {
+            ("SDN", "100", "SHARED"): index_row(
+                "SDN", "100", "SHARED", "shared", current=False
+            ),
+            ("SDN", "200", "SHARED"): index_row(
+                "SDN", "200", "SHARED", "shared", current=False
+            ),
+        }
+
+        first_diff, first_effects = R.apply_to_master(
+            rows,
+            history,
+            {("SDN", "100")},
+            protected_parties={("SDN", "200")},
+            ts=3000,
+        )
+
+        self.assertEqual(first_diff.removed, [])
+        self.assertEqual(rows["shared"]["status"], M.STATUS_ACTIVE)
+        self.assertEqual(rows["shared"]["sources"], "OFAC")
+        self.assertEqual(
+            first_effects[0]["action"],
+            "kept_pending_review_party",
+        )
+
+        second_diff, second_effects = R.apply_to_master(
+            rows,
+            history,
+            {("SDN", "200")},
+            protected_parties=set(),
+            ts=4000,
+        )
+
+        self.assertEqual(len(second_diff.removed), 1)
+        self.assertEqual(rows["shared"]["status"], M.STATUS_INACTIVE)
+        self.assertEqual(rows["shared"]["sources"], "")
+        self.assertEqual(second_effects[0]["action"], "deactivated")
 
     def test_all_removed_party_aliases_are_processed_and_absence_is_audited(self):
         rows = {

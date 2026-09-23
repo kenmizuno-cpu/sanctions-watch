@@ -204,8 +204,14 @@ OFAC の CSV : HANIYAH, Ismail Abdul Salah
 ### OFAC Party削除の承認手順
 
 Advanced XMLから既存の `DistinctParty.FixedRef` が消えた場合は、名称差分より重大なため
-自動処理を停止する。OFAC公式の削除発表を照合したうえで、
-`data/review/ofac_party_removal_approvals.csv` に次の情報を追加した場合だけ処理を再開する。
+`data/review/ofac_party_removal_queue.csv` に `PENDING_REVIEW` として隔離する。
+取得・構造検証・追加/変更・state・Party/Alias履歴の更新は継続し、対象名は承認まで
+master上で有効のまま維持する。ダッシュボードには
+`掲載終了候補・要レビュー` と表示され、承認待ちだけを理由にworkflowは失敗しない。
+
+OFAC公式の削除発表を照合したうえで、
+`data/review/ofac_party_removal_approvals.csv` に次の情報を追加した場合だけ
+対象Partyの非掲載を適用する。
 
 - 対象リストと、取得したAdvanced XMLそのもののSHA256
 - そのsnapshotで消えたFixedRefの完全な集合（不足・余分はどちらも失敗）
@@ -213,11 +219,20 @@ Advanced XMLから既存の `DistinctParty.FixedRef` が消えた場合は、名
 
 承認はsnapshot hashに固定される。同じFixedRefでも別のsnapshotには流用されない。
 将来の削除イベントでは必ず新しい行を追加し、過去の承認行は編集しない。
+承認行が無い、またはhashが違う場合は保留を継続する。同じhashに一部だけ、または
+余分なFixedRefを承認した場合は安全のためtransaction全体を公開しない。
+
+承認追加後にOFACが `304 Not Modified` を返した場合も、保存済みキューとParty履歴から
+承認を再評価して非掲載を適用できる。承認前にPartyが再掲載された場合は元イベントを
+`CANCELLED_REAPPEARED` とし、同時検知した他Partyがまだ不在なら現在snapshotで
+新しい完全一致イベントに再隔離する。
 
 承認後もmaster行とParty/Alias履歴は削除しない。対象名からOFAC出所だけを外し、
 他出所または別の現役Strong Partyがあれば有効のまま維持する。適用した名称ごとの差分、
 承認情報、適用前後のmaster/index hashは
 `data/review/ofac_party_removal_audit.csv` に原子的に追記される。
+取得失敗、構造変更、Classic/Advanced coverage不一致、承認台帳やキューの破損は
+従来どおりworkflowを失敗させ、formal outputsを公開しない。
 
 ## 初回同期の扱い
 

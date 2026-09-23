@@ -27,6 +27,7 @@ from . import dashboard as D
 from . import master as M
 from . import ofac_index as OI
 from . import ofac_removal as OR
+from . import ofac_removal_queue as ORQ
 from . import persistence as P
 from . import state as S
 from . import source_audit as A
@@ -46,11 +47,15 @@ OFAC_REMOVAL_APPROVALS_REL = Path(
 OFAC_REMOVAL_AUDIT_REL = Path(
     "data/review/ofac_party_removal_audit.csv"
 )
+OFAC_REMOVAL_QUEUE_REL = Path(
+    "data/review/ofac_party_removal_queue.csv"
+)
 MASTER = ROOT / MASTER_REL
 DIFF_MD = ROOT / DIFF_MD_REL
 DIFF_CSV = ROOT / DIFF_CSV_REL
 OFAC_INDEX = ROOT / OFAC_INDEX_REL
 OFAC_REMOVAL_APPROVALS = ROOT / OFAC_REMOVAL_APPROVALS_REL
+OFAC_REMOVAL_QUEUE = ROOT / OFAC_REMOVAL_QUEUE_REL
 
 # Advanced XML / Party indexをmainへ導入しても、
 # 明示的に解禁するまでmaster/社内取込には反映しない。
@@ -66,6 +71,7 @@ def _persist_outputs_atomically(
     heartbeat: list[dict],
     diffs: list[M.Diff],
     ofac_index_rows=None,
+    ofac_removal_queue_rows=None,
     ofac_removal_audit_rows=None,
     now: datetime | None = None,
 ) -> None:
@@ -89,6 +95,17 @@ def _persist_outputs_atomically(
                 ),
                 writer=lambda path: OI.save(
                     ofac_index_rows,
+                    path,
+                ),
+            )
+        )
+
+    if ofac_removal_queue_rows is not None:
+        writes.append(
+            P.FileWrite(
+                target=root / OFAC_REMOVAL_QUEUE_REL,
+                writer=lambda path: ORQ.save(
+                    ofac_removal_queue_rows,
                     path,
                 ),
             )
@@ -592,6 +609,28 @@ def _ofac_master_rollout_pending(st: dict, enabled=None) -> bool:
     )
 
 
+def _mark_ofac_review_required(
+    heartbeat: list[dict],
+    queue_rows: list[dict],
+) -> set[str]:
+    """Expose open removal reviews without treating them as source failures."""
+    pending_lists = {
+        list_name
+        for _event_id, list_name, _snapshot in ORQ.pending_groups(
+            queue_rows
+        )
+    }
+    affected_sources = {
+        key
+        for key, cfg in ofac.LISTS.items()
+        if cfg["label"] in pending_lists
+    }
+    for row in heartbeat:
+        if row.get("source") in affected_sources:
+            row["status"] = "review_required"
+    return affected_sources
+
+
 def run_ofac(session, st, rows, hb, opts=None) -> list:
     """SDN と Consolidated の Advanced XML をまとめて1回でマージする。
 
@@ -1031,43 +1070,153 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
 
     if not fetched_any and not rollout_pending:
         # OFAC一次ソース自体に変更が無い場合でも、
-        # 既存FixedRef/Alias indexを使ってWeak Alias監査理由の
-        # 整合性だけは修復できる。
+        # 既存FixedRef/Alias indexを使って、後から追加された
+        # Party削除承認とWeak Alias監査理由を反映できる。
         history = OI.load(
             OFAC_INDEX,
         )
+        queue_rows = ORQ.load(
+            OFAC_REMOVAL_QUEUE,
+        )
+        pending_groups = ORQ.pending_groups(queue_rows)
+        removal_approvals = OR.load_available_approvals(
+            OFAC_REMOVAL_APPROVALS,
+            pending_groups,
+            history,
+        )
+        approved_parties = {
+            (approval.list_name, approval.party_id)
+            for approval in removal_approvals
+        }
+        pending_parties = {
+            (list_name, party_id)
+            for (_event_id, list_name, _snapshot), party_ids
+            in pending_groups.items()
+            for party_id in party_ids
+        }
+        protected_parties = pending_parties - approved_parties
 
         d = M.Diff(
             source=ofac.SOURCE,
         )
+        review_ts = M.now_ms()
+        removal_effects: list[dict] = []
+        staged_removal_audit_rows = []
+
+        if removal_approvals and OFAC_ADVANCED_MASTER_ENABLED:
+            master_before_sha256 = OR.master_state_sha256(rows)
+            index_sha256 = OR.index_state_sha256(history)
+            removal_diff, removal_effects = OR.apply_to_master(
+                rows,
+                history,
+                approved_parties,
+                protected_parties=protected_parties,
+                ts=review_ts,
+            )
+            d.added.extend(removal_diff.added)
+            d.removed.extend(removal_diff.removed)
+            d.changed.extend(removal_diff.changed)
 
         weak_updates = _sync_ofac_weak_alias_audit(
             rows,
             history,
             d,
+            review_ts,
         )
 
-        if not weak_updates:
-            commit_staged()
-            return []
-
-        log(
-            "weak-audit",
-            "OFAC",
-            f"現役Weak Alias監査証跡更新={weak_updates}",
-        )
-
-        audit.append(
-            A.entry(
-                source="ofac",
-                document_role="weak_alias_metadata_reconcile",
-                status="changed",
-                diff_counts=d.counts,
+        if removal_approvals and OFAC_ADVANCED_MASTER_ENABLED:
+            OR.refresh_effects(rows, removal_effects)
+            staged_removal_audit_rows = OR.build_audit_rows(
+                removal_approvals,
+                removal_effects,
+                master_before_sha256=master_before_sha256,
+                master_after_sha256=OR.master_state_sha256(rows),
+                index_before_sha256=index_sha256,
+                index_after_sha256=index_sha256,
             )
+            ORQ.mark_applied(
+                queue_rows,
+                {
+                    (
+                        approval.list_name,
+                        approval.snapshot_sha256,
+                        approval.party_id,
+                    )
+                    for approval in removal_approvals
+                },
+                ts=review_ts,
+            )
+            first_approval = removal_approvals[0]
+            audit.append(
+                A.entry(
+                    source="ofac",
+                    document_role="party_removal_approval",
+                    status="approval_validated",
+                    record_count=len(removal_approvals),
+                    diff_counts={"removed": len(approved_parties)},
+                    url=first_approval.official_url,
+                    content_hash=first_approval.snapshot_sha256,
+                )
+            )
+            log(
+                "approved-removal",
+                "OFAC",
+                (
+                    "304再確認でParty削除承認を反映="
+                    f"{len(removal_approvals)}件 / "
+                    f"IDs={sorted(approved_parties)}"
+                ),
+            )
+
+        _mark_ofac_review_required(
+            hb,
+            queue_rows,
         )
+        remaining_pending = ORQ.pending_groups(queue_rows)
+        if remaining_pending:
+            audit.append(
+                A.entry(
+                    source="ofac",
+                    document_role="party_removal_review_queue",
+                    status="review_required",
+                    record_count=sum(
+                        len(party_ids)
+                        for party_ids in remaining_pending.values()
+                    ),
+                )
+            )
+            log(
+                "review-required",
+                "OFAC",
+                (
+                    "Party FixedRef消失の承認待ち="
+                    f"{sum(len(ids) for ids in remaining_pending.values())}件"
+                ),
+            )
+
+        if weak_updates:
+            log(
+                "weak-audit",
+                "OFAC",
+                f"現役Weak Alias監査証跡更新={weak_updates}",
+            )
+
+            audit.append(
+                A.entry(
+                    source="ofac",
+                    document_role="weak_alias_metadata_reconcile",
+                    status="changed",
+                    diff_counts=d.counts,
+                )
+            )
+
+        if queue_rows:
+            opts["ofac_removal_queue_rows"] = queue_rows
+        if staged_removal_audit_rows:
+            opts["ofac_removal_audit_rows"] = staged_removal_audit_rows
 
         commit_staged()
-        return [d]
+        return [d] if d else []
 
     if not fetched_any and rollout_pending:
         log(
@@ -1112,41 +1261,90 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     history = OI.load(
         OFAC_INDEX,
     )
+    queue_rows = ORQ.load(
+        OFAC_REMOVAL_QUEUE,
+    )
 
     master_before_sha256 = OR.master_state_sha256(rows)
     index_before_sha256 = OR.index_state_sha256(history)
 
+    index_ts = M.now_ms()
     index_diff = OI.update(
         history,
         records,
-        M.now_ms(),
+        index_ts,
     )
 
-    # PartyそのもののFixedRef消失は、
-    # name差分とは比較にならない重要イベント。
-    #
-    # Advanced XML snapshot hashとFixedRef集合が承認台帳に
-    # 完全一致した場合だけ後続処理へ進める。それ以外は
-    # ApprovalErrorでfail-closedし、st/master/indexを公開しない。
-    removal_approvals: list[OR.Approval] = []
-
-    if index_diff.removed_parties:
-        snapshot_hashes = {
-            cfg["label"]: str(
-                st.get(key, {}).get(
-                    "advanced_sha256",
-                    "",
-                )
+    snapshot_hashes = {
+        cfg["label"]: str(
+            st.get(key, {}).get(
+                "advanced_sha256",
+                "",
             )
-            for key, cfg in ofac.LISTS.items()
-        }
-
-        removal_approvals = OR.load_and_authorize(
-            OFAC_REMOVAL_APPROVALS,
-            index_diff.removed_parties,
-            snapshot_hashes,
-            history,
         )
+        for key, cfg in ofac.LISTS.items()
+    }
+    current_parties = {
+        (
+            str(record.get("category") or ""),
+            str(record.get("source_id") or ""),
+        )
+        for record in records
+        if (
+            str(record.get("category") or "")
+            and str(record.get("source_id") or "")
+        )
+    }
+    queue_diff = ORQ.reconcile(
+        queue_rows,
+        index_diff.removed_parties,
+        current_parties,
+        snapshot_hashes,
+        history,
+        index_ts,
+    )
+    pending_groups = ORQ.pending_groups(queue_rows)
+    removal_approvals = OR.load_available_approvals(
+        OFAC_REMOVAL_APPROVALS,
+        pending_groups,
+        history,
+    )
+    approved_parties = {
+        (approval.list_name, approval.party_id)
+        for approval in removal_approvals
+    }
+    pending_parties = {
+        (list_name, party_id)
+        for (_event_id, list_name, _snapshot), party_ids
+        in pending_groups.items()
+        for party_id in party_ids
+    }
+    protected_parties = pending_parties - approved_parties
+
+    if queue_diff.created_events or queue_diff.cancelled_parties:
+        audit.append(
+            A.entry(
+                source="ofac",
+                document_role="party_removal_review_queue",
+                status=(
+                    "review_required"
+                    if pending_groups
+                    else "queue_reconciled"
+                ),
+                record_count=sum(
+                    len(party_ids)
+                    for party_ids in pending_groups.values()
+                ),
+                diff_counts={
+                    "events_created": len(queue_diff.created_events),
+                    "parties_cancelled": len(
+                        queue_diff.cancelled_parties
+                    ),
+                },
+            )
+        )
+
+    if removal_approvals:
 
         first_approval = removal_approvals[0]
         audit.append(
@@ -1156,9 +1354,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
                 status="approval_validated",
                 record_count=len(removal_approvals),
                 diff_counts={
-                    "removed": len(
-                        index_diff.removed_parties
-                    ),
+                    "removed": len(approved_parties),
                 },
                 url=first_approval.official_url,
                 content_hash=(
@@ -1173,7 +1369,17 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             (
                 "Party FixedRef消失の承認一致="
                 f"{len(removal_approvals)}件 / "
-                f"IDs={sorted(index_diff.removed_parties)}"
+                f"IDs={sorted(approved_parties)}"
+            ),
+        )
+
+    if pending_groups and not removal_approvals:
+        log(
+            "review-required",
+            "OFAC",
+            (
+                "Party FixedRef消失を隔離="
+                f"{sum(len(ids) for ids in pending_groups.values())}件"
             ),
         )
 
@@ -1182,6 +1388,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     # optsへpublishする。
     staged_index_rows = history
     staged_index_diff = index_diff
+    staged_queue_rows = queue_rows
 
     screening_records = (
         ofac.screening_records(
@@ -1223,25 +1430,10 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             ),
         )
 
-        staged_removal_audit_rows = []
-        if removal_approvals:
-            staged_removal_audit_rows = OR.build_audit_rows(
-                removal_approvals,
-                [],
-                master_before_sha256=master_before_sha256,
-                master_after_sha256=master_before_sha256,
-                index_before_sha256=index_before_sha256,
-                index_after_sha256=OR.index_state_sha256(
-                    history
-                ),
-            )
-
         opts["ofac_index_rows"] = staged_index_rows
         opts["ofac_index_diff"] = staged_index_diff
-        if staged_removal_audit_rows:
-            opts["ofac_removal_audit_rows"] = (
-                staged_removal_audit_rows
-            )
+        opts["ofac_removal_queue_rows"] = staged_queue_rows
+        _mark_ofac_review_required(hb, queue_rows)
 
         commit_staged()
         return []
@@ -1267,7 +1459,8 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         removal_diff, removal_effects = OR.apply_to_master(
             rows,
             history,
-            index_diff.removed_parties,
+            approved_parties,
+            protected_parties=protected_parties,
             ts=merge_ts,
         )
         d.added.extend(removal_diff.added)
@@ -1303,6 +1496,20 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
             index_before_sha256=index_before_sha256,
             index_after_sha256=OR.index_state_sha256(history),
         )
+        ORQ.mark_applied(
+            queue_rows,
+            {
+                (
+                    approval.list_name,
+                    approval.snapshot_sha256,
+                    approval.party_id,
+                )
+                for approval in removal_approvals
+            },
+            ts=merge_ts,
+        )
+
+    _mark_ofac_review_required(hb, queue_rows)
 
     # mergeまで正常完了したsnapshotだけmaster同期済みとする。
     # main() はmaster/state/Party Indexを永続化トランザクションで
@@ -1357,6 +1564,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     # state / master / Party Indexはここで初めて一括反映する。
     opts["ofac_index_rows"] = staged_index_rows
     opts["ofac_index_diff"] = staged_index_diff
+    opts["ofac_removal_queue_rows"] = staged_queue_rows
 
     if staged_removal_audit_rows:
         opts["ofac_removal_audit_rows"] = (
@@ -1814,6 +2022,9 @@ def main() -> int:
         heartbeat=hb,
         diffs=diffs,
         ofac_index_rows=opts.get("ofac_index_rows"),
+        ofac_removal_queue_rows=opts.get(
+            "ofac_removal_queue_rows"
+        ),
         ofac_removal_audit_rows=opts.get(
             "ofac_removal_audit_rows"
         ),

@@ -196,6 +196,118 @@ def _load(path: Path) -> list[Approval]:
     return approvals
 
 
+def _validate_approval_names(
+    approvals: list[Approval],
+    history: dict[tuple[str, str, str], dict],
+) -> None:
+    for item in approvals:
+        known_names = {
+            canonical_display_name(row.get("name") or "")
+            for row in history.values()
+            if (
+                str(row.get("list") or "") == item.list_name
+                and str(row.get("party_id") or "") == item.party_id
+            )
+        }
+
+        if item.party_name not in known_names:
+            raise ApprovalError(
+                "OFAC Party削除承認のparty_nameがFixedRef履歴と不一致: "
+                f"list={item.list_name} party_id={item.party_id} "
+                f"party_name={item.party_name!r} "
+                f"history_names={sorted(known_names)}"
+            )
+
+
+def load_available_approvals(
+    path: Path,
+    pending_groups: dict[tuple[str, str, str], set[str]],
+    history: dict[tuple[str, str, str], dict],
+) -> list[Approval]:
+    """Return exact approvals currently available for open queue events.
+
+    A missing ledger or zero rows at an event's exact snapshot hash means the
+    event still awaits review.  Once any rows exist at that hash, however, the
+    set must exactly match the queued event or processing fails closed.
+    """
+    if not pending_groups:
+        return []
+
+    normalized: dict[tuple[str, str], set[str]] = {}
+    for key, party_ids in pending_groups.items():
+        if len(key) != 3:
+            raise ApprovalError(
+                f"OFAC pending removal group key is invalid: {key!r}"
+            )
+
+        event_id, list_name, snapshot_sha256 = (
+            str(value).strip() for value in key
+        )
+        if not _SHA256_RE.fullmatch(event_id):
+            raise ApprovalError(
+                f"OFAC pending removal event_id is invalid: {event_id!r}"
+            )
+        if not _SHA256_RE.fullmatch(snapshot_sha256):
+            raise ApprovalError(
+                f"{list_name} pending removal snapshot SHA256 is invalid"
+            )
+
+        detected_ids = {str(party_id).strip() for party_id in party_ids}
+        if not list_name or not detected_ids or "" in detected_ids:
+            raise ApprovalError(
+                f"OFAC pending removal group is empty or invalid: {key!r}"
+            )
+
+        signature = (list_name, snapshot_sha256)
+        if signature in normalized:
+            raise ApprovalError(
+                "OFAC pending removal groups reuse one list/snapshot: "
+                f"list={list_name} snapshot_sha256={snapshot_sha256}"
+            )
+        normalized[signature] = detected_ids
+
+    if not path.is_file():
+        return []
+
+    approvals = _load(path)
+    authorized: list[Approval] = []
+
+    for (list_name, snapshot_sha256), detected_ids in sorted(
+        normalized.items()
+    ):
+        matching = [
+            item
+            for item in approvals
+            if (
+                item.list_name == list_name
+                and item.snapshot_sha256 == snapshot_sha256
+            )
+        ]
+        if not matching:
+            continue
+
+        approved_ids = {item.party_id for item in matching}
+        if approved_ids != detected_ids:
+            raise ApprovalError(
+                "OFAC pending event approval set mismatch: "
+                f"list={list_name} detected={sorted(detected_ids)} "
+                f"approved={sorted(approved_ids)} "
+                f"snapshot_sha256={snapshot_sha256}"
+            )
+
+        _validate_approval_names(matching, history)
+        authorized.extend(matching)
+
+    return sorted(
+        authorized,
+        key=lambda item: (
+            item.list_name,
+            item.snapshot_sha256,
+            item.party_id,
+        ),
+    )
+
+
 def load_and_authorize(
     path: Path,
     removed_parties: set[tuple[str, str]],
@@ -244,23 +356,7 @@ def load_and_authorize(
                 f"snapshot_sha256={snapshot_sha256}"
             )
 
-        for item in matching:
-            known_names = {
-                canonical_display_name(row.get("name") or "")
-                for row in history.values()
-                if (
-                    str(row.get("list") or "") == item.list_name
-                    and str(row.get("party_id") or "") == item.party_id
-                )
-            }
-
-            if item.party_name not in known_names:
-                raise ApprovalError(
-                    "OFAC Party削除承認のparty_nameがFixedRef履歴と不一致: "
-                    f"list={item.list_name} party_id={item.party_id} "
-                    f"party_name={item.party_name!r} "
-                    f"history_names={sorted(known_names)}"
-                )
+        _validate_approval_names(matching, history)
 
         authorized.extend(matching)
 
@@ -332,12 +428,17 @@ def apply_to_master(
     history: dict[tuple[str, str, str], dict],
     removed_parties: set[tuple[str, str]],
     *,
+    protected_parties: set[tuple[str, str]] | None = None,
     ts: int,
 ) -> tuple[M.Diff, list[dict]]:
     """Remove OFAC only for names solely backed by approved removed parties."""
     removed = {
         (str(list_name), str(party_id))
         for list_name, party_id in removed_parties
+    }
+    protected = {
+        (str(list_name), str(party_id))
+        for list_name, party_id in (protected_parties or set())
     }
     candidate_parties: dict[str, set[tuple[str, str]]] = {}
 
@@ -356,6 +457,18 @@ def apply_to_master(
         if (
             item.get("party_current") == "1"
             and item.get("alias_current") == "1"
+            and item.get("low_quality") != "1"
+            and str(item.get("match_key") or "").strip()
+        )
+    }
+    protected_strong_keys = {
+        str(item.get("match_key") or "").strip()
+        for item in history.values()
+        if (
+            (
+                str(item.get("list") or ""),
+                str(item.get("party_id") or ""),
+            ) in protected
             and item.get("low_quality") != "1"
             and str(item.get("match_key") or "").strip()
         )
@@ -391,6 +504,17 @@ def apply_to_master(
                 "display_name": display_name,
                 "removed_parties": parties,
                 "action": "kept_current_ofac_party",
+                "before": before,
+                "after": before,
+            })
+            continue
+
+        if key in protected_strong_keys:
+            effects.append({
+                "match_key": key,
+                "display_name": display_name,
+                "removed_parties": parties,
+                "action": "kept_pending_review_party",
                 "before": before,
                 "after": before,
             })

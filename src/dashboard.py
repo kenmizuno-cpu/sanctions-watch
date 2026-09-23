@@ -69,6 +69,9 @@ STATUS_LABEL = {
     # ETag / Last-Modified / ハッシュ等で変更なし。
     "unchanged": "変更なし",
 
+    # OFAC Party終了候補。取得・検証は成功し、承認までmasterは維持する。
+    "review_required": "掲載終了候補・要レビュー",
+
     # 経産省: PDF等の更新を検出。手動取込対象。
     "updated": "更新あり（要手動確認）",
 

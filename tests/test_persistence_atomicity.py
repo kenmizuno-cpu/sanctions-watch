@@ -14,6 +14,7 @@ from src import dashboard as D
 from src import master as M
 from src import ofac_index as OI
 from src import ofac_removal as OR
+from src import ofac_removal_queue as ORQ
 from src import state as S
 from src import watch
 
@@ -396,6 +397,20 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                 "index_before_sha256": "3" * 64,
                 "index_after_sha256": "4" * 64,
             })
+            queue_rows: list[dict] = []
+            ORQ.reconcile(
+                queue_rows,
+                removed_parties={("SDN", "1")},
+                current_parties=set(),
+                snapshot_hashes={"SDN": "a" * 64},
+                history=index_rows,
+                ts=1000,
+            )
+            ORQ.mark_applied(
+                queue_rows,
+                {("SDN", "a" * 64, "1")},
+                ts=2000,
+            )
 
             watch._persist_outputs_atomically(
                 root=root,
@@ -404,6 +419,7 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                 heartbeat=heartbeat,
                 diffs=diffs,
                 ofac_index_rows=index_rows,
+                ofac_removal_queue_rows=queue_rows,
                 ofac_removal_audit_rows=removal_audit_rows,
                 now=fixed_now,
             )
@@ -441,6 +457,10 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                 "2026-09-12T01:02:03Z",
             )
             self.assertEqual(saved_removals[0]["party_id"], "1")
+            saved_queue = ORQ.load(
+                root / watch.OFAC_REMOVAL_QUEUE_REL
+            )
+            self.assertEqual(saved_queue, queue_rows)
             self.assertIn(
                 "ALPHA",
                 (root / watch.DIFF_MD_REL).read_text(
@@ -678,6 +698,7 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
 
             targets = [
                 root / "data/master/ofac_alias_history.csv",
+                root / "data/review/ofac_party_removal_queue.csv",
                 root / "data/review/ofac_party_removal_audit.csv",
                 root / "data/heartbeat/2026-09.csv",
                 root / "data/master/master.csv",
@@ -748,6 +769,15 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                 "party_name": "NEW NAME",
                 "effects_json": "[]",
             })
+            queue_rows: list[dict] = []
+            ORQ.reconcile(
+                queue_rows,
+                removed_parties={("SDN", "1")},
+                current_parties=set(),
+                snapshot_hashes={"SDN": "a" * 64},
+                history=index_rows,
+                ts=1000,
+            )
 
             state_path = root / "data/state.json"
             real_replace = os.replace
@@ -778,6 +808,7 @@ class WatchPersistenceAtomicityTest(unittest.TestCase):
                         heartbeat=heartbeat,
                         diffs=diffs,
                         ofac_index_rows=index_rows,
+                        ofac_removal_queue_rows=queue_rows,
                         ofac_removal_audit_rows=removal_audit_rows,
                         now=fixed_now,
                     )
