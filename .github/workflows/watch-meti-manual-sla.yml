@@ -1,0 +1,70 @@
+name: watch-meti-manual-sla
+
+on:
+  schedule:
+    - cron: "5,20,35,50 * * * *"
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: ローカル専用SLAテスト
+        run: |
+          python -m unittest \
+            tests.test_meti_manual_sla \
+            tests.test_meti_network_policy \
+            tests.test_meti_manual_event
+
+  enforce:
+    if: github.event_name != 'pull_request' && startsWith(github.ref, 'refs/heads/')
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: sanctions-watch-commit
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: 手動取込SLA判定
+        id: sla
+        continue-on-error: true
+        run: python -m src.meti_manual_sla
+      - name: SLA遷移をコミット
+        run: |
+          git config user.name "sanctions-watch[bot]"
+          git config user.email "sanctions-watch@users.noreply.github.com"
+          git add -A data/
+          if git diff --cached --quiet; then
+            echo "コミットする変更なし"
+            exit 0
+          fi
+          git commit -m "chore(meti): manual SLA状態を更新"
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
+      - name: SLA異常をWorkflow失敗として確定
+        if: steps.sla.outcome != 'success'
+        run: |
+          echo "METI手動取込SLAを確認してください。"
+          exit 1
