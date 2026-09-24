@@ -4,10 +4,17 @@ import csv
 import json
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 
+from src import dashboard, persistence
+from src import meti_manual_event as manual_event
 import src.meti_review as mr
+
+
+NOW = datetime(2026, 9, 17, 6, 0, tzinfo=timezone.utc)
+DETECTION_ID = "d" * 64
 
 
 def write_csv(path: Path, fields: list[str], rows: list[dict]):
@@ -161,24 +168,53 @@ class TestMetiReview(unittest.TestCase):
         )
 
         state.parent.mkdir(parents=True, exist_ok=True)
-        state.write_text(
-            json.dumps(
-                {
-                    "current_source_hash": digest,
-                    "current_raw_path": "data/raw/meti_manual/a.pdf",
-                    "current_records_path": "data/manual/meti/records/a.csv",
-                    "current_diff_path": "data/manual/meti/diffs/a.csv",
-                    "current_report_path": "data/manual/meti/reports/a.json",
-                    "current_record_count": 2,
-                    "source_url": "https://www.meti.go.jp/policy/anpo/x.pdf",
-                    "review_status": "REVIEW_REQUIRED",
-                    "approved": False,
-                    "applied": False,
-                },
-                ensure_ascii=False,
-            ),
-            encoding="utf-8",
+        manual_state = {
+            "version": 1,
+            "lifecycle_state": "REVIEW_REQUIRED",
+            "detection_id": DETECTION_ID,
+            "pending_detection": {
+                "detection_id": DETECTION_ID,
+                "attempt": 1,
+                "notice_url": (
+                    "https://www.meti.go.jp/press/2026/example.html"
+                ),
+                "publication_at": "2026-09-17T05:00:00Z",
+            },
+            "current_source_hash": digest,
+            "current_raw_path": "data/raw/meti_manual/a.pdf",
+            "current_records_path": "data/manual/meti/records/a.csv",
+            "current_diff_path": "data/manual/meti/diffs/a.csv",
+            "current_report_path": "data/manual/meti/reports/a.json",
+            "current_record_count": 2,
+            "source_url": "https://www.meti.go.jp/policy/anpo/x.pdf",
+            "effective_date": "2025-01-02",
+            "review_status": "REVIEW_REQUIRED",
+            "approved": False,
+            "applied": False,
+        }
+        paths = manual_event.LifecyclePaths.for_root(root, NOW)
+        review_required_event = {
+            "event_id": "e" * 64,
+            "event_at": "2026-09-17T05:30:00Z",
+            "state": "REVIEW_REQUIRED",
+            "detection_id": DETECTION_ID,
+            "source_url": manual_state["source_url"],
+            "source_hash": digest,
+            "operator": "importer",
+            "detail": "{}",
+        }
+        manual_event.persist_lifecycle(
+            state=manual_state,
+            events=[review_required_event],
+            heartbeat_status="manual_review",
+            dashboard_event=None,
+            audit_row=None,
+            now=NOW,
+            paths=paths,
         )
+
+        review_ledger = root / "data/review/meti_foreign_user_list.csv"
+        write_csv(review_ledger, mr.REVIEW_COLS, [])
 
         return {
             "root": root,
@@ -189,6 +225,8 @@ class TestMetiReview(unittest.TestCase):
             "state": state,
             "evidence": evidence,
             "digest": digest,
+            "paths": paths,
+            "review_ledger": review_ledger,
         }
 
     def patches(self, fx):
@@ -204,14 +242,79 @@ class TestMetiReview(unittest.TestCase):
             patch.object(
                 mr,
                 "REVIEW_LEDGER",
-                fx["root"] / "data/review/meti_foreign_user_list.csv",
+                fx["review_ledger"],
             ),
             patch.object(
                 mr,
                 "REVIEW_ARTIFACT_DIR",
                 fx["root"] / "data/manual/meti/reviews",
             ),
+            patch.object(mr, "_now", return_value=NOW),
+            patch.object(
+                mr,
+                "append_dashboard_row",
+                side_effect=lambda kind, subject, before, after: (
+                    dashboard.prepend_change_rows(
+                        fx["paths"].changes,
+                        [[
+                            "経済産業省",
+                            kind,
+                            subject,
+                            before,
+                            after,
+                        ]],
+                        when="2026-09-17 15:00:00",
+                    )
+                ),
+            ),
         )
+
+    def assert_last_lifecycle_event(
+        self,
+        path,
+        expected_state,
+        expected_hash,
+    ):
+        with path.open(encoding="utf-8", newline="") as f:
+            rows = list(csv.DictReader(f))
+        self.assertEqual(rows[-1]["state"], expected_state)
+        self.assertEqual(rows[-1]["source_hash"], expected_hash)
+        self.assertEqual(rows[-1]["operator"], "reviewer")
+
+    def assert_manual_projection(
+        self,
+        fx,
+        *,
+        heartbeat_status,
+        dashboard_status,
+    ):
+        with fx["paths"].heartbeat.open(
+            encoding="utf-8",
+            newline="",
+        ) as f:
+            heartbeat_rows = list(csv.DictReader(f))
+        self.assertEqual(
+            heartbeat_rows[-1]["status"],
+            heartbeat_status,
+        )
+
+        with fx["paths"].status.open(
+            encoding="utf-8",
+            newline="",
+        ) as f:
+            status_rows = list(csv.DictReader(f))
+        meti = next(
+            row for row in status_rows
+            if row["出所"] == "経済産業省"
+        )
+        self.assertEqual(meti["状態"], dashboard_status)
+
+    @staticmethod
+    def snapshot(paths):
+        return {
+            path: path.read_bytes() if path.exists() else None
+            for path in paths
+        }
 
     def test_verify_valid_snapshot(self):
         with tempfile.TemporaryDirectory() as td:
@@ -367,7 +470,120 @@ class TestMetiReview(unittest.TestCase):
                 note="",
             )
 
+    def test_approve_records_lifecycle_and_projection(self):
+        with tempfile.TemporaryDirectory() as td:
+            fx = self.make_fixture(td)
+            ps = self.patches(fx)
+            for p in ps:
+                p.start()
+            try:
+                result = mr.decide(
+                    expected_hash=fx["digest"],
+                    decision=mr.DECISION_APPROVED,
+                    reviewer="reviewer",
+                    note="verified",
+                )
+                self.assertFalse(result["idempotent"])
+                self.assert_last_lifecycle_event(
+                    fx["paths"].events,
+                    "APPROVED",
+                    fx["digest"],
+                )
+                self.assert_manual_projection(
+                    fx,
+                    heartbeat_status="manual_approved",
+                    dashboard_status="要確認：反映待ち",
+                )
+            finally:
+                for p in reversed(ps):
+                    p.stop()
+
+    def test_reject_records_lifecycle_and_projection(self):
+        with tempfile.TemporaryDirectory() as td:
+            fx = self.make_fixture(td)
+            ps = self.patches(fx)
+            for p in ps:
+                p.start()
+            try:
+                result = mr.decide(
+                    expected_hash=fx["digest"],
+                    decision=mr.DECISION_REJECTED,
+                    reviewer="reviewer",
+                    note="source mismatch",
+                )
+                self.assertFalse(result["idempotent"])
+                self.assert_last_lifecycle_event(
+                    fx["paths"].events,
+                    "REJECTED",
+                    fx["digest"],
+                )
+                self.assert_manual_projection(
+                    fx,
+                    heartbeat_status="manual_rejected",
+                    dashboard_status="要確認：取込却下",
+                )
+            finally:
+                for p in reversed(ps):
+                    p.stop()
+
+    def test_review_transaction_failure_restores_every_file(self):
+        with tempfile.TemporaryDirectory() as td:
+            fx = self.make_fixture(td)
+            artifact = (
+                fx["root"]
+                / "data/manual/meti/reviews"
+                / (
+                    "20260917T060000Z__"
+                    f"{fx['digest'][:12]}__approved__review.json"
+                )
+            )
+            targets = [
+                fx["state"],
+                fx["review_ledger"],
+                artifact,
+                fx["paths"].events,
+                fx["paths"].heartbeat,
+                fx["paths"].status,
+                fx["paths"].audit,
+                fx["paths"].changes,
+            ]
+            before = self.snapshot(targets)
+            real_replace = persistence.os.replace
+            calls = 0
+
+            def fail_second_replace(src, dst):
+                nonlocal calls
+                calls += 1
+                if calls == 2:
+                    raise OSError("injected review commit failure")
+                return real_replace(src, dst)
+
+            ps = self.patches(fx)
+            for p in ps:
+                p.start()
+            try:
+                with patch.object(
+                    persistence.os,
+                    "replace",
+                    side_effect=fail_second_replace,
+                ):
+                    with self.assertRaisesRegex(
+                        OSError,
+                        "injected review commit failure",
+                    ):
+                        mr.decide(
+                            expected_hash=fx["digest"],
+                            decision=mr.DECISION_APPROVED,
+                            reviewer="reviewer",
+                            note="verified",
+                        )
+                self.assertEqual(self.snapshot(targets), before)
+                self.assertFalse(list(fx["root"].rglob("*.tmp")))
+                self.assertFalse(list(fx["root"].rglob("*.bak")))
+            finally:
+                for p in reversed(ps):
+                    p.stop()
+
 
 if __name__ == "__main__":
     unittest.main()
-

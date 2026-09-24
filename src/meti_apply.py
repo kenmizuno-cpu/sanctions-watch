@@ -37,8 +37,10 @@ from pathlib import Path
 from . import dashboard as D
 from . import master as M
 from . import meti_apply_plan as P
+from . import meti_manual_event as manual_event
 from . import meti_review as R
 from . import source_audit
+from . import state as state_store
 from .meti_manual_import import (
     CHANGES_PATH,
     STATE_PATH,
@@ -1310,6 +1312,22 @@ def apply_verified(
             "変化した"
         )
 
+    summary = result["summary"]
+    counts = Counter(result["counts"])
+    legacy_unresolved = len(result["legacy_rows"])
+    held_total = sum((
+        counts[P.ACTION_HOLD_WEAK],
+        counts[P.ACTION_HOLD_COLLISION],
+        counts[P.ACTION_HOLD_REVIEW],
+        counts[P.ACTION_HOLD_INVALID],
+        legacy_unresolved,
+    ))
+    apply_state = (
+        "APPLIED_WITH_HOLDS"
+        if held_total
+        else "APPLIED"
+    )
+
     now = _now()
     application_id = (
         f"{_stamp(now)}__"
@@ -1319,19 +1337,252 @@ def apply_verified(
         APPLICATION_DIR
         / f"{application_id}.json"
     )
-
-    audit_path = (
-        ROOT
-        / source_audit.AUDIT_DIR
-        / f"{now:%Y-%m}.csv"
+    paths = manual_event.LifecyclePaths.for_root(
+        ROOT,
+        now,
+    )
+    existing_events = manual_event.load_events(
+        paths.events
+    )
+    base_state = copy.deepcopy(
+        result["verified"]["state"]
+    )
+    detection_id = str(
+        base_state.get("detection_id")
+        or (
+            base_state.get("pending_detection")
+            or {}
+        ).get("detection_id", "")
+    )
+    event_detail = json.dumps(
+        {
+            "application_id": application_id,
+            "held_invalid": counts[
+                P.ACTION_HOLD_INVALID
+            ],
+            "held_multi_party": counts[
+                P.ACTION_HOLD_COLLISION
+            ],
+            "held_review": counts[
+                P.ACTION_HOLD_REVIEW
+            ],
+            "held_weak_alias": counts[
+                P.ACTION_HOLD_WEAK
+            ],
+            "legacy_unresolved": legacy_unresolved,
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
     )
 
+    try:
+        state, next_events, _ = manual_event.advance(
+            base_state,
+            existing_events,
+            new_state=apply_state,
+            event_at=now,
+            operator=operator,
+            source_url=summary["source_url"],
+            source_hash=summary["source_hash"],
+            detail=event_detail,
+            detection_id=detection_id,
+        )
+    except manual_event.LifecycleError as exc:
+        raise ApplyError(
+            f"apply lifecycle遷移に失敗: {exc}"
+        ) from exc
+
+    state.update({
+        "applied": True,
+        "apply_status": apply_state,
+        "applied_at": _iso(now),
+        "applied_by": operator,
+        "applied_source_hash": summary[
+            "source_hash"
+        ],
+        "apply_plan_path": summary["plan_path"],
+        "apply_plan_sha256": summary[
+            "plan_sha256"
+        ],
+        "master_before_sha256": result[
+            "master_before_sha256"
+        ],
+        "master_after_sha256": result[
+            "master_after_sha256"
+        ],
+        "master_merge_timestamp_ms": result[
+            "master_merge_timestamp_ms"
+        ],
+        "applied_add_count": counts[
+            P.ACTION_READY_ADD
+        ],
+        "applied_change_count": counts[
+            P.ACTION_READY_TAG
+        ],
+        "applied_noop_count": counts[
+            P.ACTION_NOOP
+        ],
+        "held_weak_alias_count": counts[
+            P.ACTION_HOLD_WEAK
+        ],
+        "held_multi_party_count": counts[
+            P.ACTION_HOLD_COLLISION
+        ],
+        "held_review_count": counts[
+            P.ACTION_HOLD_REVIEW
+        ],
+        "held_invalid_count": counts[
+            P.ACTION_HOLD_INVALID
+        ],
+        "legacy_unresolved_count": legacy_unresolved,
+        "application_id": application_id,
+        "application_path": _relative(
+            application_path
+        ),
+    })
+
+    app = {
+        "version": 1,
+        "status": apply_state,
+        "apply_executed": True,
+        "application_id": application_id,
+        "applied_at": _iso(now),
+        "operator": operator,
+        "source_hash": summary["source_hash"],
+        "source_url": summary["source_url"],
+        "plan_path": summary["plan_path"],
+        "plan_sha256": summary["plan_sha256"],
+        "legacy_hold_path": summary[
+            "legacy_hold_path"
+        ],
+        "legacy_hold_sha256": summary[
+            "legacy_hold_sha256"
+        ],
+        "master_before_sha256": result[
+            "master_before_sha256"
+        ],
+        "master_after_sha256": result[
+            "master_after_sha256"
+        ],
+        "master_merge_timestamp_ms": result[
+            "master_merge_timestamp_ms"
+        ],
+        "master_before_count": result[
+            "master_before_count"
+        ],
+        "master_after_count": result[
+            "master_after_count"
+        ],
+        "added": counts[P.ACTION_READY_ADD],
+        "changed": counts[P.ACTION_READY_TAG],
+        "removed": 0,
+        "noop": counts[P.ACTION_NOOP],
+        "held_weak_alias": counts[
+            P.ACTION_HOLD_WEAK
+        ],
+        "held_multi_party": counts[
+            P.ACTION_HOLD_COLLISION
+        ],
+        "held_review": counts[
+            P.ACTION_HOLD_REVIEW
+        ],
+        "held_invalid": counts[
+            P.ACTION_HOLD_INVALID
+        ],
+        "legacy_unresolved": legacy_unresolved,
+    }
+
+    report = result["verified"]["report"]
+    raw_path = result["verified"]["raw_path"]
+    audit_row = source_audit.entry(
+        "meti_manual",
+        "foreign_user_list_pdf",
+        apply_state,
+        url=summary["source_url"],
+        content_hash=summary["source_hash"],
+        fetched_file=raw_path.name,
+        raw_path=_relative(raw_path),
+        source_updated=str(
+            report.get("effective_date", "")
+            or ""
+        ),
+        record_count=result["verified"][
+            "record_count"
+        ],
+        diff_counts={
+            "追加": counts[P.ACTION_READY_ADD],
+            "変更": counts[P.ACTION_READY_TAG],
+            "削除": 0,
+        },
+        fetch_failed=False,
+        schema_changed=False,
+    )
+    heartbeat_entry = {
+        "source": "meti",
+        "status": "manual_ok",
+        "content_hash": summary["source_hash"],
+        "source_updated": str(
+            report.get("effective_date", "")
+            or ""
+        ),
+        "record_count": result["verified"][
+            "record_count"
+        ],
+        "raw_path": _relative(raw_path),
+    }
+    status_rows = D.build_status_rows(
+        ROOT,
+        [heartbeat_entry],
+        state_store.load_state(ROOT),
+        now=now,
+        meti_state=state,
+    )
+    dashboard_kind = (
+        "手動正本反映完了（保留あり）"
+        if apply_state == "APPLIED_WITH_HOLDS"
+        else "手動正本反映完了"
+    )
+    dashboard_event = [
+        "経済産業省",
+        dashboard_kind,
+        "外国ユーザーリスト",
+        "APPROVED / applied=False",
+        (
+            f"{apply_state} / "
+            f"追加{counts[P.ACTION_READY_ADD]} "
+            f"変更{counts[P.ACTION_READY_TAG]} / "
+            f"Weak保留{counts[P.ACTION_HOLD_WEAK]} / "
+            f"Party保留{counts[P.ACTION_HOLD_COLLISION]} / "
+            f"Review保留{counts[P.ACTION_HOLD_REVIEW]} / "
+            f"Invalid保留{counts[P.ACTION_HOLD_INVALID]} / "
+            f"Legacy保留{legacy_unresolved} / "
+            f"SHA256 {summary['source_hash'][:12]}"
+        ),
+    ]
+    changed_at = now.astimezone(D.JST).strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+    new_events = next_events[len(existing_events):]
+
+    screening_csv_path = (
+        ROOT / "data" / "dashboard" / "screening.csv"
+    )
+    screening_gzip_path = screening_csv_path.with_suffix(
+        ".csv.gz"
+    )
     touched = {
         MASTER_PATH,
         DASHBOARD_LIST_PATH,
+        screening_csv_path,
+        screening_gzip_path,
         STATE_PATH,
+        paths.events,
+        paths.heartbeat,
+        paths.status,
+        paths.changes,
+        paths.audit,
         CHANGES_PATH,
-        audit_path,
         APPLY_LEDGER,
         application_path,
     }
@@ -1430,140 +1681,7 @@ def apply_verified(
         _write_and_verify_dashboard(
             master_after
         )
-
-        counts = Counter(
-            result["counts"]
-        )
-
-        state = copy.deepcopy(
-            result["verified"]["state"]
-        )
-        state.update({
-            "applied": True,
-            "apply_status": (
-                "APPLIED_WITH_HOLDS"
-            ),
-            "applied_at": _iso(now),
-            "applied_by": operator,
-            "applied_source_hash": (
-                summary["source_hash"]
-            ),
-            "apply_plan_path": (
-                summary["plan_path"]
-            ),
-            "apply_plan_sha256": (
-                summary["plan_sha256"]
-            ),
-            "master_before_sha256": result[
-                "master_before_sha256"
-            ],
-            "master_after_sha256": result[
-                "master_after_sha256"
-            ],
-            "master_merge_timestamp_ms": result[
-                "master_merge_timestamp_ms"
-            ],
-            "applied_add_count": counts[
-                P.ACTION_READY_ADD
-            ],
-            "applied_change_count": counts[
-                P.ACTION_READY_TAG
-            ],
-            "applied_noop_count": counts[
-                P.ACTION_NOOP
-            ],
-            "held_weak_alias_count": counts[
-                P.ACTION_HOLD_WEAK
-            ],
-            "held_multi_party_count": counts[
-                P.ACTION_HOLD_COLLISION
-            ],
-            "held_review_count": counts[
-                P.ACTION_HOLD_REVIEW
-            ],
-            "held_invalid_count": counts[
-                P.ACTION_HOLD_INVALID
-            ],
-            "legacy_unresolved_count": len(
-                result["legacy_rows"]
-            ),
-            "application_id": (
-                application_id
-            ),
-            "application_path": (
-                _relative(
-                    application_path
-                )
-            ),
-        })
         save_state(state)
-
-        app = {
-            "version": 1,
-            "status": "APPLIED_WITH_HOLDS",
-            "apply_executed": True,
-            "application_id": application_id,
-            "applied_at": _iso(now),
-            "operator": operator,
-            "source_hash": summary[
-                "source_hash"
-            ],
-            "source_url": summary[
-                "source_url"
-            ],
-            "plan_path": summary[
-                "plan_path"
-            ],
-            "plan_sha256": summary[
-                "plan_sha256"
-            ],
-            "legacy_hold_path": summary[
-                "legacy_hold_path"
-            ],
-            "legacy_hold_sha256": summary[
-                "legacy_hold_sha256"
-            ],
-            "master_before_sha256": result[
-                "master_before_sha256"
-            ],
-            "master_after_sha256": result[
-                "master_after_sha256"
-            ],
-            "master_merge_timestamp_ms": result[
-                "master_merge_timestamp_ms"
-            ],
-            "master_before_count": result[
-                "master_before_count"
-            ],
-            "master_after_count": result[
-                "master_after_count"
-            ],
-            "added": counts[
-                P.ACTION_READY_ADD
-            ],
-            "changed": counts[
-                P.ACTION_READY_TAG
-            ],
-            "removed": 0,
-            "noop": counts[
-                P.ACTION_NOOP
-            ],
-            "held_weak_alias": counts[
-                P.ACTION_HOLD_WEAK
-            ],
-            "held_multi_party": counts[
-                P.ACTION_HOLD_COLLISION
-            ],
-            "held_review": counts[
-                P.ACTION_HOLD_REVIEW
-            ],
-            "held_invalid": counts[
-                P.ACTION_HOLD_INVALID
-            ],
-            "legacy_unresolved": len(
-                result["legacy_rows"]
-            ),
-        }
 
         _write_json_atomic(
             application_path,
@@ -1572,74 +1690,28 @@ def apply_verified(
         _append_apply_ledger(
             app,
         )
-
-        report = result[
-            "verified"
-        ]["report"]
-        raw_path = result[
-            "verified"
-        ]["raw_path"]
-
-        source_audit.write(
-            ROOT,
-            [
-                source_audit.entry(
-                    "meti_manual",
-                    "foreign_user_list_pdf",
-                    "applied_with_holds",
-                    url=summary[
-                        "source_url"
-                    ],
-                    content_hash=summary[
-                        "source_hash"
-                    ],
-                    fetched_file=(
-                        raw_path.name
-                    ),
-                    raw_path=_relative(
-                        raw_path
-                    ),
-                    source_updated=str(
-                        report.get(
-                            "effective_date",
-                            "",
-                        )
-                        or ""
-                    ),
-                    record_count=result[
-                        "verified"
-                    ]["record_count"],
-                    diff_counts={
-                        "追加": counts[
-                            P.ACTION_READY_ADD
-                        ],
-                        "変更": counts[
-                            P.ACTION_READY_TAG
-                        ],
-                        "削除": 0,
-                    },
-                    fetch_failed=False,
-                    schema_changed=False,
-                )
-            ],
+        manual_event._append_event_rows(
+            paths.events,
+            new_events,
         )
-
-        append_dashboard_row(
-            "手動正本反映完了（保留あり）",
-            "外国ユーザーリスト",
-            (
-                "APPROVED / "
-                "applied=False"
-            ),
-            (
-                "APPLIED / "
-                f"追加{counts[P.ACTION_READY_ADD]} "
-                f"変更{counts[P.ACTION_READY_TAG]} / "
-                f"Weak保留{counts[P.ACTION_HOLD_WEAK]} / "
-                f"Party保留{counts[P.ACTION_HOLD_COLLISION]} / "
-                f"Legacy保留{len(result['legacy_rows'])} / "
-                f"SHA256 {summary['source_hash'][:12]}"
-            ),
+        state_store.append_heartbeat(
+            paths.heartbeat,
+            [heartbeat_entry],
+            now=now,
+        )
+        D.write_status_rows(
+            paths.status,
+            status_rows,
+        )
+        source_audit.append_rows(
+            paths.audit,
+            [audit_row],
+            now=now,
+        )
+        D.prepend_change_rows(
+            paths.changes,
+            [dashboard_event],
+            when=changed_at,
         )
 
         journal["status"] = "COMMITTED"
@@ -1756,8 +1828,8 @@ def print_apply(result: dict) -> None:
     )
     print("")
     print(
-        "APPLY_STATUS         : "
-        "APPLIED_WITH_HOLDS"
+        "APPLY_STATUS         :",
+        app["status"],
     )
     print(
         "APPLIED_STATE        : TRUE"
@@ -1865,4 +1937,3 @@ def main(
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

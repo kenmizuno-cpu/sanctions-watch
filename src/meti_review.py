@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import json
 import re
@@ -23,7 +24,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import source_audit
+from . import dashboard, persistence, source_audit
+from . import meti_manual_event as manual_event
+from . import state as state_store
 from .meti_manual_import import (
     EVIDENCE_PATH,
     ROOT,
@@ -393,11 +396,16 @@ def _save_state(state: dict) -> None:
     tmp.replace(STATE_PATH)
 
 
-def _append_review_ledger(row: dict) -> None:
-    REVIEW_DIR.mkdir(parents=True, exist_ok=True)
+def _append_review_ledger(
+    row: dict,
+    *,
+    path: Path | None = None,
+) -> None:
+    target = path or REVIEW_LEDGER
+    target.parent.mkdir(parents=True, exist_ok=True)
 
-    if REVIEW_LEDGER.exists() and REVIEW_LEDGER.stat().st_size:
-        with REVIEW_LEDGER.open(
+    if target.exists() and target.stat().st_size:
+        with target.open(
             encoding="utf-8",
             newline="",
         ) as f:
@@ -409,11 +417,11 @@ def _append_review_ledger(row: dict) -> None:
             )
 
     new = (
-        not REVIEW_LEDGER.exists()
-        or REVIEW_LEDGER.stat().st_size == 0
+        not target.exists()
+        or target.stat().st_size == 0
     )
 
-    with REVIEW_LEDGER.open(
+    with target.open(
         "a",
         encoding="utf-8",
         newline="",
@@ -431,15 +439,20 @@ def _append_review_ledger(row: dict) -> None:
         )
 
 
-def _write_review_artifact(row: dict) -> Path:
-    REVIEW_ARTIFACT_DIR.mkdir(
+def _write_review_artifact(
+    row: dict,
+    *,
+    path: Path | None = None,
+) -> Path:
+    target = path or (
+        REVIEW_ARTIFACT_DIR
+        / f"{row['review_id']}__review.json"
+    )
+    target.parent.mkdir(
         parents=True,
         exist_ok=True,
     )
-    p = REVIEW_ARTIFACT_DIR / (
-        f"{row['review_id']}__review.json"
-    )
-    p.write_text(
+    target.write_text(
         json.dumps(
             row,
             ensure_ascii=False,
@@ -448,7 +461,7 @@ def _write_review_artifact(row: dict) -> Path:
         ) + "\n",
         encoding="utf-8",
     )
-    return p
+    return target
 
 
 def _decision_row(
@@ -570,10 +583,48 @@ def decide(
         now=now,
     )
 
-    # Ledgerと個別artifactを先に確定。
-    _append_review_ledger(row)
-    artifact_path = _write_review_artifact(row)
+    paths = manual_event.LifecyclePaths.for_root(
+        ROOT,
+        now,
+    )
+    existing_events = manual_event.load_events(
+        paths.events
+    )
+    detection_id = str(
+        state.get("detection_id")
+        or (state.get("pending_detection") or {}).get(
+            "detection_id",
+            "",
+        )
+    )
+    detail = json.dumps(
+        {
+            "note": note,
+            "review_id": row["review_id"],
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
 
+    try:
+        next_state, next_events, _ = manual_event.advance(
+            state,
+            existing_events,
+            new_state=decision,
+            event_at=now,
+            operator=reviewer,
+            source_url=verified["source_url"],
+            source_hash=verified["source_hash"],
+            detail=detail,
+            detection_id=detection_id,
+        )
+    except manual_event.LifecycleError as exc:
+        raise ReviewError(
+            f"review lifecycle遷移に失敗: {exc}"
+        ) from exc
+
+    state = copy.deepcopy(next_state)
     state["review_status"] = decision
     state["approved"] = (
         decision == DECISION_APPROVED
@@ -583,53 +634,43 @@ def decide(
     state["reviewed_by"] = reviewer
     state["review_note"] = note
     state["review_id"] = row["review_id"]
+    artifact_path = REVIEW_ARTIFACT_DIR / (
+        f"{row['review_id']}__review.json"
+    )
     state["review_artifact_path"] = _relative(
         artifact_path
     )
-    _save_state(state)
 
-    status = (
+    audit_status = (
         "approved"
         if decision == DECISION_APPROVED
         else "rejected"
     )
-
-    source_audit.write(
-        ROOT,
-        [
-            source_audit.entry(
-                "meti_manual",
-                "foreign_user_list_pdf",
-                status,
-                url=verified["source_url"],
-                content_hash=verified["source_hash"],
-                fetched_file=verified[
-                    "raw_path"
-                ].name,
-                raw_path=_relative(
-                    verified["raw_path"]
-                ),
-                source_updated=str(
-                    verified["report"].get(
-                        "effective_date",
-                        "",
-                    )
-                    or ""
-                ),
-                record_count=verified[
-                    "record_count"
-                ],
-                diff_counts=verified[
-                    "diff_counts"
-                ],
-                fetch_failed=False,
-                schema_changed=False,
+    audit_row = source_audit.entry(
+        "meti_manual",
+        "foreign_user_list_pdf",
+        audit_status,
+        url=verified["source_url"],
+        content_hash=verified["source_hash"],
+        fetched_file=verified["raw_path"].name,
+        raw_path=_relative(verified["raw_path"]),
+        source_updated=str(
+            verified["report"].get(
+                "effective_date",
+                "",
             )
-        ],
+            or ""
+        ),
+        record_count=verified["record_count"],
+        diff_counts=verified["diff_counts"],
+        fetch_failed=False,
+        schema_changed=False,
     )
 
     if decision == DECISION_APPROVED:
-        append_dashboard_row(
+        heartbeat_status = "manual_approved"
+        dashboard_event = [
+            "経済産業省",
             "手動正本レビュー承認",
             "外国ユーザーリスト",
             (
@@ -640,9 +681,11 @@ def decide(
                 f"APPROVED / reviewer={reviewer} / "
                 f"SHA256 {verified['source_hash'][:12]}"
             ),
-        )
+        ]
     else:
-        append_dashboard_row(
+        heartbeat_status = "manual_rejected"
+        dashboard_event = [
+            "経済産業省",
             "手動正本レビュー却下",
             "外国ユーザーリスト",
             (
@@ -653,7 +696,101 @@ def decide(
                 f"REJECTED / reviewer={reviewer} / "
                 f"{note}"
             ),
-        )
+        ]
+
+    heartbeat_entry = {
+        "source": "meti",
+        "status": heartbeat_status,
+        "content_hash": verified["source_hash"],
+        "source_updated": str(
+            verified["report"].get(
+                "effective_date",
+                "",
+            )
+            or ""
+        ),
+        "record_count": verified["record_count"],
+        "raw_path": _relative(verified["raw_path"]),
+    }
+    repository_state = state_store.load_state(ROOT)
+    status_rows = dashboard.build_status_rows(
+        ROOT,
+        [heartbeat_entry],
+        repository_state,
+        now=now,
+        meti_state=state,
+    )
+    changed_at = now.astimezone(dashboard.JST).strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )
+    new_events = next_events[len(existing_events):]
+
+    persistence.atomic_replace_many([
+        persistence.FileWrite(
+            target=STATE_PATH,
+            writer=lambda path: state_store.write_state(
+                path,
+                state,
+            ),
+        ),
+        persistence.FileWrite(
+            target=REVIEW_LEDGER,
+            writer=lambda path: _append_review_ledger(
+                row,
+                path=path,
+            ),
+            seed_existing=True,
+        ),
+        persistence.FileWrite(
+            target=artifact_path,
+            writer=lambda path: _write_review_artifact(
+                row,
+                path=path,
+            ),
+        ),
+        persistence.FileWrite(
+            target=paths.events,
+            writer=lambda path: manual_event._append_event_rows(
+                path,
+                new_events,
+            ),
+            seed_existing=True,
+        ),
+        persistence.FileWrite(
+            target=paths.heartbeat,
+            writer=lambda path: state_store.append_heartbeat(
+                path,
+                [heartbeat_entry],
+                now=now,
+            ),
+            seed_existing=True,
+        ),
+        persistence.FileWrite(
+            target=paths.status,
+            writer=lambda path: dashboard.write_status_rows(
+                path,
+                status_rows,
+            ),
+        ),
+        persistence.FileWrite(
+            target=paths.changes,
+            writer=lambda path: dashboard.prepend_change_rows(
+                path,
+                [dashboard_event],
+                when=changed_at,
+            ),
+            seed_existing=True,
+        ),
+        persistence.FileWrite(
+            target=paths.audit,
+            writer=lambda path: source_audit.append_rows(
+                path,
+                [audit_row],
+                now=now,
+            ),
+            seed_existing=True,
+        ),
+    ])
 
     return {
         "idempotent": False,
@@ -831,4 +968,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
