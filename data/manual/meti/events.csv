@@ -1,0 +1,2 @@
+event_id,event_at,state,detection_id,source_url,source_hash,operator,detail
+1f62e7d39e9409e9b400bb942a21f19285519b4a8d1a89e57112fe41cbe062f3,2026-09-25T02:03:25Z,CHECKED_NO_CHANGE,,https://www.meti.go.jp/policy/anpo/law09-2.html,,kenmizuno-cpu,令和8年6月16日以降変更なしを公式ページで目視確認。自動取得を廃止し、公式通知・ブラウザ確認による手動監視へ移行
