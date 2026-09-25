@@ -55,7 +55,11 @@ def append_heartbeat(
     new = not path.exists() or path.stat().st_size == 0
 
     with path.open("a", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=HB_COLS)
+        w = csv.DictWriter(
+            f,
+            fieldnames=HB_COLS,
+            lineterminator="\n",
+        )
 
         if new:
             w.writeheader()
