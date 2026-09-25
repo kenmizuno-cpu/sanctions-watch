@@ -20,7 +20,7 @@ from src.normalize import (canonical_category, canonical_display_name, clean_nam
                            is_trailing_unknown_artifact, match_key, needs_review,
                            parse_remark, parse_remark_multi, render_remark,
                            split_aliases, SRC_UNKNOWN, swap_surname_first, validate)
-from src.sources import meti, mof, ofac          # noqa: E402
+from src.sources import mof, ofac                # noqa: E402
 
 PASS, FAIL = [], []
 
@@ -574,14 +574,6 @@ def test_parsers() -> None:
             True,
             True,
         )
-
-    sig = meti.signature('<a href="/x/user_list.pdf">令和7年10月9日</a>')
-    check("経産省: 署名にPDFと日付が入る",
-          "user_list.pdf" in sig and "令和7年10月9日" in sig, True)
-    check("経産省: 無関係な差分では署名が変わらない",
-          meti.signature('<a href="/x/user_list.pdf">令和7年10月9日</a><p>閲覧数 12</p>'),
-          sig)
-
 
 # ---------------------------------------------------------------- マージ
 def _rec(name, cat="SDN", src="OFAC"):
@@ -1322,7 +1314,14 @@ def test_source_audit_ledger() -> None:
     """
     from src import source_audit as A
     from src.fetch import Fetched
-    from src.sources import meti
+
+    class Blocked(RuntimeError):
+        def __init__(self, message: str, *, fetched=None):
+            super().__init__(message)
+            self.fetched = fetched
+
+    class SchemaError(RuntimeError):
+        pass
 
     f = Fetched(
         url="https://example.test/list.csv",
@@ -1376,7 +1375,7 @@ def test_source_audit_ledger() -> None:
         fetched=f,
         fetch_failed=False,
         schema_changed=True,
-        error=meti.SchemaError("構造変更"),
+        error=SchemaError("構造変更"),
     )
 
     check(
@@ -1393,7 +1392,7 @@ def test_source_audit_ledger() -> None:
     # WAF拒否と構造変更は別クラスであること。
     check(
         "METI blocked/schema分離",
-        issubclass(meti.SchemaError, meti.Blocked),
+        issubclass(SchemaError, Blocked),
         False,
     )
 
@@ -1446,7 +1445,7 @@ def test_source_audit_ledger() -> None:
         filename="meti",
     )
 
-    blocked_exc = meti.Blocked(
+    blocked_exc = Blocked(
         "WAF",
         fetched=blocked_fetched,
     )

@@ -3,7 +3,7 @@ description: 制裁リストを取得し、差分をマスターへ反映して�
 
 inputs:
   sources:
-    description: 監視対象 (mof / ofac / meti / all)
+    description: 監視対象 (mof / ofac / all)
     required: true
   slack-webhook:
     required: false
@@ -145,13 +145,6 @@ runs:
           --added   "${{ steps.watch.outputs.added }}" \
           --removed "${{ steps.watch.outputs.removed }}" \
           --changed "${{ steps.watch.outputs.changed }}"
-
-    - name: 経産省の更新を通知
-      if: steps.watch.outputs.meti_updated == 'true'
-      shell: bash
-      env:
-        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook }}
-      run: python -m src.notify --kind meti
 
     - name: OFAC 失敗証跡を準備
       if: failure() && (contains(inputs.sources, 'ofac') || inputs.sources == 'all')

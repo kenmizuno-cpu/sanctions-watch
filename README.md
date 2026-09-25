@@ -3,7 +3,9 @@
 [![watch-ofac](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-ofac.yml/badge.svg)](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-ofac.yml)
 [![watch-jp](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-jp.yml/badge.svg)](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-jp.yml)
 
-財務省・OFAC・経産省の制裁リストを定期監視し、差分を抽出してマスターを更新する。
+財務省・OFACは定期的に自動監視し、差分を抽出してマスターを更新する。
+経産省は公式通知を人が確認し、通常のブラウザで取得した公式PDFを検証・レビューして
+反映する手動優先（manual-first）運用とする。
 
 真のマスターは `data/master/master.csv`。Excel は毎回そこから生成し直す派生物で、
 Google Drive に上書きアップロードされる。Excel をマスターにしないのは、バイナリだと
@@ -14,7 +16,8 @@ git 差分が効かず「何がどう変わったか」を後から追えなく�
 | ワークフロー | cron | 対象 |
 | --- | --- | --- |
 | `watch-ofac.yml` | `17 * * * *`（毎時） | OFAC SDN / Consolidated |
-| `watch-jp.yml` | `37 0,6,12,18 * * *`（6時間ごと） | 財務省 / 経産省 |
+| `watch-jp.yml` | `37 0,6,12,18 * * *`（6時間ごと） | 財務省 |
+| `watch-meti-manual-sla.yml` | `5,20,35,50 * * * *`（15分ごと） | 経産省の手動取込状態のみ（外部通信なし） |
 | `bootstrap.yml` | 手動 | 初回マスター作成 |
 
 分を 17 分・37 分にずらしてあるのは、毎時ちょうどが GitHub 側で最も混んで
@@ -263,7 +266,84 @@ OFAC公式の削除発表を照合したうえで、
 `制裁リスト（OFAC：SDN）` に変わる。一度きりの情報量の増加で、実害はない。
 cron を有効にする前に手動で1回流して、差分レポートがこれだけであることを確認するとよい。
 
-**経産省は自動取込しない。** 外国ユーザーリストは PDF でしか配布されておらず、
-更新は年1〜3回。告知ページの PDF リンクと日付表記から署名を作って監視し、変わったら
-Slack に通知するだけ。マスターの経産省分は手作業で取り込むまで据え置く。
-PDF の自動パースは投資対効果が悪い。
+## 経産省（METI）の手動監視
+
+経産省サイトへの自動クロールは行わない。ブラウザ互換User-Agentによるアクセス、
+ヘッドレスブラウザ、プロキシやIPローテーションなど、機械アクセス制限の回避も
+サポートしない。公式通知を人が確認し、経産省の公式PDFを通常のブラウザで取得する。
+過去のraw・監査台帳・heartbeat・dashboard履歴は削除せず、監査証跡として保持する。
+
+人的統制として、少なくとも1名の明示された運用責任者が経産省の公式通知チャネルを
+継続購読し、不在時のカバレッジを維持する。
+
+| 統制項目 | 現在の設定 |
+| --- | --- |
+| 運用責任者 | `kenmizuno-cpu` |
+| 検知経路 | 経産省の公式通知チャネルを人が確認 |
+| 不在時対応 | 代理担当者が同じ公式通知を確認 |
+
+メールボックスの購読・受信確認・担当者カバレッジはリポジトリ外の人的統制である。
+リポジトリが計測する60分の処理SLAは、経産省の公開時刻やメール受信時刻ではなく、
+`meti_manual_event detect` が `DETECTED` を記録した時点から始まる。
+
+### 更新時の手順
+
+1. 経産省の公式通知を受信・確認する。
+2. 通知を検知イベントとして記録し、出力された `DETECTION_ID` を控える。
+
+   ```bash
+   python -m src.meti_manual_event detect \
+     --operator "kenmizuno-cpu" \
+     --notice-url "https://www.meti.go.jp/..." \
+     --title "外国ユーザーリスト更新"
+   ```
+
+3. 通常のブラウザで通知先を開き、経産省の公式PDFをダウンロードする。
+4. `DETECTION_ID` と公式URL、日付、想定件数を指定してPDFを検証・取込する。
+
+   ```bash
+   python -m src.meti_manual_import \
+     /path/to/official-meti-list.pdf \
+     --source-url "https://www.meti.go.jp/.../official-list.pdf" \
+     --publication-date "YYYY-MM-DD" \
+     --effective-date "YYYY-MM-DD" \
+     --expected-count 1234 \
+     --detection-id "$DETECTION_ID"
+   ```
+
+   成功時に表示される `SHA256` を以降の `$SOURCE_HASH` として使用する。この時点では
+   `REVIEW_REQUIRED` になり、マスターにはまだ反映されない。
+
+5. スナップショットを確認し、承認または却下する。
+
+   ```bash
+   python -m src.meti_review status --hash "$SOURCE_HASH"
+
+   python -m src.meti_review approve \
+     --hash "$SOURCE_HASH" \
+     --reviewer "kenmizuno-cpu" \
+     --note "公式PDF・件数・差分を確認"
+
+   # 却下する場合
+   python -m src.meti_review reject \
+     --hash "$SOURCE_HASH" \
+     --reviewer "kenmizuno-cpu" \
+     --note "却下理由"
+   ```
+
+6. `APPROVED` を確認した場合だけ既存の安全な反映計画を生成・検証し、表示された
+   plan/masterのSHA256を目視確認してから適用する。却下時は生成・適用しない。
+
+   ```bash
+   python -m src.meti_apply_plan --hash "$SOURCE_HASH"
+   python -m src.meti_apply verify \
+     --summary "$SUMMARY_PATH" \
+     --source-hash "$SOURCE_HASH"
+   python -m src.meti_apply apply \
+     --summary "$SUMMARY_PATH" \
+     --source-hash "$SOURCE_HASH" \
+     --operator "kenmizuno-cpu" \
+     --confirm-plan-sha256 "$PLAN_SHA256" \
+     --confirm-master-before-sha256 "$MASTER_BEFORE_SHA256" \
+     --confirm-master-after-sha256 "$MASTER_AFTER_SHA256"
+   ```

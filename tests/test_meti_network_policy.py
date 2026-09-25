@@ -57,6 +57,31 @@ def yaml_mapping_block(text: str, header: str) -> str:
 
 
 class TestMetiNetworkPolicy(unittest.TestCase):
+    def test_retired_network_modules_are_absent(self):
+        for rel in (
+            "src/meti_html.py",
+            "src/meti_rss.py",
+            "src/meti_rss_audit.py",
+            "src/sources/meti.py",
+        ):
+            with self.subTest(path=rel):
+                self.assertFalse((ROOT / rel).exists(), rel)
+
+    def test_active_python_has_no_browser_compatible_meti_profile(self):
+        for path in (ROOT / "src").rglob("*.py"):
+            text = path.read_text(encoding="utf-8")
+            with self.subTest(path=path):
+                self.assertNotIn(
+                    "browser_compatible_chrome",
+                    text,
+                    str(path),
+                )
+                self.assertNotIn(
+                    "Chrome/146.0.0.0",
+                    text,
+                    str(path),
+                )
+
     def test_browser_html_workflow_is_retired(self):
         self.assertFalse(
             (WORKFLOWS / "watch-meti-html.yml").exists()

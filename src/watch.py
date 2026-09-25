@@ -1,7 +1,7 @@
 """制裁リスト監視のエントリポイント。
 
   python -m src.watch --sources ofac          # OFAC のみ (毎時)
-  python -m src.watch --sources mof meti      # 財務省・経産省 (6時間ごと)
+  python -m src.watch --sources mof           # 財務省のみ (6時間ごと)
   python -m src.watch --sources all --dry-run
 
 終了コード:
@@ -32,7 +32,7 @@ from . import persistence as P
 from . import state as S
 from . import source_audit as A
 from .fetch import archive, fetch, prune_raw, read_raw
-from .sources import meti, mof, ofac
+from .sources import mof, ofac
 
 LOGGER = logging.getLogger(__name__)
 
@@ -1725,165 +1725,15 @@ def _latest_raw(key: str, cfg: dict, prev: dict | None = None) -> list:
         return []
 
 
-# ------------------------------------------------------------------ 経産省
-
-def run_meti(session, st, rows, hb, opts=None) -> list:
-    """経産省の更新監視。
-
-    WAF等による明示的な自動取得拒否だけは blocked として記録し、
-    他ソースの監視を止めない。
-
-    一方で、
-      - ページ構造変更
-      - HTTP 404/500
-      - 想定外の例外
-
-    は blocked と混同せず異常終了させる。
-    """
-    opts = opts or {}
-    audit = opts.setdefault("audit", [])
-    prev = st.get("meti", {})
-
-    try:
-        res = meti.check(session=session)
-
-    except meti.Blocked as exc:
-        log("blocked", meti.NAME, f"取得できず: {exc}")
-
-        hb.append(
-            dict(
-                source="meti",
-                status="blocked",
-            )
-        )
-
-        audit.append(
-            A.error_entry(
-                source="meti",
-                document_role="index_page",
-                error=exc,
-                url=meti.INDEX_URL,
-                status="blocked",
-                fetch_failed=True,
-                schema_changed=False,
-            )
-        )
-
-        return []
-
-    except requests.HTTPError as exc:
-        status_code = getattr(
-            getattr(exc, "response", None),
-            "status_code",
-            None,
-        )
-
-        # METIのWAFが403で拒否するケースは「取得拒否」として分離。
-        if status_code == 403:
-            log("blocked", meti.NAME, f"HTTP 403: {exc}")
-
-            hb.append(
-                dict(
-                    source="meti",
-                    status="blocked",
-                )
-            )
-
-            audit.append(
-                A.error_entry(
-                    source="meti",
-                    document_role="index_page",
-                    error=exc,
-                    url=meti.INDEX_URL,
-                    status="blocked",
-                    fetch_failed=True,
-                    schema_changed=False,
-                )
-            )
-
-            return []
-
-        raise
-
-    except meti.SchemaError:
-        raise
-
-    sig = res["signature"]
-    changed = sig != prev.get("signature")
-    fetched = res["fetched"]
-
-    hb.append(
-        dict(
-            source="meti",
-            status="updated" if changed else "unchanged",
-            content_hash=fetched.sha256,
-            source_updated=";".join(res["dates"][:3]),
-        )
-    )
-
-    audit.append(
-        A.entry(
-            source="meti",
-            document_role="index_page",
-            status="updated" if changed else "unchanged",
-            fetched=fetched,
-            source_updated=";".join(res["dates"][:3]),
-        )
-    )
-
-    if not changed:
-        log("unchanged", meti.NAME, "変更なし")
-        return []
-
-    st["meti"] = dict(
-        signature=sig,
-        pdfs=res["pdfs"],
-        dates=res["dates"],
-        sha256=fetched.sha256,
-        etag=fetched.etag,
-        last_modified=fetched.last_modified,
-        url=fetched.url,
-        filename=fetched.filename,
-    )
-
-    archive(fetched, "meti", ROOT)
-    prune_raw("meti", ROOT)
-
-    # archive後のraw_pathを含む確定証跡。
-    audit.append(
-        A.entry(
-            source="meti",
-            document_role="index_page_archived",
-            status="updated",
-            fetched=fetched,
-            source_updated=";".join(res["dates"][:3]),
-        )
-    )
-
-    log(
-        "updated",
-        meti.NAME,
-        "更新検出（PDFのため要手動取込）",
-    )
-
-    return [
-        dict(
-            source=meti.SOURCE,
-            pdfs=res["pdfs"],
-            dates=res["dates"],
-        )
-    ]
-
-
 # ------------------------------------------------------------------ main
 
-RUNNERS = {"mof": run_mof, "ofac": run_ofac, "meti": run_meti}
+RUNNERS = {"mof": run_mof, "ofac": run_ofac}
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sources", nargs="+", default=["all"],
-                    choices=["all", "mof", "ofac", "meti"])
+                    choices=["all", "mof", "ofac"])
     ap.add_argument("--dry-run", action="store_true",
                     help="マスターとstateを書き換えずに差分だけ表示する")
     ap.add_argument("--no-delist", action="store_true",
@@ -1910,16 +1760,11 @@ def main() -> int:
     session = requests.Session()
     hb: list[dict] = []
     diffs: list[M.Diff] = []
-    meti_notice: list[dict] = []
     failed: list[str] = []
 
     for t in targets:
         try:
-            out = RUNNERS[t](session, st, rows, hb, opts)
-            if t == "meti":
-                meti_notice += out
-            else:
-                diffs += out
+            diffs += RUNNERS[t](session, st, rows, hb, opts)
         except Exception as e:  # noqa: BLE001
             failed.append(f"{t}: {e}")
             log("FAILED", t, str(e))
@@ -1930,7 +1775,6 @@ def main() -> int:
                 (
                     mof.SchemaError,
                     ofac.SchemaError,
-                    meti.SchemaError,
                 ),
             )
 
@@ -1973,15 +1817,7 @@ def main() -> int:
                     )
                 )
 
-                source_url = (
-                    mof.INDEX_URL
-                    if t == "mof"
-                    else (
-                        meti.INDEX_URL
-                        if t == "meti"
-                        else ""
-                    )
-                )
+                source_url = mof.INDEX_URL if t == "mof" else ""
 
                 opts["audit"].append(
                     A.error_entry(
@@ -2035,7 +1871,6 @@ def main() -> int:
     if gh:
         with open(gh, "a", encoding="utf-8") as f:
             f.write(f"has_diff={'true' if diffs else 'false'}\n")
-            f.write(f"meti_updated={'true' if meti_notice else 'false'}\n")
             f.write(f"added={sum(len(d.added) for d in diffs)}\n")
             f.write(f"removed={sum(len(d.removed) for d in diffs)}\n")
             f.write(f"changed={sum(len(d.changed) for d in diffs)}\n")

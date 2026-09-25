@@ -35,7 +35,7 @@ def _run_url() -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--kind", choices=["diff", "meti", "failure"], required=True)
+    ap.add_argument("--kind", choices=["diff", "failure"], required=True)
     ap.add_argument("--added", default="0")
     ap.add_argument("--removed", default="0")
     ap.add_argument("--changed", default="0")
@@ -50,9 +50,6 @@ def main() -> int:
         if p.exists():
             body = p.read_text(encoding="utf-8")[:2500]
         text = head + ("\n\n```\n" + body + "\n```" if body else "")
-    elif args.kind == "meti":
-        text = (":memo: 経産省 外国ユーザーリストの告知ページが更新された。"
-                "PDFのため自動取込できない。手作業での取り込みが必要")
     else:
         text = ":x: 制裁リスト監視が失敗した。取得元の書式変更かネットワーク障害の可能性"
 
