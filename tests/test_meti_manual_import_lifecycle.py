@@ -6,13 +6,14 @@ import json
 import tempfile
 import unittest
 from contextlib import ExitStack
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
 from src import dashboard
 from src import meti_manual_event as manual_event
 from src import meti_manual_import as manual_import
+from src import meti_review
 from src import persistence, source_audit
 
 
@@ -241,6 +242,30 @@ class TestMetiManualImportLifecycle(unittest.TestCase):
             fixture["master"],
         ]
 
+    def review_patches(self):
+        review_dir = self.root / "data/review"
+        return (
+            patch.object(meti_review, "ROOT", self.root),
+            patch.object(meti_review, "STATE_PATH", self.paths.state),
+            patch.object(
+                meti_review,
+                "EVIDENCE_PATH",
+                manual_import.EVIDENCE_PATH,
+            ),
+            patch.object(meti_review, "REVIEW_DIR", review_dir),
+            patch.object(
+                meti_review,
+                "REVIEW_LEDGER",
+                review_dir / "meti_foreign_user_list.csv",
+            ),
+            patch.object(
+                meti_review,
+                "REVIEW_ARTIFACT_DIR",
+                self.root / "data/manual/meti/reviews",
+            ),
+            patch.object(meti_review, "_now", return_value=NOW),
+        )
+
     def assert_blocked_failure(
         self,
         *,
@@ -316,7 +341,7 @@ class TestMetiManualImportLifecycle(unittest.TestCase):
         state = self.read_state()
         events = manual_event.load_events(self.paths.events)
         self.assertEqual(rc, 0)
-        self.assertEqual(state["lifecycle_state"], "REVIEW_REQUIRED")
+        self.assertEqual(state.get("lifecycle_state"), "REVIEW_REQUIRED")
         self.assertEqual(
             [event["state"] for event in events[before_event_count:]],
             ["FILE_RECEIVED", "VALIDATED", "DIFFED", "REVIEW_REQUIRED"],
@@ -332,6 +357,73 @@ class TestMetiManualImportLifecycle(unittest.TestCase):
                 "table header changed"
             )
         )
+
+    def test_blocked_routine_import_retries_same_detection(self):
+        fixture = self.seed_open_detection()
+        with patch.object(
+            manual_import,
+            "extract_pdf",
+            side_effect=manual_import.PdfStructureError(
+                "temporary table parse failure"
+            ),
+        ):
+            self.assertEqual(
+                self.run_import(detection_id=fixture["detection_id"]),
+                2,
+            )
+        blocked = self.read_state()
+        self.assertEqual(blocked["lifecycle_state"], "BLOCKED")
+        self.assertEqual(blocked["pending_detection"]["attempt"], 1)
+
+        with patch.object(
+            manual_import,
+            "extract_pdf",
+            return_value=(self.records(), "text", 10),
+        ):
+            retry_rc = self.run_import(
+                detection_id=fixture["detection_id"]
+            )
+
+        retried = self.read_state()
+        self.assertEqual(retry_rc, 0)
+        self.assertEqual(retried["lifecycle_state"], "REVIEW_REQUIRED")
+        self.assertEqual(retried["detection_id"], fixture["detection_id"])
+        self.assertEqual(retried["pending_detection"]["attempt"], 2)
+
+    def test_diffed_timestamp_uses_stage_completion_time(self):
+        fixture = self.seed_open_detection()
+        import_started = NOW + timedelta(minutes=59)
+        diff_completed = NOW + timedelta(minutes=61)
+        first = True
+
+        def clock():
+            nonlocal first
+            if first:
+                first = False
+                return import_started
+            return diff_completed
+
+        with (
+            patch.object(manual_import, "_now", side_effect=clock),
+            patch.object(
+                manual_import,
+                "extract_pdf",
+                return_value=(self.records(), "text", 10),
+            ),
+        ):
+            rc = self.run_import(detection_id=fixture["detection_id"])
+
+        state = self.read_state()
+        events = manual_event.load_events(self.paths.events)
+        diffed = next(
+            event
+            for event in reversed(events)
+            if event["state"] == "DIFFED"
+        )
+        self.assertEqual(rc, 0)
+        self.assertEqual(diffed["event_at"], "2026-09-17T07:01:00Z")
+        self.assertEqual(state["diffed_at"], "2026-09-17T07:01:00Z")
+        self.assertGreater(state["diffed_at"], state["sla_due_at"])
 
     def test_persistence_failure_rolls_back_current_state_and_ledgers(self):
         fixture = self.seed_open_detection()
@@ -369,7 +461,7 @@ class TestMetiManualImportLifecycle(unittest.TestCase):
         self.assertFalse(list(self.root.rglob("*.tmp")))
         self.assertFalse(list(self.root.rglob("*.bak")))
 
-    def test_existing_historical_baseline_without_detection_remains_readable(self):
+    def test_historical_baseline_without_detection_is_reviewable(self):
         with patch.object(
             manual_import,
             "extract_pdf",
@@ -384,6 +476,97 @@ class TestMetiManualImportLifecycle(unittest.TestCase):
         self.assertIs(report["baseline"], True)
         self.assertEqual(report["status"], "REVIEW_REQUIRED")
         self.assertFalse((self.root / "data/master/master.csv").exists())
+        state = self.read_state()
+        events = manual_event.load_events(self.paths.events)
+        self.assertEqual(state.get("lifecycle_state"), "REVIEW_REQUIRED")
+        self.assertRegex(state["detection_id"], r"^[0-9a-f]{64}$")
+        self.assertEqual(
+            [event["state"] for event in events],
+            [
+                "DETECTED",
+                "MANUAL_FETCH_REQUIRED",
+                "FILE_RECEIVED",
+                "VALIDATED",
+                "DIFFED",
+                "REVIEW_REQUIRED",
+            ],
+        )
+
+        with ExitStack() as stack:
+            for review_patch in self.review_patches():
+                stack.enter_context(review_patch)
+            decision = meti_review.decide(
+                expected_hash=self.digest,
+                decision=meti_review.DECISION_APPROVED,
+                reviewer="reviewer",
+                note="baseline verified",
+            )
+        self.assertFalse(decision["idempotent"])
+        self.assertEqual(decision["state"]["lifecycle_state"], "APPROVED")
+
+    def test_detection_bound_first_baseline_uses_open_detection(self):
+        state, events, detection_id = manual_event.open_detection(
+            {},
+            [],
+            operator="detector",
+            notice_url=NOTICE_URL,
+            title="foreign user list updated",
+            detected_at=NOW,
+        )
+        manual_event.persist_lifecycle(
+            state=state,
+            events=events,
+            heartbeat_status="manual_pending",
+            dashboard_event=None,
+            audit_row=None,
+            now=NOW,
+            paths=self.paths,
+        )
+
+        with patch.object(
+            manual_import,
+            "extract_pdf",
+            return_value=(self.records(), "text", 10),
+        ):
+            rc = self.run_import(detection_id=detection_id)
+
+        imported = self.read_state()
+        self.assertEqual(rc, 0)
+        self.assertEqual(imported["detection_id"], detection_id)
+        self.assertEqual(imported["lifecycle_state"], "REVIEW_REQUIRED")
+        self.assertEqual(imported["pending_detection"]["attempt"], 1)
+
+    def test_blocked_historical_baseline_retries_internal_detection(self):
+        with patch.object(
+            manual_import,
+            "extract_pdf",
+            side_effect=manual_import.PdfStructureError(
+                "temporary baseline parse failure"
+            ),
+        ):
+            self.assertEqual(self.run_import(), 2)
+
+        self.assertTrue(
+            self.paths.state.exists(),
+            "failed baseline must persist its internal detection",
+        )
+        blocked = self.read_state()
+        detection_id = blocked["detection_id"]
+        self.assertEqual(blocked["lifecycle_state"], "BLOCKED")
+        self.assertEqual(blocked["pending_detection"]["attempt"], 1)
+
+        with patch.object(
+            manual_import,
+            "extract_pdf",
+            return_value=(self.records(), "text", 10),
+        ):
+            retry_rc = self.run_import()
+
+        retried = self.read_state()
+        self.assertEqual(retry_rc, 0)
+        self.assertEqual(retried["detection_id"], detection_id)
+        self.assertEqual(retried["lifecycle_state"], "REVIEW_REQUIRED")
+        self.assertEqual(retried["pending_detection"]["attempt"], 2)
 
     def test_same_hash_for_new_detection_is_still_diffed(self):
         fixture = self.seed_open_detection(applied_hash=self.digest)

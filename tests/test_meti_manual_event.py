@@ -62,6 +62,13 @@ def record_detection_fixture(paths, *, now):
     )
 
 
+def snapshot(paths):
+    return {
+        path: path.read_bytes() if path.exists() else None
+        for path in paths
+    }
+
+
 class TestMetiManualEvent(unittest.TestCase):
     def test_validate_official_notice_urls(self):
         cases = [
@@ -381,6 +388,214 @@ class TestMetiManualEvent(unittest.TestCase):
             )
             self.assertFalse(list(root.rglob("*.tmp")))
             self.assertFalse(list(root.rglob("*.bak")))
+
+    def test_pending_detection_cli_replay_is_byte_idempotent(self):
+        with tempfile.TemporaryDirectory() as td:
+            paths = manual_event.LifecyclePaths.for_root(Path(td), NOW)
+            self.assertEqual(record_detection_fixture(paths, now=NOW), 0)
+            before = snapshot(paths.transaction_targets())
+
+            self.assertEqual(
+                record_detection_fixture(
+                    paths,
+                    now=NOW + timedelta(minutes=5),
+                ),
+                0,
+            )
+
+            self.assertEqual(snapshot(paths.transaction_targets()), before)
+
+    def test_no_change_cli_replay_is_byte_idempotent(self):
+        with tempfile.TemporaryDirectory() as td:
+            paths = manual_event.LifecyclePaths.for_root(Path(td), NOW)
+            argv = [
+                "check",
+                "--operator",
+                "kenmizuno-cpu",
+                "--source-url",
+                "https://www.meti.go.jp/policy/anpo/law09-2.html",
+                "--note",
+                "official page unchanged",
+                "--checked-at",
+                "2026-09-17T06:00:00Z",
+            ]
+            self.assertEqual(
+                manual_event.main(argv, paths=paths, now=NOW),
+                0,
+            )
+            before = snapshot(paths.transaction_targets())
+
+            self.assertEqual(
+                manual_event.main(
+                    argv,
+                    paths=paths,
+                    now=NOW + timedelta(minutes=5),
+                ),
+                0,
+            )
+
+            self.assertEqual(snapshot(paths.transaction_targets()), before)
+
+    def test_terminal_detection_replay_does_not_resurrect_pending_state(self):
+        with tempfile.TemporaryDirectory() as td:
+            paths = manual_event.LifecyclePaths.for_root(Path(td), NOW)
+            self.assertEqual(record_detection_fixture(paths, now=NOW), 0)
+            state = json.loads(paths.state.read_text(encoding="utf-8"))
+            events = manual_event.load_events(paths.events)
+            detection_id = state["detection_id"]
+            source_hash = "a" * 64
+            for offset, lifecycle_state in enumerate(
+                (
+                    "FILE_RECEIVED",
+                    "VALIDATED",
+                    "DIFFED",
+                    "REVIEW_REQUIRED",
+                    "REJECTED",
+                ),
+                1,
+            ):
+                state, events, _ = advance(
+                    state,
+                    events,
+                    new_state=lifecycle_state,
+                    event_at=NOW + timedelta(minutes=offset),
+                    operator="operator",
+                    source_hash=source_hash,
+                    detection_id=detection_id,
+                )
+            manual_event.persist_lifecycle(
+                state=state,
+                events=events,
+                heartbeat_status="manual_rejected",
+                dashboard_event=None,
+                audit_row=None,
+                now=NOW + timedelta(minutes=5),
+                paths=paths,
+            )
+            before = snapshot(paths.transaction_targets())
+
+            self.assertEqual(
+                record_detection_fixture(
+                    paths,
+                    now=NOW + timedelta(hours=1),
+                ),
+                0,
+            )
+
+            self.assertEqual(snapshot(paths.transaction_targets()), before)
+            replayed_state = json.loads(
+                paths.state.read_text(encoding="utf-8")
+            )
+            self.assertEqual(replayed_state["lifecycle_state"], "REJECTED")
+            self.assertEqual(replayed_state["pending_detection"], {})
+            self.assertEqual(
+                replayed_state["diffed_at"],
+                "2026-09-17T06:03:00Z",
+            )
+
+    def test_cancel_blocked_detection_preserves_applied_snapshot_and_replays(self):
+        with tempfile.TemporaryDirectory() as td:
+            paths = manual_event.LifecyclePaths.for_root(Path(td), NOW)
+            applied = {
+                "lifecycle_state": "APPLIED",
+                "current_source_hash": "a" * 64,
+                "current_record_count": 835,
+                "current_raw_path": "data/raw/meti_manual/applied.pdf",
+                "review_status": "APPROVED",
+                "approved": True,
+                "applied": True,
+                "applied_source_hash": "a" * 64,
+            }
+            state, events, detection_id = open_detection(
+                applied,
+                [],
+                operator="detector",
+                notice_url="https://www.meti.go.jp/press/example.html",
+                title="update",
+                detected_at=NOW,
+            )
+            state, events, _ = advance(
+                state,
+                events,
+                new_state="FILE_RECEIVED",
+                event_at=NOW + timedelta(minutes=1),
+                operator="manual-import",
+                source_hash="b" * 64,
+                detection_id=detection_id,
+            )
+            state, events, _ = advance(
+                state,
+                events,
+                new_state="BLOCKED",
+                event_at=NOW + timedelta(minutes=2),
+                operator="manual-import",
+                source_hash="b" * 64,
+                detection_id=detection_id,
+            )
+            manual_event.persist_lifecycle(
+                state=state,
+                events=events,
+                heartbeat_status="manual_blocked",
+                dashboard_event=None,
+                audit_row=None,
+                now=NOW + timedelta(minutes=2),
+                paths=paths,
+            )
+            preserved = {
+                key: state[key]
+                for key in (
+                    "current_source_hash",
+                    "current_record_count",
+                    "current_raw_path",
+                    "review_status",
+                    "approved",
+                    "applied",
+                    "applied_source_hash",
+                )
+            }
+            argv = [
+                "cancel",
+                "--operator",
+                "kenmizuno-cpu",
+                "--detection-id",
+                detection_id,
+                "--note",
+                "bad source document; cancel this detection",
+            ]
+
+            try:
+                rc = manual_event.main(
+                    argv,
+                    paths=paths,
+                    now=NOW + timedelta(minutes=3),
+                )
+            except SystemExit as exc:
+                self.fail(
+                    "cancel command is not implemented: SystemExit(%s)"
+                    % exc.code
+                )
+            self.assertEqual(rc, 0)
+            cancelled = json.loads(paths.state.read_text(encoding="utf-8"))
+            self.assertEqual(cancelled["lifecycle_state"], "REJECTED")
+            self.assertEqual(cancelled["pending_detection"], {})
+            self.assertEqual(
+                {key: cancelled[key] for key in preserved},
+                preserved,
+            )
+            before_replay = snapshot(paths.transaction_targets())
+
+            self.assertEqual(
+                manual_event.main(
+                    argv,
+                    paths=paths,
+                    now=NOW + timedelta(minutes=3),
+                ),
+                0,
+            )
+            self.assertEqual(
+                snapshot(paths.transaction_targets()),
+                before_replay,
+            )
 
 
 if __name__ == "__main__":

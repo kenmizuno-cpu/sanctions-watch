@@ -11,6 +11,7 @@ import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urljoin, urlparse
 
 import requests
 
@@ -19,6 +20,20 @@ import requests
 # ここで黙って死ぬ事例が多いので、必ず付ける。
 UA = "sanctions-watch/1.0 (compliance list monitor; +https://github.com)"
 TIMEOUT = 120
+MAX_REDIRECTS = 30
+_REDIRECT_STATUSES = {301, 302, 303, 307, 308}
+
+
+class NetworkPolicyError(RuntimeError):
+    """Raised before an outbound request forbidden by repository policy."""
+
+
+def _assert_network_url_allowed(url: str) -> None:
+    host = (urlparse(str(url)).hostname or "").rstrip(".").lower()
+    if host == "meti.go.jp" or host.endswith(".meti.go.jp"):
+        raise NetworkPolicyError(
+            "automated access to METI hosts is prohibited: %s" % host
+        )
 
 
 @dataclass
@@ -72,7 +87,22 @@ def fetch(url: str, *, prev: dict | None = None, session: requests.Session | Non
         if prev.get("last_modified"):
             headers["If-Modified-Since"] = prev["last_modified"]
 
-    r = s.get(url, headers=headers, timeout=TIMEOUT)
+    request_url = url
+    for redirect_count in range(MAX_REDIRECTS + 1):
+        _assert_network_url_allowed(request_url)
+        r = s.get(
+            request_url,
+            headers=headers,
+            timeout=TIMEOUT,
+            allow_redirects=False,
+        )
+        location = r.headers.get("Location", "")
+        if r.status_code not in _REDIRECT_STATUSES or not location:
+            break
+        if redirect_count >= MAX_REDIRECTS:
+            raise NetworkPolicyError("too many redirects")
+        request_url = urljoin(request_url, location)
+        _assert_network_url_allowed(request_url)
 
     if r.status_code == 304:
         return Fetched(
@@ -83,7 +113,7 @@ def fetch(url: str, *, prev: dict | None = None, session: requests.Session | Non
             last_modified=prev.get("last_modified", ""),
             filename=prev.get("filename", ""),
             http_status=304,
-            final_url=str(r.url or url),
+            final_url=str(r.url or request_url),
             headers=dict(r.headers),
         )
 
@@ -96,7 +126,7 @@ def fetch(url: str, *, prev: dict | None = None, session: requests.Session | Non
         last_modified=r.headers.get("Last-Modified", ""),
         filename=_filename_from(url, r.headers),
         http_status=r.status_code,
-        final_url=str(r.url or url),
+        final_url=str(r.url or request_url),
         headers=dict(r.headers),
     )
 

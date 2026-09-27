@@ -797,6 +797,7 @@ def _relative(path: Path) -> str:
 
 
 _IMPORT_OPERATOR = "manual-import"
+_BASELINE_TITLE = "METI historical baseline"
 _REPLAY_STATES = {
     "REVIEW_REQUIRED",
     "APPROVED",
@@ -821,12 +822,9 @@ def _validate_detection_link(
     """Validate a routine import before any repository file is changed.
 
     Return True only for an already-completed replay of the same detection and
-    source bytes.  A historical baseline has no current hash and remains
-    intentionally exempt from detection linkage.
+    source bytes.  Baselines use the same lifecycle, with an internally opened
+    detection when the operator did not supply one.
     """
-
-    if not str(state.get("current_source_hash") or "").strip():
-        return False
 
     detection_id = str(detection_id or "").strip()
     if not detection_id:
@@ -848,9 +846,9 @@ def _validate_detection_link(
     ):
         return True
 
-    if lifecycle != "MANUAL_FETCH_REQUIRED":
+    if lifecycle not in {"MANUAL_FETCH_REQUIRED", "BLOCKED"}:
         raise ManualImportError(
-            "METI手動取込の状態がMANUAL_FETCH_REQUIREDではない: "
+            "METI手動取込の状態が取込可能ではない: "
             f"{lifecycle!r}"
         )
     if state_detection != detection_id:
@@ -1143,50 +1141,6 @@ def _commit_blocked_generation(
     return 2
 
 
-def _legacy_blocked(
-    *,
-    error: Exception,
-    report: dict,
-    report_path: Path,
-    source_url: str,
-    source_hash: str,
-    raw_path: str,
-    source_file: Path,
-) -> int:
-    """Retain the pre-lifecycle error path for first historical baseline."""
-
-    write_report(report_path, report)
-    source_audit.write(
-        ROOT,
-        [
-            source_audit.entry(
-                "meti_manual",
-                "foreign_user_list_pdf",
-                "parse_blocked",
-                url=source_url,
-                content_hash=source_hash,
-                fetched_file=source_file.name,
-                raw_path=raw_path,
-                fetch_failed=False,
-                schema_changed=isinstance(error, PdfStructureError),
-                error=error,
-            )
-        ],
-    )
-    append_dashboard_row(
-        "手動正本解析BLOCKED",
-        "外国ユーザーリスト",
-        str(error),
-        source_url,
-    )
-    print(f"[BLOCKED] {type(error).__name__}: {error}", file=sys.stderr)
-    if raw_path:
-        print(f"raw: {raw_path}")
-    print(f"report: {_relative(report_path)}")
-    print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
-    return 2
-
-
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("pdf", help="ブラウザで取得した経産省公式PDF")
@@ -1222,14 +1176,37 @@ def main(argv: list[str] | None = None) -> int:
     historical_baseline = not bool(
         str(state.get("current_source_hash") or "").strip()
     )
+    working_state = copy.deepcopy(state)
+    working_events = list(events)
+    detection_id = str(args.detection_id or "").strip()
 
     try:
+        if historical_baseline and not detection_id:
+            pending = working_state.get("pending_detection") or {}
+            detection_id = str(
+                pending.get("detection_id") or ""
+            ).strip()
+            if not detection_id:
+                (
+                    working_state,
+                    working_events,
+                    detection_id,
+                ) = meti_manual_event.open_detection(
+                    working_state,
+                    working_events,
+                    operator=_IMPORT_OPERATOR,
+                    notice_url=source_url,
+                    title=_BASELINE_TITLE,
+                    detected_at=now,
+                    publication_at=args.publication_date,
+                    note="historical baseline import",
+                )
         replay = _validate_detection_link(
-            state,
-            detection_id=args.detection_id,
+            working_state,
+            detection_id=detection_id,
             source_hash=digest,
         )
-    except ManualImportError as exc:
+    except (ManualImportError, meti_manual_event.LifecycleError) as exc:
         print(f"[BLOCKED] {exc}", file=sys.stderr)
         print("AUTO IMPORT = BLOCKED / REVIEW REQUIRED")
         return 2
@@ -1264,27 +1241,17 @@ def main(argv: list[str] | None = None) -> int:
             "quarantine_path": quarantine,
             "checked_at": seen_at,
         }
-        if not historical_baseline:
-            return _commit_blocked_generation(
-                state=state,
-                events=events,
-                error=exc,
-                report=report,
-                report_path=report_path,
-                source_hash=digest,
-                source_url=source_url,
-                raw_path=quarantine,
-                now=now,
-                paths=paths,
-            )
-        return _legacy_blocked(
+        return _commit_blocked_generation(
+            state=working_state,
+            events=working_events,
             error=exc,
             report=report,
             report_path=report_path,
-            source_url=source_url,
             source_hash=digest,
+            source_url=source_url,
             raw_path=quarantine,
-            source_file=src,
+            now=_now(),
+            paths=paths,
         )
 
     raw_path = _archive_copy(src, RAW_DIR, digest, stamp)
@@ -1292,21 +1259,21 @@ def main(argv: list[str] | None = None) -> int:
     record_path = RECORD_DIR / f"{stamp}__{digest[:12]}.csv"
     diff_path = DIFF_DIR / f"{stamp}__{digest[:12]}.csv"
 
-    working_state = copy.deepcopy(state)
-    working_events = list(events)
-    if not historical_baseline:
-        working_state, working_events, _ = meti_manual_event.advance(
-            working_state,
-            working_events,
-            new_state="FILE_RECEIVED",
-            event_at=now,
-            operator=_IMPORT_OPERATOR,
-            source_url=source_url,
-            source_hash=digest,
-            detection_id=args.detection_id,
-        )
+    file_received_at = _now()
+    working_state, working_events, _ = meti_manual_event.advance(
+        working_state,
+        working_events,
+        new_state="FILE_RECEIVED",
+        event_at=file_received_at,
+        operator=_IMPORT_OPERATOR,
+        source_url=source_url,
+        source_hash=digest,
+        detection_id=detection_id,
+    )
 
     parse_error = None
+    validated_at = None
+    diffed_at = None
     try:
         records, full_text, pages = extract_pdf(raw_path)
 
@@ -1315,6 +1282,7 @@ def main(argv: list[str] | None = None) -> int:
                 "公表件数とPDF抽出件数が一致しない: "
                 f"expected={args.expected_count} actual={len(records)}"
             )
+        validated_at = _now()
 
         previous_raw = str(
             state.get("current_records_path") or ""
@@ -1347,6 +1315,7 @@ def main(argv: list[str] | None = None) -> int:
             if old_records
             else DiffResult([], [], [])
         )
+        diffed_at = _now()
     except Exception as exc:
         parse_error = exc
 
@@ -1366,45 +1335,35 @@ def main(argv: list[str] | None = None) -> int:
             "source_hash": digest,
             "file_size": size,
         }
-        if not historical_baseline:
-            return _commit_blocked_generation(
-                state=working_state,
-                events=working_events,
-                error=parse_error,
-                report=report,
-                report_path=report_path,
-                source_hash=digest,
-                source_url=source_url,
-                raw_path=_relative(raw_path),
-                now=now,
-                paths=paths,
-            )
-        return _legacy_blocked(
+        return _commit_blocked_generation(
+            state=working_state,
+            events=working_events,
             error=parse_error,
             report=report,
             report_path=report_path,
-            source_url=source_url,
             source_hash=digest,
+            source_url=source_url,
             raw_path=_relative(raw_path),
-            source_file=src,
+            now=_now(),
+            paths=paths,
         )
 
-    if not historical_baseline:
-        for lifecycle_state in (
-            "VALIDATED",
-            "DIFFED",
-            "REVIEW_REQUIRED",
-        ):
-            working_state, working_events, _ = meti_manual_event.advance(
-                working_state,
-                working_events,
-                new_state=lifecycle_state,
-                event_at=now,
-                operator=_IMPORT_OPERATOR,
-                source_url=source_url,
-                source_hash=digest,
-                detection_id=args.detection_id,
-            )
+    review_required_at = _now()
+    for lifecycle_state, completed_at in (
+        ("VALIDATED", validated_at),
+        ("DIFFED", diffed_at),
+        ("REVIEW_REQUIRED", review_required_at),
+    ):
+        working_state, working_events, _ = meti_manual_event.advance(
+            working_state,
+            working_events,
+            new_state=lifecycle_state,
+            event_at=completed_at,
+            operator=_IMPORT_OPERATOR,
+            source_url=source_url,
+            source_hash=digest,
+            detection_id=detection_id,
+        )
 
     baseline = historical_baseline
     next_state = copy.deepcopy(working_state)
@@ -1512,7 +1471,7 @@ def main(argv: list[str] | None = None) -> int:
         seen_at=seen_at,
         dashboard_event=dashboard_event,
         audit_row=audit_row,
-        now=now,
+        now=review_required_at,
         paths=paths,
     )
 

@@ -269,6 +269,12 @@ def open_detection(
     detection_id = _sha256(
         "|".join((canonical_url, normalized_title, detected_at_text))
     )
+    if any(
+        event.get("detection_id") == detection_id
+        for event in events
+    ):
+        return deepcopy(state), deepcopy(events), detection_id
+
     next_state = deepcopy(state)
     next_state.update(
         {
@@ -315,6 +321,61 @@ def open_detection(
         detection_id=detection_id,
     )
     return next_state, next_events, detection_id
+
+
+def cancel_blocked_detection(
+    state: dict,
+    events: List[dict],
+    *,
+    detection_id: str,
+    operator: str,
+    cancelled_at: datetime,
+    note: str,
+) -> Tuple[dict, List[dict]]:
+    """Cancel one matching blocked intake without changing applied data."""
+
+    detection_id = str(detection_id or "").strip()
+    if not detection_id:
+        raise LifecycleError("detection ID is required for cancellation")
+    note = str(note or "").strip()
+    if not note:
+        raise LifecycleError("cancellation note is required")
+
+    for event in reversed(events):
+        if (
+            event.get("detection_id") == detection_id
+            and event.get("state") == "REJECTED"
+        ):
+            try:
+                detail = json.loads(str(event.get("detail") or "{}"))
+            except (TypeError, ValueError):
+                detail = {}
+            if detail.get("action") == "cancel_blocked_detection":
+                return deepcopy(state), deepcopy(events)
+
+    pending = state.get("pending_detection") or {}
+    if str(state.get("lifecycle_state") or "") != "BLOCKED":
+        raise LifecycleError("only a BLOCKED detection can be cancelled")
+    if str(pending.get("detection_id") or "") != detection_id:
+        raise LifecycleError("detection ID does not match the blocked detection")
+
+    detail = _compact_json(
+        {
+            "action": "cancel_blocked_detection",
+            "note": note,
+        }
+    )
+    next_state, next_events, _ = advance(
+        state,
+        events,
+        new_state="REJECTED",
+        event_at=cancelled_at,
+        operator=operator,
+        source_url=str(pending.get("notice_url") or ""),
+        detail=detail,
+        detection_id=detection_id,
+    )
+    return next_state, next_events
 
 
 def record_no_change(
@@ -576,6 +637,12 @@ def _parser() -> argparse.ArgumentParser:
     detect.add_argument("--publication-at", default="")
     detect.add_argument("--note", default="")
     detect.add_argument("--detected-at", default="")
+
+    cancel = commands.add_parser("cancel")
+    cancel.add_argument("--operator", required=True)
+    cancel.add_argument("--detection-id", required=True)
+    cancel.add_argument("--note", required=True)
+    cancel.add_argument("--cancelled-at", default="")
     return parser
 
 
@@ -585,7 +652,7 @@ def main(
     paths: Optional[LifecyclePaths] = None,
     now: Optional[datetime] = None,
 ) -> int:
-    """Run the local-only check/detect operator command."""
+    """Run the local-only check/detect/cancel operator command."""
 
     args = _parser().parse_args(argv)
     base_now = _normalize_now(now or datetime.now(timezone.utc))
@@ -597,10 +664,16 @@ def main(
                 if args.checked_at
                 else base_now
             )
-        else:
+        elif args.command == "detect":
             event_at = (
                 _parse_utc(args.detected_at, "detected-at")
                 if args.detected_at
+                else base_now
+            )
+        else:
+            event_at = (
+                _parse_utc(args.cancelled_at, "cancelled-at")
+                if args.cancelled_at
                 else base_now
             )
 
@@ -619,6 +692,8 @@ def main(
                 note=args.note,
             )
             changed = len(events) != len(old_events)
+            if not changed:
+                return 0
             dashboard_event = (
                 [
                     "経済産業省",
@@ -647,6 +722,42 @@ def main(
             )
             return 0
 
+        if args.command == "cancel":
+            state, events = cancel_blocked_detection(
+                old_state,
+                old_events,
+                detection_id=args.detection_id,
+                operator=args.operator,
+                cancelled_at=event_at,
+                note=args.note,
+            )
+            changed = len(events) != len(old_events)
+            if not changed:
+                return 0
+            pending = old_state.get("pending_detection") or {}
+            persist_lifecycle(
+                state=state,
+                events=events,
+                heartbeat_status="manual_rejected",
+                dashboard_event=[
+                    "経済産業省",
+                    "手動取込取消",
+                    "外国ユーザーリスト",
+                    "BLOCKED",
+                    "REJECTED",
+                ],
+                audit_row=source_audit.entry(
+                    "meti_manual",
+                    "foreign_user_list_pdf",
+                    "cancelled",
+                    url=str(pending.get("notice_url") or ""),
+                ),
+                now=event_at,
+                paths=paths,
+            )
+            print("CANCELLED_DETECTION_ID=%s" % args.detection_id)
+            return 0
+
         publication_at = ""
         if args.publication_at:
             publication_at = _timestamp(
@@ -663,6 +774,9 @@ def main(
             note=args.note,
         )
         changed = len(events) != len(old_events)
+        if not changed:
+            print("DETECTION_ID=%s" % detection_id)
+            return 0
         dashboard_event = (
             [
                 "経済産業省",

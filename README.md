@@ -314,6 +314,17 @@ cron を有効にする前に手動で1回流して、差分レポートがこ�
    成功時に表示される `SHA256` を以降の `$SOURCE_HASH` として使用する。この時点では
    `REVIEW_REQUIRED` になり、マスターにはまだ反映されない。
 
+   `BLOCKED` になった場合、PDFや入力値を修正して同じ `DETECTION_ID` でこのコマンドを
+   再実行する。再試行回数は監査イベントへ記録される。誤検知などで取込を中止する場合は、
+   適用済みスナップショットを維持したまま検知を明示的に取消す。
+
+   ```bash
+   python -m src.meti_manual_event cancel \
+     --operator "kenmizuno-cpu" \
+     --detection-id "$DETECTION_ID" \
+     --note "取消理由"
+   ```
+
 5. スナップショットを確認し、承認または却下する。
 
    ```bash
