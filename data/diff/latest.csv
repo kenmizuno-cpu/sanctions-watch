@@ -1,2 +1,101 @@
 出所,種別,受取人名,変更前,変更後
-OFAC,変更,SPC,制裁リスト | invalid_reason=全ての出所から掲載が無くなったため無効化（制裁解除または統廃合） / review_flag=3文字と短く、照合時に誤検知が多発する見込み（SPC）,制裁リスト | invalid_reason=OFAC現役Weak Aliasのため通常スクリーニング対象外 / review_flag=OFAC_WEAK_ALIAS_CURRENT
+OFAC,追加,Kavoshcom Asia R and D Group,,制裁リスト（OFAC：SDN）
+OFAC,追加,گروه تحقيقات خدمات مخابراتی کاوشکام آسيا,,制裁リスト（OFAC：SDN）
+OFAC,追加,Kavoshcom R and D Group,,制裁リスト（OFAC：SDN）
+OFAC,追加,EC Mojo Technology Co Limited,,制裁リスト（OFAC：SDN）
+OFAC,追加,昴雋電訊有限公司,,制裁リスト（OFAC：SDN）
+OFAC,追加,Sunrise Electronics Co Ltd,,制裁リスト（OFAC：SDN）
+OFAC,追加,Chengzi Trading Co Ltd,,制裁リスト（OFAC：SDN）
+OFAC,追加,Lali Parisa,,制裁リスト（OFAC：SDN）
+OFAC,追加,Laali Parisa,,制裁リスト（OFAC：SDN）
+OFAC,追加,La'li Parisa,,制裁リスト（OFAC：SDN）
+OFAC,追加,Li Fen,,制裁リスト（OFAC：SDN）
+OFAC,追加,李 芬,,制裁リスト（OFAC：SDN）
+OFAC,追加,Ahmady Ali Fotowat,,制裁リスト（OFAC：SDN）
+OFAC,追加,Ahmadi Ali Fotowat,,制裁リスト（OFAC：SDN）
+OFAC,追加,Ahmadi Ali Fotovat,,制裁リスト（OFAC：SDN）
+OFAC,追加,Ismael Zambada Sicairos,,制裁リスト（OFAC：SDN）
+OFAC,追加,Ismael Cicairos Zambada,,制裁リスト（OFAC：SDN）
+OFAC,追加,Fernando Sicairos Aispuro,,制裁リスト（OFAC：SDN）
+OFAC,追加,Hildegardo Gastelum Garcia,,制裁リスト（OFAC：SDN）
+OFAC,追加,Tajammal Waseem Pasha,,制裁リスト（OFAC：SDN）
+OFAC,追加,Cavalier Dynamics Private Limited,,制裁リスト（OFAC：SDN）
+OFAC,追加,Cavalier Dynamics for Technologies Company,,制裁リスト（OFAC：SDN）
+OFAC,追加,شركة كافاليير دايناميكس للتقنيات,,制裁リスト（OFAC：SDN）
+OFAC,追加,Cavalier Dynamics Technologies Company,,制裁リスト（OFAC：SDN）
+OFAC,追加,Cavalier Dynamics Teknoloji Ticaret Anonim Sirketi,,制裁リスト（OFAC：SDN）
+OFAC,追加,Cavalier Dynamics Teknoloji Ticaret Anonim Şirketi,,制裁リスト（OFAC：SDN）
+OFAC,追加,"MIA CENTRO CAMBIARIO, S.A. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,Tabatabai Seyyed Asghar Alizadeh,,制裁リスト（OFAC：SDN）
+OFAC,追加,Tabatabaei Seyed Asghar Alizadeh,,制裁リスト（OFAC：SDN）
+OFAC,追加,Chapotin Villalba Diosvany Samuel,,制裁リスト（OFAC：SDN）
+OFAC,追加,Pichon Vidal Lazaro,,制裁リスト（OFAC：SDN）
+OFAC,追加,Martinez Rodriguez Pedro Humberto,,制裁リスト（OFAC：SDN）
+OFAC,追加,Yocupicio Yocupicio Jesus Rafael,,制裁リスト（OFAC：SDN）
+OFAC,追加,Huezo Hernandez Franklin Ernesto,,制裁リスト（OFAC：SDN）
+OFAC,追加,Castillo Maldonado Lorenzo,,制裁リスト（OFAC：SDN）
+OFAC,追加,Mendoza Uriarte Jorge Luis,,制裁リスト（OFAC：SDN）
+OFAC,追加,Mendoza Uriarte Francisco Javier,,制裁リスト（OFAC：SDN）
+OFAC,追加,Felix Rivera Ilia Elizabeth,,制裁リスト（OFAC：SDN）
+OFAC,追加,Vera Ayala Jeronimo Javier,,制裁リスト（OFAC：SDN）
+OFAC,追加,Vera Ayala Jorge Mario,,制裁リスト（OFAC：SDN）
+OFAC,追加,Torres Torres Carlos Alberto,,制裁リスト（OFAC：SDN）
+OFAC,追加,Torres Torres Luis Alfonso,,制裁リスト（OFAC：SDN）
+OFAC,追加,Mendivil Garcia Pedro Ariel,,制裁リスト（OFAC：SDN）
+OFAC,追加,Moreno Gomez Santelices Marco Antonio,,制裁リスト（OFAC：SDN）
+OFAC,追加,Villela Gomez Santelices Carlos,,制裁リスト（OFAC：SDN）
+OFAC,追加,Buenrostro Martin Rafael,,制裁リスト（OFAC：SDN）
+OFAC,追加,"Rivos Servicios, S.A. de C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"Servicios Hoteleros Gastelum, S.A. de C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"Galerias Centro Cambiario, S.A. de C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,Magic Casa de Cambio,,制裁リスト（OFAC：SDN）
+OFAC,追加,"GRUPO GASOLINERO NUEVA ESPERANZA, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"BAJA FIXER GROUP, S.A. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"INTELIPROOF EFFICIENT, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,PRIVATE EQUITY BAJA S.A.P.I. DE C.V.,,制裁リスト（OFAC：SDN）
+OFAC,追加,"FESTIVALES ARTISTAS MOBILIARIO ASESORIA, S.A. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"Promociones CHF de Baja California, S.A. de C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"PRIVATE EQUITY BURSATIL, S.A. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,CONCIERTOS Y ESPECTACULOS INHOUSE S.A.P.I. DE C.V.,,制裁リスト（OFAC：SDN）
+OFAC,追加,"WERMAK PUBLIRED, S.A. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,HOLISTIC WELLWAVES S. DE R.L. DE C.V.,,制裁リスト（OFAC：SDN）
+OFAC,追加,"PROYECTO ALERTA VERDE, S.A.P.I. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"VIDEOVIGILANCIA COLABORATIVA, S.A.P.I. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"LTHINGS MEXICO, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"XOLO GAS DE BAJA CALIFORNIA, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"CODESUAM, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"GRUPO BAJA FIRME, S.A. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"VIDA ORGANICA TIJUANA, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"EDIFIKA DESARROLLOS BAJA, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"THE WOODS BAR, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,RAES RESTAURANTE S. DE R.L. DE C.V.,,制裁リスト（OFAC：SDN）
+OFAC,追加,DISTRIBUIDORA Y COMERCIALIZADORA ATAF,,制裁リスト（OFAC：SDN）
+OFAC,追加,DISTRIBUIDORA Y COMERCIALIZADORA ATAF S.A.S.,,制裁リスト（OFAC：SDN）
+OFAC,追加,"PUBLICIDAD E IMAGEN INTEGRAL ENLA-C, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+OFAC,追加,"LALI, Parisa",,制裁リスト（OFAC：SDN）
+OFAC,追加,"LI, Fen",,制裁リスト（OFAC：SDN）
+OFAC,追加,"AHMADY, Ali Fotowat",,制裁リスト（OFAC：SDN）
+OFAC,追加,"TAJAMMAL, Waseem Pasha",,制裁リスト（OFAC：SDN）
+OFAC,追加,"TABATABAI, Seyyed Asghar Alizadeh",,制裁リスト（OFAC：SDN）
+OFAC,追加,"CHAPOTIN VILLALBA, Diosvany Samuel",,制裁リスト（OFAC：SDN）
+OFAC,追加,"MARTINEZ RODRIGUEZ, Pedro Humberto",,制裁リスト（OFAC：SDN）
+OFAC,追加,"YOCUPICIO YOCUPICIO, Jesus Rafael",,制裁リスト（OFAC：SDN）
+OFAC,追加,"HUEZO HERNANDEZ, Franklin Ernesto",,制裁リスト（OFAC：SDN）
+OFAC,追加,"CASTILLO MALDONADO, Lorenzo",,制裁リスト（OFAC：SDN）
+OFAC,追加,"MENDOZA URIARTE, Jorge Luis",,制裁リスト（OFAC：SDN）
+OFAC,追加,"MENDOZA URIARTE, Francisco Javier",,制裁リスト（OFAC：SDN）
+OFAC,追加,"FELIX RIVERA, Ilia Elizabeth",,制裁リスト（OFAC：SDN）
+OFAC,追加,"VERA AYALA, Jeronimo Javier",,制裁リスト（OFAC：SDN）
+OFAC,追加,"VERA AYALA, Jorge Mario",,制裁リスト（OFAC：SDN）
+OFAC,追加,"TORRES TORRES, Carlos Alberto",,制裁リスト（OFAC：SDN）
+OFAC,追加,"TORRES TORRES, Luis Alfonso",,制裁リスト（OFAC：SDN）
+OFAC,追加,"MENDIVIL GARCIA, Pedro Ariel",,制裁リスト（OFAC：SDN）
+OFAC,追加,"MORENO GOMEZ SANTELICES, Marco Antonio",,制裁リスト（OFAC：SDN）
+OFAC,追加,"VILLELA GOMEZ SANTELICES, Carlos",,制裁リスト（OFAC：SDN）
+OFAC,追加,"BUENROSTRO MARTIN, Rafael",,制裁リスト（OFAC：SDN）
+OFAC,追加,"LAALI, Parisa",,制裁リスト（OFAC：SDN）
+OFAC,追加,"LA'LI, Parisa",,制裁リスト（OFAC：SDN）
+OFAC,追加,"AHMADI, Ali Fotowat",,制裁リスト（OFAC：SDN）
+OFAC,追加,"AHMADI, Ali Fotovat",,制裁リスト（OFAC：SDN）
+OFAC,追加,"TABATABAEI, Seyed Asghar Alizadeh",,制裁リスト（OFAC：SDN）
+OFAC,追加,"PICHON VIDAL, Lazaro",,制裁リスト（OFAC：SDN）
