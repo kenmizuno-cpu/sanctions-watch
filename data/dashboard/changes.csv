@@ -1,4 +1,5 @@
 検知日時,出所,種別,受取人名,変更前,変更後
+2026-09-29 17:38:40,OFAC,変更,SPC,制裁リスト | invalid_reason=全ての出所から掲載が無くなったため無効化（制裁解除または統廃合） / review_flag=3文字と短く、照合時に誤検知が多発する見込み（SPC）,制裁リスト | invalid_reason=OFAC現役Weak Aliasのため通常スクリーニング対象外 / review_flag=OFAC_WEAK_ALIAS_CURRENT
 2026-09-29 15:06:19,財務省,情報改訂（住所・所在地（都市その他の情報）（英語））,フェオドシア社,"Ulitsa Geologicheskaya 2,Feodosiia; Ulitsa Geologicheskaia Street 2,Feodosia","Ulitsa Geologicheskaya 2, Feodosiia; Ulitsa Geologicheskaya 2, Feodosia; Geologicheskaia Street 2, Feodosiia; Geologicheskaia Street 2, Feodosia"
 2026-09-29 15:06:19,財務省,情報改訂（別名・別称（日本語））,ベルインヴェストバンク,ベルインヴェストバンクベラルーシ開発復興銀行; ベラルーシ開発復興銀行,ベラルーシ開発復興銀行
 2026-09-29 15:06:13,財務省,掲載終了,Commercial Bank of Syria,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
@@ -4998,4 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Humaydah Muhammad Abd-al-Halim,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Margoshvili Murad,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Shishani Muslim Abu al-Walid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Margoshvili Murad Muslim Akhmetovich,,制裁リスト（OFAC：SDN）
