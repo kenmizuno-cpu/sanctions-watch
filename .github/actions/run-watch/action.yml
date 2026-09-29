@@ -88,6 +88,9 @@ runs:
         # 意味のある履歴だけ後から追えるよう、メッセージを用途別に分ける
         if [ "$HAS_DIFF" = "true" ]; then
           MSG="feat(diff): 制裁リスト差分 追加${{ steps.watch.outputs.added }} 削除${{ steps.watch.outputs.removed }} 変更${{ steps.watch.outputs.changed }}"
+          if [ "${{ steps.watch.outputs.backfilled }}" != "0" ]; then
+            MSG="$MSG 初回同期${{ steps.watch.outputs.backfilled }}"
+          fi
         elif [ "$MOF_MATERIAL_CHANGED" = "true" ]; then
           MSG="feat(mof): 原本差分 追加${{ steps.mof_record_diff.outputs.added }} 削除${{ steps.mof_record_diff.outputs.removed }} 情報改訂${{ steps.mof_record_diff.outputs.amended }}"
         elif [ "$MOF_SOURCE_CHANGED" = "true" ]; then
@@ -144,7 +147,8 @@ runs:
         python -m src.notify --kind diff \
           --added   "${{ steps.watch.outputs.added }}" \
           --removed "${{ steps.watch.outputs.removed }}" \
-          --changed "${{ steps.watch.outputs.changed }}"
+          --changed "${{ steps.watch.outputs.changed }}" \
+          --backfilled "${{ steps.watch.outputs.backfilled }}"
 
     - name: OFAC 失敗証跡を準備
       if: failure() && (contains(inputs.sources, 'ofac') || inputs.sources == 'all')

@@ -147,8 +147,12 @@ class Diff:
 
     @property
     def counts(self) -> dict:
-        return dict(追加=len(self.added), 削除=len(self.removed),
-                    変更=len(self.changed))
+        backfilled = sum(a.get("origin") == "backfill" for a in self.added)
+        counts = dict(追加=len(self.added) - backfilled,
+                      削除=len(self.removed), 変更=len(self.changed))
+        if backfilled:
+            counts["初回同期"] = backfilled
+        return counts
 
 
 def merge(master: dict[str, dict], records: list[dict], source: str,
@@ -262,16 +266,23 @@ def render_markdown(diffs: list[Diff]) -> str:
     for d in diffs:
         if not d:
             continue
-        out.append(f"## {d.source}　"
-                   f"追加 {len(d.added)} / 削除 {len(d.removed)} / 変更 {len(d.changed)}")
+        counts = d.counts
+        summary = f"追加 {counts['追加']}"
+        if counts.get("初回同期"):
+            summary += f" / 初回同期 {counts['初回同期']}"
+        out.append(f"## {d.source}　{summary} / 削除 {len(d.removed)} / 変更 {len(d.changed)}")
         out.append("")
-        if d.added:
-            out.append("### 追加")
-            for a in d.added[:200]:
-                out.append(f"- `{a['name']}` — {a['remark']}")
-            if len(d.added) > 200:
-                out.append(f"- …他 {len(d.added) - 200} 件")
-            out.append("")
+        for kind, additions in (
+            ("追加", [a for a in d.added if a.get("origin") != "backfill"]),
+            ("初回同期（Advanced XML）", [a for a in d.added if a.get("origin") == "backfill"]),
+        ):
+            if additions:
+                out.append(f"### {kind}")
+                for a in additions[:200]:
+                    out.append(f"- `{a['name']}` — {a['remark']}")
+                if len(additions) > 200:
+                    out.append(f"- …他 {len(additions) - 200} 件")
+                out.append("")
         if d.removed:
             held = any(not r.get("delisted", True) for r in d.removed)
             out.append("### 掲載終了候補（要確認・無効化せず保留）" if held
@@ -312,7 +323,8 @@ def diff_rows(diffs: list[Diff]) -> list[list]:
     out: list[list] = []
     for d in diffs:
         for a in d.added:
-            out.append([d.source, "追加", a["name"], "", a["remark"]])
+            kind = "初回同期（Advanced XML）" if a.get("origin") == "backfill" else "追加"
+            out.append([d.source, kind, a["name"], "", a["remark"]])
         for r in d.removed:
             kind = ("掲載終了"
                     if r.get("delisted", True)

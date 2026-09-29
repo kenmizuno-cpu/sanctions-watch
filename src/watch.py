@@ -609,6 +609,41 @@ def _ofac_master_rollout_pending(st: dict, enabled=None) -> bool:
     )
 
 
+def _existing_strong_names(history: dict) -> set[str]:
+    """更新前のOFAC indexに既に存在した現役Strong名称のmatch_key。"""
+    return {
+        str(row.get("match_key") or "")
+        for row in history.values()
+        if row.get("party_current") == "1"
+        and row.get("alias_current") == "1"
+        and row.get("low_quality") != "1"
+        and row.get("match_key")
+    }
+
+
+def _classify_ofac_rollout_additions(
+    diff: M.Diff,
+    previous_strong_names: set[str],
+    *,
+    rollout_pending: bool,
+    index_baseline: bool,
+) -> int:
+    """初回master反映で旧snapshot由来の名称だけをバックフィルとする。
+
+    同時にOFACが公表した新規名称は前回indexに無いため「追加」のまま残す。
+    index自体の初回baseline時は比較元が無いので全件を初回同期とする。
+    """
+    if not rollout_pending:
+        return 0
+
+    backfilled = 0
+    for item in diff.added:
+        if index_baseline or item.get("key") in previous_strong_names:
+            item["origin"] = "backfill"
+            backfilled += 1
+    return backfilled
+
+
 def _mark_ofac_review_required(
     heartbeat: list[dict],
     queue_rows: list[dict],
@@ -1261,6 +1296,7 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
     history = OI.load(
         OFAC_INDEX,
     )
+    previous_strong_names = _existing_strong_names(history)
     queue_rows = ORQ.load(
         OFAC_REMOVAL_QUEUE,
     )
@@ -1452,6 +1488,20 @@ def run_ofac(session, st, rows, hb, opts=None) -> list:
         delist=False,
         report_missing=False,
     )
+
+    backfilled = _classify_ofac_rollout_additions(
+        d,
+        previous_strong_names,
+        rollout_pending=rollout_pending,
+        index_baseline=index_diff.baseline,
+    )
+    if backfilled:
+        audit.append(A.entry(
+            source="ofac",
+            document_role="master_backfill",
+            status="backfill",
+            record_count=backfilled,
+        ))
 
     removal_effects: list[dict] = []
 
@@ -1871,7 +1921,8 @@ def main() -> int:
     if gh:
         with open(gh, "a", encoding="utf-8") as f:
             f.write(f"has_diff={'true' if diffs else 'false'}\n")
-            f.write(f"added={sum(len(d.added) for d in diffs)}\n")
+            f.write(f"added={sum(d.counts['追加'] for d in diffs)}\n")
+            f.write(f"backfilled={sum(d.counts.get('初回同期', 0) for d in diffs)}\n")
             f.write(f"removed={sum(len(d.removed) for d in diffs)}\n")
             f.write(f"changed={sum(len(d.changed) for d in diffs)}\n")
 
