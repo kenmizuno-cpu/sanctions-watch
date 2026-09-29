@@ -33,18 +33,33 @@ def _run_url() -> str:
     return f"{server}/{repo}/actions/runs/{rid}" if repo and rid else ""
 
 
+def diff_heading(*, added: int, removed: int, changed: int, backfilled: int) -> str:
+    if not (added or removed or changed) and backfilled:
+        return f":information_source: OFAC Advanced XML 初回同期 {backfilled} 件（公式の新規追加ではありません）"
+    head = (f":rotating_light: 制裁リストに差分を検出 "
+            f"（追加 {added} / 掲載終了 {removed} / 変更 {changed}")
+    if backfilled:
+        head += f" / 初回同期 {backfilled}"
+    return head + "）"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--kind", choices=["diff", "failure"], required=True)
     ap.add_argument("--added", default="0")
     ap.add_argument("--removed", default="0")
     ap.add_argument("--changed", default="0")
+    ap.add_argument("--backfilled", default="0")
     args = ap.parse_args()
 
     link = _run_url()
     if args.kind == "diff":
-        head = (f":rotating_light: 制裁リストに差分を検出 "
-                f"（追加 {args.added} / 掲載終了 {args.removed} / 変更 {args.changed}）")
+        head = diff_heading(
+            added=int(args.added),
+            removed=int(args.removed),
+            changed=int(args.changed),
+            backfilled=int(args.backfilled),
+        )
         body = ""
         p = ROOT / "data" / "diff" / "latest.md"
         if p.exists():
