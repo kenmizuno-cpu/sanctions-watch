@@ -1,4 +1,45 @@
 検知日時,出所,種別,受取人名,変更前,変更後
+2026-09-29 15:06:19,財務省,情報改訂（住所・所在地（都市その他の情報）（英語））,フェオドシア社,"Ulitsa Geologicheskaya 2,Feodosiia; Ulitsa Geologicheskaia Street 2,Feodosia","Ulitsa Geologicheskaya 2, Feodosiia; Ulitsa Geologicheskaya 2, Feodosia; Geologicheskaia Street 2, Feodosiia; Geologicheskaia Street 2, Feodosia"
+2026-09-29 15:06:19,財務省,情報改訂（別名・別称（日本語））,ベルインヴェストバンク,ベルインヴェストバンクベラルーシ開発復興銀行; ベラルーシ開発復興銀行,ベラルーシ開発復興銀行
+2026-09-29 15:06:13,財務省,掲載終了,Commercial Bank of Syria,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,Cotton Marketing Organization,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,General Organization of Radio and TV,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,GENERAL PETROLEUM CORPORATION,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,GPC,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,Mahrukat Company,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,Military Housing Establishment,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,Ministry of Interior,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,Political Security Directorate,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,Real Estate Bank,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,SCOT,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,SIIB,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,SPC,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,SYRIA INTERNATIONAL ISLAMIC BANK,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,SYRIAN COMPANY FOR OIL TRANSPORT,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,Syrian Lebanese Commercial Bank,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,SYRIAN PETROLEUM COMPANY,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,Syriatel,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,Syria Trading Oil Company,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,SYTROL,制裁リスト（財務省：シリア(団体)／OFAC）,制裁リスト（OFAC）
+2026-09-29 15:06:13,財務省,掲載終了,The Syrian Company for the Storage and Distribution of Petroleum Products,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリアテル,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア・レバノン商業銀行,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア内務省,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア商業銀行,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア国防省,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア国際イスラム銀行,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア石油会社,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア石油輸送会社,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,シリア石油通商機構,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,ベルインヴェストバンクベラルーシ開発復興銀行,制裁リスト（財務省：ベラルーシ(特定銀行)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,マハルーカート・カンパニー,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,ミリタリー・ハウジング・エスタブリッシュメント,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,リアル・エステート銀行,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,公共放送機構,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,政治治安局,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,石油公社,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,掲載終了,綿花取引組織,制裁リスト（財務省：シリア(団体)）,制裁リスト
+2026-09-29 15:06:13,財務省,変更,Ministry of Defence,制裁リスト（財務省：シリア(団体)、北朝鮮(決議1718号等；団体)）,制裁リスト（財務省：北朝鮮(決議1718号等；団体)）
 2026-09-25 11:03:25,経済産業省,手動監視確認,外国ユーザーリスト,,変更なし
 2026-09-23 22:37:44,OFAC,掲載終了,Eritrean Defense Force,制裁リスト（OFAC：SDN）,制裁リスト
 2026-09-23 22:37:44,OFAC,掲載終了,ERITREAN DEFENSE FORCES,制裁リスト（OFAC：SDN）,制裁リスト
@@ -4958,44 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Margoshvili Murad,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Shishani Muslim Abu al-Walid,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Margoshvili Murad Muslim Akhmetovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Madaev Murad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Madayev Murad Akhmadovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Margoshvili Lova,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Madaev Lova,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Margoshvili Muslim Akmadovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Margoshvili Muslim Akhmetovich Georgik,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Absi Amru,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Batirashvili Tarkhan Tayumurazovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Batyrashvili Tarkhan Tayumurazovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Batirashvili Tarkhan,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Shishani Omar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Shishani Umar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Shishani Omar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Shishani Abu Umar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Salman Maalim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Salman Mu'alim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Suleiman Mualem,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Salman Ameer,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Suleiman Ma'alim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ali Maalim Salman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ali Maalim Selman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Selman Ma'alim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Sulayman Ma'alin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-SHAMMARI Hamad Awad Dahi Sarhan,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Fadhil 'Abd al-Aziz Aday Zimin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Fadhli 'Abd al-Aziz Udai Samin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Fadhl 'Abd al-Aziz Udai Samin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Fadhli 'Abd al-Aziz 'Adhay Zimin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Fadhali 'Abdalaziz 'Ad'ai Samin Fadhli,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Muhaxheri Lavdrim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,el Albani Ebu Abdullah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Bakr Ibrahim 'Isa Hajji Muhammad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Bakar Ibrahim 'Issa Haji Muhammad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Bakr Ibrahim 'Isa Haji,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Albaker Ibrahim Issa Hijji Mohd,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Bakar Ibrahim 'Issa,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Bakr Ibrahim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,'Abd al-Salam 'Abd al-Malik Muhammad Yusuf 'Uthman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,'Abd-al-Salam 'Abd al-Malik Muhammad Yusif,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,'Abd al-Salam Ashraf Muhammad Yusuf 'Uthman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,'Abd-al-Salam Ashraf Muhammad Yusif 'Uthman,,制裁リスト（OFAC：SDN）
