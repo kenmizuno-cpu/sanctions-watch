@@ -215,6 +215,12 @@ def _persist_outputs_atomically(
                 "%Y-%m-%d %H:%M:%S"
             ),
         )
+        D.append_ofac_removal_reviews(
+            projection_root,
+            ofac_removal_queue_rows
+            if ofac_removal_queue_rows is not None
+            else ORQ.load(root / OFAC_REMOVAL_QUEUE_REL),
+        )
 
         projection_paths = [
             D.DASH / "status.csv",

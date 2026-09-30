@@ -21,6 +21,7 @@ import logging
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from . import ofac_removal_queue as ORQ
 from .normalize import canonical_display_name, is_trailing_unknown_artifact
 from .screening import secondary_screening_key
 
@@ -371,7 +372,7 @@ def prepend_change_rows(
 
     latest.csv は毎回上書きされるため、過去に何が起きたかがどこにも残らない。
     スプレッドシートで経過を追えるようにここへ蓄積する。
-    MAX_CHANGES 行で打ち切り、古いものから落とす。
+    現在のOFAC承認待ちを保護し、残りはMAX_CHANGES行まで保持する。
     """
     path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -402,7 +403,10 @@ def prepend_change_rows(
             row[2] = name
         clean_rows.append(row)
     new = [[when] + row for row in clean_rows]
-    keep = (new + old)[:MAX_CHANGES]
+    # atomic_replace_manyの一時ファイルも正式changes.csvと同じディレクトリ。
+    # 共通writerで保護し、METIの個別workflowでも承認待ちを落とさない。
+    queue_path = path.parent.parent / "review" / "ofac_party_removal_queue.csv"
+    keep = _keep_ofac_removal_reviews(new + old, ORQ.load(queue_path))
 
     with path.open("w", encoding="utf-8", newline="") as f:
         w = csv.writer(f, lineterminator="\n")
@@ -417,6 +421,60 @@ def append_changes(root: Path, diff_rows: list[list], when: str = "") -> Path:
     stamp = when or datetime.now(JST).strftime("%Y-%m-%d %H:%M:%S")
     path = root / DASH / "changes.csv"
     return prepend_change_rows(path, diff_rows, when=stamp)
+
+
+def _ofac_removal_review_rows(queue_rows: list[dict]) -> list[list[str]]:
+    """未承認Party終了の表示キーを初回検知時の情報から作る。
+
+    Sheetsの対応状況は6列全体をキーに保持するため、最終確認時刻ではなく
+    初回検知日時・event_id・FixedRef・検知snapshotを固定して使用する。
+    """
+    ORQ.pending_groups(queue_rows)  # 壊れたキューを正常な空一覧として公開しない。
+    reviews = []
+    for row in queue_rows:
+        if row["status"] != ORQ.PENDING_REVIEW:
+            continue
+        detected = datetime.fromtimestamp(
+            int(row["detected_at_ms"]) / 1000, tz=timezone.utc
+        ).astimezone(JST).strftime("%Y-%m-%d %H:%M:%S")
+        reviews.append([
+            detected,
+            "OFAC",
+            "掲載終了候補（要確認）",
+            canonical_display_name(row["party_name"]),
+            f"制裁リスト（OFAC：{row['list']}）; FixedRef={row['party_id']}; "
+            f"event_id={row['event_id']}; SHA256={row['snapshot_sha256']}",
+            "削除承認待ち（名簿は有効のまま・削除未反映）",
+        ])
+    reviews.sort(key=lambda row: tuple(row), reverse=True)
+    return reviews
+
+
+def _keep_ofac_removal_reviews(rows: list[list], queue_rows: list[dict]) -> list[list]:
+    """全履歴writerで同じ承認待ちを重複なく保護する。"""
+    reviews = _ofac_removal_review_rows(queue_rows)
+    review_keys = {tuple(row) for row in reviews}
+    history = [row for row in rows if tuple(row) not in review_keys]
+    return (reviews + history)[:max(MAX_CHANGES, len(reviews))]
+
+
+def append_ofac_removal_reviews(root: Path, queue_rows: list[dict]) -> Path:
+    """既存の差分履歴に現在の承認待ちを投影する。名簿は変更しない。"""
+    path = root / DASH / "changes.csv"
+    old = []
+    if path.exists():
+        with path.open(encoding="utf-8", newline="") as handle:
+            reader = csv.reader(handle)
+            if next(reader, None) != CHANGE_COLS:
+                raise ValueError("dashboard changes.csv header changed")
+            old = list(reader)
+    keep = _keep_ofac_removal_reviews(old, queue_rows)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.writer(handle, lineterminator="\n")
+        writer.writerow(CHANGE_COLS)
+        writer.writerows(keep)
+    return path
 
 
 def write_list(root: Path, rows) -> Path:

@@ -32,9 +32,10 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from . import dashboard as D
+
 JST = timezone(timedelta(hours=9))
 SOURCE = "財務省"
-MAX_CHANGES = 5000
 
 EXPECTED_COLUMNS = [
     "区分", "番号", "告示日付", "告示番号", "個人・団体",
@@ -639,14 +640,12 @@ def _append_dashboard(root: Path, diffs: list[SourceDiff], stamp: str) -> int:
     rows: list[list[str]] = []
     for diff in diffs:
         for c in diff.material_amended:
-            rows.append([stamp, SOURCE, c.kind, c.name, c.before, c.after])
+            rows.append([SOURCE, c.kind, c.name, c.before, c.after])
 
     if not rows:
         return 0
 
     p = root / "data" / "dashboard" / "changes.csv"
-    p.parent.mkdir(parents=True, exist_ok=True)
-    old: list[list[str]] = []
     if p.exists():
         with p.open(encoding="utf-8", newline="") as f:
             existing = list(csv.reader(f))
@@ -654,13 +653,7 @@ def _append_dashboard(root: Path, diffs: list[SourceDiff], stamp: str) -> int:
             raise RecordDiffError(
                 f"changes.csvの列構造が想定外: expected={CHANGE_COLS} actual={existing[0]}"
             )
-        old = existing[1:] if existing else []
-
-    combined = (rows + old)[:MAX_CHANGES]
-    with p.open("w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f, lineterminator="\n")
-        w.writerow(CHANGE_COLS)
-        w.writerows(combined)
+    D.prepend_change_rows(p, rows, when=stamp)
     return len(rows)
 
 
