@@ -1275,3 +1275,4 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-09-30T13:50:40Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,
 2026-09-30T19:27:06Z,ofac_sdn,review_required,5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,"Wed, 30 Sep 2026 14:05:05 GMT",89710,data/raw/ofac_sdn_advanced/20260930T192649Z__sdn_advanced.xml.gz
 2026-09-30T19:27:06Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,
+2026-09-30T22:32:36Z,mof,unchanged,b1c48436aea1c8952929fd3825d2440b4fed55c52f979a350b5a59cf088be17a,令和8年9月29日,14956,
