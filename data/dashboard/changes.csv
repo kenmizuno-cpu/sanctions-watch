@@ -1,6 +1,35 @@
 検知日時,出所,種別,受取人名,変更前,変更後
+2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,PROTOPOVICH Tatyana,制裁リスト（OFAC：SDN）; FixedRef=48385; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,"PATRACA, S.A. DE C.V.",制裁リスト（OFAC：SDN）; FixedRef=10640; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,Maraya,制裁リスト（OFAC：SDN）; FixedRef=28301; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Safari Club,制裁リスト（OFAC：SDN）; FixedRef=21264; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Olenga Francois,制裁リスト（OFAC：SDN）; FixedRef=21263; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-01 04:27:06,OFAC,追加,Rivas Nunez Juan Gabriel,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Rivas Nuñez Juan Gabriel,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Aponte Rodriguez Wilson Starling,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Aponte Rodriguez Wilson Stalyn,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,CANELON AGUIRRE Anibal Alexander,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Martinez Armenta Carlos Javier,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Mejia Castillo Alejandro,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Galeano Bazurto Jose Dario,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Cardenas Arzola Eric Gabriel,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Martinez Pirona Oscar Leonardo,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Galeano Basurto Aslhy Javier,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,Hernandez Guerrero Anthony Wuiliam,,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"SOLUCIONES INTEGRALES TOLUCA, S.A. DE C.V.",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"ENIGMA COMMUNITY, S. DE R.L. DE C.V.",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"Enigma Community, Sociedad de Responsabilidad Limitada de Capital Variable",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"RIVAS NUNEZ, Juan Gabriel",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"CANELON AGUIRRE, Anibal Alexander",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"MARTINEZ ARMENTA, Carlos Javier",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"MEJIA CASTILLO, Alejandro",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"GALEANO BAZURTO, Jose Dario",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"CARDENAS ARZOLA, Eric Gabriel",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"MARTINEZ PIRONA, Oscar Leonardo",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"GALEANO BASURTO, Aslhy Javier",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"HERNANDEZ GUERRERO, Anthony Wuiliam",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"APONTE RODRIGUEZ, Wilson Starling",,制裁リスト（OFAC：SDN）
+2026-10-01 04:27:06,OFAC,追加,"APONTE RODRIGUEZ, Wilson Stalyn",,制裁リスト（OFAC：SDN）
 2026-09-30 05:52:32,OFAC,追加,Kavoshcom Asia R and D Group,,制裁リスト（OFAC：SDN）
 2026-09-30 05:52:32,OFAC,追加,گروه تحقيقات خدمات مخابراتی کاوشکام آسيا,,制裁リスト（OFAC：SDN）
 2026-09-30 05:52:32,OFAC,追加,Kavoshcom R and D Group,,制裁リスト（OFAC：SDN）
@@ -4970,32 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Amhaz Kamil,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ibrahim Ayman,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ibrahim Ayman Ahmad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Zeaiter Ali,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Zoeiter Ali,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Zu'aytar 'Ali,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Zu'aytir Ali Husayn,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Dale Anders Cameroon Ostensvig,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUNOZ AGUDELO Diego Alberto,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,RIOS LOPEZ Didier de Jesus,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SHCHEGOLEV Igor Olegovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Shchyogolev Igor Olegovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Adnani Abu Mohammed,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Falaha Taha Sobhi,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Adnani Abu Mohammad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Rawi Yasser Khalaf Hussein Nazal,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Falah Jaber Taha,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Khatab Abu Baker,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Rawi Abu Sadek,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Banshi Taha,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Adnani Abu Mohamed,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al-Shami Abu-Muhammad al-Adnani,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BEZLER Igor Nikolayevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BEZLER Igor Mykolaiovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BEZLER Igor,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BEZLER Ihor,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DONKO Dejan,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ISAZA SANCHEZ Felix Alberto,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ISAZA SANCHEZ Nelson Dario,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ARREDONDO ORTIZ Carlos Arturo,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,QUISPE PALOMINO Jorge,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,FLORES HALA Florindo Eleuterio,,制裁リスト（OFAC：SDN）

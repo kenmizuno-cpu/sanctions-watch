@@ -3485,8 +3485,8 @@ SDN,10636,"OLIVAS OJEDA, Jesus Joaquin",jesusjoaquinolivasojeda,1788483946814,17
 SDN,10637,"SISTEMA DE RADIO DE SINALOA, S.A. DE C.V.","sistemaderadiodesinaloa,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,10638,"TOYS FACTORY, S.A. DE C.V.","toysfactory,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,10639,"CONSORCIO INMOBILIARIO DEL VALLE DE CULIACAN, S.A. DE C.V.","consorcioinmobiliariodelvalledeculiacan,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
-SDN,10640,BOUTIQUE PATRACA,boutiquepatraca,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,0,0
-SDN,10640,"PATRACA, S.A. DE C.V.","patraca,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,10640,BOUTIQUE PATRACA,boutiquepatraca,1788483946814,1790796422299,0,0,advanced_xml_v3;classic_csv,0,0
+SDN,10640,"PATRACA, S.A. DE C.V.","patraca,s.a.dec.v.",1788483946814,1790796422299,0,0,advanced_xml_v3;classic_csv,1,0
 SDN,10641,"SEPRIV, S.A. DE C.V.","sepriv,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,10642,"OPERADORA INTEGRAL DE COMERCIO, S.A. DE C.V.","operadoraintegraldecomercio,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,10643,"TECNOLOGIA DIGITAL Y SERVICIOS, S.A. DE C.V.","tecnologiadigitalyservicios,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
@@ -27718,10 +27718,10 @@ SDN,28299,Mohamed Nour Addin Meloud,mohamednouraddinmeloud,1788483946814,1788483
 SDN,28299,Musbah Nourddin Milood M,musbahnourddinmiloodm,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,28300,ALWEFAQ LTD,alwefaqltd,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,28300,Alwefaq Ltd,alwefaqltd,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,28301,MARAYA,maraya,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,28301,MED PATRON,medpatron,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,28301,Maraya,maraya,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,28301,Med Patron,medpatron,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
+SDN,28301,MARAYA,maraya,1788483946814,1790796422299,0,0,classic_csv,0,0
+SDN,28301,MED PATRON,medpatron,1788483946814,1790796422299,0,0,classic_csv,0,0
+SDN,28301,Maraya,maraya,1788483946814,1790796422299,0,0,advanced_xml_v3,1,0
+SDN,28301,Med Patron,medpatron,1788483946814,1790796422299,0,0,advanced_xml_v3,0,0
 SDN,28303,SABA STEEL,sabasteel,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,28303,SABA STEEL COMPANY,sabasteelcompany,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,28303,Saba Steel,sabasteel,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
@@ -59576,10 +59576,10 @@ SDN,48384,"ALI, Alhaitham Al",alhaithamalali,1788483946814,1788483946814,1,1,cla
 SDN,48384,Al Ali Al Haytham,alalialhaytham,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
 SDN,48384,Ali Alhaitham Al,alialhaithamal,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,48384,al-Ali Al Haitham,al-alialhaitham,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,48385,PROTOPOVICH Tatyana,protopovichtatyana,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,48385,"PROTOPOVICH, Tatyana",tatyanaprotopovich,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,48385,"PROTOPOVICH, Tayuana",tayuanaprotopovich,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,48385,Protopovich Tayuana,protopovichtayuana,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
+SDN,48385,PROTOPOVICH Tatyana,protopovichtatyana,1788483946814,1790796422299,0,0,advanced_xml_v3,1,0
+SDN,48385,"PROTOPOVICH, Tatyana",tatyanaprotopovich,1788483946814,1790796422299,0,0,classic_csv,0,0
+SDN,48385,"PROTOPOVICH, Tayuana",tayuanaprotopovich,1788483946814,1790796422299,0,0,classic_csv,0,0
+SDN,48385,Protopovich Tayuana,protopovichtayuana,1788483946814,1790796422299,0,0,advanced_xml_v3,0,0
 SDN,48386,"YAGMUR, Nora",norayagmur,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,48386,"YAGMUR, Nure",nureyagmur,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,48386,Yagmur Nora,yagmurnora,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
@@ -74245,6 +74245,15 @@ SDN,56975,"RK REAL KING, S.A. DE C.V.","rkrealking,s.a.dec.v.",1788483946814,178
 SDN,56976,"SOMA TRANSPORTE Y SERVICIOS, S.A. DE C.V.","somatransporteyservicios,s.a.dec.v.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,56977,CUCUMBER SWEET WAVES LTD,cucumbersweetwavesltd,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,56978,OGUI FLETES,oguifletes,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,56980,"APONTE RODRIGUEZ, Wilson Stalyn",wilsonstalynaponterodriguez,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,56980,"APONTE RODRIGUEZ, Wilson Starling",wilsonstarlingaponterodriguez,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,56980,Aponte Rodriguez Wilson Stalyn,aponterodriguezwilsonstalyn,1790796422299,1790796422299,1,1,advanced_xml_v3,0,0
+SDN,56980,Aponte Rodriguez Wilson Starling,aponterodriguezwilsonstarling,1790796422299,1790796422299,1,1,advanced_xml_v3,0,0
+SDN,56980,Juancho,juancho,1790796422299,1790796422299,1,1,advanced_xml_v3,0,1
+SDN,56980,Negro Juancho,negrojuancho,1790796422299,1790796422299,1,1,advanced_xml_v3,0,1
+SDN,56980,"RIVAS NUNEZ, Juan Gabriel",juangabrielrivasnunez,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,56980,Rivas Nunez Juan Gabriel,rivasnunezjuangabriel,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,56980,Rivas Nuñez Juan Gabriel,rivasnuñezjuangabriel,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
 SDN,56981,NOBITEX,nobitex,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,56981,Nobitex,nobitex,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,56981,RAHKAR FANAVARI NOOYAN,rahkarfanavarinooyan,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -76258,6 +76267,10 @@ SDN,58160,"KAALUND, Martin",martinkaalund,1788483946814,1788483946814,1,1,classi
 SDN,58160,"KAALUND, Martin Austin",martinaustinkaalund,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58160,Kaalund Martin,kaalundmartin,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
 SDN,58160,Kaalund Martin Austin,kaalundmartinaustin,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58161,CANELON AGUIRRE Anibal Alexander,canelonaguirreanibalalexander,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,58161,"CANELON AGUIRRE, Anibal Alexander",anibalalexandercanelonaguirre,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58161,Prometheus,prometheus,1790796422299,1790796422299,1,1,advanced_xml_v3,0,1
+SDN,58161,The Engineer,theengineer,1790796422299,1790796422299,1,1,advanced_xml_v3,0,1
 SDN,58173,DADENEGAR STARTUP STUDIO,dadenegarstartupstudio,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58173,DadeNegar Startup Studio,dadenegarstartupstudio,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58174,ZEDPAY,zedpay,1788483946814,1788483946814,1,1,classic_csv,0,0
@@ -76490,11 +76503,29 @@ SDN,58239,Abantether,abantether,1788483946814,1788483946814,1,1,advanced_xml_v3,
 SDN,58239,صرافی آبان تتر,صرافیآبانتتر,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58253,"DEDE, Onder",onderdede,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58253,Dede Onder,dedeonder,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58254,"MARTINEZ ARMENTA, Carlos Javier",carlosjaviermartinezarmenta,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58254,Martinez Armenta Carlos Javier,martinezarmentacarlosjavier,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,58255,"MEJIA CASTILLO, Alejandro",alejandromejiacastillo,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58255,Mejia Castillo Alejandro,mejiacastilloalejandro,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,58256,"GALEANO BAZURTO, Jose Dario",josedariogaleanobazurto,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58256,Galeano Bazurto Jose Dario,galeanobazurtojosedario,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,58257,"CARDENAS ARZOLA, Eric Gabriel",ericgabrielcardenasarzola,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58257,Cardenas Arzola Eric Gabriel,cardenasarzolaericgabriel,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
 SDN,58258,CRYPTO HOME DMCC,cryptohomedmcc,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,58258,كريبتو هوم م.د.م.س,كريبتوهومم.د.م.س,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58259,NFT HOME DMCC,nfthomedmcc,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,58259,NFT Home DMSC,nfthomedmsc,1788483946814,1788483946814,1,1,advanced_xml_v3,0,1
 SDN,58259,إن إف تي هوم م.د.م.س,إنإفتيهومم.د.م.س,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,58260,"MARTINEZ PIRONA, Oscar Leonardo",oscarleonardomartinezpirona,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58260,Martinez Pirona Oscar Leonardo,martinezpironaoscarleonardo,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,58261,"GALEANO BASURTO, Aslhy Javier","galeanobasurto,aslhyjavier",1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58261,Galeano Basurto Aslhy Javier,galeanobasurtoaslhyjavier,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,58262,"HERNANDEZ GUERRERO, Anthony Wuiliam",anthonywuiliamhernandezguerrero,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58262,Hernandez Guerrero Anthony Wuiliam,hernandezguerreroanthonywuiliam,1790796422299,1790796422299,1,1,advanced_xml_v3,1,0
+SDN,58263,"SOLUCIONES INTEGRALES TOLUCA, S.A. DE C.V.","solucionesintegralestoluca,s.a.dec.v.",1790796422299,1790796422299,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58264,"ENIGMA COMMUNITY, S. DE R.L. DE C.V.","enigmacommunity,s.der.l.dec.v.",1790796422299,1790796422299,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58264,"ENIGMA COMMUNITY, SOCIEDAD DE RESPONSABILIDAD LIMITADA DE CAPITAL VARIABLE",sociedadderesponsabilidadlimitadadecapitalvariableenigmacommunity,1790796422299,1790796422299,1,1,classic_csv,0,0
+SDN,58264,"Enigma Community, Sociedad de Responsabilidad Limitada de Capital Variable",sociedadderesponsabilidadlimitadadecapitalvariableenigmacommunity,1790796422299,1790796422299,1,1,advanced_xml_v3,0,0
 SDN,58265,"YILMAZ, Yunus Alper",yunusalperyilmaz,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,58265,Yilmaz Yunus Alper,yilmazyunusalper,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,58266,"SHARIFI, Shima",shimasharifi,1788483946814,1788483946814,1,1,classic_csv,0,0

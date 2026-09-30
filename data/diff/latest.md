@@ -1,106 +1,32 @@
 # 制裁リスト差分レポート
 
-## OFAC　追加 100 / 削除 0 / 変更 0
+## OFAC　追加 26 / 削除 0 / 変更 0
 
 ### 追加
-- `Kavoshcom Asia R and D Group` — 制裁リスト（OFAC：SDN）
-- `گروه تحقيقات خدمات مخابراتی کاوشکام آسيا` — 制裁リスト（OFAC：SDN）
-- `Kavoshcom R and D Group` — 制裁リスト（OFAC：SDN）
-- `EC Mojo Technology Co Limited` — 制裁リスト（OFAC：SDN）
-- `昴雋電訊有限公司` — 制裁リスト（OFAC：SDN）
-- `Sunrise Electronics Co Ltd` — 制裁リスト（OFAC：SDN）
-- `Chengzi Trading Co Ltd` — 制裁リスト（OFAC：SDN）
-- `Lali Parisa` — 制裁リスト（OFAC：SDN）
-- `Laali Parisa` — 制裁リスト（OFAC：SDN）
-- `La'li Parisa` — 制裁リスト（OFAC：SDN）
-- `Li Fen` — 制裁リスト（OFAC：SDN）
-- `李 芬` — 制裁リスト（OFAC：SDN）
-- `Ahmady Ali Fotowat` — 制裁リスト（OFAC：SDN）
-- `Ahmadi Ali Fotowat` — 制裁リスト（OFAC：SDN）
-- `Ahmadi Ali Fotovat` — 制裁リスト（OFAC：SDN）
-- `Ismael Zambada Sicairos` — 制裁リスト（OFAC：SDN）
-- `Ismael Cicairos Zambada` — 制裁リスト（OFAC：SDN）
-- `Fernando Sicairos Aispuro` — 制裁リスト（OFAC：SDN）
-- `Hildegardo Gastelum Garcia` — 制裁リスト（OFAC：SDN）
-- `Tajammal Waseem Pasha` — 制裁リスト（OFAC：SDN）
-- `Cavalier Dynamics Private Limited` — 制裁リスト（OFAC：SDN）
-- `Cavalier Dynamics for Technologies Company` — 制裁リスト（OFAC：SDN）
-- `شركة كافاليير دايناميكس للتقنيات` — 制裁リスト（OFAC：SDN）
-- `Cavalier Dynamics Technologies Company` — 制裁リスト（OFAC：SDN）
-- `Cavalier Dynamics Teknoloji Ticaret Anonim Sirketi` — 制裁リスト（OFAC：SDN）
-- `Cavalier Dynamics Teknoloji Ticaret Anonim Şirketi` — 制裁リスト（OFAC：SDN）
-- `MIA CENTRO CAMBIARIO, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `Tabatabai Seyyed Asghar Alizadeh` — 制裁リスト（OFAC：SDN）
-- `Tabatabaei Seyed Asghar Alizadeh` — 制裁リスト（OFAC：SDN）
-- `Chapotin Villalba Diosvany Samuel` — 制裁リスト（OFAC：SDN）
-- `Pichon Vidal Lazaro` — 制裁リスト（OFAC：SDN）
-- `Martinez Rodriguez Pedro Humberto` — 制裁リスト（OFAC：SDN）
-- `Yocupicio Yocupicio Jesus Rafael` — 制裁リスト（OFAC：SDN）
-- `Huezo Hernandez Franklin Ernesto` — 制裁リスト（OFAC：SDN）
-- `Castillo Maldonado Lorenzo` — 制裁リスト（OFAC：SDN）
-- `Mendoza Uriarte Jorge Luis` — 制裁リスト（OFAC：SDN）
-- `Mendoza Uriarte Francisco Javier` — 制裁リスト（OFAC：SDN）
-- `Felix Rivera Ilia Elizabeth` — 制裁リスト（OFAC：SDN）
-- `Vera Ayala Jeronimo Javier` — 制裁リスト（OFAC：SDN）
-- `Vera Ayala Jorge Mario` — 制裁リスト（OFAC：SDN）
-- `Torres Torres Carlos Alberto` — 制裁リスト（OFAC：SDN）
-- `Torres Torres Luis Alfonso` — 制裁リスト（OFAC：SDN）
-- `Mendivil Garcia Pedro Ariel` — 制裁リスト（OFAC：SDN）
-- `Moreno Gomez Santelices Marco Antonio` — 制裁リスト（OFAC：SDN）
-- `Villela Gomez Santelices Carlos` — 制裁リスト（OFAC：SDN）
-- `Buenrostro Martin Rafael` — 制裁リスト（OFAC：SDN）
-- `Rivos Servicios, S.A. de C.V.` — 制裁リスト（OFAC：SDN）
-- `Servicios Hoteleros Gastelum, S.A. de C.V.` — 制裁リスト（OFAC：SDN）
-- `Galerias Centro Cambiario, S.A. de C.V.` — 制裁リスト（OFAC：SDN）
-- `Magic Casa de Cambio` — 制裁リスト（OFAC：SDN）
-- `GRUPO GASOLINERO NUEVA ESPERANZA, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `BAJA FIXER GROUP, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `INTELIPROOF EFFICIENT, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `PRIVATE EQUITY BAJA S.A.P.I. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `FESTIVALES ARTISTAS MOBILIARIO ASESORIA, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `Promociones CHF de Baja California, S.A. de C.V.` — 制裁リスト（OFAC：SDN）
-- `PRIVATE EQUITY BURSATIL, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `CONCIERTOS Y ESPECTACULOS INHOUSE S.A.P.I. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `WERMAK PUBLIRED, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `HOLISTIC WELLWAVES S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `PROYECTO ALERTA VERDE, S.A.P.I. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `VIDEOVIGILANCIA COLABORATIVA, S.A.P.I. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `LTHINGS MEXICO, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `XOLO GAS DE BAJA CALIFORNIA, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `CODESUAM, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `GRUPO BAJA FIRME, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `VIDA ORGANICA TIJUANA, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `EDIFIKA DESARROLLOS BAJA, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `THE WOODS BAR, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `RAES RESTAURANTE S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `DISTRIBUIDORA Y COMERCIALIZADORA ATAF` — 制裁リスト（OFAC：SDN）
-- `DISTRIBUIDORA Y COMERCIALIZADORA ATAF S.A.S.` — 制裁リスト（OFAC：SDN）
-- `PUBLICIDAD E IMAGEN INTEGRAL ENLA-C, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `LALI, Parisa` — 制裁リスト（OFAC：SDN）
-- `LI, Fen` — 制裁リスト（OFAC：SDN）
-- `AHMADY, Ali Fotowat` — 制裁リスト（OFAC：SDN）
-- `TAJAMMAL, Waseem Pasha` — 制裁リスト（OFAC：SDN）
-- `TABATABAI, Seyyed Asghar Alizadeh` — 制裁リスト（OFAC：SDN）
-- `CHAPOTIN VILLALBA, Diosvany Samuel` — 制裁リスト（OFAC：SDN）
-- `MARTINEZ RODRIGUEZ, Pedro Humberto` — 制裁リスト（OFAC：SDN）
-- `YOCUPICIO YOCUPICIO, Jesus Rafael` — 制裁リスト（OFAC：SDN）
-- `HUEZO HERNANDEZ, Franklin Ernesto` — 制裁リスト（OFAC：SDN）
-- `CASTILLO MALDONADO, Lorenzo` — 制裁リスト（OFAC：SDN）
-- `MENDOZA URIARTE, Jorge Luis` — 制裁リスト（OFAC：SDN）
-- `MENDOZA URIARTE, Francisco Javier` — 制裁リスト（OFAC：SDN）
-- `FELIX RIVERA, Ilia Elizabeth` — 制裁リスト（OFAC：SDN）
-- `VERA AYALA, Jeronimo Javier` — 制裁リスト（OFAC：SDN）
-- `VERA AYALA, Jorge Mario` — 制裁リスト（OFAC：SDN）
-- `TORRES TORRES, Carlos Alberto` — 制裁リスト（OFAC：SDN）
-- `TORRES TORRES, Luis Alfonso` — 制裁リスト（OFAC：SDN）
-- `MENDIVIL GARCIA, Pedro Ariel` — 制裁リスト（OFAC：SDN）
-- `MORENO GOMEZ SANTELICES, Marco Antonio` — 制裁リスト（OFAC：SDN）
-- `VILLELA GOMEZ SANTELICES, Carlos` — 制裁リスト（OFAC：SDN）
-- `BUENROSTRO MARTIN, Rafael` — 制裁リスト（OFAC：SDN）
-- `LAALI, Parisa` — 制裁リスト（OFAC：SDN）
-- `LA'LI, Parisa` — 制裁リスト（OFAC：SDN）
-- `AHMADI, Ali Fotowat` — 制裁リスト（OFAC：SDN）
-- `AHMADI, Ali Fotovat` — 制裁リスト（OFAC：SDN）
-- `TABATABAEI, Seyed Asghar Alizadeh` — 制裁リスト（OFAC：SDN）
-- `PICHON VIDAL, Lazaro` — 制裁リスト（OFAC：SDN）
+- `Rivas Nunez Juan Gabriel` — 制裁リスト（OFAC：SDN）
+- `Rivas Nuñez Juan Gabriel` — 制裁リスト（OFAC：SDN）
+- `Aponte Rodriguez Wilson Starling` — 制裁リスト（OFAC：SDN）
+- `Aponte Rodriguez Wilson Stalyn` — 制裁リスト（OFAC：SDN）
+- `CANELON AGUIRRE Anibal Alexander` — 制裁リスト（OFAC：SDN）
+- `Martinez Armenta Carlos Javier` — 制裁リスト（OFAC：SDN）
+- `Mejia Castillo Alejandro` — 制裁リスト（OFAC：SDN）
+- `Galeano Bazurto Jose Dario` — 制裁リスト（OFAC：SDN）
+- `Cardenas Arzola Eric Gabriel` — 制裁リスト（OFAC：SDN）
+- `Martinez Pirona Oscar Leonardo` — 制裁リスト（OFAC：SDN）
+- `Galeano Basurto Aslhy Javier` — 制裁リスト（OFAC：SDN）
+- `Hernandez Guerrero Anthony Wuiliam` — 制裁リスト（OFAC：SDN）
+- `SOLUCIONES INTEGRALES TOLUCA, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
+- `ENIGMA COMMUNITY, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
+- `Enigma Community, Sociedad de Responsabilidad Limitada de Capital Variable` — 制裁リスト（OFAC：SDN）
+- `RIVAS NUNEZ, Juan Gabriel` — 制裁リスト（OFAC：SDN）
+- `CANELON AGUIRRE, Anibal Alexander` — 制裁リスト（OFAC：SDN）
+- `MARTINEZ ARMENTA, Carlos Javier` — 制裁リスト（OFAC：SDN）
+- `MEJIA CASTILLO, Alejandro` — 制裁リスト（OFAC：SDN）
+- `GALEANO BAZURTO, Jose Dario` — 制裁リスト（OFAC：SDN）
+- `CARDENAS ARZOLA, Eric Gabriel` — 制裁リスト（OFAC：SDN）
+- `MARTINEZ PIRONA, Oscar Leonardo` — 制裁リスト（OFAC：SDN）
+- `GALEANO BASURTO, Aslhy Javier` — 制裁リスト（OFAC：SDN）
+- `HERNANDEZ GUERRERO, Anthony Wuiliam` — 制裁リスト（OFAC：SDN）
+- `APONTE RODRIGUEZ, Wilson Starling` — 制裁リスト（OFAC：SDN）
+- `APONTE RODRIGUEZ, Wilson Stalyn` — 制裁リスト（OFAC：SDN）
 
