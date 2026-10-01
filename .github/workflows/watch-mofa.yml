@@ -1,27 +1,14 @@
 name: watch-mofa
 on:
   pull_request:
-    paths: ['src/**', 'tests/**', 'apps_script/**', '.github/workflows/watch-mofa.yml']
-  schedule:
-    - cron: '11,26,41,56 * * * *'
+    paths: ['src/**', 'tests/**', 'apps_script/**', '.github/workflows/watch-mofa.yml', 'README.md']
   workflow_dispatch:
-    inputs:
-      persist_state:
-        description: 'Persist document evidence on main (false = read-only preview)'
-        type: boolean
-        default: false
-      from_month:
-        description: 'Coverage recovery start YYYY-MM (optional)'
-        type: string
-        required: false
 permissions:
   contents: read
 jobs:
   verify:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
         with:
@@ -34,7 +21,8 @@ jobs:
           node-version: '24'
           package-manager-cache: false
       - run: pip install -r requirements.txt
-      - run: |
+      - name: Offline verification only
+        run: |
           python -m unittest discover -s tests -p 'test_*.py'
           python -m tests.test_offline
           python -m tests.test_e2e
@@ -42,86 +30,3 @@ jobs:
           python -m tests.test_mof_re_review
           node --test tests/test_mofa_gas.cjs
           git diff --check
-  preview:
-    if: github.event_name == 'workflow_dispatch' && !inputs.persist_state
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-      - run: pip install -r requirements.txt
-      - name: Read-only preview
-        env:
-          FROM_MONTH: ${{ inputs.from_month }}
-        run: |
-          args=()
-          if [ -n "$FROM_MONTH" ]; then args+=(--from-month "$FROM_MONTH"); fi
-          python -m src.mofa_watch --dry-run --report "$RUNNER_TEMP/mofa-preview.json" "${args[@]}"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: mofa-preview-${{ github.run_id }}
-          path: ${{ runner.temp }}/mofa-preview.json
-  monitor:
-    if: github.ref == 'refs/heads/main' && ((github.event_name == 'schedule' && vars.MOFA_MONITOR_ENABLED == 'true') || (github.event_name == 'workflow_dispatch' && inputs.persist_state))
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    permissions:
-      contents: write
-    concurrency:
-      group: sanctions-watch-commit
-      cancel-in-progress: false
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-      - run: pip install -r requirements.txt
-      - name: Monitor documents
-        id: monitor
-        continue-on-error: true
-        env:
-          FROM_MONTH: ${{ inputs.from_month }}
-        run: |
-          args=()
-          if [ -n "$FROM_MONTH" ]; then args+=(--from-month "$FROM_MONTH"); fi
-          python -m src.mofa_watch --report "$RUNNER_TEMP/mofa-result.json" "${args[@]}"
-      - name: Save evidence
-        if: always()
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          for p in data/mofa data/review/mofa_document_queue.csv data/raw/mofa data/source_audit data/heartbeat data/dashboard/status.csv data/dashboard/mofa_documents.csv; do
-            if [ -e "$p" ]; then git add -- "$p"; fi
-          done
-          if ! git diff --cached --quiet; then
-            git commit -m 'chore(mofa): record document monitoring evidence'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
-      - name: Failure evidence
-        if: failure() || steps.monitor.outcome == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: mofa-failure-${{ github.run_id }}
-          path: |
-            ${{ runner.temp }}/mofa-result.json
-            data/mofa/
-            data/review/mofa_document_queue.csv
-            data/raw/mofa/
-            data/source_audit/
-            data/heartbeat/
-      - name: Propagate result
-        if: always()
-        env:
-          OUTCOME: ${{ steps.monitor.outcome }}
-        run: test "$OUTCOME" = success

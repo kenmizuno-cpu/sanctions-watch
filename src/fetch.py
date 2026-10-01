@@ -30,10 +30,17 @@ class NetworkPolicyError(RuntimeError):
 
 
 def _assert_network_url_allowed(url: str) -> None:
-    host = (urlparse(str(url)).hostname or "").rstrip(".").lower()
+    # requests normalizes encoded host characters and IDNA before sending.
+    # Enforce policy on that effective destination, including redirect URLs.
+    effective_url = requests.Request("GET", str(url)).prepare().url
+    host = (urlparse(effective_url).hostname or "").rstrip(".").lower()
     if host == "meti.go.jp" or host.endswith(".meti.go.jp"):
         raise NetworkPolicyError(
             "automated access to METI hosts is prohibited: %s" % host
+        )
+    if host == "mofa.go.jp" or host.endswith(".mofa.go.jp"):
+        raise NetworkPolicyError(
+            "automated access to MOFA hosts is disabled; import browser-acquired files: %s" % host
         )
 
 

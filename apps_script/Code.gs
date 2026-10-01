@@ -1,4 +1,4 @@
-const VERSION = '0.4.2';
+const VERSION = '0.4.3';
 const DEFAULT_TZ = 'Asia/Tokyo';
 const LOCK_WAIT_MS = 15000;
 const MAX_RETRIES = 2;
@@ -2454,7 +2454,7 @@ function freshness_(
   lastCheckText,
   settings
 ) {
-  if (['エラー', '構造異常', '未確認期間あり'].includes(state)) {
+  if (['エラー', '構造異常', '未確認期間あり', '手動取込エラー'].includes(state)) {
     return {
       label:
         '重大',
@@ -2466,7 +2466,17 @@ function freshness_(
         '取得エラー',
 
       note:
-        'GitHub側で取得エラー',
+        state === '手動取込エラー' ? '手動取込が失敗。原本・理由を確認' : 'GitHub側で取得エラーまたは未確認期間あり',
+    };
+  }
+
+  if (source.indexOf('外務省') === 0) {
+    const checked = state === '手動確認済み' && !!lastCheckText;
+    return {
+      label: checked ? '手動確認' : '要確認',
+      severity: 1,
+      anomalyType: '手動監視',
+      note: checked ? '最終手動確認: ' + lastCheckText : state + '。公式サイトをブラウザで確認',
     };
   }
 
@@ -2507,10 +2517,6 @@ function freshness_(
     };
   }
 
-  if (source.indexOf('外務省') === 0 && state === '確認中') {
-    return {label: '要確認', severity: 1, anomalyType: '確認中', note: '未処理の報道発表あり'};
-  }
-
   let warn = 0;
   let critical = 0;
 
@@ -2533,9 +2539,6 @@ function freshness_(
         ] || 150
       );
 
-  } else if (source.indexOf('外務省') === 0) {
-    warn = 30;
-    critical = 60;
   } else if (
     source ===
     '財務省'
