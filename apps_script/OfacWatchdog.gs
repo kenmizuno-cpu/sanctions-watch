@@ -190,6 +190,15 @@ function ofacWatchdogTick() {
       }
     } catch (error) {
       incident = {key: 'watchdog_error', title: '外部監視エラー'};
+      // API errors must not hide freshness escalation. On a read outage use
+      // the last confirmed paired success; its age continues to increase.
+      const knownSuccess = ofacWatchdogTime_(state.lastSuccessAt);
+      if (Number.isFinite(knownSuccess) && knownSuccess <= now) {
+        const knownAge = (now - knownSuccess) / 60000;
+        detail += '\n最後に確認できた成功: ' + state.lastSuccessAt + ' (UTC)\n現在の経過: ' + Math.floor(knownAge) + '分';
+        if (knownAge >= OFAC_WATCHDOG.criticalMinutes) incident = {key: 'watchdog_error_critical', title: '外部監視エラー・重大な監視遅延'};
+        else if (knownAge >= OFAC_WATCHDOG.warningMinutes) incident = {key: 'watchdog_error_warning', title: '外部監視エラー・警告: 監視遅延'};
+      }
       detail += '\n' + String(error.message || error);
     }
     state.lastObservation = {key: incident.key, detail: detail};

@@ -143,3 +143,14 @@ test('malformed heartbeat and locked parallel tick cannot dispatch', () => {
   const e = environment({csv: 'bad,columns\n'}); e.c.ofacWatchdogTick(); assert.equal(e.dispatches().length, 0); assert.equal(e.mail.length, 1);
   const locked = environment({lock: false}); locked.c.ofacWatchdogTick(); assert.equal(locked.requests.length, 0); assert.equal(locked.mail.length, 0);
 });
+test('persistent dispatch failure cannot suppress 90 and 150 minute escalation', () => {
+  const first = environment({csv: HEADER + pair(76), dispatchStatus: 403}); first.c.ofacWatchdogTick();
+  const warning = environment({csv: HEADER + pair(95), dispatchStatus: 403, properties: first.values}); warning.c.ofacWatchdogTick();
+  assert.equal(warning.mail.length, 1); assert.match(warning.mail[0].subject, /警告/);
+  const critical = environment({csv: HEADER + pair(160), dispatchStatus: 403, properties: warning.values}); critical.c.ofacWatchdogTick();
+  assert.equal(critical.mail.length, 1); assert.match(critical.mail[0].subject, /重大/);
+});
+test('read failure escalates using last observed paired success instead of hiding staleness', () => {
+  const e = environment({apiError: 401, properties: {OFAC_WATCHDOG_STATE: JSON.stringify({lastSuccessAt: iso(160), lastAlertKey: 'watchdog_error', lastAlertAt: NOW - 10 * 60000})}});
+  e.c.ofacWatchdogTick(); assert.equal(e.mail.length, 1); assert.match(e.mail[0].subject, /重大/); assert.match(e.mail[0].body, /160/);
+});
