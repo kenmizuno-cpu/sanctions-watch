@@ -8,8 +8,10 @@ from __future__ import annotations
 import gzip
 import hashlib
 import re
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 from typing import Callable
@@ -23,6 +25,9 @@ UA = "sanctions-watch/1.0 (compliance list monitor; +https://github.com)"
 TIMEOUT = 120
 MAX_REDIRECTS = 30
 _REDIRECT_STATUSES = {301, 302, 303, 307, 308}
+_RETRY_STATUSES = {429, 502, 503, 504}
+MAX_ATTEMPTS = 3
+MAX_RETRY_WAIT = 30
 
 
 class NetworkPolicyError(RuntimeError):
@@ -79,6 +84,46 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def _retry_delay(response, attempt: int) -> float | None:
+    value = response.headers.get("Retry-After", "").strip()
+    delay = 2 ** (attempt + 1)
+    if value:
+        try:
+            delay = max(0, int(value))
+        except ValueError:
+            try:
+                deadline = parsedate_to_datetime(value)
+                if deadline.tzinfo is None:
+                    deadline = deadline.replace(tzinfo=timezone.utc)
+                delay = max(0, (deadline - datetime.now(timezone.utc)).total_seconds())
+            except (ValueError, TypeError, OverflowError):
+                pass
+    # A long server cooldown ends this fetch; do not retry earlier than requested.
+    return delay if delay <= MAX_RETRY_WAIT else None
+
+
+def _get_with_retries(session, url: str, **options):
+    for attempt in range(MAX_ATTEMPTS):
+        try:
+            response = session.get(url, **options)
+        except requests.exceptions.SSLError:
+            raise
+        except (requests.ConnectionError, requests.Timeout):
+            if attempt == MAX_ATTEMPTS - 1:
+                raise
+            time.sleep(2 ** (attempt + 1))
+            continue
+        if response.status_code not in _RETRY_STATUSES or attempt == MAX_ATTEMPTS - 1:
+            return response
+        delay = _retry_delay(response, attempt)
+        if delay is None:
+            return response
+        if hasattr(response, "close"):
+            response.close()
+        time.sleep(delay)
+    raise AssertionError("unreachable")
+
+
 def fetch(url: str, *, prev: dict | None = None, session: requests.Session | None = None,
           allow_conditional: bool = True, user_agent: str | None = None,
           url_validator: Callable[[str], str] | None = None,
@@ -103,7 +148,8 @@ def fetch(url: str, *, prev: dict | None = None, session: requests.Session | Non
         if url_validator is not None:
             url_validator(request_url)
         options = {"stream": True} if max_bytes is not None else {}
-        r = s.get(
+        r = _get_with_retries(
+            s,
             request_url,
             headers=headers,
             timeout=timeout,

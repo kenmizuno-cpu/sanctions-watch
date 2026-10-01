@@ -1,10 +1,11 @@
-"""Slack 通知。SLACK_WEBHOOK_URL 未設定なら黙ってスキップする。"""
+"""Slack 通知。未設定・送信成功・送信失敗を明示する。"""
 from __future__ import annotations
 
 import argparse
 import json
 import os
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -14,7 +15,8 @@ ROOT = Path(__file__).resolve().parent.parent
 def post(text: str, blocks=None) -> bool:
     url = os.environ.get("SLACK_WEBHOOK_URL", "").strip()
     if not url:
-        print("SLACK_WEBHOOK_URL 未設定のため通知をスキップ")
+        prefix = "::warning::" if os.environ.get("GITHUB_ACTIONS") == "true" else ""
+        print(prefix + "SLACK_WEBHOOK_URL 未設定のため通知をスキップ（配信されていません）")
         return False
     payload = {"text": text}
     if blocks:
@@ -70,8 +72,20 @@ def main() -> int:
 
     if link:
         text += f"\n{link}"
-    post(text)
-    return 0
+    configured = bool(os.environ.get("SLACK_WEBHOOK_URL", "").strip())
+    try:
+        delivered = post(text)
+    except (urllib.error.URLError, OSError) as error:
+        # Exception messages can contain the webhook secret; record only the type.
+        print(f"Slack通知の送信に失敗: {type(error).__name__}", file=sys.stderr)
+        delivered = False
+    status = "sent" if delivered else ("failed" if configured else "skipped")
+    output = os.environ.get("GITHUB_OUTPUT")
+    if output:
+        with open(output, "a", encoding="utf-8") as file:
+            file.write(f"notification_status={status}\nnotification_sent={str(delivered).lower()}\n")
+    print(f"Slack notification_status={status}")
+    return 1 if status == "failed" else 0
 
 
 if __name__ == "__main__":
