@@ -75531,10 +75531,10 @@ SDN,57739,بعلبكي احمد اسعد,بعلبكياحمداسعد,1788483946
 SDN,57753,PERSIAN GULF STRAIT AUTHORITY,persiangulfstraitauthority,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,57753,Persian Gulf Strait Authority,persiangulfstraitauthority,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,57753,نهاد مدیریت آبراه خلیج فارس,نهادمدیریتآبراهخلیجفارس,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,57761,EVER SHINING LIMITED,evershininglimited,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
-SDN,57761,EVER SHINING LTD,evershiningltd,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,57761,Ever Shining LTD,evershiningltd,1788483946814,1788483946814,1,1,advanced_xml_v3,0,0
-SDN,57761,宜欣有限公司,宜欣有限公司,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,57761,EVER SHINING LIMITED,evershininglimited,1788483946814,1790883385224,0,1,advanced_xml_v3;classic_csv,1,0
+SDN,57761,EVER SHINING LTD,evershiningltd,1788483946814,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,57761,Ever Shining LTD,evershiningltd,1788483946814,1790883385224,0,1,advanced_xml_v3,0,0
+SDN,57761,宜欣有限公司,宜欣有限公司,1788483946814,1790883385224,0,1,advanced_xml_v3,1,0
 SDN,57763,MAYMEI,maymei,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,57764,FLORA,flora,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,57765,"TRASTOK SHIPPING CO., LTD.","trastokshippingco.,ltd.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
@@ -77304,6 +77304,8 @@ SDN,58620,"ZAKER HOSSEIN, Hossein Ali",hosseinalizakerhossein,1789694501137,1789
 SDN,58620,Zaker Hossein Hossein Ali,zakerhosseinhosseinali,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
 SDN,58620,ذاکر حسین حسین‌علی,ذاکرحسینحسین‌علی,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
 SDN,58624,"MIA CENTRO CAMBIARIO, S.A. DE C.V.","miacentrocambiario,s.a.dec.v.",1790715150580,1790715150580,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58626,A7 NETWORK,a7network,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58626,A7 Network,a7network,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
 SDN,58630,"ZAKER HOSSEIN, Hamed",hamedzakerhossein,1789694501137,1789694501137,1,1,classic_csv,0,0
 SDN,58630,"ZAKER HOSSEIN, Mohammad Mahdi",mohammadmahdizakerhossein,1789694501137,1789694501137,1,1,classic_csv,0,0
 SDN,58630,Zaker Hossein Hamed,zakerhosseinhamed,1789694501137,1789694501137,1,1,advanced_xml_v3,0,0
@@ -77417,6 +77419,110 @@ SDN,58738,RAES RESTAURANTE S. DE R.L. DE C.V.,raesrestaurantes.der.l.dec.v.,1790
 SDN,58739,DISTRIBUIDORA Y COMERCIALIZADORA ATAF,distribuidoraycomercializadoraataf,1790715150580,1790715150580,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,58739,DISTRIBUIDORA Y COMERCIALIZADORA ATAF S.A.S.,distribuidoraycomercializadoraatafs.a.s.,1790715150580,1790715150580,1,1,advanced_xml_v3;classic_csv,0,0
 SDN,58740,"PUBLICIDAD E IMAGEN INTEGRAL ENLA-C, S. DE R.L. DE C.V.","publicidadeimagenintegralenla-c,s.der.l.dec.v.",1790715150580,1790715150580,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58761,IRAN KHODRO COMPANY,irankhodrocompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58761,IRAN KHODRO INDUSTRIAL GROUP COMPANY,irankhodroindustrialgroupcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58761,IRAN KHODRO INDUSTRIAL GROUP COMPANY PUBLIC JOINT STOCK,irankhodroindustrialgroupcompanypublicjointstock,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58761,Iran Khodro Company,irankhodrocompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58761,Iran Khodro Industrial Group Company,irankhodroindustrialgroupcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58761,Iran Khodro Industrial Group Company Public Joint Stock,irankhodroindustrialgroupcompanypublicjointstock,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58761,شرکت ایران خودرو سهامی علم,شرکتایرانخودروسهامیعلم,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58762,PARS KHODRO COMPANY,parskhodrocompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58762,PARS KHODRO PUBLIC JOINT STOCK COMPANY,parskhodropublicjointstockcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58762,Pars Khodro Company,parskhodrocompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58762,Pars Khodro Public Joint Stock Company,parskhodropublicjointstockcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58762,شرکت پارس خودرو سهامی علم,شرکتپارسخودروسهامیعلم,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58763,ZAMYAD COMPANY,zamyadcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58763,ZAMYAD PUBLIC JOINT STOCK COMPANY,zamyadpublicjointstockcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58763,Zamyad Company,zamyadcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58763,Zamyad Public Joint Stock Company,zamyadpublicjointstockcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58763,شرکت زامیاد سهامی علم,شرکتزامیادسهامیعلم,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58764,IRAN KHODRO DIESEL COMPANY,irankhodrodieselcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58764,Iran Khodro Diesel Company,irankhodrodieselcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58764,شرکت ایران خودرو دیزل سهامی علم,شرکتایرانخودرودیزلسهامیعلم,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58765,ISLAMIC REPUBLIC OF IRAN RAILWAY COMPANY,islamicrepublicofiranrailwaycompany,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58765,THE RAILWAYS OF ISLAMIC REPUBLIC OF IRAN COMPANY,therailwaysofislamicrepublicofirancompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58765,The Railways of Islamic Republic of Iran Company,therailwaysofislamicrepublicofirancompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58765,شرکت راه آهن جمهوري اسلامي ايران سهامي خاص,شرکتراهآهنجمهورياسلاميايرانسهاميخاص,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58766,RAJA PASSENGER TRAINS COMPANY,rajapassengertrainscompany,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58766,RAJA RAIL TRANSPORTATION COMPANY,rajarailtransportationcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58766,Raja Rail Transportation Company,rajarailtransportationcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58766,شرکت قطارهای مسافری رجاء,شرکتقطارهایمسافریرجاء,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58767,Railway Transportation Company,railwaytransportationcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,1
+SDN,58767,SHERKAT-E RAH AHAN-E KHAMLE-O-NAGHLE,sherkat-erahahan-ekhamle-o-naghle,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58767,Sherkat-e Rah Ahan-e Khamle-o-Naghle,sherkat-erahahan-ekhamle-o-naghle,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58767,شرکت راه آهن حمل و نقل سهامي خاص,شرکتراهآهنحملونقلسهاميخاص,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58768,IRANIAN AUTOMOBILE MANUFACTURING COMPANY SAIPA PUBLIC JOINT STOCK,iranianautomobilemanufacturingcompanysaipapublicjointstock,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58768,Iranian Automobile Manufacturing Company Saipa Public Joint Stock,iranianautomobilemanufacturingcompanysaipapublicjointstock,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58768,SAIPA HOLDING COMPANY,saipaholdingcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58768,SAIPA IRANIAN AUTOMOBILE MANUFACTURING COMPANY,saipairanianautomobilemanufacturingcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58768,SAIPA Iranian Automobile Manufacturing Company,saipairanianautomobilemanufacturingcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58768,Saipa Holding Company,saipaholdingcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58768,شرکت ایرانی تولید اتومبیل سایپا سهامی عام,شرکتایرانیتولیداتومبیلسایپاسهامیعام,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58769,KESHVARDOUST Ramin,keshvardoustramin,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58769,"KESHVARDOUST, Ramin",raminkeshvardoust,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58769,کشوردوست رامین,کشوردوسترامین,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58770,"SHANGHAI RUIMI IMPORT AND EXPORT TRADE CO., LTD.","shanghairuimiimportandexporttradeco.,ltd.",1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58770,上海睿弥进出口贸易有限公司,上海睿弥进出口贸易有限公司,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58771,"BEIJING M & R STEEL CO., LTD.","beijingm&rsteelco.,ltd.",1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58771,"Beijing M & R Steel Co., Ltd.","beijingm&rsteelco.,ltd.",1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58771,"M AND R STEEL CO., LTD.","mandrsteelco.,ltd.",1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58771,北京润达森进出口贸易有限公司,北京润达森进出口贸易有限公司,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58772,SILVER LINE METAL TRADING LLC,silverlinemetaltradingllc,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58772,Silver Line Metal Trading LLC,silverlinemetaltradingllc,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58772,سيلفر لاين لتجارة المعادن ذ م م,سيلفرلاينلتجارةالمعادنذمم,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58773,FIDAR FOOLAD RADMAN,fidarfooladradman,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58773,شرکت فیدار فولاد رادمان,شرکتفیدارفولادرادمان,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58774,TECH-TRADE INTERNATIONAL IMPEX GMBH,tech-tradeinternationalimpexgmbh,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58774,Tech-Trade International Impex GMBH,tech-tradeinternationalimpexgmbh,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58775,HAMEDANI Mehnoosh Poursaraf,hamedanimehnooshpoursaraf,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58775,"HAMEDANI, Mehnoosh Poursaraf",mehnooshpoursarafhamedani,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58775,همدانی مهنوش پورصراف,همدانیمهنوشپورصراف,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58776,TRACO INTERNATIONAL FZE,tracointernationalfze,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58776,Traco International FZE,tracointernationalfze,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58776,تراكو إنترناشونال م.م.ح,تراكوإنترناشونالم.م.ح,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58777,KGT TRADING LIMITED,kgttradinglimited,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58778,DOMINION TRADING GROUP LIMITED,dominiontradinggrouplimited,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58778,"Xinyi International Development Co., Limited",limitedxinyiinternationaldevelopmentco.,1790883385224,1790883385224,1,1,advanced_xml_v3,0,1
+SDN,58779,INTEGRATED AUTO PARTS LLC,integratedautopartsllc,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58779,Integrated Auto Parts LLC,integratedautopartsllc,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58779,انتجريتد لقطع غيار السيارات ذ م م,انتجريتدلقطعغيارالسياراتذمم,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58780,HEAVY EQUIPMENT PRODUCTION COMPANY,heavyequipmentproductioncompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58780,HEPCO,hepco,1790883385224,1790883385224,1,1,advanced_xml_v3,0,1
+SDN,58780,Heavy Equipment Production Company,heavyequipmentproductioncompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58780,شرکت تولید تجهیزات سنگین هپکو,شرکتتولیدتجهیزاتسنگینهپکو,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58781,"HEPCO SHANGHAI CO., LTD.","hepcoshanghaico.,ltd.",1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58781,"HEPCO Shanghai Co., Ltd.","hepcoshanghaico.,ltd.",1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58781,"HESHIPU SHANGHAI MACHINERY TRADING CO., LTD","heshipushanghaimachinerytradingco.,ltd",1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,0,0
+SDN,58781,SHANGHAI HEPCO LTD.,shanghaihepcoltd.,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58781,Shanghai Hepco Ltd.,shanghaihepcoltd.,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58781,赫世浦上海机械贸易有限公司,赫世浦上海机械贸易有限公司,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58782,"BONASOL GROUP CO., LIMITED",limitedbonasolgroupco.,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58782,Lida Shine Group Limited,lidashinegrouplimited,1790883385224,1790883385224,1,1,advanced_xml_v3,0,1
+SDN,58783,"MEIZI CO., LIMITED",limitedmeizico.,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58784,EAST CONCORD DEVELOPMENT LIMITED,eastconcorddevelopmentlimited,1790883385224,1790883385224,1,1,advanced_xml_v3;classic_csv,1,0
+SDN,58785,GOLDEN MOTORCYCLE INTERNATIONAL LTD,goldenmotorcycleinternationalltd,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58785,Golden Motorcycle International Ltd,goldenmotorcycleinternationalltd,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58785,PT GOLDEN MOTORCYCLE INTERNATIONAL,ptgoldenmotorcycleinternational,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58785,PT Golden Motorcycle International,ptgoldenmotorcycleinternational,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58786,TROY TRADING ARAC PARCALARI SANAYI VE TICARET LIMITED SIRKETI,troytradingaracparcalarisanayiveticaretlimitedsirketi,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58786,TROY TRADİNG ARAÇ PARÇALARI SANAYİ VE TİCARET LİMİTED ŞİRKETİ,troytradi̇ngaraçparçalarisanayi̇veti̇caretli̇mi̇tedşi̇rketi̇,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58786,Troy Trading Arac Parcalari Sanayi Ve Ticaret Limited Sirketi,troytradingaracparcalarisanayiveticaretlimitedsirketi,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58787,"HESSENBERG CO., LIMITED",limitedhessenbergco.,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58787,"Hessenberg Co., Limited",limitedhessenbergco.,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58787,"JEDBURGH CO., LIMITED",limitedjedburghco.,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58787,"Jedburgh Co., Limited",limitedjedburghco.,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58787,傑德堡有限公司,傑德堡有限公司,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58787,海森堡有限公司,海森堡有限公司,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58788,TANEX GLOBAL TRADING HONG KONG LIMITED,tanexglobaltradinghongkonglimited,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58788,Tanex Global Trading Hong Kong Limited,tanexglobaltradinghongkonglimited,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58789,NIROO MOTOR COMPANY,niroomotorcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58789,NIROO MOTOR SHIRAZ INDUSTRIAL AND MANUFACTURING COMPANY,niroomotorshirazindustrialandmanufacturingcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58789,Niroo Motor Company,niroomotorcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,0,0
+SDN,58789,Niroo Motor Shiraz Industrial and Manufacturing Company,niroomotorshirazindustrialandmanufacturingcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58789,شرکت تولیدی و صنعتی نیرو موتور شیراز,شرکتتولیدیوصنعتینیروموتورشیراز,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58790,NIROO MOTOR DAMAVAND COMPANY,niroomotordamavandcompany,1790883385224,1790883385224,1,1,classic_csv,0,0
+SDN,58790,Niroo Motor Damavand Company,niroomotordamavandcompany,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
+SDN,58790,شرکت نیرو موتور دماوند,شرکتنیروموتوردماوند,1790883385224,1790883385224,1,1,advanced_xml_v3,1,0
 SDN,589,"CRYMSA - ARGENTINA, S.A.","crymsa-argentina,s.a.",1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,590,CUBACANCUN CIGARS AND GIFT SHOPS,cubacancuncigarsandgiftshops,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0
 SDN,591,CUBAEXPORT,cubaexport,1788483946814,1788483946814,1,1,advanced_xml_v3;classic_csv,1,0

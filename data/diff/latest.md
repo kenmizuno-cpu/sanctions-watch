@@ -1,11 +1,76 @@
 # 制裁リスト差分レポート
 
-## OFAC　追加 0 / 削除 0 / 変更 1
+## OFAC　追加 70 / 削除 0 / 変更 0
 
-### 変更
-#### `KTJ`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| invalid_reason | 全ての出所から掲載が無くなったため無効化（制裁解除または統廃合） | OFAC現役Weak Aliasのため通常スクリーニング対象外 |
-| review_flag | 3文字と短く、照合時に誤検知が多発する見込み（KTJ） | OFAC_WEAK_ALIAS_CURRENT |
+### 追加
+- `A7 Network` — 制裁リスト（OFAC：SDN）
+- `Iran Khodro Company` — 制裁リスト（OFAC：SDN）
+- `شرکت ایران خودرو سهامی علم` — 制裁リスト（OFAC：SDN）
+- `Iran Khodro Industrial Group Company` — 制裁リスト（OFAC：SDN）
+- `Iran Khodro Industrial Group Company Public Joint Stock` — 制裁リスト（OFAC：SDN）
+- `Pars Khodro Company` — 制裁リスト（OFAC：SDN）
+- `شرکت پارس خودرو سهامی علم` — 制裁リスト（OFAC：SDN）
+- `Pars Khodro Public Joint Stock Company` — 制裁リスト（OFAC：SDN）
+- `Zamyad Company` — 制裁リスト（OFAC：SDN）
+- `شرکت زامیاد سهامی علم` — 制裁リスト（OFAC：SDN）
+- `Zamyad Public Joint Stock Company` — 制裁リスト（OFAC：SDN）
+- `Iran Khodro Diesel Company` — 制裁リスト（OFAC：SDN）
+- `شرکت ایران خودرو دیزل سهامی علم` — 制裁リスト（OFAC：SDN）
+- `ISLAMIC REPUBLIC OF IRAN RAILWAY COMPANY` — 制裁リスト（OFAC：SDN）
+- `شرکت راه آهن جمهوري اسلامي ايران سهامي خاص` — 制裁リスト（OFAC：SDN）
+- `The Railways of Islamic Republic of Iran Company` — 制裁リスト（OFAC：SDN）
+- `RAJA PASSENGER TRAINS COMPANY` — 制裁リスト（OFAC：SDN）
+- `شرکت قطارهای مسافری رجاء` — 制裁リスト（OFAC：SDN）
+- `Raja Rail Transportation Company` — 制裁リスト（OFAC：SDN）
+- `Sherkat-e Rah Ahan-e Khamle-o-Naghle` — 制裁リスト（OFAC：SDN）
+- `شرکت راه آهن حمل و نقل سهامي خاص` — 制裁リスト（OFAC：SDN）
+- `SAIPA Iranian Automobile Manufacturing Company` — 制裁リスト（OFAC：SDN）
+- `شرکت ایرانی تولید اتومبیل سایپا سهامی عام` — 制裁リスト（OFAC：SDN）
+- `Saipa Holding Company` — 制裁リスト（OFAC：SDN）
+- `Iranian Automobile Manufacturing Company Saipa Public Joint Stock` — 制裁リスト（OFAC：SDN）
+- `KESHVARDOUST Ramin` — 制裁リスト（OFAC：SDN）
+- `کشوردوست رامین` — 制裁リスト（OFAC：SDN）
+- `SHANGHAI RUIMI IMPORT AND EXPORT TRADE CO., LTD.` — 制裁リスト（OFAC：SDN）
+- `上海睿弥进出口贸易有限公司` — 制裁リスト（OFAC：SDN）
+- `M AND R STEEL CO., LTD.` — 制裁リスト（OFAC：SDN）
+- `Beijing M & R Steel Co., Ltd.` — 制裁リスト（OFAC：SDN）
+- `北京润达森进出口贸易有限公司` — 制裁リスト（OFAC：SDN）
+- `Silver Line Metal Trading LLC` — 制裁リスト（OFAC：SDN）
+- `سيلفر لاين لتجارة المعادن ذ م م` — 制裁リスト（OFAC：SDN）
+- `FIDAR FOOLAD RADMAN` — 制裁リスト（OFAC：SDN）
+- `شرکت فیدار فولاد رادمان` — 制裁リスト（OFAC：SDN）
+- `Tech-Trade International Impex GMBH` — 制裁リスト（OFAC：SDN）
+- `HAMEDANI Mehnoosh Poursaraf` — 制裁リスト（OFAC：SDN）
+- `همدانی مهنوش پورصراف` — 制裁リスト（OFAC：SDN）
+- `Traco International FZE` — 制裁リスト（OFAC：SDN）
+- `تراكو إنترناشونال م.م.ح` — 制裁リスト（OFAC：SDN）
+- `KGT TRADING LIMITED` — 制裁リスト（OFAC：SDN）
+- `DOMINION TRADING GROUP LIMITED` — 制裁リスト（OFAC：SDN）
+- `Integrated Auto Parts LLC` — 制裁リスト（OFAC：SDN）
+- `انتجريتد لقطع غيار السيارات ذ م م` — 制裁リスト（OFAC：SDN）
+- `Heavy Equipment Production Company` — 制裁リスト（OFAC：SDN）
+- `شرکت تولید تجهیزات سنگین هپکو` — 制裁リスト（OFAC：SDN）
+- `HEPCO Shanghai Co., Ltd.` — 制裁リスト（OFAC：SDN）
+- `赫世浦上海机械贸易有限公司` — 制裁リスト（OFAC：SDN）
+- `HESHIPU SHANGHAI MACHINERY TRADING CO., LTD` — 制裁リスト（OFAC：SDN）
+- `Shanghai Hepco Ltd.` — 制裁リスト（OFAC：SDN）
+- `BONASOL GROUP CO., LIMITED` — 制裁リスト（OFAC：SDN）
+- `MEIZI CO., LIMITED` — 制裁リスト（OFAC：SDN）
+- `EAST CONCORD DEVELOPMENT LIMITED` — 制裁リスト（OFAC：SDN）
+- `PT Golden Motorcycle International` — 制裁リスト（OFAC：SDN）
+- `Golden Motorcycle International Ltd` — 制裁リスト（OFAC：SDN）
+- `Troy Trading Arac Parcalari Sanayi Ve Ticaret Limited Sirketi` — 制裁リスト（OFAC：SDN）
+- `TROY TRADİNG ARAÇ PARÇALARI SANAYİ VE TİCARET LİMİTED ŞİRKETİ` — 制裁リスト（OFAC：SDN）
+- `Hessenberg Co., Limited` — 制裁リスト（OFAC：SDN）
+- `海森堡有限公司` — 制裁リスト（OFAC：SDN）
+- `Jedburgh Co., Limited` — 制裁リスト（OFAC：SDN）
+- `傑德堡有限公司` — 制裁リスト（OFAC：SDN）
+- `Tanex Global Trading Hong Kong Limited` — 制裁リスト（OFAC：SDN）
+- `Niroo Motor Shiraz Industrial and Manufacturing Company` — 制裁リスト（OFAC：SDN）
+- `شرکت تولیدی و صنعتی نیرو موتور شیراز` — 制裁リスト（OFAC：SDN）
+- `Niroo Motor Company` — 制裁リスト（OFAC：SDN）
+- `Niroo Motor Damavand Company` — 制裁リスト（OFAC：SDN）
+- `شرکت نیرو موتور دماوند` — 制裁リスト（OFAC：SDN）
+- `KESHVARDOUST, Ramin` — 制裁リスト（OFAC：SDN）
+- `HAMEDANI, Mehnoosh Poursaraf` — 制裁リスト（OFAC：SDN）
 
