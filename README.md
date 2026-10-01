@@ -383,38 +383,69 @@ cron を有効にする前に手動で1回流して、差分レポートがこ�
      --confirm-master-after-sha256 "$MASTER_AFTER_SHA256"
    ```
 
-## 外務省：Phase 3A 資料監視
+## 外務省：Phase 3A 手動取得・資料レビュー
 
-現行リスト入口から国連決議1267号等／1373号の二PDFを抽出し、報道発表の当月・前月アーカイブと関連別添を監視する。入口HTMLが304でもPDFは確認する。通信先はHTTPSの外務省二ホストだけで、外部リンクは取得しない。経産省の通信禁止は維持する。
+ブラウザでは開ける一方、Macのrequests/curlとGitHub ActionsではAkamaiの403を確認したため、外務省は人が公式サイトを確認して取得する。自動通信は共通取得層で外務省・経産省の全ホストとリダイレクト先について停止する。`watch-mofa.yml`は読取権限のオフライン検証のみ。`MOFA_MONITOR_ENABLED=false`を維持し、旧`src.mofa_watch`は通信・状態更新せず、手動取込の案内と終了コード1を返す。
 
-3Aは資料単位の検知・保存・レビューまで。対象者件数は**未解析（空欄）**。`diff_level=document`、`applied=false`を維持し、既存master・OFAC索引・changes・取込名簿を変更しない。資料確認は対象者審査・解除・名簿反映の承認ではない。
+3Aの範囲は資料の原本保存・SHA-256比較・レビュー待ち作成まで。対象者件数は**未解析（空欄）**。`diff_level=document`、`applied=false`を維持する。資料確認は対象者審査・制裁解除・名簿反映の承認とは別。既存master・OFAC索引・changes・取込名簿を変更しない。
 
-```bash
-python -m src.mofa_watch --dry-run --report /tmp/mofa-preview.json
-python -m src.mofa_watch --report /tmp/mofa-result.json
-python -m src.mofa_documents review --event-id ID --source-hash SHA256 --reviewer NAME --at '2026-10-01T12:00:00+09:00' --note '資料内容確認'
-python -m src.mofa_documents cancel --event-id ID --source-hash SHA256 --reviewer NAME --at '2026-10-01T12:00:00+09:00' --note '確認対象外の理由'
-```
+### 手動取得と取込
 
-確認はイベントIDと原本ハッシュに固定する。同じ資料の再確認は候補を増やさず、A→B→Aの再差し替えは別イベントを残す。内容ハッシュによる原本を`data/raw/mofa/`に保存し、3Aでは削除しない。現在状態は`data/mofa/state.json`、履歴は`events.csv`、レビューは`data/review/mofa_document_queue.csv`。レビュー・取消では状態・キュー・表示CSVを同一世代で保存する。取得監査は保存失敗時にも残る。捕捉可能なI/O例外時のrollbackを保証し、SIGKILLや電源断の完全原子性は保証しない。
+[現行リスト入口](https://www.mofa.go.jp/mofaj/gaiko/terro/kyoryoku_05.html)の国連決議1267号等と1373号の二PDF、[報道発表](https://www.mofa.go.jp/mofaj/press/release/index.html)の関連本文と別添PDFをブラウザで確認・保存する。HTMLはSafariの「Webアーカイブ」ではなく、HTMLのソースを保存する。表示ページのPDF印刷は公式原本PDFの代用にしない。
 
-新規発表本文は1回最大30件。初回の過去31日分は既存資料として扱い、未処理があれば「確認中」。関連発表は31日間と未解消期間に再確認する。それより古い解消済み発表の改訂は監視範囲外。失敗・構造異常は正常表示にしない。最終成功から30分超は警告、60分超は重大。公表日が日付精度のため分単位の検知遅延を算出しない。
-
-未確認期間は`COVERAGE_GAP`として表示する。欠けた最初の月から公式アーカイブを確認するか、理由付き運用判断を残す。履歴は消さない。
+各操作には担当者、タイムゾーン付きの日時、理由が必要。入力URLは公式HTTPS URLに限定し、取込コマンドは通信しない。ブラウザから保存されたファイルの取得方法は担当者の申告として記録する。SHA-256は保存後の同一性を確認する値で、発行者の電子署名検証ではない。
 
 ```bash
-python -m src.mofa_watch --from-month 2026-07 --report /tmp/mofa-recovery.json
-python -m src.mofa_documents coverage-ack --reviewer NAME --at '2026-10-01T12:00:00+09:00' --note '未確認期間に関する判断と理由'
+cd "$HOME/Desktop/sanctions-watch"
+# 初期化: 空の表示CSVを作る。サイトを確認したことにはならない。
+.venv/bin/python -m src.mofa_manual init \
+  --operator '健 水野' --at '2026-10-01T15:00:00+09:00' \
+  --note '外務省を手動取得運用へ切り替え'
+
+# 実際に確認した日時と確認範囲を記録する。更新未取得なら --result pending。
+.venv/bin/python -m src.mofa_manual check --family catalog --result checked \
+  --operator '健 水野' --at '2026-10-01T15:05:00+09:00' \
+  --note '現行リスト入口の1267号等と1373号のリンクを確認'
+.venv/bin/python -m src.mofa_manual check --family press --result checked \
+  --operator '健 水野' --at '2026-10-01T15:06:00+09:00' \
+  --note '当月・前月の報道発表を確認。対象発表と別添の有無を確認'
+
+# 実ファイル名・実際のPDF URL・実際の取得日時に置き換える。
+.venv/bin/python -m src.mofa_manual import "$HOME/Downloads/current-un.pdf" \
+  --role current_un --source-url 'https://www.mofa.go.jp/実際のPDFパス.pdf' \
+  --operator '健 水野' --at '2026-10-01T15:10:00+09:00' \
+  --note '公式1267号等PDFをブラウザで保存' --dry-run
+# 結果の原本ハッシュと候補を確認後、同じコマンドから --dry-run を外して保存する。
 ```
+
+現行二PDFは`--role current_un` / `current_1373`。本文HTMLは`--role notice`、別添PDFは`--role attachment_pdf --notice-url '元の報道発表URL'`。`--title`と`--publication-date YYYY-MM-DD`は確認した情報だけを指定する。過去の既存発表は`--baseline`を指定すれば初回資料として記録する。現行二PDFの最初の取込は常に初回資料として扱う。`--expected-sha256`は別途控えたハッシュとの照合に使える。
+
+別添は親の発表URLごとに記録する。本文から見つかった公式別添は自動取得せず「手動取得待ち」にする。本文を再取得したときはその日時以降に別添も再取得して確認する。URL変更を同じ資料の差し替えとして比較したい本文・別添は、直前の`document_key`を`--document-key`で指定する。親発表や資料種別が異なるキーは使えない。
+
+### 保存・状態・レビュー
+
+原本は`data/raw/mofa/`へハッシュ名のgzipとして保存し、削除しない。PDFは20MiB、本文HTMLは5MiBを上限とし、PDFのヘッダー・終端・ページ構造、HTMLの本文領域を確認する。破損ファイル・ハッシュ不一致・取込失敗は「手動取込エラー」とし、有効な直前原本を保持する。担当者・日時・URL・ハッシュ・理由・成否は`data/mofa/manual_operations.csv`、取得情報は月別`data/source_audit/`、資料履歴は`data/mofa/events.csv`、レビュー待ちは`data/review/mofa_document_queue.csv`に残る。手動取得にはHTTP 200/304やETagを作らない。
+
+表示CSVの最終チェックは明示したサイトの手動確認日時。ファイル取込はこの日時を更新しない。現行二PDFが揃わない間は手動取得待ち、未解消候補があれば要レビュー、破損取込はエラーを維持する。サイト確認だけでは取込エラーを消さない。エラーは同じ資料の有効な再取込で解消する。担当者が`check --result pending`で立てた取得待ちは、未取得資料を揃えた上で明示的に再確認して`check --result checked`で解消する。
+
+初期化・取込・確認だけで自動監視の`baseline_complete`や`last_complete_scan_at`を進めない。旧運用の未確認期間は保持し、公式アーカイブを人が確認してから理由付きの`coverage-ack`で判断を記録する。公表日の日付精度から分単位の検知遅延を算出しない。
+
+```bash
+.venv/bin/python -m src.mofa_documents review --event-id ID --source-hash SHA256 \
+  --reviewer '確認者名' --at '2026-10-01T15:20:00+09:00' --note '資料内容を確認した理由'
+# 確認対象外なら review ではなく cancel を使い、理由を残す。
+.venv/bin/python -m src.mofa_documents coverage-ack \
+  --reviewer '確認者名' --at '2026-10-01T15:20:00+09:00' \
+  --note '対象期間の公式アーカイブを手動確認した範囲と判断'
+```
+
+レビューはイベントIDと原本ハッシュに固定する。同じ原本の再取込は候補を増やさず、A→B→Aの差し替えは別イベント。以前のレビューを新ハッシュへ引き継がない。状態・操作記録・監査・キュー・表示CSVは同一世代で保存し、捕捉可能なI/O例外でrollbackする。新しい原本だけが残る場合はあるが、旧原本を破棄しない。SIGKILLや電源断の完全原子性、同時の取込・レビュー操作は保証しないので、一人ずつ順に実行する。
 
 ### 導入の順序
 
-1. コードレビュー・PR検証後にmainへ統合する。`MOFA_MONITOR_ENABLED`は未設定または`false`のままにする。
-2. `watch-mofa`を`persist_state=false`で実行し、artifactのURL・HTTP・原本・候補を確認する。
-3. mainで`persist_state=true`を手動実行する。初回は上限30件なので`baseline_complete=true`、未処理0になるまで繰り返す。初回候補を新規指定に数えない。
-4. `data/dashboard/mofa_documents.csv`が取得可能になった後、稼働GASが`VERSION=0.4.1`であることを照合し退避する。`apps_script/Code.gs`へ置換し、`Mofa.gs`を追加する。既存onOpen/syncAll/scheduledSyncAllを重複させない。実装は0.4.2。
-5. 手動同期で六系統、`10_外務省資料`、既存`08_最新差分`・`09_再審査分`・自動同期表示を確認する。メモはイベントIDで保持し、公式レビューはGitHub CLIで行う。GASのメモは名簿承認に接続しない。
-6. repo変数`MOFA_MONITOR_ENABLED=true`で15分間隔（11/26/41/56分）の監視を有効化する。定期Actionsの両系統最終成功・heartbeatとSheets定期同期を確認して運用開始とする。
-7. 停止は同変数を`false`へ変更する。原本・履歴を消さない。
-
-PRは読取権限・オフライン検証のみ。プレビューも読取専用。永続化はmain限定で既存監視と共有concurrencyにより直列化し、許可パスだけをcommitする。失敗時も監査保存とartifact収集を実行し、最終結果は失敗になる。
+1. コードのPRを検証・レビューしてmainへ統合する。`MOFA_MONITOR_ENABLED=false`を維持する。
+2. 最新mainからデータ用の別ブランチを切り、上記`init`を実行する。公式資料はブラウザで取得し、確認・取込・資料レビューを行う。
+3. データの変更は次の許可パスだけをPRにする。`data/mofa/`、`data/review/mofa_document_queue.csv`、`data/raw/mofa/`、`data/source_audit/`、`data/heartbeat/`、`data/dashboard/status.csv`、`data/dashboard/mofa_documents.csv`。他の監視の最新mainを取り込み、通常のPRで統合する。
+4. mainの`data/dashboard/mofa_documents.csv`が取得可能になった後、稼働GASのバージョンとコードを退避する。`apps_script/Code.gs`に置換し、`Mofa.gs`を追加する。実装は0.4.3。既存onOpen/syncAll/scheduledSyncAllを重複させない。
+5. 手動同期で六系統と`10_外務省資料`、既存`08_最新差分`・`09_再審査分`を確認する。外務省は「手動確認／要確認」とし、自動監視の30/60分閾値を使わない。GASのメモはイベントIDで保持し、公式レビューは上記CLIで行う。
+6. OFAC・財務省の定期監視とSheets定期同期は既存の運用を続ける。外務省の公式サイト確認・資料保存は担当者が行う。

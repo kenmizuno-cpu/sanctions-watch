@@ -5,21 +5,20 @@ test('formula-like title stays text',()=>{const c=ctx();const r=c.mofaRowsForShe
 test('duplicate event with conflicting hash fails',()=>{assert.throws(()=>ctx().mofaRowsForSheet_([row(),row('a','2'.repeat(64))],[]));});
 test('memo preserved by event and new document does not inherit old review',()=>{const c=ctx();const r=c.mofaRowsForSheet_([row('b'),row()],[row().concat('memo')]);assert.equal(r[0][13],'');assert.equal(r[1][13],'memo');assert.equal(r[0][8],'REVIEW_REQUIRED_DOCUMENT');});
 test('304 keeps document rows and memo',()=>{ctx().syncMofaDocuments_({getSheetByName(){throw Error('must not access sheet');}},null);});
-test('mofa freshness boundaries and failures', () => {
+test('MOFA manual status never becomes automatic normal or a polling timeout', () => {
   const c = ctx();
-  const now = Date.UTC(2026, 9, 1, 0, 0, 0);
+  const now = Date.UTC(2026, 9, 1);
   c.Date = class extends Date { static now() { return now; } };
-  for (const [ageMs, expected] of [
-    [30 * 60000, '正常'],
-    [30 * 60000 + 1, '警告'],
-    [60 * 60000, '警告'],
-    [60 * 60000 + 1, '重大'],
-  ]) {
-    c.parseJst_ = () => new Date(now - ageMs);
-    assert.equal(c.freshness_('外務省（現行リスト）', '変更なし', 'x', {}).label, expected);
+  for (const age of [0, 30, 60, 1440, 10080]) {
+    c.parseJst_ = () => new Date(now - age * 60000);
+    assert.equal(c.freshness_('外務省（現行リスト）', '手動確認済み', 'x', {}).label, '手動確認');
+    assert.equal(c.freshness_('外務省（報道発表）', '変更なし', 'x', {}).label, '要確認');
   }
-  for (const state of ['エラー', '構造異常', '未確認期間あり']) {
-    assert.equal(c.freshness_('外務省（現行リスト）', state, 'x', {}).label, '重大');
+  for (const state of ['自動取得不可・手動確認待ち', '手動取得待ち', '資料更新・要レビュー（手動取得）']) {
+    assert.equal(c.freshness_('外務省（現行リスト）', state, '', {}).label, '要確認');
+  }
+  for (const state of ['手動取込エラー', 'エラー', '構造異常', '未確認期間あり']) {
+    assert.equal(c.freshness_('外務省（現行リスト）', state, '', {}).label, '重大');
   }
 });
 test('six source rows fit before recent changes and unknown count blank',()=>{const c=ctx();let sourceRange,sourceValues;const sheet={getRange(...a){return {setValues(v){if(a.length===4&&a[0]===9){sourceRange=a;sourceValues=v;}return this;},setValue(){return this;}};}};c.requireSheet_=()=>sheet;c.formatJst_=()=>'';c.freshness_=()=>({label:'正常',severity:0});c.appendAnomalies_=()=>{};c.appendAnomaly_=()=>{};c.updateDashboard_({},[['外務省（現行リスト）','変更なし','','','','']],{});assert.deepEqual(sourceRange,[9,1,6,8]);assert.equal(sourceValues[4][4],'');});

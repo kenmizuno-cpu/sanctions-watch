@@ -38,6 +38,24 @@ def validate_bundle(state,events,queue):
     if not isinstance(state['resources'],dict) or not isinstance(state['families'],dict) or not isinstance(state['pending_notices'],list):
         raise DocumentStateError('invalid state containers')
     if not isinstance(state['baseline_complete'],bool): raise DocumentStateError('invalid baseline flag')
+    if state.get('mode') == 'manual':
+        manual = state.get('manual')
+        if not isinstance(manual,dict) or not isinstance(manual.get('last_operation_at'),str):
+            raise DocumentStateError('invalid manual state')
+        _valid_time(manual['last_operation_at'])
+        if any(not isinstance(manual.get(k),dict) for k in ['import_errors','linked_documents']):
+            raise DocumentStateError('invalid manual containers')
+        for error in manual['import_errors'].values():
+            if not isinstance(error,dict) or error.get('family') not in {'mofa_catalog','mofa_press'}:
+                raise DocumentStateError('invalid manual import error')
+        for links in manual['linked_documents'].values():
+            if not isinstance(links,list): raise DocumentStateError('invalid linked documents')
+            for link in links:
+                if not isinstance(link,dict) or not all(k in link for k in ['key','url','observed_at']):
+                    raise DocumentStateError('invalid linked document')
+                validate_mofa_url(link['url']); _valid_time(link['observed_at'])
+        for family in state['families'].values():
+            _valid_time(family.get('last_manual_check_at',''))
     for r in state['resources'].values():
         for k in ['key','role','url','sha256','raw_path','etag','last_modified','first_seen','last_success_at','last_attempt_at','last_result','observation_head','available']:
             if k not in r: raise DocumentStateError('resource field missing: '+k)
@@ -135,6 +153,9 @@ def mark_unavailable(state,events,queue,*,link,when,reason):
     return i
 
 def save_bundle(root,state,events,queue,extra_writes=None):
+    if state.get('mode') == 'manual':
+        from .mofa_manual import refresh_status
+        refresh_status(state,queue)
     validate_bundle(state,events,queue)
     writes=[FileWrite(root/STATE_PATH,lambda p:p.write_text(json.dumps(state,ensure_ascii=False,sort_keys=True,indent=2)+'\n')),
             FileWrite(root/EVENT_PATH,lambda p:p.write_bytes(_csv_bytes(events,EVENT_COLS))),

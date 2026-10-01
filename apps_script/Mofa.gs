@@ -18,7 +18,7 @@ function ensureMofaStructure_(ss) {
   const sheet = ss.getSheetByName(TAB.MOFA) || ss.insertSheet(TAB.MOFA);
   ensureColumns_(sheet, 14);
   sheet.getRange('A1').setValue('外務省資料レビュー');
-  sheet.getRange('A2').setValue('対象者数は未解析。資料確認は制裁解除・名簿反映の承認とは別。');
+  sheet.getRange('A2').setValue('公式資料はブラウザで手動取得。対象者数は未解析。資料確認は制裁解除・名簿反映の承認とは別。');
   sheet.getRange(4, 1, 1, 14).setValues([EXPECTED.mofaDocuments.concat('メモ')]);
   sheet.setFrozenRows(4);
 }

@@ -281,8 +281,14 @@ def build_status_rows(
             family = (mofa_state or {}).get('families', {}).get(key, {})
             label = {'unchanged': '変更なし', 'document_updated': '資料更新・要レビュー',
                      'checking': '確認中', 'COVERAGE_GAP': '未確認期間あり',
-                     'schema_changed': '構造異常', 'error': 'エラー'}.get(family.get('status'), '未確認')
-            rows.append([source_label, label, _jst(family.get('last_success_at', '')),
+                     'schema_changed': '構造異常', 'error': 'エラー',
+                     'manual_required': '自動取得不可・手動確認待ち',
+                     'manual_pending': '手動取得待ち',
+                     'manual_review': '資料更新・要レビュー（手動取得）',
+                     'manual_checked': '手動確認済み',
+                     'manual_error': '手動取込エラー'}.get(family.get('status'), '自動取得不可・手動確認待ち')
+            check_field = 'last_manual_check_at' if (mofa_state or {}).get('mode') == 'manual' else 'last_success_at'
+            rows.append([source_label, label, _jst(family.get(check_field, '')),
                          _jst(family.get('last_document_change_at', '')), '', family.get('sha256', '')[:12]])
             continue
         entry = latest.get(key, {})
