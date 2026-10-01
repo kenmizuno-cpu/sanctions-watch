@@ -37613,7 +37613,7 @@ ktechnologiesjointstockcompany,K TECHNOLOGIES JOINT STOCK COMPANY,有効,制裁�
 ktechnologyjointstockcompany,K TECHNOLOGY JOINT STOCK COMPANY,有効,制裁リスト,高,1714705821000,1788040337525,OFAC,OFAC:SDN,制裁リスト（OFAC：SDN）,,,"[""K TECHNOLOGY JOINT STOCK COMPANY""]"
 kthgroupspolsro,KTH GROUP SPOL SRO,有効,制裁リスト,高,1745545941000,1788040337525,OFAC,OFAC:SDN,制裁リスト（OFAC：SDN）,,,"[""KTH GROUP SPOL SRO""]"
 ktipm,KTIPM,有効,制裁リスト,高,1748579440000,1748579440000,経産省,,制裁リスト（経産省）,,,"[""KTIPM""]"
-ktj,KTJ,無効,制裁リスト,高,1788040002931,1790862593285,,,制裁リスト,全ての出所から掲載が無くなったため無効化（制裁解除または統廃合）,3文字と短く、照合時に誤検知が多発する見込み（KTJ）,"[""KTJ""]"
+ktj,KTJ,無効,制裁リスト,高,1788040002931,1790871718947,,,制裁リスト,OFAC現役Weak Aliasのため通常スクリーニング対象外,OFAC_WEAK_ALIAS_CURRENT,"[""KTJ""]"
 ktkengineering(pvt)ltd,KTK Engineering (Pvt) LTD,有効,制裁リスト,高,1748579440000,1748579440000,経産省,,制裁リスト（経産省）,,,"[""KTK Engineering (Pvt) LTD""]"
 ktrv,KTRV,有効,制裁リスト,高,1748573587000,1748573587000,OFAC,,制裁リスト（OFAC）,,,"[""KTRV""]"
 "ktservices&logisticsco.,ltd","KT Services & Logistics Co., Ltd",有効,制裁リスト,高,1749171595000,1749171595000,OFAC,,制裁リスト（OFAC）,,,"[""KT Services & Logistics Co., Ltd""]"

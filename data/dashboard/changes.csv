@@ -4,6 +4,7 @@
 2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,Maraya,制裁リスト（OFAC：SDN）; FixedRef=28301; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Safari Club,制裁リスト（OFAC：SDN）; FixedRef=21264; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Olenga Francois,制裁リスト（OFAC：SDN）; FixedRef=21263; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-02 01:21:59,OFAC,変更,KTJ,制裁リスト | invalid_reason=全ての出所から掲載が無くなったため無効化（制裁解除または統廃合） / review_flag=3文字と短く、照合時に誤検知が多発する見込み（KTJ）,制裁リスト | invalid_reason=OFAC現役Weak Aliasのため通常スクリーニング対象外 / review_flag=OFAC_WEAK_ALIAS_CURRENT
 2026-10-01 22:49:59,財務省,管理情報改訂（告示日付）,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),2022.3.8,2022.3.8 2026.10.2改訂
 2026-10-01 22:49:59,財務省,情報改訂（氏名（日本語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),カティーバ・アル・タウヒード・ワル・ジハード,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ)
 2026-10-01 22:49:59,財務省,情報改訂（氏名（英語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),KHATIBA AL-TAWHID WAL-JIHAD,KHATIBA JAMA`AT AL-TAWHID WAL-JIHAD (KTJ)
@@ -4998,4 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Delimhanov Adam Sultanovich,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SCHIAVONE Francesco,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Gill Muhammad Hussein,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Gill Muhammad Hussain,,制裁リスト（OFAC：SDN）

@@ -1,16 +1,2 @@
 出所,種別,受取人名,変更前,変更後
-財務省,追加,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),,制裁リスト（財務省：タリバーン関係者等）
-財務省,追加,KHATIBA JAMA`AT AL-TAWHID WAL-JIHAD (KTJ),,制裁リスト（財務省：タリバーン関係者等）
-財務省,追加,ジャマーアト・アル・タウヒード・ワル・ジハード,,制裁リスト（財務省：タリバーン関係者等）
-財務省,追加,Katiba al-Tawhid wal-Jihad,,制裁リスト（財務省：タリバーン関係者等）
-財務省,追加,Катиба Джамаат ат-Таухид валь-Джихад,,制裁リスト（財務省：タリバーン関係者等）
-財務省,追加,جماعة التوحيد والجهاد,,制裁リスト（財務省：タリバーン関係者等）
-財務省,追加,كتيبة التوحيد والجهاد,,制裁リスト（財務省：タリバーン関係者等）
-財務省,追加,Federal State Unitary Enterprise RFNC-All-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
-財務省,掲載終了,Federal State Unitary Enterprise RFNC-A11-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）,制裁リスト
-財務省,掲載終了,KHATIBA AL-TAWHID WAL-JIHAD,制裁リスト（財務省：タリバーン関係者等／OFAC：SDN）,制裁リスト（OFAC：SDN）
-財務省,掲載終了,KTJ,制裁リスト（財務省：タリバーン関係者等）,制裁リスト
-財務省,掲載終了,MATERO ANDRES DUQUE BOTERO,制裁リスト（財務省：スーダン）,制裁リスト
-財務省,掲載終了,Катиба ат-Таухид валь-Джихад,制裁リスト（財務省：タリバーン関係者等）,制裁リスト
-財務省,掲載終了,ジャマーアート・アル・タウヒード・ワル・ジハード,制裁リスト（財務省：タリバーン関係者等）,制裁リスト
-財務省,変更,Mateo Andres Duque Botero,制裁リスト（OFAC：SDN）,制裁リスト（財務省：スーダン／OFAC：SDN）
+OFAC,変更,KTJ,制裁リスト | invalid_reason=全ての出所から掲載が無くなったため無効化（制裁解除または統廃合） / review_flag=3文字と短く、照合時に誤検知が多発する見込み（KTJ）,制裁リスト | invalid_reason=OFAC現役Weak Aliasのため通常スクリーニング対象外 / review_flag=OFAC_WEAK_ALIAS_CURRENT
