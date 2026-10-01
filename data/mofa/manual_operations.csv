@@ -1,0 +1,2 @@
+operation_id,at,operation,family,document_key,operator,note,result,url,source_hash,raw_path,event_id,local_filename,error
+4d42802bb5dea86eaf095f23d459138d80d580dd72bc9e77b5db44f350c1f440,2026-10-01T08:24:31Z,init,,,健 水野,外務省の手動取得運用と表示CSVを初期化。公式資料の取得・サイト確認は未実施,recorded,,,,,,
