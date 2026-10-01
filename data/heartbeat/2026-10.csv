@@ -6,3 +6,4 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-10-01T08:24:31Z,mofa_press,manual_required,44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a,,,
 2026-10-01T13:27:26Z,ofac_sdn,review_required,5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,"Wed, 30 Sep 2026 14:05:05 GMT",89710,
 2026-10-01T13:27:26Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,
+2026-10-01T13:49:53Z,mof,changed,99abe1f87f5caaa5067db9b4acbb81a41ec8227178467f1863fea47db2e15af5,令和8年10月2日,14959,data/raw/mof/20261001T134952Z__shisantouketsu20261002.csv.gz

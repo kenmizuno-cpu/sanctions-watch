@@ -1,32 +1,30 @@
 # 制裁リスト差分レポート
 
-## OFAC　追加 26 / 削除 0 / 変更 0
+## 財務省　追加 8 / 削除 6 / 変更 1
 
 ### 追加
-- `Rivas Nunez Juan Gabriel` — 制裁リスト（OFAC：SDN）
-- `Rivas Nuñez Juan Gabriel` — 制裁リスト（OFAC：SDN）
-- `Aponte Rodriguez Wilson Starling` — 制裁リスト（OFAC：SDN）
-- `Aponte Rodriguez Wilson Stalyn` — 制裁リスト（OFAC：SDN）
-- `CANELON AGUIRRE Anibal Alexander` — 制裁リスト（OFAC：SDN）
-- `Martinez Armenta Carlos Javier` — 制裁リスト（OFAC：SDN）
-- `Mejia Castillo Alejandro` — 制裁リスト（OFAC：SDN）
-- `Galeano Bazurto Jose Dario` — 制裁リスト（OFAC：SDN）
-- `Cardenas Arzola Eric Gabriel` — 制裁リスト（OFAC：SDN）
-- `Martinez Pirona Oscar Leonardo` — 制裁リスト（OFAC：SDN）
-- `Galeano Basurto Aslhy Javier` — 制裁リスト（OFAC：SDN）
-- `Hernandez Guerrero Anthony Wuiliam` — 制裁リスト（OFAC：SDN）
-- `SOLUCIONES INTEGRALES TOLUCA, S.A. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `ENIGMA COMMUNITY, S. DE R.L. DE C.V.` — 制裁リスト（OFAC：SDN）
-- `Enigma Community, Sociedad de Responsabilidad Limitada de Capital Variable` — 制裁リスト（OFAC：SDN）
-- `RIVAS NUNEZ, Juan Gabriel` — 制裁リスト（OFAC：SDN）
-- `CANELON AGUIRRE, Anibal Alexander` — 制裁リスト（OFAC：SDN）
-- `MARTINEZ ARMENTA, Carlos Javier` — 制裁リスト（OFAC：SDN）
-- `MEJIA CASTILLO, Alejandro` — 制裁リスト（OFAC：SDN）
-- `GALEANO BAZURTO, Jose Dario` — 制裁リスト（OFAC：SDN）
-- `CARDENAS ARZOLA, Eric Gabriel` — 制裁リスト（OFAC：SDN）
-- `MARTINEZ PIRONA, Oscar Leonardo` — 制裁リスト（OFAC：SDN）
-- `GALEANO BASURTO, Aslhy Javier` — 制裁リスト（OFAC：SDN）
-- `HERNANDEZ GUERRERO, Anthony Wuiliam` — 制裁リスト（OFAC：SDN）
-- `APONTE RODRIGUEZ, Wilson Starling` — 制裁リスト（OFAC：SDN）
-- `APONTE RODRIGUEZ, Wilson Stalyn` — 制裁リスト（OFAC：SDN）
+- `カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ)` — 制裁リスト（財務省：タリバーン関係者等）
+- `KHATIBA JAMA`AT AL-TAWHID WAL-JIHAD (KTJ)` — 制裁リスト（財務省：タリバーン関係者等）
+- `ジャマーアト・アル・タウヒード・ワル・ジハード` — 制裁リスト（財務省：タリバーン関係者等）
+- `Katiba al-Tawhid wal-Jihad` — 制裁リスト（財務省：タリバーン関係者等）
+- `Катиба Джамаат ат-Таухид валь-Джихад` — 制裁リスト（財務省：タリバーン関係者等）
+- `جماعة التوحيد والجهاد` — 制裁リスト（財務省：タリバーン関係者等）
+- `كتيبة التوحيد والجهاد` — 制裁リスト（財務省：タリバーン関係者等）
+- `Federal State Unitary Enterprise RFNC-All-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin` — 制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+
+### 掲載終了（行は無効化して残す）
+- `Federal State Unitary Enterprise RFNC-A11-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin` — 無効
+- `KHATIBA AL-TAWHID WAL-JIHAD` — 有効
+- `KTJ` — 無効
+- `MATERO ANDRES DUQUE BOTERO` — 無効
+- `Катиба ат-Таухид валь-Джихад` — 無効
+- `ジャマーアート・アル・タウヒード・ワル・ジハード` — 無効
+
+### 変更
+#### `Mateo Andres Duque Botero`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:スーダン |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：スーダン／OFAC：SDN） |
 

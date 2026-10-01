@@ -4,6 +4,33 @@
 2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,Maraya,制裁リスト（OFAC：SDN）; FixedRef=28301; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Safari Club,制裁リスト（OFAC：SDN）; FixedRef=21264; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Olenga Francois,制裁リスト（OFAC：SDN）; FixedRef=21263; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-01 22:49:59,財務省,管理情報改訂（告示日付）,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),2022.3.8,2022.3.8 2026.10.2改訂
+2026-10-01 22:49:59,財務省,情報改訂（氏名（日本語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),カティーバ・アル・タウヒード・ワル・ジハード,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ)
+2026-10-01 22:49:59,財務省,情報改訂（氏名（英語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),KHATIBA AL-TAWHID WAL-JIHAD,KHATIBA JAMA`AT AL-TAWHID WAL-JIHAD (KTJ)
+2026-10-01 22:49:59,財務省,情報改訂（別名・別称（日本語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),KTJ; ジャナット・オシクラリ; ジャマーアート・アル・タウヒード・ワル・ジハード,ジャナット・オシクラリ； ジャマーアト・アル・タウヒード・ワル・ジハード； カティーバ・アル・タウヒード・ワル・ジハード
+2026-10-01 22:49:59,財務省,情報改訂（別名・別称（英語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),KTJ; JANNAT OSHIKLARI; Jama`at al-Tawhid wal-Jihad,JANNAT OSHIKLARI; Jama`at al-Tawhid wal-Jihad` ; Katiba al-Tawhid wal-Jihad
+2026-10-01 22:49:59,財務省,情報改訂（旧称（日本語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),ジャナット・オシクラリ,
+2026-10-01 22:49:59,財務省,情報改訂（旧称（英語））,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),JANNAT OSHIKLARI,
+2026-10-01 22:49:59,財務省,情報改訂（国連参照番号）,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),,QDe.168
+2026-10-01 22:49:59,財務省,管理情報改訂（リスト掲載日）,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),2022年3月7日,2022年3月7日（2026年9月28日に改訂）
+2026-10-01 22:49:59,財務省,補足情報改訂（その他の情報）,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),(original script:  Катиба ат-Таухид валь-Джихад)カティーバ・アル・タウヒード・ワル・ジハード (かつてジャナット・オシクラリとして知られていた。)は、国際テロ組織であるレバントの人々のためのアル・ヌスラ戦線（６４４．に指定した団体）の傘下で活動しているテロ組織である。同団体は、主にシリア・アラブ共和国のハマ県、イドリブ県、ラタキア県で活動するが、トルコ、キルギスタン、ウズベキスタン、ロシア連邦、タジキスタン、カザフスタン、エジプト、アフガニスタン、ウクライナでも活動している。KTJの戦闘員数は約500である。KTJは、カティーバ・イマーム・アル・ブハリ（７６３．に指定した団体）及びイスラミック・ジハード・グループ（４６３．に指定した団体）のようなテロ組織とも協力している。同団体に対するインターポール（国際刑事警察機構）・国連安全保障理事会特別手配書のウェブ・リンク：https://www.interpol.int/en/How-we-work/Notices/View-UN-Notices-Entities,(original script: Катиба Джамаат ат-Таухид валь-Джихад)(original script: جماعة التوحيد والجهاد) (original script: كتيبة التوحيد والجهاد)カティーバ・アル・タウヒード・ワル・ジハード（かつてジャナット・オシクラリとして知られていた。）は、国際テロ組織であるレバントの人々のためのアル・ヌスラ戦線（644．に指定していた団体）の傘下で活動しているテロ組織である。同団体は、主にシリア・アラブ共和国のハマ県、イドリブ県、ラタキア県で活動するが、トルコ、キルギス、ウズベキスタン、ロシア連邦、タジキスタン、カザフスタン、エジプト、アフガニスタン、ウクライナでも活動している。KTＪの戦闘員数は約500である。ＫＴＪは、カティーバ・イマーム・アル・ブハリ（763．に指定した団体）及びイスラミック・ジハード・グループ（463．に指定した団体）のようなテロ組織とも協力している。同団体に対するインターポール（国際刑事警察機構）・国連安全保障理事会特別手配書のウェブ・リンク：https://www.interpol.int/en/How-we-work/Notices/View-UN-Notices-Entities
+2026-10-01 22:49:59,財務省,情報改訂（氏名（英語））,マテオ・アンドレス・ドゥケ・ボテロ,MATERO ANDRES DUQUE BOTERO,MATEO ANDRES DUQUE BOTERO
+2026-10-01 22:49:59,財務省,情報改訂（別名・別称（英語））,ロシア連邦原子力センター・ザババヒン全ロシア技術物理学研究所,VNIITF; Zababakhin All-Russia Research Institute of Technical Physics; Chelyabinsk-70; Vserossiysky Nauchno-Issledovatelskiy Institut Tekhnicheskoy Fiziki; RFNC-VNIITF; Kasli Nuclear Weapons Development Center; Zababakhin Institute; Federal State Unitary Enterprise Russian Federal Nuclear Center-Academician E.I. Zababakhin All-Russian Scientific Research Institute of Technical Physics; RFNC - All-Russia Research Institute of Technical Physics named after Academician E.I. Zababakhin; Federal State Unitary Enterprise RFNC-A11-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin; FSUE RFNC-VNIITF named after Akadem. E.I. Zababakhina,VNIITF; Zababakhin All-Russia Research Institute of Technical Physics; Chelyabinsk-70; Vserossiysky Nauchno-Issledovatelskiy Institut Tekhnicheskoy Fiziki; RFNC-VNIITF; Kasli Nuclear Weapons Development Center; Zababakhin Institute; Federal State Unitary Enterprise Russian Federal Nuclear Center-Academician E.I. Zababakhin All-Russian Scientific Research Institute of Technical Physics; RFNC - All-Russia Research Institute of Technical Physics named after Academician E.I. Zababakhin; Federal State Unitary Enterprise RFNC-All-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin; FSUE RFNC-VNIITF named after Akadem. E.I. Zababakhina
+2026-10-01 22:49:53,財務省,追加,カティーバ・ジャマーアト・アル・タウヒード・ワル・ジハード (KTJ),,制裁リスト（財務省：タリバーン関係者等）
+2026-10-01 22:49:53,財務省,追加,KHATIBA JAMA`AT AL-TAWHID WAL-JIHAD (KTJ),,制裁リスト（財務省：タリバーン関係者等）
+2026-10-01 22:49:53,財務省,追加,ジャマーアト・アル・タウヒード・ワル・ジハード,,制裁リスト（財務省：タリバーン関係者等）
+2026-10-01 22:49:53,財務省,追加,Katiba al-Tawhid wal-Jihad,,制裁リスト（財務省：タリバーン関係者等）
+2026-10-01 22:49:53,財務省,追加,Катиба Джамаат ат-Таухид валь-Джихад,,制裁リスト（財務省：タリバーン関係者等）
+2026-10-01 22:49:53,財務省,追加,جماعة التوحيد والجهاد,,制裁リスト（財務省：タリバーン関係者等）
+2026-10-01 22:49:53,財務省,追加,كتيبة التوحيد والجهاد,,制裁リスト（財務省：タリバーン関係者等）
+2026-10-01 22:49:53,財務省,追加,Federal State Unitary Enterprise RFNC-All-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-01 22:49:53,財務省,掲載終了,Federal State Unitary Enterprise RFNC-A11-Russian Research Institute of Technical Physics named after Academician E.I. Zababakhin,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）,制裁リスト
+2026-10-01 22:49:53,財務省,掲載終了,KHATIBA AL-TAWHID WAL-JIHAD,制裁リスト（財務省：タリバーン関係者等／OFAC：SDN）,制裁リスト（OFAC：SDN）
+2026-10-01 22:49:53,財務省,掲載終了,KTJ,制裁リスト（財務省：タリバーン関係者等）,制裁リスト
+2026-10-01 22:49:53,財務省,掲載終了,MATERO ANDRES DUQUE BOTERO,制裁リスト（財務省：スーダン）,制裁リスト
+2026-10-01 22:49:53,財務省,掲載終了,Катиба ат-Таухид валь-Джихад,制裁リスト（財務省：タリバーン関係者等）,制裁リスト
+2026-10-01 22:49:53,財務省,掲載終了,ジャマーアート・アル・タウヒード・ワル・ジハード,制裁リスト（財務省：タリバーン関係者等）,制裁リスト
+2026-10-01 22:49:53,財務省,変更,Mateo Andres Duque Botero,制裁リスト（OFAC：SDN）,制裁リスト（財務省：スーダン／OFAC：SDN）
 2026-10-01 04:27:06,OFAC,追加,Rivas Nunez Juan Gabriel,,制裁リスト（OFAC：SDN）
 2026-10-01 04:27:06,OFAC,追加,Rivas Nuñez Juan Gabriel,,制裁リスト（OFAC：SDN）
 2026-10-01 04:27:06,OFAC,追加,Aponte Rodriguez Wilson Starling,,制裁リスト（OFAC：SDN）
@@ -4972,30 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SCHIAVONE Francesco,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Gill Muhammad Hussein,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Gill Muhammad Hussain,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Wafa Abdul,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ul-Wafa Abu,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,al Wafa Yahya Abu,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Chaudhry Nazir Ahmad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ahmad Nazir,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ahmed Nazir,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ahmed Nazeer,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,QUISPE PALOMINO Victor,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ROMERO RODRIGUEZ Alexis,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BUSTAMANTE JARAMILLO Luis Carlos,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MEDINA DIAZ Herman De Jesus,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Boroday Alexander Yuryevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Бородай Александр Юрьевич,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Borodai Aleksandr,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MESA VALLEJO Juan Carlos,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HERNANDEZ GRISALES Jesus David,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,RAMIREZ GARCIA Freyner Alfonso,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MEDINA CARDONA Rubiel,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,GONZALEZ VASQUEZ Julian Andrey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ROJAS Edinson Rodolfo,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Amhaz Kamel Mohamad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Amhaz Kamel Mohamed,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Amhaz Kamel,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Al-Amhaz Kamel,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Amhaz Kamil,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ibrahim Ayman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ibrahim Ayman Ahmad,,制裁リスト（OFAC：SDN）
