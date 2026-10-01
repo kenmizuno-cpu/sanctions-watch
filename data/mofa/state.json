@@ -1,0 +1,30 @@
+{
+  "baseline_complete": false,
+  "coverage_gap": null,
+  "families": {
+    "mofa_catalog": {
+      "last_manual_check_at": "",
+      "pending_count": 2,
+      "review_count": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "status": "manual_required"
+    },
+    "mofa_press": {
+      "last_manual_check_at": "",
+      "pending_count": 0,
+      "review_count": 0,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "status": "manual_required"
+    }
+  },
+  "last_complete_scan_at": "",
+  "manual": {
+    "import_errors": {},
+    "last_operation_at": "2026-10-01T08:24:31Z",
+    "linked_documents": {}
+  },
+  "mode": "manual",
+  "pending_notices": [],
+  "resources": {},
+  "schema_version": 1
+}
