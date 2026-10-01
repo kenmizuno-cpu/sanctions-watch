@@ -25,6 +25,12 @@ git 差分が効かず「何がどう変わったか」を後から追えなく�
 `.github/actions/run-watch` にまとめてあるので実行ロジックは1箇所。
 同じ concurrency グループに入れてあるので同時 push で競合しない。
 
+OFACはGitHub scheduleの起動遅延に備え、専用GASによる10分間隔の外部監視を
+追加できる。成功から75分で再実行要求、90/150分で独立メール通知する。
+取得失敗の状態は `data/monitoring/ofac_attempt.json` に保存し、失敗時には
+部分更新したmaster/stateをpushしない。**外部タイマーはGAS所有者による設定が必要**。
+[導入手順](docs/ofac-watchdog-setup.md) と `apps_script/OfacWatchdog.gs` を参照。
+
 Public リポジトリ前提。Actions の実行時間が無制限なので毎時でも枠を気にしなくていい。
 元データが全て公開情報なので、マスターを Public に置くこと自体は問題にならないはず。
 

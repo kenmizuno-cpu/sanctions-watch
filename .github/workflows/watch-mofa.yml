@@ -1,7 +1,7 @@
 name: watch-mofa
 on:
   pull_request:
-    paths: ['src/**', 'tests/**', 'apps_script/**', '.github/workflows/watch-mofa.yml', 'README.md']
+    paths: ['src/**', 'tests/**', 'apps_script/**', '.github/actions/run-watch/**', '.github/workflows/watch-ofac.yml', '.github/workflows/watch-mofa.yml', 'README.md']
   workflow_dispatch:
 permissions:
   contents: read
@@ -29,4 +29,5 @@ jobs:
           python -m tests.test_mof_record_diff
           python -m tests.test_mof_re_review
           node --test tests/test_mofa_gas.cjs
+          node --test tests/test_ofac_watchdog.cjs
           git diff --check

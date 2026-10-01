@@ -32,7 +32,12 @@ runs:
     - name: 取得と差分抽出
       id: watch
       shell: bash
-      run: python -m src.watch --sources ${{ inputs.sources }}
+      run: |
+        if [[ "${{ inputs.sources }}" == *ofac* || "${{ inputs.sources }}" == "all" ]]; then
+          python -m src.monitor_attempt --sources ${{ inputs.sources }}
+        else
+          python -m src.watch --sources ${{ inputs.sources }}
+        fi
 
     - name: 財務省 原本レコード差分
       id: mof_record_diff
@@ -139,6 +144,7 @@ runs:
         if-no-files-found: error
 
     - name: 差分を通知
+      id: notify_diff
       if: steps.watch.outputs.has_diff == 'true'
       shell: bash
       env:
@@ -159,7 +165,7 @@ runs:
         EVIDENCE="failure-evidence"
         rm -rf "$EVIDENCE"
 
-        mkdir -p           "$EVIDENCE/data/source_audit"           "$EVIDENCE/data/heartbeat"           "$EVIDENCE/data/dashboard"           "$EVIDENCE/data/raw"
+        mkdir -p           "$EVIDENCE/data/source_audit"           "$EVIDENCE/data/heartbeat"           "$EVIDENCE/data/dashboard"           "$EVIDENCE/data/raw"           "$EVIDENCE/data/monitoring"
 
         {
           echo "captured_at_utc=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
@@ -192,6 +198,10 @@ runs:
 
         if [ -f data/dashboard/status.csv ]; then
           cp -p             data/dashboard/status.csv             "$EVIDENCE/data/dashboard/status.csv"
+        fi
+
+        if [ -f data/monitoring/ofac_attempt.json ]; then
+          cp -p data/monitoring/ofac_attempt.json "$EVIDENCE/data/monitoring/ofac_attempt.json"
         fi
 
         # 今回のrunで新規取得したOFAC rawだけを保存する。
@@ -234,7 +244,13 @@ runs:
         retention-days: 90
         if-no-files-found: error
 
+    - name: OFAC 失敗状態だけをコミット
+      if: failure() && (contains(inputs.sources, 'ofac') || inputs.sources == 'all')
+      shell: bash
+      run: python -m src.persist_monitor_failure
+
     - name: 失敗を通知
+      id: notify_failure
       if: failure()
       shell: bash
       env:
