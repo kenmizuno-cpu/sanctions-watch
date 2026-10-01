@@ -12,6 +12,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
+from typing import Callable
 
 import requests
 
@@ -72,7 +73,9 @@ def sha256(data: bytes) -> str:
 
 
 def fetch(url: str, *, prev: dict | None = None, session: requests.Session | None = None,
-          allow_conditional: bool = True, user_agent: str | None = None) -> Fetched:
+          allow_conditional: bool = True, user_agent: str | None = None,
+          url_validator: Callable[[str], str] | None = None,
+          max_bytes: int | None = None, timeout: int = TIMEOUT) -> Fetched:
     """URL を取得する。prev に前回の etag/last_modified があれば条件付きGETする。
 
     user_agent: 提供元ごとに要求が食い違うため切り替えられるようにしてある。
@@ -90,17 +93,23 @@ def fetch(url: str, *, prev: dict | None = None, session: requests.Session | Non
     request_url = url
     for redirect_count in range(MAX_REDIRECTS + 1):
         _assert_network_url_allowed(request_url)
+        if url_validator is not None:
+            url_validator(request_url)
+        options = {"stream": True} if max_bytes is not None else {}
         r = s.get(
             request_url,
             headers=headers,
-            timeout=TIMEOUT,
+            timeout=timeout,
             allow_redirects=False,
+            **options,
         )
         location = r.headers.get("Location", "")
         if r.status_code not in _REDIRECT_STATUSES or not location:
             break
         if redirect_count >= MAX_REDIRECTS:
             raise NetworkPolicyError("too many redirects")
+        if hasattr(r, "close"):
+            r.close()
         request_url = urljoin(request_url, location)
         _assert_network_url_allowed(request_url)
 
@@ -117,11 +126,30 @@ def fetch(url: str, *, prev: dict | None = None, session: requests.Session | Non
             headers=dict(r.headers),
         )
 
-    r.raise_for_status()
+    try:
+        r.raise_for_status()
+        if max_bytes is None:
+            body = r.content
+        else:
+            if max_bytes <= 0:
+                raise ValueError("max_bytes must be positive")
+            length = r.headers.get("Content-Length", "")
+            if length and int(length) > max_bytes:
+                raise ValueError("response exceeds size limit")
+            chunks, size = [], 0
+            for chunk in r.iter_content(chunk_size=65536):
+                size += len(chunk)
+                if size > max_bytes:
+                    raise ValueError("response exceeds size limit")
+                chunks.append(chunk)
+            body = b"".join(chunks)
+    finally:
+        if max_bytes is not None:
+            r.close()
     return Fetched(
         url=url,
-        body=r.content,
-        sha256=sha256(r.content),
+        body=body,
+        sha256=sha256(body),
         etag=r.headers.get("ETag", ""),
         last_modified=r.headers.get("Last-Modified", ""),
         filename=_filename_from(url, r.headers),

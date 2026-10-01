@@ -382,3 +382,39 @@ cron を有効にする前に手動で1回流して、差分レポートがこ�
      --confirm-master-before-sha256 "$MASTER_BEFORE_SHA256" \
      --confirm-master-after-sha256 "$MASTER_AFTER_SHA256"
    ```
+
+## 外務省：Phase 3A 資料監視
+
+現行リスト入口から国連決議1267号等／1373号の二PDFを抽出し、報道発表の当月・前月アーカイブと関連別添を監視する。入口HTMLが304でもPDFは確認する。通信先はHTTPSの外務省二ホストだけで、外部リンクは取得しない。経産省の通信禁止は維持する。
+
+3Aは資料単位の検知・保存・レビューまで。対象者件数は**未解析（空欄）**。`diff_level=document`、`applied=false`を維持し、既存master・OFAC索引・changes・取込名簿を変更しない。資料確認は対象者審査・解除・名簿反映の承認ではない。
+
+```bash
+python -m src.mofa_watch --dry-run --report /tmp/mofa-preview.json
+python -m src.mofa_watch --report /tmp/mofa-result.json
+python -m src.mofa_documents review --event-id ID --source-hash SHA256 --reviewer NAME --at '2026-10-01T12:00:00+09:00' --note '資料内容確認'
+python -m src.mofa_documents cancel --event-id ID --source-hash SHA256 --reviewer NAME --at '2026-10-01T12:00:00+09:00' --note '確認対象外の理由'
+```
+
+確認はイベントIDと原本ハッシュに固定する。同じ資料の再確認は候補を増やさず、A→B→Aの再差し替えは別イベントを残す。内容ハッシュによる原本を`data/raw/mofa/`に保存し、3Aでは削除しない。現在状態は`data/mofa/state.json`、履歴は`events.csv`、レビューは`data/review/mofa_document_queue.csv`。レビュー・取消では状態・キュー・表示CSVを同一世代で保存する。取得監査は保存失敗時にも残る。捕捉可能なI/O例外時のrollbackを保証し、SIGKILLや電源断の完全原子性は保証しない。
+
+新規発表本文は1回最大30件。初回の過去31日分は既存資料として扱い、未処理があれば「確認中」。関連発表は31日間と未解消期間に再確認する。それより古い解消済み発表の改訂は監視範囲外。失敗・構造異常は正常表示にしない。最終成功から30分超は警告、60分超は重大。公表日が日付精度のため分単位の検知遅延を算出しない。
+
+未確認期間は`COVERAGE_GAP`として表示する。欠けた最初の月から公式アーカイブを確認するか、理由付き運用判断を残す。履歴は消さない。
+
+```bash
+python -m src.mofa_watch --from-month 2026-07 --report /tmp/mofa-recovery.json
+python -m src.mofa_documents coverage-ack --reviewer NAME --at '2026-10-01T12:00:00+09:00' --note '未確認期間に関する判断と理由'
+```
+
+### 導入の順序
+
+1. コードレビュー・PR検証後にmainへ統合する。`MOFA_MONITOR_ENABLED`は未設定または`false`のままにする。
+2. `watch-mofa`を`persist_state=false`で実行し、artifactのURL・HTTP・原本・候補を確認する。
+3. mainで`persist_state=true`を手動実行する。初回は上限30件なので`baseline_complete=true`、未処理0になるまで繰り返す。初回候補を新規指定に数えない。
+4. `data/dashboard/mofa_documents.csv`が取得可能になった後、稼働GASが`VERSION=0.4.1`であることを照合し退避する。`apps_script/Code.gs`へ置換し、`Mofa.gs`を追加する。既存onOpen/syncAll/scheduledSyncAllを重複させない。実装は0.4.2。
+5. 手動同期で六系統、`10_外務省資料`、既存`08_最新差分`・`09_再審査分`・自動同期表示を確認する。メモはイベントIDで保持し、公式レビューはGitHub CLIで行う。GASのメモは名簿承認に接続しない。
+6. repo変数`MOFA_MONITOR_ENABLED=true`で15分間隔（11/26/41/56分）の監視を有効化する。定期Actionsの両系統最終成功・heartbeatとSheets定期同期を確認して運用開始とする。
+7. 停止は同変数を`false`へ変更する。原本・履歴を消さない。
+
+PRは読取権限・オフライン検証のみ。プレビューも読取専用。永続化はmain限定で既存監視と共有concurrencyにより直列化し、許可パスだけをcommitする。失敗時も監査保存とartifact収集を実行し、最終結果は失敗になる。

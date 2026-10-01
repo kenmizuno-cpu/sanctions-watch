@@ -1548,15 +1548,15 @@ def test_dashboard() -> None:
         check("status の見出し", rows[0], D.STATUS_COLS)
 
         # status.csv は今回実行したソースだけではなく、
-        # 全4監視対象を常時固定表示する。
+        # 全6監視対象を常時固定表示する。
         by_source = {r[0]: r for r in rows[1:]}
 
         check(
-            "status は全4ソースを常時表示",
+            "status は全6ソースを常時表示",
             set(by_source),
-            {"財務省", "経済産業省", "OFAC SDN", "OFAC Consolidated"},
+            {"財務省", "経済産業省", "OFAC SDN", "OFAC Consolidated", "外務省（現行リスト）", "外務省（報道発表）"},
         )
-        check("status は4行", len(rows) - 1, 4)
+        check("status は6行", len(rows) - 1, 6)
 
         ofac_row = by_source["OFAC SDN"]
         check("出所が日本語ラベル", ofac_row[0], "OFAC SDN")

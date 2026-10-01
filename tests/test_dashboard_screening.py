@@ -479,6 +479,8 @@ class DashboardManualLifecycleTest(unittest.TestCase):
                             "経済産業省",
                             "OFAC SDN",
                             "OFAC Consolidated",
+                            "外務省（現行リスト）",
+                            "外務省（報道発表）",
                         ],
                     )
                     meti = next(row for row in rows if row[0] == "経済産業省")

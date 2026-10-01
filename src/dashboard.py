@@ -56,6 +56,8 @@ SOURCE_LABEL = {
     "meti": "経済産業省",
     "ofac_sdn": "OFAC SDN",
     "ofac_cons": "OFAC Consolidated",
+    "mofa_catalog": "外務省（現行リスト）",
+    "mofa_press": "外務省（報道発表）",
 }
 
 STATUS_LABEL = {
@@ -232,6 +234,7 @@ def build_status_rows(
     *,
     now: datetime | None = None,
     meti_state: dict | None = None,
+    mofa_state: dict | None = None,
 ) -> list[list[str]]:
     """全監視ソースの現在状態を固定順で投影する。"""
 
@@ -263,10 +266,25 @@ def build_status_rows(
     if meti_state is None:
         meti_state = _load_meti_manual_state(root)
 
+    if mofa_state is None:
+        mofa_path = root / 'data/mofa/state.json'
+        if mofa_path.exists():
+            from .mofa_documents import load_bundle
+            mofa_state = load_bundle(root)[0]
+        else:
+            mofa_state = {}
     rows: list[list[str]] = []
 
     # 順序を毎回固定する。
     for key, source_label in SOURCE_LABEL.items():
+        if key.startswith('mofa_'):
+            family = (mofa_state or {}).get('families', {}).get(key, {})
+            label = {'unchanged': '変更なし', 'document_updated': '資料更新・要レビュー',
+                     'checking': '確認中', 'COVERAGE_GAP': '未確認期間あり',
+                     'schema_changed': '構造異常', 'error': 'エラー'}.get(family.get('status'), '未確認')
+            rows.append([source_label, label, _jst(family.get('last_success_at', '')),
+                         _jst(family.get('last_document_change_at', '')), '', family.get('sha256', '')[:12]])
+            continue
         entry = latest.get(key, {})
         previous_state = st.get(key, {})
         manual_active = (
@@ -862,3 +880,17 @@ def write_screening_gzip(root: Path, rows) -> Path:
                 )
 
     return gz_path
+
+
+MOFA_DOCUMENT_COLS = ['資料イベントID', '検知日時', '資料区分', 'タイトル', '公表日', '公表日時精度', '検知理由', '取得状態', 'レビュー状態', '発表URL', '資料URL', 'SHA256', '原本']
+
+def build_mofa_document_rows(queue: list[dict]) -> list[list[str]]:
+    keys = ['event_id','checked_at','role','title','publication_date','publication_precision','reason','fetch_status','review_status','notice_url','url','source_hash','raw_path']
+    return [[_jst(row.get(k,'')) if k=='checked_at' else row.get(k,'') for k in keys]
+            for row in queue if row.get('review_status') not in {'REVIEWED_DOCUMENT','CANCELLED_DOCUMENT'}]
+
+def write_mofa_document_rows(path: Path, rows: list[list[str]]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('w',encoding='utf-8',newline='') as f:
+        w=csv.writer(f,lineterminator='\n'); w.writerow(MOFA_DOCUMENT_COLS); w.writerows(rows)
+    return path
