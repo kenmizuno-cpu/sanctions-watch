@@ -1,12 +1,12 @@
 {
-  "started_at": "2026-10-02T12:45:53Z",
-  "finished_at": "2026-10-02T12:46:02Z",
+  "started_at": "2026-10-02T18:29:32Z",
+  "finished_at": "2026-10-02T18:29:55Z",
   "outcome": "success",
   "exit_code": 0,
   "sources": [
     "ofac"
   ],
-  "run_id": "37008617611",
+  "run_id": "37047712956",
   "run_attempt": "1",
-  "run_url": "https://github.com/kenmizuno-cpu/sanctions-watch/actions/runs/37008617611"
+  "run_url": "https://github.com/kenmizuno-cpu/sanctions-watch/actions/runs/37047712956"
 }
