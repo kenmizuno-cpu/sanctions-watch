@@ -162,10 +162,38 @@ def save_bundle(root,state,events,queue,extra_writes=None):
             FileWrite(root/QUEUE_PATH,lambda p:p.write_bytes(_csv_bytes(queue,QUEUE_COLS)))]
     atomic_replace_many(writes+(extra_writes or []))
 
-def _projection_writes(root,state,queue):
-    from .dashboard import build_mofa_document_rows,write_mofa_document_rows,build_status_rows,write_status_rows
+def _document_status_rows(root, state):
+    from .dashboard import build_status_rows, STATUS_COLS, SOURCE_LABEL
     from .state import load_state
-    return [FileWrite(root/'data/dashboard/mofa_documents.csv',lambda p:write_mofa_document_rows(p,build_mofa_document_rows(queue))),FileWrite(root/'data/dashboard/status.csv',lambda p:write_status_rows(p,build_status_rows(root,[],load_state(root),mofa_state=state)))]
+    rows = build_status_rows(root, [], load_state(root), mofa_state=state)
+    path = root / 'data/dashboard/status.csv'
+    if not path.exists():
+        return rows
+    with path.open(encoding='utf-8', newline='') as stream:
+        saved = list(csv.reader(stream))
+    if not saved or saved[0] != STATUS_COLS:
+        raise DocumentStateError('invalid existing dashboard status columns')
+    known = set(SOURCE_LABEL.values())
+    other = {label for key, label in SOURCE_LABEL.items() if not key.startswith('mofa_')}
+    seen = set()
+    preserved = {}
+    for row in saved[1:]:
+        if len(row) != len(STATUS_COLS) or row[0] not in known or row[0] in seen:
+            raise DocumentStateError('invalid or duplicate dashboard source row')
+        seen.add(row[0])
+        if row[0] in other:
+            preserved[row[0]] = row
+    if set(preserved) != other:
+        raise DocumentStateError('other source dashboard observation is missing')
+    return [preserved.get(row[0], row) for row in rows]
+
+def _projection_writes(root,state,queue):
+    from .dashboard import build_mofa_document_rows,write_mofa_document_rows,write_status_rows
+    if state.get('mode') == 'manual':
+        from .mofa_manual import refresh_status
+        refresh_status(state, queue)
+    status_rows = _document_status_rows(root, state)
+    return [FileWrite(root/'data/dashboard/mofa_documents.csv',lambda p:write_mofa_document_rows(p,build_mofa_document_rows(queue))),FileWrite(root/'data/dashboard/status.csv',lambda p:write_status_rows(p,status_rows))]
 
 def review_document(root: Path,*,event_id: str,source_hash: str,reviewer: str,when: datetime,note: str,cancel: bool=False):
     t=stamp(when)
