@@ -228,7 +228,8 @@ def import_file(root: Path, *, file: Path, role: str, source_url: str, operator:
         with tempfile.TemporaryDirectory(prefix='mofa-manual-preview-') as temp:
             clone = Path(temp)
             for rel in ['data/mofa', 'data/review/mofa_document_queue.csv', 'data/raw/mofa',
-                        'data/heartbeat', 'data/source_audit', 'data/state.json', 'data/manual/meti']:
+                        'data/heartbeat', 'data/source_audit', 'data/state.json', 'data/manual/meti',
+                        'data/dashboard/status.csv']:
                 p = root / rel
                 if p.exists():
                     target = clone / rel

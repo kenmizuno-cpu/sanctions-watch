@@ -3,11 +3,12 @@
   "coverage_gap": null,
   "families": {
     "mofa_catalog": {
+      "last_document_change_at": "2026-10-02T04:55:50Z",
       "last_manual_check_at": "",
-      "pending_count": 2,
-      "review_count": 0,
-      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-      "status": "manual_required"
+      "pending_count": 0,
+      "review_count": 2,
+      "sha256": "6004c62d15dcb76b92cc3bcbeafe6dc52c8895dd222643933d78119d58e0b74d",
+      "status": "manual_review"
     },
     "mofa_press": {
       "last_manual_check_at": "",
@@ -20,11 +21,58 @@
   "last_complete_scan_at": "",
   "manual": {
     "import_errors": {},
-    "last_operation_at": "2026-10-01T08:24:31Z",
+    "last_operation_at": "2026-10-02T04:55:50Z",
     "linked_documents": {}
   },
   "mode": "manual",
   "pending_notices": [],
-  "resources": {},
+  "resources": {
+    "current_1373": {
+      "acquisition_method": "manual_browser",
+      "available": true,
+      "baseline": true,
+      "etag": "",
+      "first_seen": "2026-10-02T04:55:50Z",
+      "key": "current_1373",
+      "last_attempt_at": "2026-10-02T04:55:50Z",
+      "last_modified": "",
+      "last_result": "document_updated",
+      "last_success_at": "2026-10-02T04:55:50Z",
+      "manual_note": "2026-10-02にChatGPTへ添付した公式原本をローカルで初回取込。サイト全体の人的確認および資料レビューは未実施。",
+      "manual_operator": "kenmizuno-cpu",
+      "notice_url": "https://www.mofa.go.jp/mofaj/gaiko/terro/kyoryoku_05.html",
+      "observation_head": "a4696ad490b4e852bf0daeee162eb9480986fc527e66deaffcd0fdaa452d6c5a",
+      "publication_date": "",
+      "publication_precision": "",
+      "raw_path": "data/raw/mofa/6df97c2058ad83f1bc7d79c4be28955bdf76e57b068e93fcf080824e6e3b1f68.pdf.gz",
+      "role": "current_pdf",
+      "sha256": "6df97c2058ad83f1bc7d79c4be28955bdf76e57b068e93fcf080824e6e3b1f68",
+      "title": "国連決議1373号",
+      "url": "https://www.mofa.go.jp/mofaj/files/100037860.pdf"
+    },
+    "current_un": {
+      "acquisition_method": "manual_browser",
+      "available": true,
+      "baseline": true,
+      "etag": "",
+      "first_seen": "2026-10-02T04:55:50Z",
+      "key": "current_un",
+      "last_attempt_at": "2026-10-02T04:55:50Z",
+      "last_modified": "",
+      "last_result": "document_updated",
+      "last_success_at": "2026-10-02T04:55:50Z",
+      "manual_note": "2026-10-02にChatGPTへ添付した公式原本をローカルで初回取込。サイト全体の人的確認および資料レビューは未実施。",
+      "manual_operator": "kenmizuno-cpu",
+      "notice_url": "https://www.mofa.go.jp/mofaj/gaiko/terro/kyoryoku_05.html",
+      "observation_head": "22a2c113a3b63bf4a354c2e0d4206483d4f4a45e6690fb486438007fa004c7c7",
+      "publication_date": "",
+      "publication_precision": "",
+      "raw_path": "data/raw/mofa/126adf153bd520671b9de87b006de3863ebbbb907b1b3625168cdef117f4a794.pdf.gz",
+      "role": "current_pdf",
+      "sha256": "126adf153bd520671b9de87b006de3863ebbbb907b1b3625168cdef117f4a794",
+      "title": "国連決議1267号等",
+      "url": "https://www.mofa.go.jp/mofaj/files/000015952.pdf"
+    }
+  },
   "schema_version": 1
 }
