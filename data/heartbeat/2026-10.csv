@@ -18,3 +18,5 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-10-02T04:55:50Z,mofa_press,manual_required,44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a,,,
 2026-10-02T04:55:50Z,mofa_catalog,manual_review,6004c62d15dcb76b92cc3bcbeafe6dc52c8895dd222643933d78119d58e0b74d,2026-10-02T04:55:50Z,,
 2026-10-02T04:55:50Z,mofa_press,manual_required,44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a,,,
+2026-10-02T05:47:47Z,ofac_sdn,review_required,302ac5948298d82165e7c7211dfa623a404b2ef936749e598007cbc366611e41,"Thu, 01 Oct 2026 16:36:11 GMT",89824,
+2026-10-02T05:47:47Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,
