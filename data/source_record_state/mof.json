@@ -1,21 +1,21 @@
 {
-  "processed_raw": "data/raw/mof/20261001T134952Z__shisantouketsu20261002.csv.gz",
-  "processed_content_sha256": "99abe1f87f5caaa5067db9b4acbb81a41ec8227178467f1863fea47db2e15af5",
-  "processed_at": "2026-10-01 22:49:59+0900",
-  "record_count": 2850,
+  "processed_raw": "data/raw/mof/20261002T130516Z__shisantouketsu20261002.csv.gz",
+  "processed_content_sha256": "a20b1b4a428e7ce2414b860962c2ea6895c9389bbbc1826cb60ec6acd3d8c732",
+  "processed_at": "2026-10-02 22:05:23+0900",
+  "record_count": 2892,
   "last_diff": {
     "source_changed": true,
     "material_changed": true,
-    "added": 0,
+    "added": 42,
     "removed": 0,
-    "amended": 3,
-    "raw_amended": 3,
-    "field_changes": 12,
-    "raw_field_changes": 15,
+    "amended": 0,
+    "raw_amended": 0,
+    "field_changes": 0,
+    "raw_field_changes": 0,
     "cosmetic_changes": 0,
-    "aggregate_changes": 3,
+    "aggregate_changes": 0,
     "structure_changes": 0,
-    "dashboard_rows": 12,
+    "dashboard_rows": 0,
     "transitions": 1
   }
 }

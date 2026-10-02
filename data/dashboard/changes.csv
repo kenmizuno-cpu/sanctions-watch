@@ -4,6 +4,287 @@
 2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,Maraya,制裁リスト（OFAC：SDN）; FixedRef=28301; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Safari Club,制裁リスト（OFAC：SDN）; FixedRef=21264; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Olenga Francois,制裁リスト（OFAC：SDN）; FixedRef=21263; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-02 22:05:17,財務省,追加,カルーガ・リサーチ・インスティテュート・オブ・ラジオ・エンジニアリング株式会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社KNIRTI,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社カルーガ無線工学高等教育学術研究所,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社無線工学カルーガ・リサーチ・インスティテュート,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Kaluga Research Institute of Radio Engineering,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC KNIRTI,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社学術生産企業プレシジョン・システムズ・アンド・インストルメンツ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,科学産業企業精密インストルメント・システムズ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社精密機器製造システム・コーポレーション,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社NPK SPP,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社RPC PSI,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社学術生産企業高精度機器システムズ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Research and Production Corporation Precision Instrumentation Systems,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC NPK SPP,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社UEC・STAR,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社ODKスター,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Joint Stock Company ODK-Star,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社プラストマス・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社プラツマス・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Plastmass Plant,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,フェデラル・ステート・エンタープライズ・カメンスキー・コンバイン,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,連邦企業コンビナート・カメンスキー,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,コンビナート・カメンスキーFKP,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,コンビナート・カメンスキー,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,連邦国家企業カーメンスキー・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,FSEカメンスキー・ザヴォド,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Federal State Enterprise Kamensky Plant,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,FSE Kamensky Zavod,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,TSKヴェクトル有限会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社TSKヴェクトル,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社TSKベクトル,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社TSKベクター,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,OOO TSK Vektor,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,LLC TSK Vektor,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,アラブガ・デベロップメント有限会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社トゥーラ・マシン・ビルディング・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,トゥラマシュザヴォド・プロダクション・アソシエーション,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社トゥーラ機械製造プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Tula Machine Building Plant,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Tulamashzavod,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社ドレイク,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社ウラルドローンザヴォド,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,ウラルドローンザヴォド,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,UralDronZavod,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社コロメンスキー工場,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社コロメンスキー・ザヴォド,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社コロムナ・ロコモティブ・ワークス,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Kolomensky Zavod,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Kolomna Locomotive Works,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社航空機器・飛行場設備メンテナンス・ベース,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社航空機器・飛行場設備修繕用修理基地,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社REMBAZA,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,FL株式会社REMBAZA,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社リペア・ベース・フォー・リペア・オブ・エアクラフト・インストルメンツ・アンド・アエロドローム・イクイップメント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Joint Stock Company Repair Base for Repair of Aircraft Instruments and Aerodrome Equipment,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC REMBAZA,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社学術生産企業プラント・イスクラ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社学術生産企業工場イスクラ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社リサーチ・アンド・プロダクション・エンタープライズ・プラント・イスクラ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,NPPプラント・イスクラ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社NPPザヴォド・イスクラ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社学術生産企業ザヴォド・イスクラ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社NPPイスクラ・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,リサーチ・アンド・プロダクション会社イスクラ・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,RPEイスクラ・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC NPP Iskra Plant,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Research and Production Enterprise Iskra Plant,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,RPE Iskra Plant,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社アエロエレクトロマシュ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社アエロエレクトロマク,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Aeroelektromash,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Aeroelectromach,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社モトヴィリチャ・プランツ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,公共株式会社モトヴィリヒンスキエ・ザヴォディ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,PJSC Motovilikhinskiye Zavody,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社セロフ・メカニカル・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社SMZ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社 SMP,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC SMP,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社ヴォエントルグ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社ヴァエントルグ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Voentorg,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,共同持株会社バルナウルトランスマシュ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,公開株式会社バルナウルトランスマシュ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,OJSC Barnaultransmash,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社学術生産連合体オリオン,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,オリオン・リサーチ・アンド・プロダクション・アソシエーション,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,エンタープライズ・リサーチ・デベロップメント・アンド・プロダクション・センター・オリオン,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社NPOオリオン,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,オリオン学術生産団体,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Joint Stock Company NPO Orion,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Orion Scientific Production Association,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社アラブガ・マシナリー,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社CSPAレニネッツ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,公共株式会社 CSPAレニネッツ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社中央学術生産団体レニネッツ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,公共株式会社中央学術生産団体レニネッツ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,公共株式会社NPOレニネツ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Public Joint Stock company Central Scientific and Production Association Leninetz,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,PJSC CSPA LENINETS,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,PJSC NPO LENINETZ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社53アーセナル,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,53アーセナル公共株式会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,AO 53 Arsenal,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社エリアーズ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社エリアルス,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,LLC Eliars,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社ヴォスクレセンスキー・アグリゲーション工場,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社VAF,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,ヴォスクレセンスキー・アグレガート・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社ヴォスクレセンスキー・アグリゲーション・ファクトリー,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,連邦国家企業ヴォスクレセンスク・ステート・アグリゲート・プラント,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,FKP VGKAZ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Voskresensky Aggregation Factory,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Federal State Enterprise Voskresensk State Aggregate Plant,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,オコ・デザイン・ビュロー,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,オコ設計局,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,非公開株式会社インダストリアル・テクノロジーズ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社プロムテフ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,プロムテク株式会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,プロムテック株式会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,産業技術株式会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Promtech Joint Stock Company,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Promtech JSC,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Industrial Technologies Joint Stock Company,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,兵器技術開発製造基金ロバエフ基金,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,兵器開発製造技術民間慈善基金ロバエフ・チャリタブル・ファンデーション,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,ロバエフ基金,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Lobaev Foundation,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,公開株式会社ノヴォヴャトカ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,ノヴォ・ヴャトカ公開株式会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社ノヴォビャトカ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社ノヴォビヤトカ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,メカニカル・プラント・ノヴォヴャトカ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Joint Stock Company Novo-Vyatka,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Novo-Vyatka,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Novo-Viatka,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Mechanical Plant Novo-Vyatka,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社アステイス,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社アステーズ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社アステイズ,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社アスタイス,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Asteis,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Astais,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,株式会社モリオン,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,Joint Stock Company Morion,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,モリオン株式会社,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,JSC Morion,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社トリミックス,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,3MX,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社3MKH,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社トリミクス,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,有限会社3MX,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,LLC TRIMIX,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,LLC 3MX,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,ガランテクス・ヨーロッパOU,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,ガランテックス,,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))）
+2026-10-02 22:05:17,財務省,追加,ヴラジスラフ・コスチン,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Vladislav Kostin,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,アルチョム・ヤムシコフ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Artem Yamshchikov,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,ドミートリー・レリコフ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Dmitry Lelikov,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Dmitriy Lelikov,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,ヴァシーリー・ブロフコ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Vasily Brovko,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Vasly Brovko,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Vasiliy Brovko,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,イーゴリ・ホメンコ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Igor Khomenko,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,セルゲイ・ウシュコ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Sergei Ushko,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,ヴラジスラフ・ロバエフ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Vladislav Lobaev,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,アレクサンドル・スィチュゴフ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Aleksandr Sychugov,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,アレクサンドル・ザハロフ,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Aleksandr Zakharov,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,追加,Alexander Zakharov,,制裁リスト（財務省：ロシア連邦(個人)）
+2026-10-02 22:05:17,財務省,変更,KALUGA RESEARCH INSTITUTE OF RADIO ENGINEERING JSC,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Joint Stock Company KNIRTI,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Joint Stock Company Kaluzhsky Nauchno Issledovatelsky Radiotekhnichesky Higher Education Institution,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY RESEARCH AND PRODUCTION CORPORATION PRECISION SYSTEMS AND INSTRUMENTS,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC Research and Production Corporation Precision Systems and Instruments,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Scientific and Industrial Corporation Precision Instrument Systems,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obshchestvo Nauchno Proizvodstvennaya Korporatsiya Sistemy Pretsizionnogo Priborostroeniya,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO NPK SPP,制裁リスト（OFAC）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC）
+2026-10-02 22:05:17,財務省,変更,JSC RPC PSI,制裁リスト（OFAC）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC）
+2026-10-02 22:05:17,財務省,変更,株式会社STAR,制裁リスト（経産省）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY STAR,制裁リスト（経産省／OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC UEC Star,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO ODK-STAR,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC STAR,制裁リスト（経産省）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY PLASTMASS PLANT,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,株式会社VNIIR プログレス,制裁リスト（経産省）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY VNIIR PROGRESS,制裁リスト（経産省／OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC VNIIR PROGRESS,制裁リスト（経産省／OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,FEDERAL STATE ENTERPRISE KAMENSKY COMBINE,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Federalnoe Kazennoe Predpriyatie Kombinat Kamenski,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Kombinat Kamenski FKP,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Kombinat Kamenskii,制裁リスト（OFAC）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC）
+2026-10-02 22:05:17,財務省,変更,"TSK VEKTOR, OOO",制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Obshchestvo S Ogranichennoi Otvetstvennostyu TSK Vektor,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,ALABUGA DEVELOPMENT OOO,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,有限会社アラブガ・デベロップメント,制裁リスト（経産省）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省）
+2026-10-02 22:05:17,財務省,変更,OBSHCHESTVO S OGRANICHENNOI OTVETSTVENNOSTYU ALABUGA DEVELOPMENT,制裁リスト（経産省／OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Limited Liability Company Alabuga Development,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,LLC Alabuga Development,制裁リスト（経産省）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY TULA MACHINE BUILDING PLANT,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,株式会社トゥラマシュザヴォド,制裁リスト（経産省）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省）
+2026-10-02 22:05:17,財務省,変更,株式会社トゥーラ機械製造工場,制裁リスト（令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,Joint Stock Company Tulamashzavod,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO Tulskiy Mashinostroitelniy Zavod,制裁リスト（OFAC：SDN／令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obshchestvo Aktsionernaia Kompaniia Tulamashzavod,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Tulamashzavod Production Association,制裁リスト（OFAC：SDN／令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,LIMITED LIABILITY COMPANY DRAKE,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,LLC Drake,制裁リスト（OFAC）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC）
+2026-10-02 22:05:17,財務省,変更,Limited Liability Company Dreyk,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,LIMITED LIABILITY COMPANY URALDRONZAVOD,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY KOLOMENSKY ZAVOD,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO Kolomenski Zavod,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY MAINTENANCE BASE OF AIRCRAFT INSTRUMENTS AND AERODROME EQUIPMENT,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obshchestvo Remontnaia Baza Po Remontu Aviatsionnykh Priborov I Aerodromnoi Tekhniki,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO Rembaza,制裁リスト（OFAC）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC）
+2026-10-02 22:05:17,財務省,変更,FL AO Rembaza,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY SCIENTIFIC PRODUCTION ENTERPRISE PLANT ISKRA,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO Nauchno Proizvodstvennoe Predpriyatie Zavod Iskra,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC Research and Production Enterprise Plant Iskra,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,NPP Plant Iskra,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO NPP Zavod Iskra,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obshchestvo Nauchno Proizvodstvennoe Predpriiatie Zavod Iskra,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY AEROELEKTROMASH,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obshchestvo Aeroelektromash,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC Aeroelektromach,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY MOTOVILICHA PLANTS,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,モトヴィリハ工場,制裁リスト（令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,Motovilikhinskie Zavody,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY SEROV MECHANICAL PLANT,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC SMZ,制裁リスト（OFAC）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY VOENTORG,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obshchestvo Voentorg,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK HOLDING COMPANY BARNAULTRANSMASH,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obschestvo Holdingovaya Kompaniya Barnaultransmash,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,株式会社学術生産団体オリオン,制裁リスト（令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,Joint Stock Company Scientific Production Association Orion,制裁リスト（OFAC：SDN／令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,株式会社SPAオリオン,制裁リスト（経産省／令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／経産省／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,AKTSIONERNOE OBSHCHESTVO NAUCHNO PROIZVODSTVENNOE OBEDINENIE ORION,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC SPA Orion,制裁リスト（OFAC：SDN／令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,AO NPO ORION,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Orion Research and Production Association,制裁リスト（OFAC：SDN／令和5年12月15日外為法）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN／令和5年12月15日外為法）
+2026-10-02 22:05:17,財務省,変更,ENTERPRISE RESEARCH DEVELOPMENT AND PRODUCTION CENTER ORION,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,LIMITED LIABILITY COMPANY ALABUGA MACHINERY,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,LLC Alabuga Machinery,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC CSPA LENINETZ,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,PJSC CSPA Leninetz,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Joint Stock Company Central Scientific Production Association Leninetz,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY 53 ARSENAL,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,53 Arsenal PAO,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,LIMITED LIABILITY COMPANY ELIARS,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY VOSKRESENSKY AGGREGATION FACTORY,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC VAF,制裁リスト（OFAC）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC）
+2026-10-02 22:05:17,財務省,変更,Voskresenskiy Aggregate Plant,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,OKO DESIGN BUREAU,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AKTSIONERNOE OBSHCHESTVO PROMYSHLENNYE TEKHNOLOGII,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Closed Joint Stock Company Industrial Technologies,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO Promtekh,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,FUND FOR THE DEVELOPMENT OF WEAPONS TECHNOLOGIES AND PRODUCTION LOBAEV FOUNDATION,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Private Charitable Foundation for the Development of Weapons and Production Technologies Lobaev Charitable Foundation,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,OTKRYTOE AKTSIONERNOE OBSHCHESTVO NOVO-VYATKA,制裁リスト（OFAC：Consolidated、SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：Consolidated、SDN）
+2026-10-02 22:05:17,財務省,変更,NOVO VYATKA OPEN JOINT STOCK COMPANY,制裁リスト（OFAC：Consolidated、SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：Consolidated、SDN）
+2026-10-02 22:05:17,財務省,変更,JOINT STOCK COMPANY ASTEIS,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Aktsionernoe Obshchestvo Asteis,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,JSC Asteys,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,STOCK COMPANY MORION INC,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,AO Morion,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,LIMITED LIABILITY COMPANY TRIMIX,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Obshchestvo S Ogranichennoi Otvetstvennostiu 3MKH,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,GARANTEX EUROPE OU,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Garantex,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(団体(特定銀行を除く))／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Artem Iamshchikov,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(個人)／OFAC：SDN）
+2026-10-02 22:05:17,財務省,変更,Sergey USHKO,制裁リスト（OFAC：SDN）,制裁リスト（財務省：ロシア連邦(個人)／OFAC：SDN）
 2026-10-02 04:36:27,OFAC,追加,A7 Network,,制裁リスト（OFAC：SDN）
 2026-10-02 04:36:27,OFAC,追加,Iran Khodro Company,,制裁リスト（OFAC：SDN）
 2026-10-02 04:36:27,OFAC,追加,شرکت ایران خودرو سهامی علم,,制裁リスト（OFAC：SDN）
@@ -4718,284 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HASSINE Saifallah Ben,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HUSSAYN Sayf Allah bin,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KHATTALAH Ahmed Abu,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BUKHATTALAH Ahmad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,QUMU Abu Sufian Ibrahim Ahmed Hamuda Bin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,QUMU Sufian bin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,QHUMU Sufian bin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KASKAR Shaikh Anis Ibrahim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KASKAR Anees Ibrahim,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-QADULI Abd Al-Rahman Muhammad Mustafa,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SHAYKHLARI 'Abd al-Rahman Muhammad Mustafa,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUSTAFA Umar Muhammad Khalil,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-BAYATI Tahir Muhammad Khalil Mustafa,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-BAYATI Abdul Rahman Muhammad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AHMAD Aliazra Ra'ad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-JUHNI 'Abd Al-Rahman Muhammad Zafir Al-Dubaysi,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-JAHNI 'Abd Al-Rahman Muhammad Zafir al-Dubaysi,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-JAHANI 'Abd Al-Rahman Muhammad Zafir al-Dubaysi,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-JUHANI 'Abd Al-Rahman Muhammad Zafir al-Dubaysi,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ALJAHANI Abdulrhman Mohammed D.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-JAHANI Abd al-Rahman Muhammad Zafir al-Dabisi,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-JAHNI 'Abd al-Rahman Muhammad Thafir,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-JUHANI Abd al-Rahman Muhammad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-SAUDI Abu Wafa,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,NAVARRO CERRANO Victor Ramon,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-NAKHALAH Ziyad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,JAN Saidullah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KHAN Abid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KHAN Saidullah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HAMAS Saidullah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KHAMAS Sayedullah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HAQQANI Yahya,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HAQQANI Yaya,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HAQQANI Yahyah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZADRAN Muhammad Omar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,JADRAN Mohammad-Omar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PUNTI Pere,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SANE Pedro Punti,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CANKO Ali,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MALEKOUTI POUR Hamidreza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MALAKOTIPOUR Hamidreza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MALAKUTIPUR Hamid Reza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MALKOTIPOUR Hamid Reza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MALAKOUTIPOUR Hamid Reza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MAHMOUDI Gholamreza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MAHMUDI Qolam Reza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MAHMOUDI Ghulam Reza Khodrat,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOSARAYANIFARD Pejman Mahmood,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOSARYANI-FARD Pejman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOSARIAN FARD Pejman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CASARYANIFARD Pejman,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOSARAYAN FARD Ali Pejman Mahmud,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOSARIAN Amir,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SEYED ALHOSSEINI Akbar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SEYEDOLHOSEINI Akbar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SAYED ALHOSSEINI Akbar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SAYEDOLHUSSEINI Akbar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SAEED HUSAINI Akbar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SAYYED AL-HOSEINI Akbar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HEMMATI Alireza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SADIKOV Olimzhon Adkhamovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-UZBEKI Jafar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-UZBEK Jaffar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUHIDINOV Jafar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUIDINOV Dilshod Alimovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUIDINOV Djafar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUIDINOV Jafar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AFKHAMI RASHIDI Mahmud,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AFKHAMI RASHIDI Mahmoud,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AFKHAMI RASHIDI Mahmood,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUSAVI Sayyed Kamal,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,JAMALI Sayyed Kamal,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Victor FELIX BELTRAN Manuel,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ISHAQ Malik,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ISHAQ Mohammed,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ISHAQ Malik Mohammed,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,LIMON SANCHEZ Alfonso,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZAKHARCHENKO Vitaliy Yuriyovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,NOMURA Satoru,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TANOUE Fumio,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VALLE VALLE Miguel Arnulfo,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VALLE VALLE Luis Alonso,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VALLE VALLE Jose Reynerio,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YANUKOVYCH Viktor Fedorovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AKSYONOV Sergey Valeryevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AKSYONOV Serhiy Valeryevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AKSYONOV Sergey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AKSYONOV Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AKSYONOV Sergiy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AKSENOV Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TAMADDON Morteza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KONSTANTINOV Vladimir Andreyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ROGOZIN Dmitry Olegovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ROGOZIN Dmitry,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ROGOZIN Dmitriy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MANGOK Marial Chanuong Yol,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHINOUM Marial,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHINUONG Marial,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YOL Marial Chanoung,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SURKOV Vladislav Yurievich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,GLAZYEV Sergey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,GLAZYEV Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Klishas Andrey Aleksandrovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Клишас Андрей Александрович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Klishas Andrei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MATVIYENKO Valentina Ivanovna,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Матвиенко Валентина Ивановна,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Matvienko Valentina,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIZULINA Yelena Borisovna,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Мизулина Елена Борисовна,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIZULINA Elena Borisovna,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Slutsky Leonid Eduardovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Слуцкий Леонид Эдуардович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Slutski Leonid Eduardovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Slutskiy Leonid Eduardovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MEDVEDCHUK Viktor,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,OZEROV Viktor Alekseevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,OZEROV Viktor Alexeyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Dzhabarov Vladimir Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Джабаров Владимир Михайлович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Dzhabarov Vladimir,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Dzhabarov Vladimir Michailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Timchenko Gennady Nikolayevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Тимченко Геннадий Николаевич,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TIMTCHENKO Guennadi,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Timchenko Gennadiy Nikolayevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Timchenko Gennadiy Nikolaevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YAKUNIN Vladimir Ivanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZHELEZNYAK Sergei Vladimirovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZHELEZNYAK Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZHELEZNYAK Sergey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberg Arkady Romanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ротенберг Аркадий Романович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberg Arkadii Romanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberh Arkadii Romanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberh Arkady Romanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberg Arkadiy Romanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberg Arkadii Romanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberg Arkady Romanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIRONOV Sergey Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Миронов Сергей Михайлович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIRONOV Sergei Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberg Boris Romanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ротенберг Борис Романович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rotenberg Borys Romanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BUSHMIN Evgeni Viktorovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BUSHMIN Evgeny,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BUSHMIN Yevgeny,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,RYZHKOV Nikolai Ivanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Рыжков Николай Иванович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Rizhkov Nikolay Ivanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TOTOONOV Aleksandr Borisovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TOTOONOV Alexander B.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TOTOONOV Alexander,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PANTELEEV Oleg Evgenevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PANTELEEV Oleg,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,FURSENKO Andrei Alexandrovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,FURSENKO Andrei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,FURSENKO Andrey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOZHIN Vladimir Igorevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Кожин Владимир Игоревич,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALIY Aleksei Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALIY Aleksey Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALIY Aleksey Mykhaylovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALIY Mikhailovich Oleksiy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALY Aleksey Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALY Alexei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALIY Aleksei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALIY Alexei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALYI Aleksiy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHALYI Aleksei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOVALCHUK Yuri Valentinovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ковалчук Юрий Валентинович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Kovalchuk Yuriy Valentynovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Ковальчук Юрій Валентинович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Kovalchuk Yury Valentinovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SERGUN Igor Dmitrievich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHEMEZOV Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHEMEZOV Sergey Victorovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Chemezov Sergey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,IVANOV Sergei Borisovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Иванов Сергей Борисович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,IVANOV Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,GROMOV Alexei Alexeyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,IVANOV Victor Petrovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,IVANOV Viktor,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,NARYSHKIN Sergey Yevgenyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Нарышкин Сергей Евгениевич,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,NARYSHKIN Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SECHIN Igor Ivanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Сечин Игорь Иванович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Sechin Igor,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BABAKOV Alexander Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Бабаков Александр Михайлович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BABAKOV Aleksandr Mikhailovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BABAKOV Aleksandr Mikhaylovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOZAK Dmitry,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Skoch Andrei Vladimirovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Скоч Андрей Владимирович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Skoch Andrey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PUSHKOV Alexei Konstantinovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Пушков Алексей Константинович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Pushkov Aleksei Konstantinovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BARROS Francisco de Fatima Frederico,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BARROS FREDERICO Lucio Francisco de Fatima,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Volodin Vyacheslav Victorovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Володин Вячеслав Викторович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZIMA Pyotr Anatoliyovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZYMA Petro,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZIMA Petr Anatolyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YANUKOVYCH Oleksandr Viktorovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YANUKOVYCH Aleksandr Viktorovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YANUKOVYCH Olexander,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YANUKOVICH Oleksander,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YANUKOVICH Alexander,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BOZIZE Francois,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,YANGOUVONDA Bozize,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BOZIZE Francois Yangouvonda,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ADAM Noureddine,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ADAM Nourredine,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ADAM Nureldine,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ADAM Nourreldine,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ADAM Nourreddine,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MISKINE Abdoulaye,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOUMTAMADJI Martin Nadingar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,NKOUMTAMADJI Martin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Koumta Madji Martin,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PEREZ OCAMPO German Alberto,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ORTIZ ESPINEL Gustavo Adolfo,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PEREZ OCAMPO Santiago,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ORTIZ ESPINEL Juan Jose,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUROV Evgeniy Alekseyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUROV Yevgeny,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUROV Evgeny,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUROV Yevgeniy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,STAVYTSKY Eduard Anatoliyovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,STAVYTSKYI Eduard,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,STAVYTSKYY Eduard,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ARBUZOV Serhiy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ARBUZOV Serhiy Hennadiyovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ARBUZOV Sergey G.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BARBATO Francesco,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PANARO Nicola,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PANARO Sebastiano,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SCHIAVONE Nicola,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SCHIAVONE Vincenzo,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DJOTODIA Michel,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DJOTODIA Michel Am-Nondroko,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TEMIRGALIEV Rustam Ilmirovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZHEREBTSOV Yuriy Gennadievych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZHEREBTSOV Yuriy Gennadyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZHEREBTSOV Yury,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MEDVEDEV Valery Kirillovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MALYSHEV Mikhail Grigorevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Tsekov Serhiy Pavlovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Цеков Сергей Павлович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Tsekov Sergey Pavlovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Tsekov Sergei,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AZAROV Mykola Yanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AZAROV Mykola Nikolai Yanovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PAKHLO Nikolai Yanovich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KLYUYEV Andriy Petrovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KLIUIEV Andrii Petrovych,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KLYUYEV Andrey,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KLUEV Andriy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KLYUEV Andriy,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BELAVENCEV Oleg Evgenyevich,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BELAVENTSEV Oleg,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORADO Jenny Judith PORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORADO Jeni Judith PORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORADO Jenny Judith,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORADO Jenny Judith ORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORODO Jenny Judith CORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORADO Jenny Uvique PORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORADO Jenny Yudith PORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORADO Jenny Yulith PORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CORANADO Jenny Judith PORTILLO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PORTILLO Jeny Judith CORADO,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KARNER Alenka,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HRIBAR Alenka,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HRIBAK Alenka,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KARNER Matevz,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KOVAC Matevz,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HU Yongan,,制裁リスト（OFAC：SDN）
