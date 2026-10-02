@@ -26,3 +26,4 @@ checked_at,source,status,content_hash,source_updated,record_count,raw_path
 2026-10-02T13:05:17Z,mof,changed,a20b1b4a428e7ce2414b860962c2ea6895c9389bbbc1826cb60ec6acd3d8c732,令和8年10月2日,15241,data/raw/mof/20261002T130516Z__shisantouketsu20261002.csv.gz
 2026-10-02T18:29:49Z,ofac_sdn,review_required,828a8c3c6e3152bdedb31d214607aaef4d48f1ce2a6aa222ca6e1c55328b5017,"Fri, 02 Oct 2026 15:55:46 GMT",89842,data/raw/ofac_sdn_advanced/20261002T182936Z__sdn_advanced.xml.gz
 2026-10-02T18:29:49Z,ofac_cons,unchanged,43033832780a55ed4b3c28291184b60dc63242082c223dd83702a014d5825a65,"Mon, 14 Sep 2026 18:35:48 GMT",3371,
+2026-10-02T22:30:35Z,mof,unchanged,a20b1b4a428e7ce2414b860962c2ea6895c9389bbbc1826cb60ec6acd3d8c732,令和8年10月2日,15241,
