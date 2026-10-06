@@ -1,6 +1,15 @@
 name: watch-crypto
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/watch-crypto.yml
+      - src/crypto_addresses.py
+      - src/crypto_ledger.py
+      - src/crypto_watch.py
+      - tests/test_crypto_*.py
+      - tests/test_crypto_dashboard.cjs
   workflow_run:
     workflows: [watch-ofac]
     types: [completed]
