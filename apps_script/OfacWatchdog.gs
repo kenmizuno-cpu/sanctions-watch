@@ -4,7 +4,7 @@
  * 導入手順: docs/ofac-watchdog-setup.md
  */
 const OFAC_WATCHDOG = Object.freeze({
-  repo: 'kenmizuno-cpu/sanctions-watch',
+  repo: 'kenmizunokuro/sanctions-watch',
   workflow: 'watch-ofac.yml',
   rescueMinutes: 75,
   warningMinutes: 90,

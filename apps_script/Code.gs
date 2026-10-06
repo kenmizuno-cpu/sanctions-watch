@@ -4,7 +4,7 @@ const LOCK_WAIT_MS = 15000;
 const MAX_RETRIES = 2;
 
 const RE_REVIEW_URL =
-  'https://raw.githubusercontent.com/kenmizuno-cpu/sanctions-watch/main/data/dashboard/re_review.csv';
+  'https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/main/data/dashboard/re_review.csv';
 
 const TAB = {
   DASH: '01_監視ダッシュボード',
@@ -51,7 +51,7 @@ const ROW = {
   SEARCH_DATA: 7,
 };
 
-const MOFA_DOCUMENTS_URL = 'https://raw.githubusercontent.com/kenmizuno-cpu/sanctions-watch/main/data/dashboard/mofa_documents.csv';
+const MOFA_DOCUMENTS_URL = 'https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/main/data/dashboard/mofa_documents.csv';
 
 const EXPECTED = {
   mofaDocuments: ['資料イベントID','検知日時','資料区分','タイトル','公表日','公表日時精度','検知理由','取得状態','レビュー状態','発表URL','資料URL','SHA256','原本'],

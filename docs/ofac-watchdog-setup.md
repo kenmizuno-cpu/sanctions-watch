@@ -5,7 +5,7 @@ GitHubのscheduleが起動しない遅延に備え、**専用のGoogle Apps Scri
 ## 有効化（GAS所有者による一度の設定）
 
 1. この変更をmainへ反映する。`watch-ofac`を手動で一度実行し、成功heartbeatを確認する。初回の `data/monitoring/ofac_attempt.json` がまだ存在しなくても外部監視は動く。
-2. GitHubの [fine-grained personal access token設定](https://github.com/settings/personal-access-tokens/new) で対象を `kenmizuno-cpu/sanctions-watch` だけに限定する。Repository permissionsは **Actions: Read and write、Contents: Read-only**。トークンに期限を設定し、更新予定を管理する。トークンはチャット、ソースコード、シートのセルに貼らない。
+2. GitHubの [fine-grained personal access token設定](https://github.com/settings/personal-access-tokens/new) で対象を `kenmizunokuro/sanctions-watch` だけに限定する。Repository permissionsは **Actions: Read and write、Contents: Read-only**。トークンに期限を設定し、更新予定を管理する。トークンはチャット、ソースコード、シートのセルに貼らない。
 3. [Apps Script](https://script.google.com/) で「OFAC外部監視」という新規プロジェクトを作成する。既存ダッシュボードのプロジェクトとは分ける。初期のCode.gsを `apps_script/OfacWatchdog.gs` の全文に置き換える。このファイルだけで動き、既存のCode.gs/Mofa.gsは不要。
 4. プロジェクトの設定 → スクリプトプロパティに以下を追加する。
 
