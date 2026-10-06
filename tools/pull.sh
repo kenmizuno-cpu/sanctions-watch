@@ -4,7 +4,7 @@
 # 内容が変わったときだけ差し替え、macOS の通知を出す。
 set -uo pipefail
 
-REPO="${REPO:-kenmizuno-cpu/sanctions-watch}"
+REPO="${REPO:-kenmizunokuro/sanctions-watch}"
 DEST="${DEST:-$HOME/Desktop/files/sanctions-master}"
 FILES="${FILES:-black_receiver_name_all.xlsx latest.csv}"
 LOG="$DEST/pull.log"

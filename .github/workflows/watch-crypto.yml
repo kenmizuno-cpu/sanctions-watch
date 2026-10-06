@@ -1,0 +1,54 @@
+name: watch-crypto
+
+on:
+  workflow_run:
+    workflows: [watch-ofac]
+    types: [completed]
+    branches: [main]
+  schedule:
+    - cron: '47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sanctions-watch-commit
+  cancel-in-progress: false
+
+jobs:
+  crypto:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: アドレス監視の自己テスト
+        run: |
+          python -m unittest tests.test_crypto_addresses tests.test_crypto_ledger tests.test_crypto_watch
+          node tests/test_crypto_dashboard.cjs
+      - name: 保存済みOFAC原本から収録
+        id: extract
+        run: python -m src.crypto_watch
+      - name: 監視状態と台帳を保存
+        if: always() && steps.extract.outcome != 'skipped'
+        run: |
+          git config user.name 'sanctions-watch[bot]'
+          git config user.email 'sanctions-watch@users.noreply.github.com'
+          git add data/crypto/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'chore(crypto): アドレス台帳と監視証跡を更新'
+          # 共通concurrency下で実行。並行した人的編集は上書きしない。
+          git push origin HEAD:main
+      - name: 失敗証跡
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crypto-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/crypto/
+          if-no-files-found: warn
+          retention-days: 90

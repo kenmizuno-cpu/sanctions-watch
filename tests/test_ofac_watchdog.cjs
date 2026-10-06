@@ -14,7 +14,7 @@ function environment(options = {}) {
   const csv = options.csv === undefined ? HEADER + pair(10) : options.csv;
   const previousCsv = options.previousCsv;
   const response = (status, body = '') => ({getResponseCode: () => status, getContentText: () => typeof body === 'string' ? body : JSON.stringify(body)});
-  const completed = options.completed || {id: 7, status: 'completed', conclusion: 'success', updated_at: iso(9), html_url: 'https://github.com/kenmizuno-cpu/sanctions-watch/actions/runs/7'};
+  const completed = options.completed || {id: 7, status: 'completed', conclusion: 'success', updated_at: iso(9), html_url: 'https://github.com/kenmizunokuro/sanctions-watch/actions/runs/7'};
   const c = vm.createContext({
     console: {log() {}, error() {}},
     Date: class extends Date {constructor(...args) {super(...(args.length ? args : [NOW]));} static now() {return NOW;}},
@@ -58,7 +58,7 @@ test('75 minute threshold rescues main through workflow_dispatch once within coo
 });
 test('pending and running OFAC runs suppress a duplicate dispatch', () => {
   for (const status of ['queued', 'in_progress', 'pending', 'waiting', 'requested']) {
-    const e = environment({csv: HEADER + pair(100), active: {id: 20, status, created_at: iso(40), html_url: 'https://github.com/kenmizuno-cpu/sanctions-watch/actions/runs/20'}});
+    const e = environment({csv: HEADER + pair(100), active: {id: 20, status, created_at: iso(40), html_url: 'https://github.com/kenmizunokuro/sanctions-watch/actions/runs/20'}});
     e.c.ofacWatchdogTick(); assert.equal(e.dispatches().length, 0, status); assert.equal(e.mail.length, 1, status);
   }
 });
@@ -84,12 +84,12 @@ test('90 and 150 minute alerts escalate, deduplicate and notify recovery', () =>
   assert.equal(healthy.mail.length, 1); assert.match(healthy.mail[0].subject, /復旧/);
 });
 test('a failed workflow reports an incident even when preceding heartbeat is fresh', () => {
-  const e = environment({completed: {id: 8, status: 'completed', conclusion: 'failure', updated_at: iso(1), html_url: 'https://github.com/kenmizuno-cpu/sanctions-watch/actions/runs/8'}});
+  const e = environment({completed: {id: 8, status: 'completed', conclusion: 'failure', updated_at: iso(1), html_url: 'https://github.com/kenmizunokuro/sanctions-watch/actions/runs/8'}});
   e.c.ofacWatchdogTick(); assert.equal(e.mail.length, 1); assert.match(e.mail[0].subject, /実行失敗/);
   assert.match(e.mail[0].body, /\/runs\/8/);
 });
 test('a newer persisted failed attempt remains visible while its workflow is unfinished', () => {
-  const e = environment({attempt: {outcome: 'failure', finished_at: iso(1), run_url: 'https://github.com/kenmizuno-cpu/sanctions-watch/actions/runs/8'}});
+  const e = environment({attempt: {outcome: 'failure', finished_at: iso(1), run_url: 'https://github.com/kenmizunokuro/sanctions-watch/actions/runs/8'}});
   e.c.ofacWatchdogTick(); assert.match(e.mail[0].subject, /実行失敗/);
 });
 test('API auth failure alerts without blindly dispatching or exposing token', () => {
@@ -126,7 +126,7 @@ test('setup stops before installing a trigger if token, email, read or notificat
   }
 });
 test('workflow failure still escalates when check age reaches 150 minutes', () => {
-  const failed = {id: 8, status: 'completed', conclusion: 'failure', updated_at: iso(1), html_url: 'https://github.com/kenmizuno-cpu/sanctions-watch/actions/runs/8'};
+  const failed = {id: 8, status: 'completed', conclusion: 'failure', updated_at: iso(1), html_url: 'https://github.com/kenmizunokuro/sanctions-watch/actions/runs/8'};
   const e = environment({completed: failed}); e.c.ofacWatchdogTick();
   const worse = environment({completed: failed, csv: HEADER + pair(160), properties: e.values}); worse.c.ofacWatchdogTick();
   assert.equal(worse.mail.length, 1); assert.match(worse.mail[0].subject, /重大/);

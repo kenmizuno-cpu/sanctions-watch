@@ -1,7 +1,7 @@
 # sanctions-watch
 
-[![watch-ofac](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-ofac.yml/badge.svg)](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-ofac.yml)
-[![watch-jp](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-jp.yml/badge.svg)](https://github.com/kenmizuno-cpu/sanctions-watch/actions/workflows/watch-jp.yml)
+[![watch-ofac](https://github.com/kenmizunokuro/sanctions-watch/actions/workflows/watch-ofac.yml/badge.svg)](https://github.com/kenmizunokuro/sanctions-watch/actions/workflows/watch-ofac.yml)
+[![watch-jp](https://github.com/kenmizunokuro/sanctions-watch/actions/workflows/watch-jp.yml/badge.svg)](https://github.com/kenmizunokuro/sanctions-watch/actions/workflows/watch-jp.yml)
 
 財務省・OFACは定期的に自動監視し、差分を抽出してマスターを更新する。
 経産省は公式通知を人が確認し、通常のブラウザで取得した公式PDFを検証・レビューして
@@ -455,3 +455,13 @@ cd "$HOME/Desktop/sanctions-watch"
 4. mainの`data/dashboard/mofa_documents.csv`が取得可能になった後、稼働GASのバージョンとコードを退避する。`apps_script/Code.gs`に置換し、`Mofa.gs`を追加する。実装は0.4.3。既存onOpen/syncAll/scheduledSyncAllを重複させない。
 5. 手動同期で六系統と`10_外務省資料`、既存`08_最新差分`・`09_再審査分`を確認する。外務省は「手動確認／要確認」とし、自動監視の30/60分閾値を使わない。GASのメモはイベントIDで保持し、公式レビューは上記CLIで行う。
 6. OFAC・財務省の定期監視とSheets定期同期は既存の運用を続ける。外務省の公式サイト確認・資料保存は担当者が行う。
+# 暗号資産アドレス監視の追加
+
+OFAC SDN Advanced XMLの明示アドレスを、既存の人物・団体名マスターと別の台帳へ収録します。独立した監視スプレッドシートのApps Scriptは、後から修正できるよう9ファイルへ機能別に分割しています。
+
+- [導入・運用](docs/crypto-addresses.md)
+- [更新ロードマップ・引き継ぎ](docs/roadmap-20261006.md)
+- [機能別Apps Script](apps_script/crypto_dashboard/)
+- [専用workflow](.github/workflows/watch-crypto.yml)
+
+公式掲載の事実と社内対応判断を分離します。初回収録を新規追加に数えず、掲載終了候補は原文と証跡を保持します。
