@@ -16,3 +16,7 @@ GAS：アドレス監視7件、既存外務省9件、既存OFAC自己監視22件
 台帳は公式原文の収録であり、検証済みアドレス照合索引や自動的な口座制限処理は実装していない。形式検証未対応・ネットワーク未確定は要確認に残す。
 
 Gitの接続：個人側の接続ではtree/branch作成が403。kenmizunokuro組織への移管後、同一repository IDとPublicを確認し、ブランチ作成に成功した。移管後URLを使うNode38件も成功。main統合後のworkflow実行、GASの実環境設置はそれぞれ別工程。
+
+PR #15のmain統合を確認：3e0eb0cb7a9f84681d92467925659f27e7ae2fca。GitHubのverify 2件はsuccess、PRでは実行しないenforceはskipped。
+初回watch-crypto：run 37492299677、全処理success。収録日時2026-10-07 01:01:08 JST、配布コミットebdedfc17e5474e91f0621e7cc297bae8344afbf。1063ユニーク・1065掲載関係、新規イベント0。
+上流OFAC最終確認は2026-10-06 19:27:38 JSTのままで、収録成功を上流の新規確認として扱わない。

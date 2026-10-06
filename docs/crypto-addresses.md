@@ -10,7 +10,7 @@ Crypto-1としてOFAC SDN Advanced XMLの明示アドレスを収録する。対
 
 ## Git移管・導入状況（2026-10-07）
 
-`kenmizunokuro/sanctions-watch`へ移管完了。同一repository ID 1350902696とPublic設定を確認し、組織のGitHub App経由で実際のブランチ作成に成功した。本変更をmainへ統合した後に、以下のApps Script初回設定を行う。mainに配布JSONがない状態では初回同期は成功しない。詳細は[移管手順と確認項目](repository-migration-20261007.md)。
+`kenmizunokuro/sanctions-watch`へ移管完了。同一repository ID 1350902696とPublic設定を確認し、組織のGitHub App経由で実際のブランチ作成に成功した。PR #15でmainへ反映済み。初回watch-crypto（run 37492299677）が成功し、配布JSONの更新も確認した。以下のApps Script初回設定は未実施。詳細は[移管手順と確認項目](repository-migration-20261007.md)。
 
 新規シート：[暗号資産アドレス監視ダッシュボード](https://docs.google.com/spreadsheets/d/1LGF5Rpl-wXU8EOUKBId4YlYe4HvV3CHXfzRn3PZyzoc/edit)。初期データのみ反映済み。
 

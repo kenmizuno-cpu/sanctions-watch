@@ -45,10 +45,10 @@ Files: .github/workflows/watch-crypto.yml, docs/crypto-addresses.md, docs/roadma
 - [x] 独立workflow・日本語手順・更新ロードマップを追加。
 - [x] Python全テストと既存／追加GASテストを実行。
 - [x] 新規Google Sheetsに実原本スナップショットを書込み、件数と状態を読戻し確認。
-- [ ] Gitブランチ・PRを公開。独立レビューと指摘修正は完了。移管後のApp経由ブランチ作成に成功、PR公開を続行。
+- [x] Gitブランチ・PR #15を公開・mainへ統合。独立レビュー、指摘修正、GitHub verify 2件成功、初回watch-crypto成功を確認。
 
 ## 実施結果
 
 Python 372件、Node 38件が成功。実原本の初回抽出と再実行、Sheets全7タブの件数と表示状態のAPI読戻し、独立コードレビューと2件の修正を実施。実際のApps Script設置・Google権限承認・定期トリガー有効化は未実施で、利用者の初回セットアップとして手順に記載。
 
-接続障害はkenmizunokuro組織への移管により解消。repository ID/Public設定とAppの対象追加、実際のブランチ作成成功を確認。PR公開とmain統合後のworkflow確認を続行。
+接続障害はkenmizunokuro組織への移管により解消。repository ID/Public設定とAppの対象追加、実際のブランチ作成成功を確認。PR #15のmain統合と初回watch-crypto（run 37492299677）の成功を確認。
