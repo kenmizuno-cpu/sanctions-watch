@@ -133,3 +133,52 @@ test('optional metadata and subdivided counts are validated but legacy data is a
  assert.equal(context.caValidateSnapshot_(snap).rows.length,1);
 });
 console.log(passed+' tests passed');
+const chain={schema_version:1,registry_version:'2026-10-07.1',generated_at:'2026-10-07T00:00:00Z',
+ source_hash:'a'.repeat(64),counts:{target_relations:1,probes:2,successful_probes:1,PARTIAL:1},
+ rows:[{relation_id:snap.rows[0].relation_id,address:'123',symbol:'XBT',state:'PARTIAL',probes:[
+  {chain:'bitcoin',provider:'Blockstream',endpoint:'https://blockstream.info/api',contract:'',asset:'USDT',
+   status:'SUCCESS',attempted_at:'2026-10-07T00:00:00Z',last_success:{checked_at:'2026-10-07T00:00:00Z',positive:true,
+   balance_raw:'900719925474099312345',decimals:8,asset_match:false,tx_count:'171',scope:'BTCのみ。Omni未確認。'}},
+  {chain:'bitcoin',provider:'mempool.space',endpoint:'https://mempool.space/api',contract:'',asset:'USDT',
+   status:'FAILED',attempted_at:'2026-10-07T00:00:00Z',error:'HTTPError: failed'}]}]};
+test('chain overlay validates precise integers, identity, states and counts',()=>{
+ assert.equal(typeof context.caValidateChain_,'function');
+ assert.equal(context.caValidateChain_(chain,snap).rows.length,1);
+ for(const bad of [
+  {...chain,rows:[{...chain.rows[0],address:'changed'}]},
+  {...chain,rows:[chain.rows[0],chain.rows[0]]},
+  {...chain,counts:{...chain.counts,target_relations:0}},
+  {...chain,rows:[{...chain.rows[0],probes:[{...chain.rows[0].probes[0],last_success:{...chain.rows[0].probes[0].last_success,balance_raw:9007199254740992}}]}]},
+  {...chain,rows:[{...chain.rows[0],state:'POSITIVE'}]},
+  {...chain,rows:[{...chain.rows[0],probes:[{...chain.rows[0].probes[0],status:'SUCCESS',last_success:null}]}]}
+ ]) assert.throws(()=>context.caValidateChain_(bad,snap),/チェーン/);
+});
+test('chain fetch shares official SHA and failure remains visible with official data',()=>{
+ const sha='b'.repeat(40);let urls=[];
+ context.UrlFetchApp={fetch(url){urls.push(url);return response(200,JSON.stringify(url.includes('/commits/')?{sha}:
+  url.endsWith('/dashboard.json')?snap:chain));}};
+ const loaded=context.caFetchSnapshot_({repo:'kenmizunokuro/sanctions-watch',branch:'main'});
+ assert.equal(loaded.chain_data.rows.length,1);
+ assert.ok(urls[2].includes('/'+sha+'/data/crypto/chain_observations.json'));
+ context.UrlFetchApp={fetch(url){return response(url.endsWith('/chain_observations.json')?403:200,
+  JSON.stringify(url.includes('/commits/')?{sha}:snap));}};
+ const failed=context.caFetchSnapshot_({repo:'kenmizunokuro/sanctions-watch',branch:'main'});
+ assert.equal(failed.rows.length,1);assert.match(failed.chain_error,/HTTP 403/);
+ const tables=context.caBuildTables_(failed,{warningMinutes:120,criticalMinutes:360});
+ assert.ok(tables['チェーン検証'].some(r=>r.join(' ').includes('HTTP 403')));
+});
+test('chain view preserves reviews and official changes and exposes failed attempts and old successes',()=>{
+ const tables=context.caBuildTables_({...snap,chain_data:chain},{warningMinutes:120,criticalMinutes:360},new Date('2026-10-08T00:00:00Z'));
+ assert.equal(tables['差分'].length,1);assert.equal(tables['要確認'].length,1);
+ assert.ok(tables['チェーン検証'].some(r=>r.includes('900719925474099312345')));
+ assert.ok(tables['チェーン検証'].some(r=>r.join(' ').includes('取得失敗')));
+ assert.ok(tables['チェーン検証'].some(r=>r.join(' ').includes('期限超過')));
+ assert.ok(context.caSheetNames_().includes('チェーン検証'));
+});
+console.log('Total '+passed+' tests passed');
+test('token asset mismatch cannot hide behind matching native presence',()=>{
+ const probes=[{chain:'ethereum',contract:'0x'+'2'.repeat(40),status:'SUCCESS',last_success:{positive:true,asset_match:true}},
+  {chain:'ethereum',contract:'0x'+'2'.repeat(40),status:'SUCCESS',last_success:{positive:true,asset_match:false}}];
+ assert.equal(context.caChainState_(probes),'CONFLICT');
+});
+console.log('Final '+passed+' tests passed');

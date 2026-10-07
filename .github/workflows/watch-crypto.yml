@@ -9,6 +9,8 @@ on:
       - src/crypto_ledger.py
       - src/crypto_watch.py
       - src/crypto_validation/**
+      - src/crypto_chain/**
+      - src/crypto_chain_watch.py
       - requirements-crypto.txt
       - tests/test_crypto_*.py
       - tests/test_crypto_dashboard.cjs
@@ -41,11 +43,14 @@ jobs:
       - name: アドレス監視の自己テスト
         run: |
           python -m pip install -r requirements-crypto.txt
-          python -m unittest tests.test_crypto_addresses tests.test_crypto_validation tests.test_crypto_validation_expanded tests.test_crypto_bech32_reference tests.test_crypto_ledger tests.test_crypto_watch
+          python -m unittest tests.test_crypto_addresses tests.test_crypto_validation tests.test_crypto_validation_expanded tests.test_crypto_bech32_reference tests.test_crypto_ledger tests.test_crypto_watch tests.test_crypto_chain
           node tests/test_crypto_dashboard.cjs
       - name: 保存済みOFAC原本から収録
         id: extract
         run: python -m src.crypto_watch
+      - name: 公開チェーンの追加照会（有限予算・旧成功保持）
+        if: steps.extract.outcome == 'success'
+        run: python -m src.crypto_chain_watch --seconds 360 --max-calls 1200
       - name: 監視状態と台帳を保存
         if: always() && steps.extract.outcome != 'skipped'
         run: |
