@@ -51,4 +51,40 @@ test('trigger setup replaces only own sync handler',()=>{
  deleteTrigger(t){removed.push(t.getHandlerFunction())},newTrigger(name){created.push(name);return {timeBased(){return this},everyMinutes(n){assert.equal(n,15);return this},create(){}}}};
  context.caInstallTrigger_();assert.deepEqual(removed,['syncCryptoDashboard']);assert.deepEqual(created,['syncCryptoDashboard']);
 });
+function response(code, body, headers = {}, bytes = body.length) {
+  return {getResponseCode(){return code;},getContentText(){return body;},
+    getAllHeaders(){return headers;},getBlob(){return {getBytes(){return {length:bytes};}};}};
+}
+const api = 'https://api.github.com/repos/kenmizunokuro/sanctions-watch/commits/main';
+const raw = 'https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/main/data/crypto/dashboard.json';
+test('rate limit response identifies endpoint and reset time',()=>{
+  context.UrlFetchApp={fetch(){return response(403,JSON.stringify({message:'API rate limit exceeded for 192.0.2.1.'}),
+    {'X-RateLimit-Remaining':'0','X-RateLimit-Reset':'1791338400'});}};
+  assert.throws(()=>context.caGetText_(api),e=>/HTTP 403/.test(e.message)&&e.message.includes(api)&&
+    /GitHub APIの回数制限/.test(e.message)&&/2026-10-07T02:00:00.000Z/.test(e.message)&&!e.message.includes('192.0.2.1'));
+});
+test('ordinary permission denial is not labelled a rate limit',()=>{
+  context.UrlFetchApp={fetch(){return response(403,JSON.stringify({message:'Resource not accessible by integration'}),{});}};
+  assert.throws(()=>context.caGetText_(api),e=>e.message.includes(api)&&/Resource not accessible/.test(e.message)&&!/回数制限/.test(e.message));
+});
+test('raw server refusal includes URL but does not copy HTML response',()=>{
+  context.UrlFetchApp={fetch(){return response(403,'<html>untrusted response contents</html>');}};
+  assert.throws(()=>context.caGetText_(raw),e=>e.message.includes(raw)&&!/untrusted response contents/.test(e.message));
+});
+test('secondary rate limit is identified without exposing full response',()=>{
+  context.UrlFetchApp={fetch(){return response(403,JSON.stringify({message:'You have exceeded a secondary rate limit.'}));}};
+  assert.throws(()=>context.caGetText_(api),/GitHub APIの回数制限/);
+});
+test('successful and oversized responses retain existing checks',()=>{
+  context.UrlFetchApp={fetch(){return response(200,'{}');}};
+  assert.equal(context.caGetText_(raw),'{}');
+  context.UrlFetchApp={fetch(){return response(200,'{}',{},5*1024*1024+1);}};
+  assert.throws(()=>context.caGetText_(raw),/5MB/);
+});
+test('HTTP failure stops before fetching or validating snapshot',()=>{
+  let calls=0;
+  context.UrlFetchApp={fetch(){calls++;return response(403,'{}');}};
+  assert.throws(()=>context.caFetchSnapshot_({repo:'kenmizunokuro/sanctions-watch',branch:'main'}),/HTTP 403/);
+  assert.equal(calls,1);
+});
 console.log(passed+' tests passed');
