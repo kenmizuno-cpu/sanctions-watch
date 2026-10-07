@@ -69,7 +69,7 @@ class ExpandedTests(unittest.TestCase):
                 self.assertEqual(normalize_address(symbol,address[:-1]+'2')['validation'],'INVALID')
 
     def test_unimplemented_address_types_remain_unsupported(self):
-        for symbol,address in [('ZEC','u1future'),('ZEC','zs1future'),('XRP','Xfuture'),('BNB','0x'+'a'*40),('UNKNOWN','abc')]:
+        for symbol,address in [('ZEC','u1future'),('ZEC','zs1future'),('ZEC','tex1s2rt77ggv6q989lr49rkgzmh5slsksa9khdgte'),('XRP','Xfuture'),('BNB','0x'+'a'*40),('LTC','ltcmweb1future'),('UNKNOWN','abc')]:
             self.assertEqual(normalize_address(symbol,address)['validation'],'UNSUPPORTED')
 
     def test_evm_symbols_reuse_checksum_but_preserve_legacy_identity(self):
@@ -85,6 +85,7 @@ class ExpandedTests(unittest.TestCase):
     def test_tokens_validate_families_without_resolving_actual_network(self):
         pairs=[('T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb',['tron-family']),
                ('1BpEi6DfDAUFd7GtittLSdBeYJvcoaVggu',['bitcoin-family']),
+               ('mipcBbFg9gMiCh81Kj8tqqdgoZub1ZJRfn',['bitcoin-family']),
                ('0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed',['evm-family'])]
         for symbol in ['USDT','USDC']:
             for address,candidates in pairs:
@@ -98,6 +99,32 @@ class ExpandedTests(unittest.TestCase):
                     self.assertEqual(r['review_category'],'LIMITATION')
         self.assertEqual(normalize_address('USDT','future:abc')['validation'],'UNSUPPORTED')
         self.assertEqual(normalize_address('USDT',pairs[0][0][:-1]+'1')['validation'],'INVALID')
+
+    def test_token_prefix_is_not_enough_to_reject_solana(self):
+        for symbol in ['USDT','USDC']:
+            r=normalize_address(symbol,'1'*32)
+            self.assertEqual(r['validation'],'FORMAT_ONLY')
+            self.assertEqual(r['network_candidates'],['solana-family'])
+            self.assertEqual(r['review_category'],'LIMITATION')
+
+    def test_token_bitcoin_testnet_witness_is_only_a_family_candidate(self):
+        address='tb1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vq47zagq'
+        r=normalize_address('USDT',address)
+        self.assertEqual(r['validation'],'CHECKSUM_VALID')
+        self.assertEqual(r['network_candidates'],['bitcoin-family'])
+        self.assertEqual(r['network_resolution'],'FAMILY_ONLY')
+        self.assertEqual(r['network'],'')
+        self.assertEqual(normalize_address('XBT',address)['validation'],'INVALID')
+
+    def test_token_known_32_byte_hex_type_remains_unsupported(self):
+        address='0xbc33e6e4818f9f2ef77d020b35c24be738213e64d9e58839ee7b4222029610de'
+        for symbol in ['USDT','USDC']:
+            r=normalize_address(symbol,address)
+            self.assertEqual(r['validation'],'UNSUPPORTED')
+            self.assertEqual(r['review_category'],'UNSUPPORTED')
+            self.assertEqual(r['normalized_address'],address)
+            self.assertEqual(r['network'],'')
+            self.assertEqual(r['network_candidates'],['hex32-family'])
 
     def test_label_mismatch_is_not_silently_relabelled(self):
         address='TUCsTq7TofTCJRRoHk6RvhMoS2mJLm5Yzq'

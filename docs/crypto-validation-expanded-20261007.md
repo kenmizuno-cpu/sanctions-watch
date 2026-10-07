@@ -24,7 +24,7 @@ ETC/BSC/ARBも既存ethereum.pyの20バイト形式・EIP-55で検証する。�
 - 古いIDの構成要素は固定。公式原文を自動補正せず、通貨記号を書き換えない。新規収録も同じID基準を使う。
 - validator版は3。分類・候補の変更もREVALIDATEDとして監査し、公式eventsとは別のvalidation_eventsへ記録する。before/afterの候補・判定範囲・分類も保持。
 - schema_version=1、旧format_review総数を維持。追加集計は任意項目として旧JSONと互換。GASでは候補構造・分類と集計の一致を検証する。
-- 未対応のZEC shielded/unified、XRP X-address、CashAddr追加種別等はUNSUPPORTEDを残す。誤記と断定しない。
+- 未対応のZEC shielded/unified/TEX、LTC MWEB、XRP X-address、CashAddr追加種別等はUNSUPPORTEDを残す。誤記と断定しない。
 
 ## 同一の保存済み公式原本による検証
 
@@ -52,7 +52,7 @@ ETC/BSC/ARBも既存ethereum.pyの20バイト形式・EIP-55で検証する。�
 
 ## 検証と会社側の更新
 
-Python 404件、GAS 48件（暗号資産17・外務省9・OFAC watchdog22）。実JSONのGAS入力検証・表示行列も確認する。独立レビュー・CI・本番収録の結果は公開後に追記する。
+Python 407件、GAS 48件（暗号資産17・外務省9・OFAC watchdog22）。実JSONのGAS入力検証・表示行列も確認。独立レビューで検出した、Bitcoinに似たSolanaトークン形式の誤分類とZEC TEX/LTC MWEB/32バイトhexトークン種別の扱いも回帰テストで修正した。トークンはBitcoinテストネットの形式も系統候補として検証し、XBT mainnet判定とは分ける。独立レビュー・CI・本番収録の結果は公開後に追記する。
 
 会社側は同じコミットの `apps_script/crypto_dashboard/Validate.gs` と `View.gs` を全文差し替え、保存後 `setupCryptoDashboard` を再実行する。設定値を保持し、新列の書式と15分トリガーを設定する。HTTP403が続く場合はFetch.gsのエラー全文で原因を切り分ける。本作業で403解消や会社側同期成功を未確認のまま主張しない。
 
@@ -66,3 +66,6 @@ Python 404件、GAS 48件（暗号資産17・外務省9・OFAC watchdog22）。�
 - [Litecoin](https://github.com/litecoin-project/litecoin/blob/master/src/chainparams.cpp)、[Bitcoin Gold](https://github.com/BTCGPU/BTCGPU/blob/master/src/chainparams.cpp)、[Verge](https://github.com/vergecurrency/verge/blob/master/src/chainparams.cpp)、[Zcash](https://github.com/zcash/zcash/blob/master/src/chainparams.cpp)
 - [BNB SDK](https://github.com/bnb-chain/javascript-sdk/blob/master/src/crypto/index.ts)、[BSV SDK](https://bsv-blockchain.github.io/ts-sdk/reference/primitives/)
 - [EIP-55](https://eips.ethereum.org/EIPS/eip-55)
+
+- [Zcash TEX（ZIP320）](https://zips.z.cash/zip-0320)
+- [Suiの32バイトアドレス](https://github.com/MystenLabs/sui/blob/main/docs/content/references/sui-api.mdx)（トークンはhex32系候補・チェーン別検証未対応として保持）
