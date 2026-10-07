@@ -87,4 +87,24 @@ test('HTTP failure stops before fetching or validating snapshot',()=>{
   assert.throws(()=>context.caFetchSnapshot_({repo:'kenmizunokuro/sanctions-watch',branch:'main'}),/HTTP 403/);
   assert.equal(calls,1);
 });
+test('validation methods and remaining reasons are visible without official differences',()=>{
+ const row={...snap.rows[0],validation:'FORMAT_ONLY',review_reason:'チェックサム情報なし',
+   validation_method:'HEX20',validation_detail:'20バイトの16進形式を確認',validation_version:'2'};
+ const updated={...snap,rows:[row],counts:{...snap.counts,format_review:1},validation_events:[]};
+ const tables=context.caBuildTables_(updated,{warningMinutes:120,criticalMinutes:360});
+ const header=tables['アドレス台帳'][0],body=tables['アドレス台帳'][1];
+ assert.equal(body[header.indexOf('検証方法')],'16進形式（20バイト）');
+ assert.equal(body[header.indexOf('検証詳細')],'20バイトの16進形式を確認');
+ assert.equal(body[header.indexOf('検証版')],'2');
+ assert.equal(tables['要確認'][1][tables['要確認'][0].indexOf('検証方法')],'16進形式（20バイト）');
+ assert.equal(tables['差分'].length,1);
+});
+test('validation audit IDs and references must be consistent when provided',()=>{
+ const audit={event_id:'c'.repeat(64),relation_id:snap.rows[0].relation_id,kind:'REVALIDATED',
+   detected_at:'2026-10-07T02:00:00Z',before_validation:'FORMAT_ONLY',after_validation:'CHECKSUM_VALID'};
+ assert.equal(context.caValidateSnapshot_({...snap,validation_events:[audit]}).validation_events.length,1);
+ assert.throws(()=>context.caValidateSnapshot_({...snap,validation_events:[audit,audit]}),/検証履歴/);
+ assert.throws(()=>context.caValidateSnapshot_({...snap,validation_events:[{...audit,relation_id:'d'.repeat(64)}]}),/検証履歴/);
+ assert.throws(()=>context.caValidateSnapshot_({...snap,validation_events:{}}),/検証履歴/);
+});
 console.log(passed+' tests passed');

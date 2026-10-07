@@ -7,6 +7,27 @@ def row(party='42', address='0x' + '0' * 40):
                 feature_id='77', version_id='78', validation='FORMAT_ONLY', review_reason='')
 
 class LedgerTests(unittest.TestCase):
+    def test_validation_updates_are_audited_separately_from_official_changes(self):
+        original=row()
+        rows,_=reconcile([], [original], '2026-10-07T00:00:00Z','a'*64,'1')
+        original_event=rows[0]['last_event_id']
+        verified=dict(original,validation='CHECKSUM_VALID',review_reason='',validation_version='2',validation_method='EIP55')
+        updated,events=reconcile(rows,[verified],'2026-10-07T01:00:00Z','a'*64,'1')
+        self.assertEqual([e['kind'] for e in events],['REVALIDATED'])
+        self.assertEqual(updated[0]['relation_id'],rows[0]['relation_id'])
+        self.assertEqual(updated[0]['first_seen'],rows[0]['first_seen'])
+        self.assertEqual(updated[0]['last_event_id'],original_event)
+        self.assertEqual(events[0]['before_validation'],'FORMAT_ONLY')
+        self.assertEqual(events[0]['after_validation'],'CHECKSUM_VALID')
+        _,again=reconcile(updated,[verified],'2026-10-07T02:00:00Z','a'*64,'1')
+        self.assertEqual(again,[])
+
+    def test_official_name_change_is_not_hidden_by_validation_update(self):
+        original=row()
+        rows,_=reconcile([], [original], '2026-10-07T00:00:00Z','a'*64,'1')
+        incoming=dict(original,entity_name='NEW NAME',validation='CHECKSUM_VALID',validation_version='2')
+        _,events=reconcile(rows,[incoming],'2026-10-07T01:00:00Z','b'*64,'1')
+        self.assertEqual(events[0]['kind'],'CHANGED')
     def test_initial_is_baseline_and_repeat_does_not_duplicate(self):
         rows, events = reconcile([], [row()], '2026-10-07T00:00:00Z', 'a'*64, '1')
         self.assertEqual(events[0]['kind'], 'BASELINED')
