@@ -34,3 +34,7 @@ Interfaces: Task 1のschema。公式snapshotに chain_data / chain_error を付�
 
 ## Review Focus
 空応答・HTTP200内エラー・不正整数・偽コントラクト・違うチェーン・一時失敗・古い最終成功・provider間差異・過大JSON・未知関係・複数チェーン・予算枯渇。公式掲載と活動・所有者を混同する表示がないか。
+
+## 完了記録
+
+Task 1/2/3完了。Python427、GAS52、offline213、e2e9、MOF検証成功。独立レビュー指摘を再現テストで修正。PR18/19のCI、main統合、2回の本番workflow成功を確認。最終340取得先中265成功、152関係で記録/残高、43関係で発行元資産照合。公式情報/履歴不変、公開JSONのGAS全340行を検証。会社側の全文リンク5ファイルとsetup手順をdocs/crypto-chain-observations-20261007.mdへ引き継ぐ。残る未観測・API失敗は無効とせず、取得先別に表示する。
