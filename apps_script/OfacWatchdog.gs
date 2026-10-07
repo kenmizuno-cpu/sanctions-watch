@@ -11,6 +11,7 @@ const OFAC_WATCHDOG = Object.freeze({
   criticalMinutes: 150,
   cooldownMinutes: 30,
   reminderMinutes: 360,
+  statusSheet: '11_OFAC救済監視',
 });
 
 function ofacWatchdogConfig_() {
@@ -44,6 +45,10 @@ function ofacWatchdogApi_(cfg, path, method, payload, optional) {
   }
   const response = UrlFetchApp.fetch('https://api.github.com/repos/' + cfg.repo + path, options);
   const code = response.getResponseCode();
+  if (cfg.state) {
+    cfg.state.lastApiHttp = code;
+    if (method === 'post') cfg.state.lastDispatchHttp = code;
+  }
   if (optional && code === 404) return null;
   const expected = method === 'post' ? 204 : 200;
   if (code !== expected) throw new Error('GitHub API HTTP ' + code + ': ' + path);
@@ -137,6 +142,93 @@ function ofacWatchdogNotify_(cfg, state, incident, detail, now) {
   ofacWatchdogSave_(cfg, state);
 }
 
+function ofacWatchdogIso_(now) {
+  return new Date(now).toISOString().replace(/\.\d{3}Z$/, 'Z');
+}
+
+function ofacWatchdogError_(error, props) {
+  const token = (props.getProperty('OFAC_WATCHDOG_TOKEN') || '').trim();
+  let message = String(error.message || error);
+  const recipients = (props.getProperty('OFAC_WATCHDOG_EMAIL') || '').split(',').map(v => v.trim()).filter(Boolean);
+  [token].concat(recipients).filter(Boolean).forEach(secret => {message = message.split(secret).join('[REDACTED]');});
+  return message.slice(0, 700);
+}
+
+function ofacWatchdogState_(props) {
+  try {
+    const value = JSON.parse(props.getProperty('OFAC_WATCHDOG_STATE') || '{}');
+    if (!value || Array.isArray(value) || typeof value !== 'object') throw new Error('state is not an object');
+    return value;
+  } catch (error) {
+    return {lastError: 'OFAC_WATCHDOG_STATEの解析に失敗。履歴を確認してください', stateInvalid: true};
+  }
+}
+
+function ofacWatchdogEvent_(state, decision, now, http) {
+  const events = Array.isArray(state.recentEvents) ? state.recentEvents : [];
+  state.recentEvents = events.concat({at: ofacWatchdogIso_(now), decision: decision, http: http || ''}).slice(-20);
+}
+
+/** Safe snapshot only: secrets and email addresses never leave Script Properties. */
+function ofacWatchdogPublish_(props, state, now) {
+  const id = (props.getProperty('OFAC_WATCHDOG_SPREADSHEET_ID') || '').trim();
+  if (!id) return false;
+  const ss = SpreadsheetApp.openById(id);
+  const sheet = ss.getSheetByName(OFAC_WATCHDOG.statusSheet) || ss.insertSheet(OFAC_WATCHDOG.statusSheet);
+  if (sheet.getMaxRows() < 30) sheet.insertRowsAfter(sheet.getMaxRows(), 30 - sheet.getMaxRows());
+  if (sheet.getMaxColumns() < 6) sheet.insertColumnsAfter(sheet.getMaxColumns(), 6 - sheet.getMaxColumns());
+  const triggers = ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === 'ofacWatchdogTick');
+  const fields = [
+    ['schemaVersion', '1', '記録形式'],
+    ['publishedAt', ofacWatchdogIso_(now), 'このシートへの記録時刻（UTC）'],
+    ['repo', (props.getProperty('OFAC_WATCHDOG_REPO') || OFAC_WATCHDOG.repo).trim(), '監視リポジトリ'],
+    ['triggerCount', String(triggers.length), '救済側の実行者から見えるトリガー数'],
+    ['tokenConfigured', String(Boolean((props.getProperty('OFAC_WATCHDOG_TOKEN') || '').trim())), 'トークン設定有無。値は記録しない'],
+    ['emailConfigured', String(Boolean((props.getProperty('OFAC_WATCHDOG_EMAIL') || '').trim())), '通知先設定有無。アドレスは記録しない'],
+    ['lastTickAt', state.lastTickAt || '', '救済監視の最終開始（UTC）'],
+    ['lastCompletedAt', state.lastCompletedAt || '', '救済監視の最終処理終了（成功保証ではない）'],
+    ['lastObservationAt', state.lastObservationAt || '', 'GitHubから監視状況を確認できた最終時刻'],
+    ['lastSuccessAt', state.lastSuccessAt || '', 'SDN・Consolidated両方の最終取得成功'],
+    ['lastDispatchAt', state.lastDispatchAt ? ofacWatchdogIso_(state.lastDispatchAt) : '', 'HTTP 204で救済要求を受理。取得成功とは別'],
+    ['lastDispatchAttemptAt', state.lastDispatchAttemptAt || '', '救済要求を試みた最終時刻'],
+    ['lastDispatchHttp', String(state.lastDispatchHttp || ''), '救済要求のHTTP結果'],
+    ['dispatchDecision', state.dispatchDecision || '', '最新tickの救済判断'],
+    ['lastApiHttp', String(state.lastApiHttp || ''), '最新GitHub API応答'],
+    ['consecutiveErrors', String(state.consecutiveErrors || 0), '連続する監視・救済エラー数'],
+    ['lastErrorAt', state.lastErrorAt || '', '直近の監視・救済エラー発生日時'],
+    ['lastError', state.lastError || '', '直近の監視・救済エラー（履歴）'],
+    ['lastNotificationError', state.lastNotificationError || '', '未解消の通知エラー'],
+    ['lastObservationKey', (state.lastObservation || {}).key || '', '最終監視判定'],
+    ['lastObservationDetail', (state.lastObservation || {}).detail || '', '救済判断の説明'],
+    ['activeRunUrls', (state.activeRunUrls || []).join('\n'), '実行中・待機中のGitHub実行'],
+    ['stateInvalid', String(Boolean(state.stateInvalid)), '以前の監視状態が破損していたか'],
+    ['version', '1.1.0', '救済側コードの版'],
+  ];
+  sheet.getRange('A1').setValue('OFAC救済監視の稼働記録');
+  sheet.getRange('A2').setValue('救済側GASが10分ごとに更新。別プロジェクトの秘密情報は保存しません。時刻はUTC。');
+  sheet.getRange(4, 1, 1, 3).setValues([['項目', '記録値', '説明']]);
+  const safe = value => {
+    const text = ofacWatchdogError_(String(value), props);
+    return /^[\s]*[=+@-]/.test(text) ? "'" + text : text;
+  };
+  sheet.getRange(5, 1, fields.length, 3).setNumberFormat('@').setValues(fields.map(row => row.map(safe)));
+  sheet.getRange(4, 4, 1, 3).setValues([['救済・エラー履歴（UTC）', '判断', 'HTTP']]);
+  const events = (state.recentEvents || []).slice(-20).reverse().map(e => [e.at, e.decision, String(e.http)]);
+  while (events.length < 20) events.push(['', '', '']);
+  sheet.getRange(5, 4, 20, 3).setNumberFormat('@').setValues(events.map(row => row.map(safe)));
+  sheet.setFrozenRows(4);
+  sheet.setColumnWidth(1, 200); sheet.setColumnWidth(2, 420); sheet.setColumnWidth(3, 360);
+  return true;
+}
+
+/** Publish saved evidence only; never creates a tick, sends mail, or dispatches. */
+function publishOfacWatchdogStatus() {
+  const props = PropertiesService.getScriptProperties();
+  const state = ofacWatchdogState_(props);
+  if (!ofacWatchdogPublish_(props, state, Date.now())) throw new Error('OFAC_WATCHDOG_SPREADSHEET_IDにダッシュボードのIDを設定してください');
+  console.log('11_OFAC救済監視へ保存しました。未実行・古いtickは正常になりません。');
+}
+
 /** Read-only verification: neither workflow dispatch nor email. */
 function checkOfacWatchdog() {
   const cfg = ofacWatchdogConfig_();
@@ -156,18 +248,27 @@ function installOfacWatchdog() {
 }
 
 function ofacWatchdogTick() {
-  const cfg = ofacWatchdogConfig_();
+  const props = PropertiesService.getScriptProperties();
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(1000)) return;
+  const state = ofacWatchdogState_(props);
+  let cfg = null;
+  let recordedError = false;
   try {
     const now = Date.now();
-    const state = JSON.parse(cfg.props.getProperty('OFAC_WATCHDOG_STATE') || '{}');
-    state.lastTickAt = new Date(now).toISOString().replace('.000Z', 'Z');
+    state.lastTickAt = ofacWatchdogIso_(now);
+    state.activeRunUrls = [];
+    state.dispatchDecision = 'not_needed';
     let incident = {key: 'healthy', title: '監視復旧'};
     let detail = '';
     try {
+      props.setProperty('OFAC_WATCHDOG_STATE', JSON.stringify(state));
+      cfg = ofacWatchdogConfig_();
+      cfg.state = state;
+      if (state.stateInvalid) throw new Error(state.lastError);
       const observed = ofacWatchdogObserve_(cfg, now);
       state.lastSuccessAt = observed.lastSuccessAt;
+      state.lastObservationAt = ofacWatchdogIso_(now);
       detail = '最終成功: ' + observed.lastSuccessAt + ' (UTC)\n経過: ' + Math.floor(observed.ageMinutes) + '分';
       if (observed.ageMinutes >= OFAC_WATCHDOG.criticalMinutes) incident = {key: 'critical', title: '重大: 監視遅延'};
       else if (observed.ageMinutes >= OFAC_WATCHDOG.warningMinutes) incident = {key: 'warning', title: '警告: 監視遅延'};
@@ -178,17 +279,30 @@ function ofacWatchdogTick() {
       }
       if (observed.ageMinutes >= OFAC_WATCHDOG.rescueMinutes) {
         const active = ofacWatchdogActive_(cfg);
+        state.activeRunUrls = active.map(r => r.html_url || String(r.id));
         const sinceDispatch = now - (state.lastDispatchAt || 0);
-        if (active.length) detail += '\n稼働・待機中のOFAC実行あり: ' + active.map(r => r.html_url || r.id).join(', ');
-        else if (sinceDispatch >= 0 && sinceDispatch < OFAC_WATCHDOG.cooldownMinutes * 60000) detail += '\n再起動の30分クールダウン中';
+        if (active.length) {state.dispatchDecision = 'active_run'; detail += '\n稼働・待機中のOFAC実行あり: ' + state.activeRunUrls.join(', ');}
+        else if (sinceDispatch >= 0 && sinceDispatch < OFAC_WATCHDOG.cooldownMinutes * 60000) {state.dispatchDecision = 'cooldown'; detail += '\n再起動の30分クールダウン中';}
         else {
+          state.lastDispatchAttemptAt = ofacWatchdogIso_(now);
+          state.dispatchDecision = 'dispatching';
+          ofacWatchdogSave_(cfg, state);
           ofacWatchdogApi_(cfg, '/actions/workflows/' + OFAC_WATCHDOG.workflow + '/dispatches', 'post', {ref: 'main'});
           state.lastDispatchAt = now;
+          state.dispatchDecision = 'accepted';
+          ofacWatchdogEvent_(state, 'accepted', now, 204);
           ofacWatchdogSave_(cfg, state);
           detail += '\n外部タイマーから再実行要求を受理（成功確認は次回以降のheartbeat）';
         }
       }
+      state.consecutiveErrors = 0;
     } catch (error) {
+      recordedError = true;
+      state.dispatchDecision = state.dispatchDecision === 'dispatching' ? 'error' : 'observation_error';
+      state.consecutiveErrors = Number(state.consecutiveErrors || 0) + 1;
+      state.lastErrorAt = ofacWatchdogIso_(now);
+      state.lastError = ofacWatchdogError_(error, props);
+      ofacWatchdogEvent_(state, state.dispatchDecision, now, state.lastApiHttp);
       incident = {key: 'watchdog_error', title: '外部監視エラー'};
       // API errors must not hide freshness escalation. On a read outage use
       // the last confirmed paired success; its age continues to increase.
@@ -199,13 +313,40 @@ function ofacWatchdogTick() {
         if (knownAge >= OFAC_WATCHDOG.criticalMinutes) incident = {key: 'watchdog_error_critical', title: '外部監視エラー・重大な監視遅延'};
         else if (knownAge >= OFAC_WATCHDOG.warningMinutes) incident = {key: 'watchdog_error_warning', title: '外部監視エラー・警告: 監視遅延'};
       }
-      detail += '\n' + String(error.message || error);
+      detail += '\n' + state.lastError;
     }
     state.lastObservation = {key: incident.key, detail: detail};
-    ofacWatchdogSave_(cfg, state);
-    ofacWatchdogNotify_(cfg, state, incident, detail, now);
+    props.setProperty('OFAC_WATCHDOG_STATE', JSON.stringify(state));
+    if (!cfg) throw new Error(state.lastError);
+    try {
+      ofacWatchdogNotify_(cfg, state, incident, detail, now);
+      state.lastNotificationError = '';
+    } catch (error) {
+      recordedError = true;
+      state.lastNotificationError = ofacWatchdogError_(error, props);
+      throw error;
+    }
     console.log(JSON.stringify(state));
+  } catch (error) {
+    if (!recordedError) {
+      state.consecutiveErrors = Number(state.consecutiveErrors || 0) + 1;
+      state.lastErrorAt = ofacWatchdogIso_(Date.now());
+      state.lastError = ofacWatchdogError_(error, props);
+      state.lastObservation = {key: 'watchdog_error', detail: state.lastError};
+      ofacWatchdogEvent_(state, 'state_error', Date.now(), '');
+    }
+    throw error;
   } finally {
-    lock.releaseLock();
+    try {
+      state.lastCompletedAt = ofacWatchdogIso_(Date.now());
+      state.lastPublishError = '';
+      props.setProperty('OFAC_WATCHDOG_STATE', JSON.stringify(state));
+      try {ofacWatchdogPublish_(props, state, Date.now());}
+      catch (error) {
+        state.lastPublishError = ofacWatchdogError_(error, props);
+        props.setProperty('OFAC_WATCHDOG_STATE', JSON.stringify(state));
+        console.error('稼働記録の保存失敗: ' + state.lastPublishError);
+      }
+    } finally {lock.releaseLock();}
   }
 }

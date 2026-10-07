@@ -4511,6 +4511,11 @@ function runSelfCheck() {
       autoHealth.label,
   });
 
+  // Optional add-on; existing installations without it remain compatible.
+  if (typeof wdStatusHealth_ === 'function') {
+    checks.push(...wdStatusHealth_(ss, Date.now()).checks);
+  }
+
   /*
    * changes保持件数。
    */
@@ -5722,6 +5727,11 @@ function updateAutoSyncDashboard_(
       .setValue(
         '要確認'
       );
+  }
+
+  if (typeof wdStatusHealth_ === 'function') {
+    const now = Date.now();
+    wdStatusRender_(ss, wdStatusHealth_(ss, now), now);
   }
 }
 

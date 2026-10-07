@@ -30,5 +30,6 @@ jobs:
           python -m tests.test_mof_re_review
           node --test tests/test_mofa_gas.cjs
           node --test tests/test_ofac_watchdog.cjs
+          node --test tests/test_ofac_watchdog_status.cjs
           node tests/test_crypto_dashboard.cjs
           git diff --check
