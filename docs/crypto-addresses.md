@@ -10,13 +10,28 @@ Crypto-1としてOFAC SDN Advanced XMLの明示アドレスを収録する。対
 
 ## Git移管・導入状況（2026-10-07）
 
-`kenmizunokuro/sanctions-watch`へ移管完了。同一repository ID 1350902696とPublic設定を確認し、組織のGitHub App経由で実際のブランチ作成に成功した。PR #15でmainへ反映済み。初回watch-crypto（run 37492299677）が成功し、配布JSONの更新も確認した。以下のApps Script初回設定は未実施。詳細は[移管手順と確認項目](repository-migration-20261007.md)。
+`kenmizunokuro/sanctions-watch`へ移管完了。同一repository ID 1350902696とPublic設定を確認し、組織のGitHub App経由で実際のブランチ作成に成功した。PR #15でmainへ反映済み。初回watch-crypto（run 37492299677）が成功し、配布JSONの更新も確認した。初期確認用シートでのApps Script初回設定は未実施。会社の運用シートへの設置は利用者が行う方針となり、設置結果は未確認。詳細は[移管手順と確認項目](repository-migration-20261007.md)。
 
-新規シート：[暗号資産アドレス監視ダッシュボード](https://docs.google.com/spreadsheets/d/1LGF5Rpl-wXU8EOUKBId4YlYe4HvV3CHXfzRn3PZyzoc/edit)。初期データのみ反映済み。
+初期確認用シート：[暗号資産アドレス監視ダッシュボード](https://docs.google.com/spreadsheets/d/1LGF5Rpl-wXU8EOUKBId4YlYe4HvV3CHXfzRn3PZyzoc/edit)。初期データのみ反映済み。
+
+## コード管理と会社での運用（2026-10-07の方針）
+
+会社のスプレッドシートを運用先とし、設置と更新の適用は利用者が行う。コードの修正・検証・GitHubへの反映は、このWorkで継続して管理する。
+
+| 担当 | 作業 |
+| --- | --- |
+| このWork | 共通コードの修正・検証・GitHub更新、変更内容と差し替え用ファイルの提供 |
+| 利用者 | 会社のシートへの設置、Google権限承認、トリガー設定、更新コードの差し替え、動作結果の確認 |
+
+共通コードの原本は `kenmizunokuro/sanctions-watch` のmainにある `apps_script/crypto_dashboard/` とする。会社側でも同じ9つの `.gs` と `appsscript.json` を使用し、機能別のファイル分割を維持する。更新時は対象コミット、変更ファイル名、差し替え用の全文、変更内容、確認結果をまとめて渡す。複数ファイルにまたがる変更は、同じ版のファイルをまとめて適用する。
+
+GitHubのコードを更新しても、設置済みのApps Scriptコードには自動反映されない。利用者が会社側のプロジェクトへ更新を適用する。シートID等の設置先固有の値は設定タブやScript Propertiesで管理し、共通コードへ会社別の修正を加えない。
+
+上記の初期確認用シートは参考用であり、会社の運用シートの設置完了を示すものではない。
 
 ## Apps Scriptの設置
 
-1. 新しい監視スプレッドシートを開き、「拡張機能 → Apps Script」を開く。
+1. 会社で運用する監視スプレッドシートを開き、「拡張機能 → Apps Script」を開く。
 2. 下表の9つのスクリプトファイルを同じプロジェクト内に作り、それぞれ同名`.gs`の内容を貼る。Apps Scriptのファイル名では`.gs`を自分で二重に付けない。ファイルの読込み順への依存はない。
 3. プロジェクト設定で「appsscript.json マニフェスト ファイルをエディタで表示する」を有効にし、同梱の`appsscript.json`を貼る。
 4. `setupCryptoDashboard`を一度実行し、必要なGoogle権限を承認する。初回同期が成功した後、15分ごとのトリガーが作られる。
