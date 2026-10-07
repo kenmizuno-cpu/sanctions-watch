@@ -2,7 +2,11 @@
 function caChainState_(probes) {
   var ok=probes.filter(function(p){return p.status==='SUCCESS';}),by={};
   ok.forEach(function(p){var values=by[p.chain]||(by[p.chain]={});values[String(p.last_success.positive)]=true;});
-  if(Object.keys(by).some(function(k){return Object.keys(by[k]).length>1;}))return 'CONFLICT';
+  var assets={};
+  ok.forEach(function(p){if(p.contract&&p.last_success.asset_match!==undefined){
+    var key=p.chain+'|'+p.contract,values=assets[key]||(assets[key]={});values[String(p.last_success.asset_match)]=true;
+  }});
+  if([by,assets].some(function(map){return Object.keys(map).some(function(k){return Object.keys(map[k]).length>1;});}))return 'CONFLICT';
   if(ok.length<probes.length||ok.some(function(p){return !!p.last_success.history_error;}))return ok.length?'PARTIAL':'FAILED';
   return ok.some(function(p){return p.last_success.positive;})?'POSITIVE':'NO_EVIDENCE';
 }

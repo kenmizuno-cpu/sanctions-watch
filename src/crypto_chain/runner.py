@@ -10,7 +10,12 @@ ADAPTERS={'tron':tron,'solana':solana,'bitcoin':bitcoin}
 def summarize(probes):
     success=[p for p in probes if p['status']=='SUCCESS']; chains={}
     for p in success: chains.setdefault(p['chain'],set()).add(p['last_success']['positive'])
-    if any(len(v)>1 for v in chains.values()): return 'CONFLICT'
+    assets={}
+    for p in success:
+        v=p['last_success']
+        if p.get('contract') and 'asset_match' in v:
+            assets.setdefault((p['chain'],p['contract']),set()).add(v['asset_match'])
+    if any(len(v)>1 for v in list(chains.values())+list(assets.values())): return 'CONFLICT'
     if len(success)<len(probes) or any(p['last_success'].get('history_error') for p in success): return 'PARTIAL' if success else 'FAILED'
     return 'POSITIVE' if any(p['last_success']['positive'] for p in success) else 'NO_EVIDENCE'
 
@@ -39,8 +44,9 @@ def collect(snapshot,previous,now=None,*,observe=None,http=None):
                 prev=oldprobes.get((t.chain,provider[0],t.contract),{})
                 # Endpoint changes must not reuse an old provider cache.
                 if prev.get('endpoint',provider[1])!=provider[1]: prev={}
-                cached=(prev.get('status')=='SUCCESS' and 0<=age(prev.get('last_success',{}).get('checked_at'),now)<21600)
-                retry_wait=(prev.get('status') in ('FAILED','DEFERRED') and 0<=age(prev.get('attempted_at'),now)<3600)
+                partial_history=bool(prev.get('last_success',{}).get('history_error'))
+                cached=(prev.get('status')=='SUCCESS' and not partial_history and 0<=age(prev.get('last_success',{}).get('checked_at'),now)<21600)
+                retry_wait=((prev.get('status') in ('FAILED','DEFERRED') or partial_history) and 0<=age(prev.get('attempted_at'),now)<3600)
                 if cached or retry_wait:
                     probes.append(dict(prev));continue
                 p={'chain':t.chain,'provider':provider[0],'endpoint':provider[1],'contract':t.contract,
@@ -53,7 +59,7 @@ def collect(snapshot,previous,now=None,*,observe=None,http=None):
                 except Deferred as e: p.update(status='DEFERRED',error=str(e)[:160])
                 except Exception as e:
                     # No remote response contents/IPs/secrets in public errors.
-                    p.update(status='FAILED',error=type(e).__name__+': provider observation failed')
+                    p.update(status='FAILED',error=type(e).__name__+((' HTTP '+str(e.code)) if hasattr(e,'code') else '')+': provider observation failed')
                 probes.append(p)
         rows.append({'relation_id':r['relation_id'],'address':r['address'],'symbol':r['symbol'],
                      'state':summarize(probes),'probes':probes})

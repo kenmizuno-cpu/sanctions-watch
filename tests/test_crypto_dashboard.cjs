@@ -176,3 +176,9 @@ test('chain view preserves reviews and official changes and exposes failed attem
  assert.ok(context.caSheetNames_().includes('チェーン検証'));
 });
 console.log('Total '+passed+' tests passed');
+test('token asset mismatch cannot hide behind matching native presence',()=>{
+ const probes=[{chain:'ethereum',contract:'0x'+'2'.repeat(40),status:'SUCCESS',last_success:{positive:true,asset_match:true}},
+  {chain:'ethereum',contract:'0x'+'2'.repeat(40),status:'SUCCESS',last_success:{positive:true,asset_match:false}}];
+ assert.equal(context.caChainState_(probes),'CONFLICT');
+});
+console.log('Final '+passed+' tests passed');

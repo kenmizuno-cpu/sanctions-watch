@@ -2,13 +2,13 @@
 import re
 
 def integer(value):
-    if type(value) is not int or value<0: raise ValueError('invalid nonnegative integer')
+    if type(value) is not int or not 0<=value<2**256: raise ValueError('invalid nonnegative integer')
     return str(value)
 
 def quantity(value):
     if not isinstance(value,str) or not re.fullmatch(r'0x[0-9a-fA-F]+',value):
         raise ValueError('invalid RPC hex integer')
-    if len(value)>258: raise ValueError('RPC integer too large')
+    if len(value)>66: raise ValueError('RPC integer too large')
     return str(int(value,16))
 
 def hash32(value):

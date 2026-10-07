@@ -150,3 +150,43 @@ class AdapterTests(unittest.TestCase):
                 return {'result':{'result':True},'constant_result':['0'*63+'1']}
         v=observe(TRON_USDT,'endpoint','TJ812KESWjzJZGEWBPFCu74Js5zQS7jN5A',HTTP())
         self.assertTrue(v['asset_match']);self.assertEqual(v['token_balance_raw'],'1')
+
+    def test_huge_integers_cannot_poison_gas_overlay(self):
+        from src.crypto_chain.values import integer,quantity
+        self.assertEqual(integer(2**256-1),str(2**256-1))
+        for fn,value in [(integer,10**100),(integer,2**256),(quantity,'0x'+'f'*256),(quantity,hex(2**256))]:
+            with self.assertRaises(ValueError):fn(value)
+
+    def test_token_evidence_disagreement_surfaces_even_if_native_balance_positive(self):
+        from src.crypto_chain import summarize
+        probes=[{'chain':'ethereum','contract':'0x'+'2'*40,'status':'SUCCESS','last_success':{'positive':True,'asset_match':True}},
+                {'chain':'ethereum','contract':'0x'+'2'*40,'status':'SUCCESS','last_success':{'positive':True,'asset_match':False}}]
+        self.assertEqual(summarize(probes),'CONFLICT')
+
+    def test_partial_history_retries_after_one_hour(self):
+        from src.crypto_chain import collect
+        calls=[]
+        def observe(*args):
+            calls.append(args);return {'positive':True,'history_error':'unavailable'}
+        s={'rows':[row()], 'source':{'sha256':'b'*64}}
+        first=collect(s,{},NOW,observe=observe)
+        calls.clear()
+        collect(s,first,NOW.replace(hour=10),observe=observe)
+        self.assertTrue(calls)
+        calls.clear()
+        collect(s,first,NOW.replace(minute=30),observe=observe)
+        self.assertFalse(calls)
+
+    def test_malformed_http200_rpc_opens_circuit_after_three_failures(self):
+        from src.crypto_chain.transport import Transport,Deferred
+        class Response:
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def read(self,n):return b'{}'
+        class Opener:
+            def open(self,*args,**kwargs):return Response()
+        h=Transport();h.opener=Opener();base='https://ethereum-rpc.publicnode.com'
+        for _ in range(3):
+            with self.assertRaises(ValueError):h.rpc(base,'eth_chainId',[])
+        with self.assertRaises(Deferred):h.rpc(base,'eth_chainId',[])
+        self.assertEqual(h.calls,3)
