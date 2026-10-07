@@ -13,7 +13,7 @@ class NoRedirect(HTTPRedirectHandler):
 class Transport:
     def __init__(self, max_calls=1200, seconds=360, timeout=6):
         self.max_calls=max_calls; self.deadline=time.monotonic()+seconds; self.timeout=timeout
-        self.calls=0; self.failures={}; self.contexts={}; self.opener=build_opener(NoRedirect())
+        self.calls=0; self.failures={}; self.contexts={}; self.last_request={}; self.opener=build_opener(NoRedirect())
         self.allowed={url for ps in PROVIDERS.values() for _,url in ps}
 
     def request(self,base,path='',payload=None,validate=None):
@@ -24,6 +24,13 @@ class Transport:
         if self.calls>=self.max_calls or time.monotonic()>=self.deadline:
             raise Deferred('request/time budget exhausted')
         if self.failures.get(base,0)>=3: raise Deferred('provider circuit open after 3 consecutive failures')
+        interval=1.0 if base=='https://api.trongrid.io' else 0.4 if base.endswith('.drpc.org') else 0
+        remaining=interval-(time.monotonic()-self.last_request.get(base,float('-inf')))
+        if remaining>0:
+            if time.monotonic()+remaining>=self.deadline: raise Deferred('request/time budget exhausted during rate wait')
+            time.sleep(remaining)
+            if time.monotonic()>=self.deadline: raise Deferred('request/time budget exhausted during rate wait')
+        self.last_request[base]=time.monotonic()
         self.calls+=1
         data=None if payload is None else json.dumps(payload).encode()
         req=Request(base+path,data=data,headers={'Content-Type':'application/json',

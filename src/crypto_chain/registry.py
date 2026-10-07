@@ -16,8 +16,8 @@ class Target:
 
 # chainId prevents a wrong/testnet RPC from being accepted. Latest != finalized.
 EVM = {
- 'ethereum': (1, 'finalized', ('https://ethereum-rpc.publicnode.com', 'https://eth.llamarpc.com')),
- 'ethereum-classic': (61, 'latest', ('https://ethereum-classic-rpc.publicnode.com', 'https://etc.rivet.link')),
+ 'ethereum': (1, 'finalized', ('https://ethereum-rpc.publicnode.com', 'https://eth.drpc.org')),
+ 'ethereum-classic': (61, 'latest', ('https://etc.drpc.org', 'https://geth-at.etc-network.info')),
  'bsc': (56, 'latest', ('https://bsc-rpc.publicnode.com', 'https://bsc.drpc.org')),
  'arbitrum': (42161, 'finalized', ('https://arbitrum-one-rpc.publicnode.com', 'https://arb1.arbitrum.io/rpc')),
  'avalanche': (43114, 'latest', ('https://avalanche-c-chain-rpc.publicnode.com', 'https://api.avax.network/ext/bc/C/rpc')),
@@ -27,6 +27,8 @@ PROVIDERS = {
  **{k: [('PublicNode',v[2][0]), ('LlamaNodes' if k=='ethereum' else
         'Rivet' if k=='ethereum-classic' else 'dRPC' if k=='bsc' else 'Network public RPC', v[2][1])]
     for k,v in EVM.items()},
+ 'ethereum': [('PublicNode',EVM['ethereum'][2][0]),('dRPC',EVM['ethereum'][2][1])],
+ 'ethereum-classic': [('dRPC',EVM['ethereum-classic'][2][0]),('ETC-Network.info',EVM['ethereum-classic'][2][1])],
  'tron': [('PublicNode','https://tron-solidity-rpc.publicnode.com'),('TronGrid','https://api.trongrid.io')],
  'bitcoin': [('Blockstream','https://blockstream.info/api'),('mempool.space','https://mempool.space/api')],
  'solana': [('Solana public RPC','https://api.mainnet-beta.solana.com'),('PublicNode','https://solana-rpc.publicnode.com')],

@@ -190,3 +190,46 @@ class AdapterTests(unittest.TestCase):
             with self.assertRaises(ValueError):h.rpc(base,'eth_chainId',[])
         with self.assertRaises(Deferred):h.rpc(base,'eth_chainId',[])
         self.assertEqual(h.calls,3)
+
+    def test_trongrid_calls_are_spaced_and_waits_cannot_exceed_time_budget(self):
+        from unittest.mock import patch
+        from src.crypto_chain.transport import Transport,Deferred
+        class Response:
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def read(self,n):return b'{}'
+        class Opener:
+            def open(self,*args,**kwargs):return Response()
+        clock=[0.0]
+        def sleep(n):clock[0]+=n
+        with patch('src.crypto_chain.transport.time.monotonic',side_effect=lambda:clock[0]),patch('src.crypto_chain.transport.time.sleep',side_effect=sleep):
+            h=Transport(seconds=5);h.opener=Opener()
+            base='https://api.trongrid.io'
+            h.request(base,'/walletsolidity/getaccount',{})
+            h.request(base,'/walletsolidity/getaccount',{})
+            self.assertGreaterEqual(clock[0],1)
+            h.deadline=clock[0]+0.5
+            with self.assertRaises(Deferred):h.request(base,'/walletsolidity/getaccount',{})
+
+    def test_current_etc_registry_uses_live_mainnet_operator(self):
+        from src.crypto_chain.registry import EVM,PROVIDERS
+        self.assertEqual(EVM['ethereum-classic'][0],61)
+        self.assertIn(('dRPC','https://etc.drpc.org'),PROVIDERS['ethereum-classic'])
+        self.assertNotIn('https://etc.rivet.link',[u for _,u in PROVIDERS['ethereum-classic']])
+
+    def test_delayed_rate_wait_cannot_start_request_after_deadline(self):
+        from unittest.mock import patch
+        from src.crypto_chain.transport import Transport,Deferred
+        clock=[0.0]
+        def oversleep(n):clock[0]+=n+0.2
+        class Response:
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def read(self,n):return b'{}'
+        class Opener:
+            def open(self,*args,**kwargs):return Response()
+        with patch('src.crypto_chain.transport.time.monotonic',side_effect=lambda:clock[0]),patch('src.crypto_chain.transport.time.sleep',side_effect=oversleep):
+            h=Transport(seconds=1.1);h.opener=Opener()
+            h.request('https://api.trongrid.io','/walletsolidity/getaccount',{})
+            with self.assertRaises(Deferred):h.request('https://api.trongrid.io','/walletsolidity/getaccount',{})
+            self.assertEqual(h.calls,1)

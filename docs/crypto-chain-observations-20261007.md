@@ -21,7 +21,7 @@
 ## 処理・保守
 
 - GitHub `watch-crypto` が保存済み公式原本の収録成功後に実行。会社のApps ScriptはチェーンAPIへアクセスせず、同じGitHubコミットの公式JSONと照会JSONを取得する。
-- 成功値は6時間キャッシュ。失敗・未照会・Transferの部分失敗は1時間後に再試行。毎回最大360秒・1200 HTTP要求、応答512KiB、照会JSON2MiB。同じ取得先の3連続HTTP/API失敗でその実行中の照会を停止する。公開APIの可用性やレート制限により複数実行に分かれることがある。
+- 成功値は6時間キャッシュ。失敗・未照会・Transferの部分失敗は1時間後に再試行。毎回最大360秒・1200 HTTP要求、応答512KiB、照会JSON2MiB。TronGridは要求開始間隔1秒、dRPCは0.4秒を置く。待機も時間予算に含める。同じ取得先の3連続HTTP/API失敗でその実行中の照会を停止する。公開APIの可用性やレート制限により複数実行に分かれることがある。
 - 失敗時に前回成功値を保持し、今回失敗と最終成功日時を同時表示。6時間超の値は「期限超過」。配布日時を値の成功日時と誤認しない。
 - 照会JSONを取得できなくても公式台帳の同期は継続し、照会タブにエラーを表示。古いチェーン表を成功として残さない。
 - 結合は掲載関係IDだけでなく公式address/symbolも一致させる。照会元の原本SHA256も表示。新しい掲載関係は次のGitHub照会まで対象外・未照会。
@@ -50,5 +50,32 @@
 - https://solana.com/docs/rpc/http/getsignaturesforaddress
 - https://github.com/Blockstream/esplora/blob/master/API.md
 - https://www.publicnode.com/
-- https://llamarpc.com/eth
+- https://drpc.org/docs/ethereum-api
+- https://drpc.org/chainlist/ethereum-classic-mainnet-rpc
+- https://ethereumclassic.org/network/endpoints/
 - https://docs.coregeth.com/etc-cooperative-transition/
+
+## 検証記録と差し替え用の全文
+
+PR #18: https://github.com/kenmizunokuro/sanctions-watch/pull/18
+実装main: 8d4512f87eaa6bcb80108552038c7a1018f3576c
+
+Python全424件、GAS全52件（暗号資産21・外務省9・OFAC自己監視22）、offline213項目、e2e9項目、MOF差分/再審査に成功。独立レビューの4件は再現テストRED→GREENで修正。PRのwatch-mofa（37598302276）とwatch-meti-manual-sla（37598302192）は成功。公式台帳・履歴への変更なしを確認。
+
+ローカルの有限実照会では158関係・340取得先のうち1取得先のBTC履歴取得が成功、1関係PARTIAL・157関係FAILED（未照会を含む）。接続拒否・タイムアウトで共有時間予算が枯渇した。別JSONは129,295バイトで、GAS検証と340行の表示を確認。この数値を本番の到達性や自動検証の解決件数と扱わない。
+
+同一コミットの5ファイル（全文）:
+
+- [Chain.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/8d4512f87eaa6bcb80108552038c7a1018f3576c/apps_script/crypto_dashboard/Chain.gs)
+- [Config.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/8d4512f87eaa6bcb80108552038c7a1018f3576c/apps_script/crypto_dashboard/Config.gs)
+- [Fetch.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/8d4512f87eaa6bcb80108552038c7a1018f3576c/apps_script/crypto_dashboard/Fetch.gs)
+- [View.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/8d4512f87eaa6bcb80108552038c7a1018f3576c/apps_script/crypto_dashboard/View.gs)
+- [Triggers.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/8d4512f87eaa6bcb80108552038c7a1018f3576c/apps_script/crypto_dashboard/Triggers.gs)
+
+### 初回本番照会
+
+watch-crypto 37598417516は全工程成功。配布コミット6a6d2041ccfb7abb1ccec8d11c7fdd4909912a79、照会開始2026-10-07 18:07:42 JST。158関係・340取得先、成功200、全体判定POSITIVE24/PARTIAL132/FAILED2。152関係で少なくとも一つの取得先から記録または残高を観測、43関係で発行元トークンを照合。残りを無効と判定しない。JSONは227,957バイト。SHA固定の公開JSONをGAS検証に通し、340行を表示できることを確認。公式1065関係/1063ユニーク・要確認160・不整合2/制限158は維持、ID/原文/初回収録/公式履歴/検証履歴は不変。
+
+本番で判明したHTTP429に対して呼出し間隔を追加し、EthereumのHTTP525取得先とETCの停止済み取得先を差し替える。dRPCのETC短縮URLはeth_chainId=0x3d（61）を実照会確認し、ベンダーの公開チェーン設定でもEthereum Classicの提供を確認。既存の成功値は再照会せず保持し、変更された取得先だけキャッシュが無効になる。TronGridの直前の失敗は既定通り1時間後に再試行する。
+
+取得先修正の独立レビュー：Critical/Importantなし。待機が予定より延びた場合に期限後の要求を開始する指摘は、有限予算の要件に関わるため再現テストRED→GREENで修正。待機後も期限を再確認し、期限を超えた要求は次回へ回す（その回の取得機会は減るが旧成功値は保持）。Python最終427件、GAS52件成功。
