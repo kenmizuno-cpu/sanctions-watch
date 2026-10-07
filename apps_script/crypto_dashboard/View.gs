@@ -55,7 +55,7 @@ function caBuildTables_(s,cfg,now) {
     BNB_BECH32:'BNB bnb形式・Bech32チェックサム',XRP_XADDRESS:'XRP X-address（未対応）',
     BECH32_UNVERIFIED:'Litecoin形式（チェックサム未検証）',TEXT:'文字列の基本検証',UNSUPPORTED:'検証未対応'};
   var categories={INCONSISTENCY:'不整合',LIMITATION:'検証制限',UNSUPPORTED:'検証未対応'};
-  var scopes={SYMBOL_AND_FORMAT:'公式記号と形式が整合・実ネットワークは未照会',FAMILY_ONLY:'形式の系統のみ・実ネットワーク未確定',UNRESOLVED:'未確定'};
+  var scopes={SYMBOL_AND_FORMAT:'公式記号と形式が整合（チェーン記録は別欄）',FAMILY_ONLY:'形式の系統のみ・実ネットワーク未確定',UNRESOLVED:'未確定'};
   var orderedReviews=[];
   s.rows.forEach(function(r){
     var candidates=(r.network_candidates||[]).join(' / '),scope=scopes[r.network_resolution]||'旧版：候補未記録';
@@ -69,7 +69,7 @@ function caBuildTables_(s,cfg,now) {
   });
   var priority={'不整合':0,'掲載終了候補':1,'検証未対応':2,'検証制限':3};
   orderedReviews.sort(function(a,b){return priority[a[0]]-priority[b[0]];}).forEach(function(r){reviews.push(r);});
-  return {'監視ダッシュボード':overview,'差分':changes,'アドレス台帳':master,'要確認':reviews};
+  return caChainTables_({'監視ダッシュボード':overview,'差分':changes,'アドレス台帳':master,'要確認':reviews},s,now);
 }
 function caFormatSheets_(ss) {
   caSheetNames_().forEach(function(name){
