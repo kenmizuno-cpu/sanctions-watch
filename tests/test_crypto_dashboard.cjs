@@ -107,4 +107,29 @@ test('validation audit IDs and references must be consistent when provided',()=>
  assert.throws(()=>context.caValidateSnapshot_({...snap,validation_events:[{...audit,relation_id:'d'.repeat(64)}]}),/検証履歴/);
  assert.throws(()=>context.caValidateSnapshot_({...snap,validation_events:{}}),/検証履歴/);
 });
+test('review categories distinguish inconsistencies and limitations and show candidates',()=>{
+ const rows=[{...snap.rows[0],review_category:'LIMITATION',review_reason:'ネットワーク未確定',
+   network_candidates:['tron-family'],network_resolution:'FAMILY_ONLY'},
+   {...snap.rows[0],relation_id:'b'.repeat(64),validation:'INVALID',review_reason:'通貨記号との不整合',
+   review_category:'INCONSISTENCY',network_candidates:['tron-family'],network_resolution:'FAMILY_ONLY'}];
+ const tables=context.caBuildTables_({...snap,rows,counts:{...snap.counts,format_review:2}},
+   {warningMinutes:120,criticalMinutes:360});
+ const reviews=tables['要確認'];
+ assert.equal(reviews[1][0],'不整合');assert.equal(reviews[2][0],'検証制限');
+ assert.equal(reviews[1][reviews[0].indexOf('形式からの候補')],'tron-family');
+ assert.equal(reviews[2][reviews[0].indexOf('ネットワーク判定範囲')],'形式の系統のみ・実ネットワーク未確定');
+ assert.ok(tables['監視ダッシュボード'].some(r=>r[0]==='不整合・原文確認'&&r[1]===1));
+ assert.ok(tables['監視ダッシュボード'].some(r=>r[0]==='検証上の制限'&&r[1]===1));
+});
+test('optional metadata and subdivided counts are validated but legacy data is accepted',()=>{
+ const row={...snap.rows[0],review_category:'',network_candidates:['bitcoin'],network_resolution:'SYMBOL_AND_FORMAT'};
+ const data={...snap,rows:[row],counts:{...snap.counts,inconsistency_review:0,validation_limitations:0,unsupported_review:0}};
+ assert.equal(context.caValidateSnapshot_(data).rows.length,1);
+ assert.throws(()=>context.caValidateSnapshot_({...data,counts:{...data.counts,inconsistency_review:1}}),/件数/);
+ for(const overrides of [{network_candidates:'tron'}, {network_candidates:[1]}, {network_resolution:'CONFIRMED'},
+    {review_category:'INCONSISTENCY'}, {network_candidates:[],network_resolution:'FAMILY_ONLY'}]){
+   assert.throws(()=>context.caValidateSnapshot_({...data,rows:[{...row,...overrides}]}),/検証分類|候補/);
+ }
+ assert.equal(context.caValidateSnapshot_(snap).rows.length,1);
+});
 console.log(passed+' tests passed');

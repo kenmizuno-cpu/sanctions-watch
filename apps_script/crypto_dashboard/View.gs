@@ -11,6 +11,8 @@ function caBuildTables_(s,cfg,now) {
   var health=s.upstream.outcome==='failure'?'異常：上流OFAC取得失敗':
     age===null?'未確認：上流確認日時なし':age>cfg.criticalMinutes?'重大：上流確認が遅延':
     age>cfg.warningMinutes?'警告：上流確認が遅延':'確認間隔内';
+  var reviewCounts={INCONSISTENCY:0,LIMITATION:0,UNSUPPORTED:0};
+  s.rows.forEach(function(r){if(r.listing_status==='LISTED'&&r.review_reason)reviewCounts[caReviewCategory_(r)]++;});
   var overview=[['暗号資産アドレス監視','値','説明'],
     ['台帳収録',s.status==='SUCCESS'?'収録成功':'収録失敗・旧台帳保持',s.error||'保存済み公式原本から収録'],
     ['上流監視',health,'台帳収録成功と、OFAC取得成功は別'],
@@ -20,7 +22,10 @@ function caBuildTables_(s,cfg,now) {
     ['台帳実行日時',caTime_(s.generated_at),'最新の台帳収録処理'],
     ['公式掲載の掲載関係数',s.counts.listed_relations,'同一アドレス・別対象者は別関係'],
     ['ユニークアドレス数',s.counts.unique_addresses,'ネットワーク不明は通貨記号ごとに集計'],
-    ['形式・ネットワーク要確認',s.counts.format_review,'公式掲載の原文を保持。形式の検証未対応も含む'],
+    ['形式・ネットワーク要確認（合計）',s.counts.format_review,'不整合・検証制限・未対応の合計。公式原文を保持'],
+    ['不整合・原文確認',reviewCounts.INCONSISTENCY,'最初に要確認の「不整合」を確認。原本内位置から公式の記号と文字列を照合'],
+    ['検証上の制限',reviewCounts.LIMITATION,'形式正常だがチェックサム情報なし・実ネットワーク未確定など'],
+    ['検証未対応',reviewCounts.UNSUPPORTED,'自動検証できないアドレス種別'],
     ['自動検証の更新履歴数',(s.validation_events||[]).length,'検証結果の更新を記録。公式掲載の差分とは別'],
     ['掲載終了レビュー',s.counts.removal_review,'自動削除・解除を行いません'],
     ['初回収録・補完を除く差分数',s.events.filter(function(e){return e.kind!=='BASELINED'&&e.kind!=='BACKFILLED';}).length,'履歴全体の件数'],
@@ -38,23 +43,32 @@ function caBuildTables_(s,cfg,now) {
   var changes=[['検知日時','種別','通貨','ネットワーク','アドレス','対象者ID','対象者名','原本SHA256','イベントID']];
   s.events.slice().reverse().filter(function(e){return names[e.kind];}).forEach(function(e){changes.push([
     caTime_(e.detected_at),names[e.kind],e.symbol,e.network||'未確定',e.address,e.party_id,e.entity_name,e.source_hash,e.event_id]);});
-  var master=[['通貨','ネットワーク','公式原文アドレス','正規化値','対象者ID','対象者名','プログラム','掲載状態','形式検証','要確認理由','初回収録','最終確認','原本SHA256','原本内位置','掲載関係ID','検証方法','検証詳細','検証版']];
-  var reviews=[['分類','理由','通貨','ネットワーク','アドレス','対象者ID','対象者名','掲載状態','原本内位置','掲載関係ID','検証方法','検証詳細','検証版','検証結果']];
+  var master=[['通貨','ネットワーク','公式原文アドレス','正規化値','対象者ID','対象者名','プログラム','掲載状態','形式検証','要確認理由','初回収録','最終確認','原本SHA256','原本内位置','掲載関係ID','検証方法','検証詳細','検証版','形式からの候補','ネットワーク判定範囲']];
+  var reviews=[['分類','理由','通貨','ネットワーク','アドレス','対象者ID','対象者名','掲載状態','原本内位置','掲載関係ID','検証方法','検証詳細','検証版','検証結果','形式からの候補','ネットワーク判定範囲']];
   var statuses={LISTED:'公式掲載',REMOVAL_REVIEW:'掲載終了候補'};
-  var validations={CHECKSUM_VALID:'チェックサム検証済',FORMAT_ONLY:'形式確認・チェックサム未検証',INVALID:'形式・チェックサム不正・要確認',UNSUPPORTED:'検証未対応'};
+  var validations={CHECKSUM_VALID:'チェックサム検証済',FORMAT_ONLY:'形式確認（検証制限あり）',INVALID:'形式・チェックサム不正・要確認',UNSUPPORTED:'検証未対応'};
   var methods={BASE58CHECK:'接頭辞・二重SHA256チェックサム（Base58Check）',
-    BECH32:'Bitcoin形式・チェックサム（Bech32）',BECH32M:'Bitcoin形式・チェックサム（Bech32m）',
-    EIP55:'Ethereum大小文字チェックサム（EIP-55）',HEX20:'16進形式（20バイト）',
+    BECH32:'SegWit形式・チェックサム（Bech32）',BECH32M:'SegWit形式・チェックサム（Bech32m）',
+    EIP55:'EVM大小文字チェックサム（EIP-55）',HEX20:'16進形式（20バイト）',
+    CASHADDR:'BCH CashAddrチェックサム',MONERO_BASE58:'MoneroブロックBase58・Keccakチェックサム',
+    XRP_BASE58:'XRP専用Base58・チェックサム',BASE58_32:'Base58形式（32バイト・チェックサムなし）',
+    BNB_BECH32:'BNB bnb形式・Bech32チェックサム',XRP_XADDRESS:'XRP X-address（未対応）',
     BECH32_UNVERIFIED:'Litecoin形式（チェックサム未検証）',TEXT:'文字列の基本検証',UNSUPPORTED:'検証未対応'};
+  var categories={INCONSISTENCY:'不整合',LIMITATION:'検証制限',UNSUPPORTED:'検証未対応'};
+  var scopes={SYMBOL_AND_FORMAT:'公式記号と形式が整合・実ネットワークは未照会',FAMILY_ONLY:'形式の系統のみ・実ネットワーク未確定',UNRESOLVED:'未確定'};
+  var orderedReviews=[];
   s.rows.forEach(function(r){
+    var candidates=(r.network_candidates||[]).join(' / '),scope=scopes[r.network_resolution]||'旧版：候補未記録';
     var method=methods[r.validation_method]||r.validation_method||'旧版：方法未記録';
     master.push([r.symbol,r.network||'未確定',r.address,r.normalized_address,r.party_id,r.entity_name,r.program||'',statuses[r.listing_status],
       validations[r.validation]||r.validation,r.review_reason||'',caTime_(r.first_seen),caTime_(r.last_seen),r.source_hash||'',r.evidence_locator||'',r.relation_id,
-      method,r.validation_detail||'',r.validation_version||'']);
-    if(r.review_reason||r.listing_status==='REMOVAL_REVIEW')reviews.push([r.listing_status==='REMOVAL_REVIEW'?'掲載終了候補':'形式・ネットワーク',
+      method,r.validation_detail||'',r.validation_version||'',candidates,scope]);
+    if(r.review_reason||r.listing_status==='REMOVAL_REVIEW')orderedReviews.push([r.listing_status==='REMOVAL_REVIEW'?'掲載終了候補':categories[caReviewCategory_(r)],
       r.listing_status==='REMOVAL_REVIEW'?'原本から消失。対象者指定の解除とは別':r.review_reason,r.symbol,r.network||'未確定',r.address,r.party_id,r.entity_name,statuses[r.listing_status],r.evidence_locator||'',r.relation_id,
-      method,r.validation_detail||'',r.validation_version||'',validations[r.validation]||r.validation]);
+      method,r.validation_detail||'',r.validation_version||'',validations[r.validation]||r.validation,candidates,scope]);
   });
+  var priority={'不整合':0,'掲載終了候補':1,'検証未対応':2,'検証制限':3};
+  orderedReviews.sort(function(a,b){return priority[a[0]]-priority[b[0]];}).forEach(function(r){reviews.push(r);});
   return {'監視ダッシュボード':overview,'差分':changes,'アドレス台帳':master,'要確認':reviews};
 }
 function caFormatSheets_(ss) {

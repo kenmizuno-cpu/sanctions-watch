@@ -22,6 +22,17 @@ class LedgerTests(unittest.TestCase):
         _,again=reconcile(updated,[verified],'2026-10-07T02:00:00Z','a'*64,'1')
         self.assertEqual(again,[])
 
+    def test_candidate_only_update_is_audited_and_replay_does_not_duplicate(self):
+        original=dict(row(),validation_version='3',network_candidates=[],network_resolution='UNRESOLVED')
+        rows,_=reconcile([], [original], '2026-10-07T00:00:00Z','a'*64,'1')
+        incoming=dict(original,network_candidates=['ethereum'],network_resolution='SYMBOL_AND_FORMAT')
+        updated,events=reconcile(rows,[incoming],'2026-10-07T01:00:00Z','a'*64,'1')
+        self.assertEqual(events[0]['kind'],'REVALIDATED')
+        self.assertEqual(events[0]['before_candidates'],[])
+        self.assertEqual(events[0]['after_candidates'],['ethereum'])
+        self.assertEqual(updated[0]['last_event_id'],rows[0]['last_event_id'])
+        self.assertEqual(reconcile(updated,[incoming],'2026-10-07T02:00:00Z','a'*64,'1')[1],[])
+
     def test_official_name_change_is_not_hidden_by_validation_update(self):
         original=row()
         rows,_=reconcile([], [original], '2026-10-07T00:00:00Z','a'*64,'1')

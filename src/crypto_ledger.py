@@ -32,7 +32,7 @@ def reconcile(previous, incoming, now, source_hash, parser_version, *, previous_
         if not before: kind = 'BASELINED' if not previous else ('BACKFILLED' if upgrade else 'ADDED')
         elif before['listing_status'] != 'LISTED': kind = 'RELISTED'
         elif any(before.get(k) != item.get(k) for k in ('entity_name','program','address')): kind='CHANGED'
-        elif (any(before.get(k) != item.get(k) for k in ('validation','review_reason')) or
+        elif (any(before.get(k) != item.get(k) for k in ('validation','review_reason','review_category','network_candidates','network_resolution')) or
               (before.get('validation_version') and before.get('validation_version') != item.get('validation_version'))):
             kind='REVALIDATED'
         else: kind = ''
@@ -40,7 +40,9 @@ def reconcile(previous, incoming, now, source_hash, parser_version, *, previous_
             last_id=item['last_validation_event_id'] if kind=='REVALIDATED' else item['last_event_id']
             event_id = digest([ident,last_id,kind,source_hash,parser_version,
                                item['entity_name'], item['program'], item['validation'],
-                               item.get('validation_version',''),item.get('review_reason','')])
+                               item.get('validation_version',''),item.get('review_reason',''),
+                               item.get('review_category',''),item.get('network_candidates',[]),
+                               item.get('network_resolution','')])
             event=dict(event_id=event_id, relation_id=ident, kind=kind, detected_at=now,
                 party_id=item['party_id'], symbol=item['symbol'], network=item['network'],
                 address=item['address'], entity_name=item['entity_name'], source_hash=source_hash,
@@ -49,7 +51,10 @@ def reconcile(previous, incoming, now, source_hash, parser_version, *, previous_
                 event.update(before_validation=before.get('validation',''),after_validation=item['validation'],
                              before_reason=before.get('review_reason',''),after_reason=item.get('review_reason',''),
                              validation_method=item.get('validation_method',''),
-                             validation_version=item.get('validation_version',''))
+                             validation_version=item.get('validation_version',''),
+                             before_category=before.get('review_category',''),after_category=item.get('review_category',''),
+                             before_candidates=before.get('network_candidates',[]),after_candidates=item.get('network_candidates',[]),
+                             before_resolution=before.get('network_resolution',''),after_resolution=item.get('network_resolution',''))
                 item['last_validation_event_id']=event_id
             else:
                 item['last_event_id']=event_id
