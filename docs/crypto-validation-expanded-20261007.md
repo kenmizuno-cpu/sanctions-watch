@@ -52,7 +52,7 @@ ETC/BSC/ARBも既存ethereum.pyの20バイト形式・EIP-55で検証する。�
 
 ## 検証と会社側の更新
 
-Python 407件、GAS 48件（暗号資産17・外務省9・OFAC watchdog22）。実JSONのGAS入力検証・表示行列も確認。独立レビューで検出した、Bitcoinに似たSolanaトークン形式の誤分類とZEC TEX/LTC MWEB/32バイトhexトークン種別の扱いも回帰テストで修正した。トークンはBitcoinテストネットの形式も系統候補として検証し、XBT mainnet判定とは分ける。独立レビュー・CI・本番収録の結果は公開後に追記する。
+Python 407件、GAS 48件（暗号資産17・外務省9・OFAC watchdog22）。実JSONのGAS入力検証・表示行列も確認。独立レビューで検出した、Bitcoinに似たSolanaトークン形式の誤分類とZEC TEX/LTC MWEB/32バイトhexトークン種別の扱いも回帰テストで修正した。トークンはBitcoinテストネットの形式も系統候補として検証し、XBT mainnet判定とは分ける。独立レビューの指摘はすべて修正済み。最終レビューでCritical/Important/Minorの未解決事項なし。GitHubの最終CIはwatch-mofa（37565004265）とwatch-meti-manual-sla（37565004357）が成功。PR #17をmainへマージした（beeb1632e9126b0f46e074dca142ca4fa52ed59d）。本番収録結果は次項に記録する。
 
 会社側は同じコミットの `apps_script/crypto_dashboard/Validate.gs` と `View.gs` を全文差し替え、保存後 `setupCryptoDashboard` を再実行する。設定値を保持し、新列の書式と15分トリガーを設定する。HTTP403が続く場合はFetch.gsのエラー全文で原因を切り分ける。本作業で403解消や会社側同期成功を未確認のまま主張しない。
 
@@ -69,3 +69,23 @@ Python 407件、GAS 48件（暗号資産17・外務省9・OFAC watchdog22）。�
 
 - [Zcash TEX（ZIP320）](https://zips.z.cash/zip-0320)
 - [Suiの32バイトアドレス](https://github.com/MystenLabs/sui/blob/main/docs/content/references/sui-api.mdx)（トークンはhex32系候補・チェーン別検証未対応として保持）
+
+## 本番反映と確認
+
+- PR [#17](https://github.com/kenmizunokuro/sanctions-watch/pull/17)をmainへ反映。実装コミット `beeb1632e9126b0f46e074dca142ca4fa52ed59d`。
+- 最終CI：watch-mofa `37565004265`、watch-meti-manual-sla `37565004357` が成功。
+- 本番 [watch-crypto実行37565093939](https://github.com/kenmizunokuro/sanctions-watch/actions/runs/37565093939)が成功。依存設定・自己テスト・原本収録・台帳保存が成功。
+- 配布データ更新コミット `7763f775ec552534122c14121d93f381edc342e0`、生成日時 `2026-10-07T03:05:35Z`（12:05:35 JST）。
+- 公開配布JSONでSUCCESS、掲載関係1065、ユニーク1063、要確認160（不整合2/制限158/未対応0）、新しい公式イベント0、検証更新1065を確認。
+- 全掲載関係ID・旧識別基準・原文・通貨記号・first_seen・公式履歴・原本内位置を前回版と照合し一致。
+- 本番JSONは4,094,258バイト。新しいGASで入力検証に成功、要確認の先頭2行が不整合であることを確認。
+- 会社側のApps Script適用・同期成功は利用者が確認する。
+
+### 会社側で差し替える完全版
+
+同じコミットの以下2ファイルを全文差し替え、保存後 `setupCryptoDashboard` を再実行する。
+
+- [Validate.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/beeb1632e9126b0f46e074dca142ca4fa52ed59d/apps_script/crypto_dashboard/Validate.gs)
+- [View.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/beeb1632e9126b0f46e074dca142ca4fa52ed59d/apps_script/crypto_dashboard/View.gs)
+
+両ファイルの公開コミット内容と検証済みローカル内容の一致を確認済み。原本も検証ライブラリも会社側へ追加設置する必要はない。

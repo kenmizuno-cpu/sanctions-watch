@@ -41,7 +41,7 @@
 
 ### Task 3: 公開と引き継ぎ
 **Files:** Update docs/crypto-addresses.md, docs/roadmap-20261006.md; Create docs/crypto-validation-expanded-20261007.md.
-- [ ] 全体テスト後に独立した読み取り専用レビューを受ける。
-- [ ] GitHubにPRを作成し、CI成功・レビュー確認後にマージする。
-- [ ] 本番watch-cryptoの成功とID・履歴維持を検証する。
-- [ ] 更新GASの完全版リンクとsetupCryptoDashboard再実行手順を案内する。
+- [x] 全体テスト後に独立した読み取り専用レビューを受ける。
+- [x] GitHubにPRを作成し、CI成功・レビュー確認後にマージする。
+- [x] 本番watch-cryptoの成功とID・履歴維持を検証する。
+- [x] 更新GASの完全版リンクとsetupCryptoDashboard再実行手順を案内する。
