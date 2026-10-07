@@ -1,57 +1,18 @@
 """OFACの明示アドレスを参照表から抽出する。制限判断は行わない。"""
 from __future__ import annotations
 
-import hashlib
 import re
 import xml.etree.ElementTree as ET
 
 PARSER_VERSION = '1'
 NAMESPACE = 'https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ADVANCED_XML'
-BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+from .crypto_validation import normalize_address
 
 class SchemaError(ValueError):
     pass
 
 def local(element):
     return element.tag.rsplit('}', 1)[-1]
-
-def _base58_check(value, prefix):
-    try:
-        number = 0
-        for char in value:
-            number = number * 58 + BASE58.index(char)
-        body = number.to_bytes((number.bit_length() + 7) // 8, 'big')
-        body = b'\0' * (len(value) - len(value.lstrip('1'))) + body
-        return (len(body) == 25 and body[0] in prefix and
-                hashlib.sha256(hashlib.sha256(body[:-4]).digest()).digest()[:4] == body[-4:])
-    except (ValueError, OverflowError):
-        return False
-
-def normalize_address(symbol: str, value: str) -> dict:
-    """原文保持。実装済み形式のみ変換し、未知ネットワークを推定しない。"""
-    result = dict(network='', normalized_address=value, validation='UNSUPPORTED',
-                  review_reason='ネットワーク未確定・検証未対応')
-    if not value or len(value) > 256 or value != value.strip() or any(c.isspace() for c in value):
-        return dict(result, validation='INVALID', review_reason='原文の形式不正')
-    if symbol in {'ETH', 'ETC'}:
-        valid = bool(re.fullmatch(r'0x[0-9a-fA-F]{40}', value))
-        result.update(network={'ETH':'ethereum', 'ETC':'ethereum-classic'}[symbol],
-                      normalized_address=value.lower() if valid else value,
-                      validation='FORMAT_ONLY' if valid else 'INVALID',
-                      review_reason='チェックサム未検証' if valid else '原文の形式不正')
-    elif symbol in {'XBT', 'TRX', 'LTC', 'DOGE', 'DASH'}:
-        network, prefixes = {'XBT':('bitcoin', {0,5}), 'TRX':('tron', {65}),
-            'LTC':('litecoin', {48,50,5}), 'DOGE':('dogecoin', {30,22}),
-            'DASH':('dash', {76,16})}[symbol]
-        result['network'] = network
-        if symbol in {'XBT','LTC'} and value.lower().startswith(('bc1','ltc1')):
-            # 完全なSegWit checksum検証は後続工程。形だけで索引へ入れない。
-            result.update(validation='FORMAT_ONLY', review_reason='Bech32チェックサム未検証')
-        else:
-            valid = _base58_check(value, prefixes)
-            result.update(validation='CHECKSUM_VALID' if valid else 'INVALID',
-                          review_reason='' if valid else '原文のチェックサム・形式不正')
-    return result
 
 def _primary_name(party):
     for identity in party.iter():

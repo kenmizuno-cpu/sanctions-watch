@@ -27,19 +27,33 @@ def reconcile(previous, incoming, now, source_hash, parser_version, *, previous_
         item = dict(raw, relation_id=ident, source_hash=source_hash, parser_version=parser_version,
             first_seen=before['first_seen'] if before else now, last_seen=now, listing_status='LISTED',
             last_event_id=before.get('last_event_id','') if before else '',
+            last_validation_event_id=before.get('last_validation_event_id','') if before else '',
             evidence=[{k:raw.get(k,'') for k in ('source_record_id','feature_id','version_id','evidence_locator','address')}])
         if not before: kind = 'BASELINED' if not previous else ('BACKFILLED' if upgrade else 'ADDED')
         elif before['listing_status'] != 'LISTED': kind = 'RELISTED'
-        elif any(before.get(k) != item.get(k) for k in ('entity_name','program','validation','review_reason')): kind='CHANGED'
+        elif any(before.get(k) != item.get(k) for k in ('entity_name','program','address')): kind='CHANGED'
+        elif (any(before.get(k) != item.get(k) for k in ('validation','review_reason')) or
+              (before.get('validation_version') and before.get('validation_version') != item.get('validation_version'))):
+            kind='REVALIDATED'
         else: kind = ''
         if kind:
-            event_id = digest([ident,item['last_event_id'],kind,source_hash,parser_version,
-                               item['entity_name'], item['program'], item['validation']])
-            events.append(dict(event_id=event_id, relation_id=ident, kind=kind, detected_at=now,
+            last_id=item['last_validation_event_id'] if kind=='REVALIDATED' else item['last_event_id']
+            event_id = digest([ident,last_id,kind,source_hash,parser_version,
+                               item['entity_name'], item['program'], item['validation'],
+                               item.get('validation_version',''),item.get('review_reason','')])
+            event=dict(event_id=event_id, relation_id=ident, kind=kind, detected_at=now,
                 party_id=item['party_id'], symbol=item['symbol'], network=item['network'],
                 address=item['address'], entity_name=item['entity_name'], source_hash=source_hash,
-                before_status=before['listing_status'] if before else '', after_status='LISTED'))
-            item['last_event_id'] = event_id
+                before_status=before['listing_status'] if before else '', after_status='LISTED')
+            if kind=='REVALIDATED':
+                event.update(before_validation=before.get('validation',''),after_validation=item['validation'],
+                             before_reason=before.get('review_reason',''),after_reason=item.get('review_reason',''),
+                             validation_method=item.get('validation_method',''),
+                             validation_version=item.get('validation_version',''))
+                item['last_validation_event_id']=event_id
+            else:
+                item['last_event_id']=event_id
+            events.append(event)
         new[ident] = item
     for ident, before in old.items():
         if ident in new: continue

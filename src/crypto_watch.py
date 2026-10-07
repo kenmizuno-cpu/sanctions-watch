@@ -55,10 +55,12 @@ def run(root: Path, now: str | None = None) -> dict:
     now=now or datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
     previous=_read(root/'data/crypto/dashboard.json',{})
     rows=previous.get('rows',[]); events=previous.get('events',[])
+    validation_events=previous.get('validation_events',[])
     upstream=_upstream(root)
     snapshot=dict(schema_version=1, generated_at=now, last_success=previous.get('last_success',''),
         status='FAILED', error='', upstream=upstream, source=previous.get('source',{}),
-        rows=rows,events=events,counts=_counts(rows),new_event_count=0,report=previous.get('report',{}))
+        rows=rows,events=events,validation_events=validation_events,counts=_counts(rows),
+        new_event_count=0,new_validation_event_count=0,report=previous.get('report',{}))
     try:
         state=_read(root/'data/state.json',{}).get('ofac_sdn',{})
         raw=state.get('raw_advanced','')
@@ -78,8 +80,12 @@ def run(root: Path, now: str | None = None) -> dict:
         if old_count and report['raw_count'] < old_count*0.8: raise ValueError('アドレス件数20%以上急減・反映停止')
         new_rows,new_events=reconcile(rows,incoming,now,content_hash,PARSER_VERSION,
             previous_parser_version=previous.get('report',{}).get('parser_version',PARSER_VERSION))
-        snapshot.update(status='SUCCESS',last_success=now,rows=new_rows,events=events+new_events,
-            counts=_counts(new_rows), new_event_count=len(new_events), report=report,
+        official_events=[e for e in new_events if e['kind']!='REVALIDATED']
+        validation_updates=[e for e in new_events if e['kind']=='REVALIDATED']
+        snapshot.update(status='SUCCESS',last_success=now,rows=new_rows,events=events+official_events,
+            validation_events=validation_events+validation_updates,
+            counts=_counts(new_rows), new_event_count=len(official_events),
+            new_validation_event_count=len(validation_updates),report=report,
             source=dict(source='OFAC',list_name='SDN',source_type='OFFICIAL_SANCTIONS',
                 url=state.get('advanced_url',''),raw_path=raw,sha256=content_hash,
                 etag=state.get('advanced_etag',''),last_modified=state.get('advanced_last_modified',''),

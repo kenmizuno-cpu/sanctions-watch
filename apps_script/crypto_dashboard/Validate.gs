@@ -26,6 +26,17 @@ function caValidateSnapshot_(s) {
     if(!ids[e.relation_id]||['BASELINED','BACKFILLED','ADDED','CHANGED','RELISTED','REMOVAL_CANDIDATE'].indexOf(e.kind)<0)throw Error('イベント参照・種別不正');
     if(!isFinite(Date.parse(e.detected_at)))throw Error('イベント日時不正');
   });
+  // 検証器の更新履歴は公式掲載差分と別。旧配布版では項目省略を許す。
+  if(s.validation_events!==undefined){
+    if(!Array.isArray(s.validation_events)||s.validation_events.length>30000)throw Error('検証履歴の上限・構造不正');
+    s.validation_events.forEach(function(e){
+      if(!/^[0-9a-f]{64}$/.test(e.event_id||'')||eventIds[e.event_id]||!ids[e.relation_id]||
+        e.kind!=='REVALIDATED'||!isFinite(Date.parse(e.detected_at))||
+        ['CHECKSUM_VALID','FORMAT_ONLY','INVALID','UNSUPPORTED'].indexOf(e.before_validation)<0||
+        ['CHECKSUM_VALID','FORMAT_ONLY','INVALID','UNSUPPORTED'].indexOf(e.after_validation)<0)throw Error('検証履歴のID・参照・結果不正');
+      eventIds[e.event_id]=true;
+    });
+  }
   return s;
 }
 function caSafeText_(value) {

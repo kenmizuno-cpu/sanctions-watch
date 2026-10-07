@@ -9,6 +9,20 @@ from tests.test_crypto_addresses import xml
 from src.crypto_watch import run
 
 class WatchTests(unittest.TestCase):
+    def test_revalidation_does_not_publish_an_official_change_and_repeat_is_idempotent(self):
+        self.setup_source(xml(address='0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed'))
+        initial=run(self.root,'2026-10-07T00:00:00Z')
+        initial['rows'][0].update(validation='FORMAT_ONLY',review_reason='チェックサム未検証')
+        (self.root/'data/crypto/dashboard.json').write_text(json.dumps(initial))
+        updated=run(self.root,'2026-10-07T01:00:00Z')
+        self.assertEqual(updated['new_event_count'],0)
+        self.assertEqual(updated['events'],initial['events'])
+        self.assertEqual(updated['new_validation_event_count'],1)
+        self.assertEqual(updated['validation_events'][0]['kind'],'REVALIDATED')
+        repeat=run(self.root,'2026-10-07T02:00:00Z')
+        self.assertEqual(repeat['new_validation_event_count'],0)
+        self.assertEqual(repeat['validation_events'],updated['validation_events'])
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)

@@ -8,6 +8,8 @@ on:
       - src/crypto_addresses.py
       - src/crypto_ledger.py
       - src/crypto_watch.py
+      - src/crypto_validation/**
+      - requirements-crypto.txt
       - tests/test_crypto_*.py
       - tests/test_crypto_dashboard.cjs
   workflow_run:
@@ -38,7 +40,8 @@ jobs:
           python-version: '3.12'
       - name: アドレス監視の自己テスト
         run: |
-          python -m unittest tests.test_crypto_addresses tests.test_crypto_ledger tests.test_crypto_watch
+          python -m pip install -r requirements-crypto.txt
+          python -m unittest tests.test_crypto_addresses tests.test_crypto_validation tests.test_crypto_bech32_reference tests.test_crypto_ledger tests.test_crypto_watch
           node tests/test_crypto_dashboard.cjs
       - name: 保存済みOFAC原本から収録
         id: extract
