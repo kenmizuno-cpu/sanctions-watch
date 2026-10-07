@@ -216,3 +216,20 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(EVM['ethereum-classic'][0],61)
         self.assertIn(('dRPC','https://etc.drpc.org'),PROVIDERS['ethereum-classic'])
         self.assertNotIn('https://etc.rivet.link',[u for _,u in PROVIDERS['ethereum-classic']])
+
+    def test_delayed_rate_wait_cannot_start_request_after_deadline(self):
+        from unittest.mock import patch
+        from src.crypto_chain.transport import Transport,Deferred
+        clock=[0.0]
+        def oversleep(n):clock[0]+=n+0.2
+        class Response:
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def read(self,n):return b'{}'
+        class Opener:
+            def open(self,*args,**kwargs):return Response()
+        with patch('src.crypto_chain.transport.time.monotonic',side_effect=lambda:clock[0]),patch('src.crypto_chain.transport.time.sleep',side_effect=oversleep):
+            h=Transport(seconds=1.1);h.opener=Opener()
+            h.request('https://api.trongrid.io','/walletsolidity/getaccount',{})
+            with self.assertRaises(Deferred):h.request('https://api.trongrid.io','/walletsolidity/getaccount',{})
+            self.assertEqual(h.calls,1)

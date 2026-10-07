@@ -29,6 +29,7 @@ class Transport:
         if remaining>0:
             if time.monotonic()+remaining>=self.deadline: raise Deferred('request/time budget exhausted during rate wait')
             time.sleep(remaining)
+            if time.monotonic()>=self.deadline: raise Deferred('request/time budget exhausted during rate wait')
         self.last_request[base]=time.monotonic()
         self.calls+=1
         data=None if payload is None else json.dumps(payload).encode()
