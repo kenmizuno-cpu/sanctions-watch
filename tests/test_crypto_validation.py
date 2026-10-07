@@ -70,13 +70,14 @@ class AddressValidationTests(unittest.TestCase):
                 self.assertIn('チェックサム情報なし', result['review_reason'])
                 self.assertEqual(result['validation_method'], 'HEX20')
 
-    def test_unsupported_network_is_never_inferred_from_evm_shape(self):
+    def test_token_network_is_never_resolved_from_evm_shape(self):
         address='0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed'
         result=normalize_address('USDT', address)
         self.assertEqual(result['network'], '')
-        self.assertEqual(result['validation'], 'UNSUPPORTED')
+        self.assertEqual(result['validation'], 'CHECKSUM_VALID')
         self.assertEqual(result['normalized_address'], address)
-        self.assertEqual(result['validation_method'], 'UNSUPPORTED')
+        self.assertEqual(result['validation_method'], 'EIP55')
+        self.assertEqual(result['network_resolution'], 'FAMILY_ONLY')
 
     def test_whitespace_and_wrong_length_fail_before_checksums(self):
         for address in ['', ' 0x'+'0'*40, '0x'+'0'*39, '0x'+'0'*39+'z']:
@@ -88,7 +89,7 @@ class AddressValidationTests(unittest.TestCase):
         self.assertEqual(result['validation'], 'CHECKSUM_VALID')
         self.assertEqual(result['validation_method'], 'BASE58CHECK')
         self.assertTrue(result['validation_detail'])
-        self.assertEqual(result['validation_version'], '2')
+        self.assertEqual(result['validation_version'], '3')
 
     def test_missing_keccak_dependency_fails_instead_of_claiming_validation(self):
         with patch.dict('sys.modules',{'Crypto.Hash':None}):

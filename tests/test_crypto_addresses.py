@@ -34,7 +34,9 @@ class ExtractionTests(unittest.TestCase):
         result = normalize_address('USDT', ETH)
         self.assertEqual(result['network'], '')
         self.assertEqual(result['normalized_address'], ETH)
-        self.assertEqual(result['review_reason'], 'ネットワーク未確定・検証未対応')
+        self.assertEqual(result['validation'], 'INVALID')
+        self.assertEqual(result['review_category'], 'INCONSISTENCY')
+        self.assertIn('チェックサム不一致', result['review_reason'])
 
     def test_tron_checksum_and_altered_character(self):
         good = normalize_address('TRX', 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb')

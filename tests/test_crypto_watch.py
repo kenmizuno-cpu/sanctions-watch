@@ -23,6 +23,18 @@ class WatchTests(unittest.TestCase):
         self.assertEqual(repeat['new_validation_event_count'],0)
         self.assertEqual(repeat['validation_events'],updated['validation_events'])
 
+    def test_category_counts_preserve_legacy_aggregate(self):
+        from src.crypto_watch import _counts
+        rows=[]
+        for category,state in [('INCONSISTENCY','INVALID'),('LIMITATION','FORMAT_ONLY'),('UNSUPPORTED','UNSUPPORTED')]:
+            rows.append(dict(listing_status='LISTED',network='',symbol='TEST',normalized_address=category,
+                             review_reason='確認',review_category=category,validation=state))
+        c=_counts(rows)
+        self.assertEqual(c['format_review'],3)
+        self.assertEqual(c['inconsistency_review'],1)
+        self.assertEqual(c['validation_limitations'],1)
+        self.assertEqual(c['unsupported_review'],1)
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)

@@ -12,6 +12,7 @@ from pathlib import Path
 
 from .crypto_addresses import extract, PARSER_VERSION
 from .crypto_ledger import reconcile
+from .crypto_validation.common import review_category
 from .persistence import FileWrite, atomic_replace_many
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -46,7 +47,10 @@ def _counts(rows):
     for row in listed: by_symbol[row['symbol']]=by_symbol.get(row['symbol'],0)+1
     return dict(listed_relations=len(listed),unique_addresses=len(unique),
         removal_review=sum(r['listing_status']=='REMOVAL_REVIEW' for r in rows),
-        format_review=sum(bool(r.get('review_reason')) for r in listed),by_symbol=by_symbol)
+        format_review=sum(bool(r.get('review_reason')) for r in listed),
+        inconsistency_review=sum(review_category(r)=='INCONSISTENCY' for r in listed),
+        validation_limitations=sum(review_category(r)=='LIMITATION' for r in listed),
+        unsupported_review=sum(review_category(r)=='UNSUPPORTED' for r in listed),by_symbol=by_symbol)
 
 def _json_write(path, value):
     path.write_text(json.dumps(value,ensure_ascii=False,sort_keys=True,indent=2)+'\n',encoding='utf-8')
