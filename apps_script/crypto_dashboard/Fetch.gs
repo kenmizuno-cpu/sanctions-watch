@@ -7,7 +7,7 @@ function caGetText_(url,maxBytes) {
   var response=UrlFetchApp.fetch(url,{muteHttpExceptions:true,followRedirects:false,
     headers:{Accept:'application/json','User-Agent':'sanctions-watch-crypto-dashboard'}});
   if(response.getResponseCode()!==200)throw caHttpError_(url,response);
-  if(response.getBlob().getBytes().length>(maxBytes||5*1024*1024))throw Error(maxBytes?'チェーン取得サイズ上限2MBを超過':'取得サイズ上限5MBを超過');
+  if(response.getBlob().getBytes().length>(maxBytes||5*1024*1024))throw Error(maxBytes?'追加照会の取得サイズ上限2MBを超過':'取得サイズ上限5MBを超過');
   var text=response.getContentText('UTF-8');
   if(!text)throw Error('空レスポンス');
   return text;
@@ -44,5 +44,9 @@ function caFetchSnapshot_(cfg) {
     var chainUrl=url.replace('/dashboard.json','/chain_observations.json');
     snapshot.chain_data=caValidateChain_(JSON.parse(caGetText_(chainUrl,2*1024*1024)),snapshot);
   }catch(error){snapshot.chain_error=String(error.message||error).slice(0,500);}
+  try{
+    var historyUrl=url.replace('/dashboard.json','/token_history.json');
+    snapshot.token_history_data=caValidateTokenHistory_(JSON.parse(caGetText_(historyUrl,2*1024*1024)),snapshot);
+  }catch(error){snapshot.token_history_error=String(error.message||error).slice(0,500);}
   return snapshot;
 }

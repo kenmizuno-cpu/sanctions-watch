@@ -182,3 +182,52 @@ test('token asset mismatch cannot hide behind matching native presence',()=>{
  assert.equal(context.caChainState_(probes),'CONFLICT');
 });
 console.log('Final '+passed+' tests passed');
+const historySubject={...snap,counts:{...snap.counts,format_review:1,by_symbol:{USDT:1}},rows:[{...snap.rows[0],review_reason:'ネットワーク未確定',symbol:'USDT',address:'0xb6f5ec1a0a9cd1526536d3f0426c429529471f40',review_category:'LIMITATION',validation:'FORMAT_ONLY'}]};
+const history={schema_version:1,registry_version:'2026-10-08.1',source_hash:'a'.repeat(64),generated_at:'2026-10-08T01:00:00Z',
+ counts:{target_relations:1,VERIFIED:1},rows:[{relation_id:'a'.repeat(64),address:historySubject.rows[0].address,symbol:'USDT',chain:'ethereum',
+ contract:'0xdac17f958d2ee523a2206206994597c13d831ec7',issuer_source:'https://tether.to/en/supported-protocols/',
+ index_provider:'Blockscout',index_endpoint:'https://eth.blockscout.com',status:'SUCCESS',attempted_at:'2026-10-08T00:59:00Z',
+ last_success:{state:'VERIFIED',checked_at:'2026-10-08T01:00:00Z',candidates_count:'22',checked_candidates:'1',unavailable_candidates:'0',rejected_candidates:'0',has_more:false,scope:'先頭50件、最大3取引。全履歴は未確認。',
+ proofs:[{tx_hash:'0x'+'1'.repeat(64),block_hash:'0x'+'2'.repeat(64),block_height:'13658209',block_timestamp:'1637498057',log_index:'0',
+ amount_raw:'900719925474099312345',from_address:historySubject.rows[0].address,to_address:'0x'+'3'.repeat(40),confirmation:'finalized',receipt_provider:'PublicNode',receipt_endpoint:'https://ethereum-rpc.publicnode.com'}]}}]};
+test('history accepts receipt proof and rejects wrong contract identity counts and source',()=>{
+ assert.equal(typeof context.caValidateTokenHistory_,'function');
+ assert.equal(context.caValidateTokenHistory_(history,historySubject).rows.length,1);
+ for(const mutate of [h=>h.counts.VERIFIED=2,h=>h.rows[0].address='different',h=>h.source_hash='b'.repeat(64),h=>h.rows[0].contract='0x'+'4'.repeat(40),h=>h.rows.push(h.rows[0])]){
+  const h=JSON.parse(JSON.stringify(history));mutate(h);assert.throws(()=>context.caValidateTokenHistory_(h,historySubject),/履歴/);
+ }
+});
+test('history rejects unrelated zero unconfirmed and unsafe endpoint proof',()=>{
+ for(const mutate of [p=>p.amount_raw='0',p=>p.from_address='0x'+'4'.repeat(40),p=>p.confirmation='latest',p=>p.receipt_endpoint='https://evil.invalid',p=>p.tx_hash='bad']){
+  const h=JSON.parse(JSON.stringify(history));mutate(h.rows[0].last_success.proofs[0]);assert.throws(()=>context.caValidateTokenHistory_(h,historySubject),/履歴/);
+ }
+});
+test('history state must agree with evidence and coverage counters',()=>{
+ for(const mutate of [v=>v.proofs=[],v=>v.checked_candidates='4',v=>v.unavailable_candidates='1',v=>v.state='NO_PROOF',v=>v.has_more='false']){
+  const h=JSON.parse(JSON.stringify(history));mutate(h.rows[0].last_success);assert.throws(()=>context.caValidateTokenHistory_(h,historySubject),/履歴/);
+ }
+});
+test('history view preserves official review and exposes exact amounts confirmation and freshness',()=>{
+ const tables=context.caBuildTables_({...historySubject,token_history_data:history},{warningMinutes:120,criticalMinutes:360},new Date('2026-10-08T09:00:00Z'));
+ assert.equal(tables['差分'].length,1);assert.equal(tables['要確認'].length,2);
+ assert.ok(context.caSheetNames_().includes('トークン履歴検証'));
+ const rows=tables['トークン履歴検証'];assert.ok(rows.some(r=>r.includes('900719925474099312345')));
+ assert.ok(rows.some(r=>r.join(' ').includes('期限超過')));assert.ok(rows.some(r=>r.includes('finalized')));
+});
+test('history failed refresh labels preserved proof as old and never current success',()=>{
+ const h=JSON.parse(JSON.stringify(history));h.rows[0].status='FAILED';h.rows[0].error='HTTP 429';h.counts={FAILED:1,target_relations:1};
+ context.caValidateTokenHistory_(h,historySubject);
+ const tables=context.caBuildTables_({...historySubject,token_history_data:h},{warningMinutes:120,criticalMinutes:360},new Date('2026-10-08T02:00:00Z'));
+ assert.ok(tables['トークン履歴検証'].some(r=>r.join(' ').includes('旧成功')));
+ assert.ok(tables['トークン履歴検証'].some(r=>r.includes('HTTP 429')));
+});
+test('history unavailable JSON keeps official sync and shows separate error',()=>{
+ const sha='c'.repeat(40);const urls=[];
+ context.UrlFetchApp={fetch(url){urls.push(url);return response(url.endsWith('/token_history.json')?403:200,
+  JSON.stringify(url.includes('/commits/')?{sha}:url.endsWith('/token_history.json')?{}:snap));}};
+ const s=context.caFetchSnapshot_({repo:'kenmizunokuro/sanctions-watch',branch:'main'});
+ assert.equal(s.rows.length,1);assert.match(s.token_history_error,/HTTP 403/);
+ assert.ok(urls.some(u=>u.includes('/'+sha+'/data/crypto/token_history.json')));
+ assert.ok(context.caBuildTables_(s,{warningMinutes:120,criticalMinutes:360})['トークン履歴検証'].some(r=>r.join(' ').includes('HTTP 403')));
+});
+console.log('With history '+passed+' tests passed');
