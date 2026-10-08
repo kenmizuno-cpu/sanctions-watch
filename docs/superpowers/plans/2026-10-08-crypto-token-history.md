@@ -44,5 +44,5 @@
 - [x] node tests/test_crypto_dashboard.cjs → 新機能欠落でFAIL。
 - [x] SHA固定取得、独立検証・専用タブ・日本語表示、設置手順を実装。
 - [x] unittest全件・GAS全件・offline/e2e・git diff --check→PASS。
-- [ ] 独立レビュー→修正→PR/CI→既承認のmerge→本番JSON/GAS照合。
+- [x] 独立レビュー→修正→PR/CI→既承認のmerge→本番JSON/GAS照合。PR #21/#22、445 unittest・GAS79件、本番37715782067で88/89検証済み・1有限範囲で証拠なし。
 - [x] commit feat(crypto): display verified historical token evidence。
