@@ -69,7 +69,7 @@ function caBuildTables_(s,cfg,now) {
   });
   var priority={'不整合':0,'掲載終了候補':1,'検証未対応':2,'検証制限':3};
   orderedReviews.sort(function(a,b){return priority[a[0]]-priority[b[0]];}).forEach(function(r){reviews.push(r);});
-  return caChainTables_({'監視ダッシュボード':overview,'差分':changes,'アドレス台帳':master,'要確認':reviews},s,now);
+  return caTokenHistoryTables_(caChainTables_({'監視ダッシュボード':overview,'差分':changes,'アドレス台帳':master,'要確認':reviews},s,now),s,now);
 }
 function caFormatSheets_(ss) {
   caSheetNames_().forEach(function(name){

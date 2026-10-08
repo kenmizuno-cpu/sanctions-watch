@@ -457,7 +457,7 @@ cd "$HOME/Desktop/sanctions-watch"
 6. OFAC・財務省の定期監視とSheets定期同期は既存の運用を続ける。外務省の公式サイト確認・資料保存は担当者が行う。
 # 暗号資産アドレス監視の追加
 
-OFAC SDN Advanced XMLの明示アドレスを、既存の人物・団体名マスターと別の台帳へ収録します。独立した監視スプレッドシートのApps Scriptは、後から修正できるよう10ファイルへ機能別に分割しています。
+OFAC SDN Advanced XMLの明示アドレスを、既存の人物・団体名マスターと別の台帳へ収録します。独立した監視スプレッドシートのApps Scriptは、後から修正できるよう11ファイルへ機能別に分割しています。
 
 - [導入・運用](docs/crypto-addresses.md)
 - [更新ロードマップ・引き継ぎ](docs/roadmap-20261006.md)

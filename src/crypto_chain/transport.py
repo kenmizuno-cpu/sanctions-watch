@@ -24,7 +24,7 @@ class Transport:
         if self.calls>=self.max_calls or time.monotonic()>=self.deadline:
             raise Deferred('request/time budget exhausted')
         if self.failures.get(base,0)>=3: raise Deferred('provider circuit open after 3 consecutive failures')
-        interval=1.0 if base=='https://api.trongrid.io' else 0.4 if base.endswith('.drpc.org') else 0
+        interval=1.0 if base in ('https://api.trongrid.io','https://eth.blockscout.com') else 0.4 if base.endswith('.drpc.org') else 0
         remaining=interval-(time.monotonic()-self.last_request.get(base,float('-inf')))
         if remaining>0:
             if time.monotonic()+remaining>=self.deadline: raise Deferred('request/time budget exhausted during rate wait')
