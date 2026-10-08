@@ -25,13 +25,14 @@ function caValidateTokenHistory_(d,s) {
     if(r.error!==undefined)str(r.error,300);
     var v=r.last_success;
     if(r.status==='SUCCESS'&&!v)fail();
-    if(v){
+    function observation(v){
       time(v.checked_at);if(Date.parse(v.checked_at)>Date.parse(d.generated_at)+60000)fail();
       str(v.scope,1000);if(v.error!==undefined)str(v.error,300);
       if(typeof v.has_more!=='boolean'||!Array.isArray(v.proofs)||v.proofs.length>1)fail();
       var candidates=count(v.candidates_count,tron?20:50),checked=count(v.checked_candidates,3),
         unavailable=count(v.unavailable_candidates,3),rejected=count(v.rejected_candidates,3);
       if(checked>candidates||unavailable+rejected+v.proofs.length!==checked)fail();
+      if(!v.proofs.length&&checked!==Math.min(candidates,3))fail();
       var state=v.proofs.length?'VERIFIED':unavailable?'PARTIAL':'NO_PROOF';if(v.state!==state)fail();
       v.proofs.forEach(function(p){
         var hash=tron?/^[0-9a-f]{64}$/:/^0x[0-9a-f]{64}$/;
@@ -45,6 +46,8 @@ function caValidateTokenHistory_(d,s) {
         if(providers[p.receipt_provider]!==p.receipt_endpoint)fail();
       });
     }
+    if(v)observation(v);
+    if(r.last_verified){observation(r.last_verified);if(r.last_verified.state!=='VERIFIED')fail();}
     var label=r.status==='SUCCESS'?v.state:r.status;counts[label]=(counts[label]||0)+1;
   });
   if(d.counts.target_relations!==d.rows.length)fail();
@@ -56,18 +59,21 @@ function caTokenHistoryTables_(tables,s,now) {
   s.rows.forEach(function(r){names[r.relation_id]=r.entity_name;});
   var rows=[['判定','通貨','公式アドレス','対象者名','チェーン','今回取得','今回照会日時','最終成功日時','鮮度',
     '履歴索引','取引結果取得先','発行元コントラクト','検証済み取引ID','ブロック高さ','ブロック識別子','確認状態',
-    '送受信額（最小単位）','送信アドレス','受信アドレス','候補数/照会数','次ページの有無','検証範囲・注意','取得エラー','掲載関係ID','照会元原本SHA256']];
-  function label(r){return r.status==='SUCCESS'?labels[r.last_success.state]:labels[r.status]+(r.last_success&&r.last_success.proofs.length?'（旧証拠あり）':'');}
+    '送受信額（最小単位）','送信アドレス','受信アドレス','候補数/照会数','次ページの有無','検証範囲・注意','取得エラー','掲載関係ID','照会元原本SHA256','証拠の検証日時']];
+  function label(r){var state=r.status==='SUCCESS'?r.last_success.state:r.status;
+    var previous=r.last_verified||(r.last_success&&r.last_success.proofs.length?r.last_success:null);
+    return labels[state]+(previous&&state!=='VERIFIED'?'（旧証拠あり）':'');}
   if(d){
     d.rows.forEach(function(r){
       lookup[r.relation_id]=r;var v=r.last_success||{},age=(now.getTime()-Date.parse(v.checked_at||''))/3600000;
       var fresh=!v.checked_at?'成功記録なし':age<0?'時刻要確認':age>6?'期限超過・旧成功値':r.status!=='SUCCESS'?'旧成功値（今回失敗）':'6時間以内';
-      var p=(v.proofs||[])[0]||{};
+      var evidence=r.last_verified||(v.proofs&&v.proofs.length?v:{}),p=(evidence.proofs||[])[0]||{};
+      if(p.tx_hash&&(r.status!=='SUCCESS'||v.state!=='VERIFIED'))fresh+=' / 旧証拠の検証日時を確認';
       rows.push([label(r),r.symbol,r.address,names[r.relation_id],r.chain,r.status==='SUCCESS'?'履歴取得成功':labels[r.status],
         caTime_(r.attempted_at),caTime_(v.checked_at),fresh,r.index_provider,p.receipt_provider||'',r.contract,p.tx_hash||'',
         p.block_height||'',p.block_hash||'',p.confirmation||'',p.amount_raw||'',p.from_address||'',p.to_address||'',
         v.checked_at?v.candidates_count+' / '+v.checked_candidates:'',v.checked_at?(v.has_more?'あり（未取得）':'索引の次ページなし'):'未確認',
-        v.scope||'前回成功なし。全履歴・所有者は未確認。',r.error||v.error||'',r.relation_id,d.source_hash]);
+        v.scope||'前回成功なし。全履歴・所有者は未確認。',r.error||v.error||'',r.relation_id,d.source_hash,caTime_(evidence.checked_at)]);
     });
     tables['監視ダッシュボード'].splice(4,0,
       ['過去のトークン送受信の証拠',d.counts.VERIFIED||0,'TRON USDT・Ethereum USDT/USDC。成功取引とブロック収録まで照合。形式判定・所有者は未確定'],
@@ -75,7 +81,7 @@ function caTokenHistoryTables_(tables,s,now) {
       ['履歴検証の取得不足・失敗',(d.counts.PARTIAL||0)+(d.counts.FAILED||0)+(d.counts.DEFERRED||0),'旧成功値・取得範囲・照会日時を確認']);
   }else{
     var error=s.token_history_error||'トークン履歴データ未取得（旧版）';
-    rows.push(['履歴JSON未取得','','','','','取得失敗/未設定','','','','','','','','','','','','','','','',error,error,'','']);
+    rows.push(['履歴JSON未取得','','','','','取得失敗/未設定','','','','','','','','','','','','','','','',error,error,'','','']);
     tables['監視ダッシュボード'].splice(4,0,['過去のトークン送受信の証拠','未取得',error]);
   }
   [['アドレス台帳','掲載関係ID'],['要確認','掲載関係ID']].forEach(function(pair){

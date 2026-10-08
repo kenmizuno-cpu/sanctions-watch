@@ -231,3 +231,20 @@ test('history unavailable JSON keeps official sync and shows separate error',()=
  assert.ok(context.caBuildTables_(s,{warningMinutes:120,criticalMinutes:360})['トークン履歴検証'].some(r=>r.join(' ').includes('HTTP 403')));
 });
 console.log('With history '+passed+' tests passed');
+test('available candidates cannot be called absent without any verification attempts',()=>{
+ const h=JSON.parse(JSON.stringify(history));const v=h.rows[0].last_success;
+ v.state='NO_PROOF';v.candidates_count='1';v.checked_candidates='0';v.proofs=[];h.counts={NO_PROOF:1,target_relations:1};
+ assert.throws(()=>context.caValidateTokenHistory_(h,historySubject),/履歴/);
+});
+test('current partial result keeps separately dated old verified proof visible',()=>{
+ const h=JSON.parse(JSON.stringify(history)),r=h.rows[0];r.last_verified=JSON.parse(JSON.stringify(r.last_success));
+ r.last_success={...r.last_success,state:'PARTIAL',proofs:[],checked_at:'2026-10-08T02:00:00Z',candidates_count:'1',checked_candidates:'1',unavailable_candidates:'1'};
+ h.generated_at='2026-10-08T02:00:00Z';h.counts={PARTIAL:1,target_relations:1};
+ context.caValidateTokenHistory_(h,historySubject);
+ const tables=context.caBuildTables_({...historySubject,token_history_data:h},{warningMinutes:120,criticalMinutes:360},new Date('2026-10-08T02:05:00Z'));
+ assert.ok(tables['トークン履歴検証'].some(row=>row.includes('0x'+'1'.repeat(64))));
+ assert.ok(tables['トークン履歴検証'].some(row=>row.join(' ').includes('旧証拠')));
+ const invalid=JSON.parse(JSON.stringify(h));invalid.rows[0].last_verified.proofs[0].amount_raw='0';
+ assert.throws(()=>context.caValidateTokenHistory_(invalid,historySubject),/履歴/);
+});
+console.log('Final history '+passed+' tests passed');

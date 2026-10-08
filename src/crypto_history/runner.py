@@ -30,10 +30,13 @@ def collect(snapshot,previous,now=None,*,http=None,observe=None):
                 rows.append(dict(prev));continue
             r={**fields,'attempted_at':datetime.now(timezone.utc).isoformat().replace('+00:00','Z') if real else stamp}
             if value:r['last_success']=dict(value)
+            verified=prev.get('last_verified') or (value if value.get('state')=='VERIFIED' else None)
+            if verified:r['last_verified']=dict(verified)
             try:
                 v=observe(t,official['address'],http)
                 v['checked_at']=datetime.now(timezone.utc).isoformat().replace('+00:00','Z') if real else stamp
                 r.update(status='SUCCESS',last_success=v)
+                if v['state']=='VERIFIED':r['last_verified']=dict(v)
             except Deferred as e:r.update(status='DEFERRED',error=str(e)[:160])
             except Exception as e:
                 r.update(status='FAILED',error=type(e).__name__+((' HTTP '+str(e.code)) if hasattr(e,'code') else '')+': token history lookup failed')

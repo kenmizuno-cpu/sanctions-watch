@@ -18,7 +18,9 @@ def context(http,base):
 def prove(t,address,tx,http,base):
     solid,stamp=context(http,base)
     r=http.request(base,'/walletsolidity/gettransactioninfobyid',{'value':tx})
-    if not isinstance(r,dict) or r.get('id')!=tx or r.get('receipt',{}).get('result')!='SUCCESS':raise Rejected('receipt not successful')
+    if (not isinstance(r,dict) or any(k not in r for k in ('id','receipt','blockNumber','blockTimeStamp','log'))
+        or not isinstance(r['receipt'],dict) or 'result' not in r['receipt']):raise ValueError('receipt unavailable/incomplete')
+    if r['id']!=tx or r['receipt']['result']!='SUCCESS':raise Rejected('receipt not successful')
     height=integer(r['blockNumber']);timestamp=integer(r['blockTimeStamp'])
     if int(height)>solid or int(timestamp)>stamp:raise Rejected('receipt not solidified')
     b=http.request(base,'/walletsolidity/getblockbynum',{'num':int(height)})
@@ -27,7 +29,7 @@ def prove(t,address,tx,http,base):
         not re.fullmatch(r'[0-9a-f]{64}',block_hash) or not isinstance(b.get('transactions'),list) or
         tx not in [x.get('txID') for x in b['transactions'] if isinstance(x,dict)]):raise Rejected('solid block mismatch')
     logs=r.get('log')
-    if not isinstance(logs,list) or len(logs)>1000:raise Rejected('invalid receipt logs')
+    if not isinstance(logs,list) or len(logs)>1000:raise ValueError('receipt logs unavailable/malformed')
     for i,log in enumerate(logs):
         event=transfer(log,t.contract,address,tron=True)
         if event:

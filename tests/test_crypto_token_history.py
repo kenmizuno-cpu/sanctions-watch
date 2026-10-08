@@ -133,6 +133,16 @@ class HistoryAdapterTests(unittest.TestCase):
         h.rpc=bad
         with self.assertRaises(ValueError):context(h,'endpoint')
         self.assertNotIn(('history-eth','endpoint'),h.contexts)
+    def test_missing_receipt_status_or_logs_is_unavailable_not_absence(self):
+        for chain in ['ethereum','tron']:
+            for missing in ['empty','status','logs']:
+                h=FixtureHTTP(chain)
+                if missing=='empty':h.receipt={}
+                elif missing=='status':h.receipt.pop('receipt' if chain=='tron' else 'status')
+                else:h.receipt.pop('log' if chain=='tron' else 'logs')
+                v=self.observe(h)
+                self.assertEqual(v['state'],'PARTIAL',(chain,missing))
+                self.assertEqual(v['unavailable_candidates'],'1');self.assertEqual(v['proofs'],[])
 
 class HistoryRunnerTests(unittest.TestCase):
     def setUp(self):
@@ -168,6 +178,19 @@ class HistoryRunnerTests(unittest.TestCase):
         self.assertNotIn('secret',str(q))
         self.calls.clear();self.collect(self.snapshot,q,self.now+timedelta(hours=7,minutes=5),observe=self.observe)
         self.assertEqual(self.calls,[])
+    def test_partial_or_bounded_empty_refresh_keeps_separately_dated_verified_proof(self):
+        from datetime import timedelta
+        from src.crypto_history.evm import observe
+        verified=observe(TOKENS['USDT'][0],ETH_ADDRESS,FixtureHTTP())
+        p=self.collect(self.snapshot,{},self.now,observe=lambda *args:copy.deepcopy(verified))
+        for state in ['PARTIAL','NO_PROOF']:
+            def latest(*args):return {**self.observe(*args),'state':state}
+            q=self.collect(self.snapshot,p,self.now+timedelta(hours=7),observe=latest)
+            self.assertEqual(q['rows'][0]['last_success']['state'],state)
+            self.assertIn('last_verified',q['rows'][0])
+            self.assertEqual(q['rows'][0]['last_verified']['proofs'],p['rows'][0]['last_success']['proofs'])
+            self.assertEqual(q['rows'][0]['last_verified']['checked_at'],'2026-10-08T01:00:00Z')
+            self.assertEqual(q['counts'][state],1);self.assertEqual(q['counts'].get('VERIFIED',0),0)
     def test_partial_receipt_results_retry_after_one_hour_not_six(self):
         from datetime import timedelta
         def partial(*a):return {**self.observe(*a),'state':'PARTIAL','unavailable_candidates':'1'}

@@ -16,7 +16,9 @@ def context(http,base):
 def prove(t,address,tx,http,base):
     final,stamp=context(http,base)
     r=http.rpc(base,'eth_getTransactionReceipt',[tx])
-    if not isinstance(r,dict) or r.get('transactionHash','').lower()!=tx or r.get('status')!='0x1':raise Rejected('receipt not successful')
+    if not isinstance(r,dict) or any(k not in r for k in ('transactionHash','status','blockNumber','blockHash','logs')):
+        raise ValueError('receipt unavailable/incomplete')
+    if r['transactionHash'].lower()!=tx or r['status']!='0x1':raise Rejected('receipt not successful')
     height=quantity(r['blockNumber']);block_hash=hash32(r['blockHash'])
     if int(height)>final:raise Rejected('receipt not finalized')
     b=http.rpc(base,'eth_getBlockByNumber',[hex(int(height)),False])
@@ -24,7 +26,7 @@ def prove(t,address,tx,http,base):
         int(quantity(b['timestamp']))>stamp or not isinstance(b.get('transactions'),list) or
         tx not in [str(x).lower() for x in b['transactions']]):raise Rejected('canonical block mismatch')
     logs=r.get('logs')
-    if not isinstance(logs,list) or len(logs)>1000:raise Rejected('invalid receipt logs')
+    if not isinstance(logs,list) or len(logs)>1000:raise ValueError('receipt logs unavailable/malformed')
     for log in logs:
         event=transfer(log,t.contract,address)
         if event is None:continue
