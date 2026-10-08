@@ -1,147 +1,78 @@
 # 制裁リスト差分レポート
 
-## 財務省　追加 28 / 削除 0 / 変更 16
+## OFAC　追加 72 / 削除 0 / 変更 0
 
 ### 追加
-- `コルネイユ・ナンガー・ヨブルオ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `コルネイユ・ナンガー` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `コルネイユ・ヨブルオ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `CORNEILLE NANGAA` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `CORNEILLE YOBELUO` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `セバスチャン・ウウィムババジ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ジルベール・キメンイ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ニェンボ・キメンイ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ムハンメド・ルミサ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ルミサ・ムハマド` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `L・カトー` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ルミンサ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ルムウィンサ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ムカデ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ムカケ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `LUMWINSA` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `シャルル・セマタマ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `セバンヤナ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ジョン・イマニ・ンゼンゼ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `ギュスタヴ・クブワヨ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `シルコーフ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `シュルクフ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `SURCOUF` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `シュルコフ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `SURKOF` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
-- `アリアンス・フルーヴ・コンゴ` — 制裁リスト（財務省：コンゴ民主共和国(団体)）
-- `ALLIANCE FLEUVE CONGO (AFC)` — 制裁リスト（財務省：コンゴ民主共和国(団体)）
-- `トゥイルワネホ` — 制裁リスト（財務省：コンゴ民主共和国(団体)）
-
-### 変更
-#### `Corneille Nangaa Yobeluo`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | — | 財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
-
-#### `UWIMBABAZI, Sebastien`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `Gilbert Kimenyi`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `Nyembo Kimenyi`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `LUMISA, Muhammed`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `Muhamad Lumisa`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `L. Kato`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | — | 財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
-
-#### `Luminsa`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | — | 財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
-
-#### `Mukade`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | — | 財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
-
-#### `Mukake`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | — | 財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
-
-#### `SEMATAMA, Charles`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `Sebanyana`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | — | 財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
-
-#### `John Imani Nzenze`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `Gustave Kubwayo`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
-
-#### `Sirkoof`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | — | 財務省:コンゴ民主共和国(個人) |
-| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
-
-#### `TWIRWANEHO`
-| 項目 | 変更前 | 変更後 |
-| --- | --- | --- |
-| sources | OFAC | OFAC;財務省 |
-| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(団体) |
-| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(団体)／OFAC：SDN） |
+- `Paritosh Shipping Inc.` — 制裁リスト（OFAC：SDN）
+- `Ornella Shipping Inc.` — 制裁リスト（OFAC：SDN）
+- `Hechuang International Group Limited` — 制裁リスト（OFAC：SDN）
+- `和創國際集團有限公司` — 制裁リスト（OFAC：SDN）
+- `JLS Dragon Company Limited` — 制裁リスト（OFAC：SDN）
+- `Kanha Shipping Inc` — 制裁リスト（OFAC：SDN）
+- `Shunhang Ship Management Limited` — 制裁リスト（OFAC：SDN）
+- `順航船舶管理有限公司` — 制裁リスト（OFAC：SDN）
+- `Saint Abundant International Co Ltd` — 制裁リスト（OFAC：SDN）
+- `Terra Nav Shipping Ltd` — 制裁リスト（OFAC：SDN）
+- `G SPRING` — 制裁リスト（OFAC：SDN）
+- `PARITOSH` — 制裁リスト（OFAC：SDN）
+- `KANHA` — 制裁リスト（OFAC：SDN）
+- `KING CHAIN` — 制裁リスト（OFAC：SDN）
+- `POLAR` — 制裁リスト（OFAC：SDN）
+- `BITU` — 制裁リスト（OFAC：SDN）
+- `STARWAY` — 制裁リスト（OFAC：SDN）
+- `GAS LUCKY` — 制裁リスト（OFAC：SDN）
+- `Yashar` — 制裁リスト（OFAC：SDN）
+- `Horizon Ship Management FZE` — 制裁リスト（OFAC：SDN）
+- `Arabianpro Materials FZCO` — 制裁リスト（OFAC：SDN）
+- `ارابيانبرو ماتيريالز ش م ح` — 制裁リスト（OFAC：SDN）
+- `SSPL Solutions Private Limited` — 制裁リスト（OFAC：SDN）
+- `Vora Dhwani Nisarg` — 制裁リスト（OFAC：SDN）
+- `Bhuta Dhwani Dhiren` — 制裁リスト（OFAC：SDN）
+- `Vora Nisarg Samir` — 制裁リスト（OFAC：SDN）
+- `Tuter Plastik Sanayi Ve Ticaret Limited Sirketi` — 制裁リスト（OFAC：SDN）
+- `Tüter Plasti̇k Sanayi̇ Ve Ti̇caret Li̇mi̇ted Şi̇rketi̇` — 制裁リスト（OFAC：SDN）
+- `Tuter Plastic Industry and Trade Ltd. Co` — 制裁リスト（OFAC：SDN）
+- `BGZ Dis Ticaret Limited Sirketi` — 制裁リスト（OFAC：SDN）
+- `BGZ Diş Ticaret Limited Şirketi` — 制裁リスト（OFAC：SDN）
+- `Padideh Plastic Poshtiban Company` — 制裁リスト（OFAC：SDN）
+- `شركت پدیده پلاستیک پشتیبان` — 制裁リスト（OFAC：SDN）
+- `Noorzad Petrokimya Urunleri Nakliye Sanayi Ve Ticaret Limited Sirketi` — 制裁リスト（OFAC：SDN）
+- `NOORZAD PETROKİMYA ÜRÜNLERİ NAKLİYE SANAYİ VE TİCARET LİMİTED ŞİRKETİ` — 制裁リスト（OFAC：SDN）
+- `Noorzad Said Ahmad` — 制裁リスト（OFAC：SDN）
+- `One Plus International Co Ltd` — 制裁リスト（OFAC：SDN）
+- `Yong Tai` — 制裁リスト（OFAC：SDN）
+- `HESSONITE SHIP MANAGEMENT LLC` — 制裁リスト（OFAC：SDN）
+- `ARGO MARIS` — 制裁リスト（OFAC：SDN）
+- `BLACK MAYA` — 制裁リスト（OFAC：SDN）
+- `ATHE NOVA` — 制裁リスト（OFAC：SDN）
+- `Samudra Marine Services Private Limited` — 制裁リスト（OFAC：SDN）
+- `Kochikar Ketan Manohar` — 制裁リスト（OFAC：SDN）
+- `SAHU Bhupendrasingh Dhalsingh` — 制裁リスト（OFAC：SDN）
+- `Chundakattil Harishyam Hariharan` — 制裁リスト（OFAC：SDN）
+- `TINA 5` — 制裁リスト（OFAC：SDN）
+- `NOSTALGIA Co., Ltd` — 制裁リスト（OFAC：SDN）
+- `GRAVION MARITIME CO.` — 制裁リスト（OFAC：SDN）
+- `SOGL` — 制裁リスト（OFAC：SDN）
+- `BETTA SHIPPING INC` — 制裁リスト（OFAC：SDN）
+- `MAKARUA SHIPPING LTD` — 制裁リスト（OFAC：SDN）
+- `GODDESS SHIPPING CORP.` — 制裁リスト（OFAC：SDN）
+- `STANDWILL SHIPPING LIMITED` — 制裁リスト（OFAC：SDN）
+- `MACKEREL` — 制裁リスト（OFAC：SDN）
+- `GAS MARAKUA` — 制裁リスト（OFAC：SDN）
+- `ZIXUAN` — 制裁リスト（OFAC：SDN）
+- `AVA 6` — 制裁リスト（OFAC：SDN）
+- `SCIENCE RU TRADING CO LTD` — 制裁リスト（OFAC：SDN）
+- `NORTHPORT NAVIGATION INC.` — 制裁リスト（OFAC：SDN）
+- `BRICH SHIPPING COMPANY LIMITED` — 制裁リスト（OFAC：SDN）
+- `Yong Sing Shipping Company Limited` — 制裁リスト（OFAC：SDN）
+- `NOBLE SEA` — 制裁リスト（OFAC：SDN）
+- `SHENZHEN` — 制裁リスト（OFAC：SDN）
+- `EXFLAME` — 制裁リスト（OFAC：SDN）
+- `VORA, Dhwani Nisarg` — 制裁リスト（OFAC：SDN）
+- `VORA, Nisarg Samir` — 制裁リスト（OFAC：SDN）
+- `NOORZAD, Said Ahmad` — 制裁リスト（OFAC：SDN）
+- `KOCHIKAR, Ketan Manohar` — 制裁リスト（OFAC：SDN）
+- `SAHU, Bhupendrasingh Dhalsingh` — 制裁リスト（OFAC：SDN）
+- `CHUNDAKATTIL, Harishyam Hariharan` — 制裁リスト（OFAC：SDN）
+- `BHUTA, Dhwani Dhiren` — 制裁リスト（OFAC：SDN）
 

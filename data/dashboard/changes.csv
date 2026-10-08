@@ -1,4 +1,6 @@
 検知日時,出所,種別,受取人名,変更前,変更後
+2026-10-09 02:51:09,OFAC,掲載終了候補（要確認）,Pinocchio,制裁リスト（OFAC：SDN）; FixedRef=54934; event_id=67775c4d26ce434dae542a758e3c052a59331d3b65c860631e564c31b2a5fb69; SHA256=3d43f641650e7c3cb11303784d6329e3a50d2df14a1497541ddeef5d69090695,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-09 02:51:09,OFAC,掲載終了候補（要確認）,Hakuna Matata,制裁リスト（OFAC：SDN）; FixedRef=54931; event_id=67775c4d26ce434dae542a758e3c052a59331d3b65c860631e564c31b2a5fb69; SHA256=3d43f641650e7c3cb11303784d6329e3a50d2df14a1497541ddeef5d69090695,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-10-06 07:43:35,OFAC,掲載終了候補（要確認）,ZULUAGA LINDO Francisco Javier,制裁リスト（OFAC：SDN）; FixedRef=10468; event_id=6a2a32654219ce7bc19903578c6adce2939ee87a91774d907bfb59b07f683918; SHA256=1919d7ccdad5a6a4542ca196b746613ae7cdf218b94192ab77cf04f06b9793dd,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-10-06 07:43:35,OFAC,掲載終了候補（要確認）,ZAINAL Akram,制裁リスト（OFAC：SDN）; FixedRef=8414; event_id=6a2a32654219ce7bc19903578c6adce2939ee87a91774d907bfb59b07f683918; SHA256=1919d7ccdad5a6a4542ca196b746613ae7cdf218b94192ab77cf04f06b9793dd,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-10-06 07:43:35,OFAC,掲載終了候補（要確認）,ZAHRAN Yousuf,制裁リスト（OFAC：SDN）; FixedRef=8413; event_id=6a2a32654219ce7bc19903578c6adce2939ee87a91774d907bfb59b07f683918; SHA256=1919d7ccdad5a6a4542ca196b746613ae7cdf218b94192ab77cf04f06b9793dd,削除承認待ち（名簿は有効のまま・削除未反映）
@@ -129,6 +131,78 @@
 2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,Maraya,制裁リスト（OFAC：SDN）; FixedRef=28301; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Safari Club,制裁リスト（OFAC：SDN）; FixedRef=21264; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Olenga Francois,制裁リスト（OFAC：SDN）; FixedRef=21263; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-09 02:51:13,OFAC,追加,Paritosh Shipping Inc.,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Ornella Shipping Inc.,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Hechuang International Group Limited,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,和創國際集團有限公司,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,JLS Dragon Company Limited,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Kanha Shipping Inc,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Shunhang Ship Management Limited,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,順航船舶管理有限公司,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Saint Abundant International Co Ltd,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Terra Nav Shipping Ltd,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,G SPRING,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,PARITOSH,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,KANHA,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,KING CHAIN,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,POLAR,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,BITU,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,STARWAY,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,GAS LUCKY,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Yashar,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Horizon Ship Management FZE,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Arabianpro Materials FZCO,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,ارابيانبرو ماتيريالز ش م ح,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,SSPL Solutions Private Limited,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Vora Dhwani Nisarg,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Bhuta Dhwani Dhiren,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Vora Nisarg Samir,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Tuter Plastik Sanayi Ve Ticaret Limited Sirketi,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Tüter Plasti̇k Sanayi̇ Ve Ti̇caret Li̇mi̇ted Şi̇rketi̇,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Tuter Plastic Industry and Trade Ltd. Co,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,BGZ Dis Ticaret Limited Sirketi,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,BGZ Diş Ticaret Limited Şirketi,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Padideh Plastic Poshtiban Company,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,شركت پدیده پلاستیک پشتیبان,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Noorzad Petrokimya Urunleri Nakliye Sanayi Ve Ticaret Limited Sirketi,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,NOORZAD PETROKİMYA ÜRÜNLERİ NAKLİYE SANAYİ VE TİCARET LİMİTED ŞİRKETİ,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Noorzad Said Ahmad,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,One Plus International Co Ltd,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Yong Tai,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,HESSONITE SHIP MANAGEMENT LLC,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,ARGO MARIS,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,BLACK MAYA,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,ATHE NOVA,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Samudra Marine Services Private Limited,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Kochikar Ketan Manohar,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,SAHU Bhupendrasingh Dhalsingh,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Chundakattil Harishyam Hariharan,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,TINA 5,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"NOSTALGIA Co., Ltd",,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,GRAVION MARITIME CO.,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,SOGL,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,BETTA SHIPPING INC,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,MAKARUA SHIPPING LTD,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,GODDESS SHIPPING CORP.,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,STANDWILL SHIPPING LIMITED,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,MACKEREL,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,GAS MARAKUA,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,ZIXUAN,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,AVA 6,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,SCIENCE RU TRADING CO LTD,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,NORTHPORT NAVIGATION INC.,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,BRICH SHIPPING COMPANY LIMITED,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,Yong Sing Shipping Company Limited,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,NOBLE SEA,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,SHENZHEN,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,EXFLAME,,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"VORA, Dhwani Nisarg",,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"VORA, Nisarg Samir",,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"NOORZAD, Said Ahmad",,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"KOCHIKAR, Ketan Manohar",,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"SAHU, Bhupendrasingh Dhalsingh",,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"CHUNDAKATTIL, Harishyam Hariharan",,制裁リスト（OFAC：SDN）
+2026-10-09 02:51:13,OFAC,追加,"BHUTA, Dhwani Dhiren",,制裁リスト（OFAC：SDN）
 2026-10-08 22:58:49,財務省,追加,コルネイユ・ナンガー・ヨブルオ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
 2026-10-08 22:58:49,財務省,追加,コルネイユ・ナンガー,,制裁リスト（財務省：コンゴ民主共和国(個人)）
 2026-10-08 22:58:49,財務省,追加,コルネイユ・ヨブルオ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
@@ -4925,77 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KUZNETSOV Artyom,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,LOGUNOV Oleg,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VILLARROEL RAMIREZ Vassyly Kotosky,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VILLARROEL KOTOSKY Angel,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PECHEGIN Andrey I.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,PODOPRIGOROV Sergei G.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Prokopenko Ivan Pavlovitch,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Прокопенко Иван Павлович,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,SILCHENKO Oleg F.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,STASHINA Yelena,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,STASHINA Helen,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,STASHINA Elena,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,STEPANOVA Olga G.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TOLCHINSKIY Dmitri M.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TOLCHINSKY Dmitry,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,UKHNALYOVA Svetlana,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,UKHNALEVA Svetlana V.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,UKHNALEV Svetlana,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VINOGRADOVA Natalya V.,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BOGATIROV Letscha,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BOGATYREV Lecha,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BOGATYRYOV Lecha,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DUKUZOV Kazbek,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KHAKI Parviz,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TAPIA QUINTERO Jose Guadalupe,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,NOORZAI Haji Kotwal,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHANG Wen-Fu,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CHANG Tony,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZHANG Wen-Fu,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BUJAR Farhad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BOUJAR Farhad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,JASHNSAZ Seifollah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,JASHNSAZ Seyfollah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,NIKOUSOKHAN Mahmoud,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,POURANSARI Hashem,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BAHADORI Masoud,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VAZIRI Hossein Nosratollah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VAZIRI Ahmed,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VAZIRI Ahmad,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,BERCIAN MANCHON Moris Alexander,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CISNEROS RODRIGUEZ Jose Misael,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,CISNEROS Jose Misal,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MONTERROSA-LARIOS Marvin Geovanny,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MONTERROSA-LARIOS Marvin Jeovanny,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,RIVERA-LUNA Moises Humberto,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,TURCIOS ANGEL Saul Antonio,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HENRIQUEZ SOLORZANO Borromeo Enrique,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,RIVERA ARIAS Racson Mario,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KIM Lidia,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KIM Lidiia,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KIM Lidiya,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KIM Lidia Egorovna,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ARABNEJAD Hamid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIR-HEJAZI Asghar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HEJAZI Asghar Sadegh,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,HEJAZI Asghar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIRHEJAZI Ali,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIR-HEJAZI Ali Asqar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MIR-HEJAZI RUHANI Ali Asqar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Hejazi Ali Asghar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,Hejazi Seyyed Ali Asghar,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-MASLI 'Abd-al-Hamid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MUSALLI 'Abd-al-Hamid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-MASLI 'Abd al-Hamid Muhammad 'Abd al-Hamid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MASLI Hamid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-DARNAWI Hamza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-DARNAWI Hamzah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DARNAWI Hamza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DARNAWI Hamzah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DIRNAWI Hamzah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DARNAVI Hamza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-DARNAVI Hamza,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,DARNAWI Abdullah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,AL-DARNAWI Abu-Hamzah,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,MOHAMED HAMZA Abd Al-Ra'Ouf Abu Zaid,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ABUZAID Abdul Rauf,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,ZAYID HAMZA Abdel Raouf Abu,,制裁リスト（OFAC：SDN）
