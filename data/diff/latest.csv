@@ -1,15 +1,45 @@
 出所,種別,受取人名,変更前,変更後
-OFAC,追加,Maria HERNANDEZ PULIDO Elda,,制裁リスト（OFAC：SDN）
-OFAC,追加,Francisco OROPEZA MEDRANO Javier,,制裁リスト（OFAC：SDN）
-OFAC,追加,Sergio RAMIREZ AGUIRRE Humberto,,制裁リスト（OFAC：SDN）
-OFAC,追加,Luis TOLEDO CARREJO Raul,,制裁リスト（OFAC：SDN）
-OFAC,追加,Hector PALMA SALAZAR Luis,,制裁リスト（OFAC：SDN）
-OFAC,追加,Jesus PALMA SALAZAR Hector,,制裁リスト（OFAC：SDN）
-OFAC,追加,Eduardo ARELLANO FELIX,,制裁リスト（OFAC：SDN）
-OFAC,追加,Francisco ARELLANO FELIX Javier,,制裁リスト（OFAC：SDN）
-OFAC,追加,Beatriz LOPEZ POBLANO Raquel,,制裁リスト（OFAC：SDN）
-OFAC,追加,Juan OLIVAS OJEDA Carlos,,制裁リスト（OFAC：SDN）
-OFAC,追加,Juan MEJIA GONZALEZ Reyes,,制裁リスト（OFAC：SDN）
-OFAC,追加,JAMES II,,制裁リスト（OFAC：SDN）
-OFAC,追加,DA LI,,制裁リスト（OFAC：SDN）
-OFAC,変更,Abigail TAPIA ORTEGA,制裁リスト（OFAC）,制裁リスト（OFAC：SDN）
+財務省,追加,コルネイユ・ナンガー・ヨブルオ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,コルネイユ・ナンガー,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,コルネイユ・ヨブルオ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,CORNEILLE NANGAA,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,CORNEILLE YOBELUO,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,セバスチャン・ウウィムババジ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ジルベール・キメンイ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ニェンボ・キメンイ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ムハンメド・ルミサ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ルミサ・ムハマド,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,L・カトー,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ルミンサ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ルムウィンサ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ムカデ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ムカケ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,LUMWINSA,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,シャルル・セマタマ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,セバンヤナ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ジョン・イマニ・ンゼンゼ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,ギュスタヴ・クブワヨ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,シルコーフ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,シュルクフ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,SURCOUF,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,シュルコフ,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,SURKOF,,制裁リスト（財務省：コンゴ民主共和国(個人)）
+財務省,追加,アリアンス・フルーヴ・コンゴ,,制裁リスト（財務省：コンゴ民主共和国(団体)）
+財務省,追加,ALLIANCE FLEUVE CONGO (AFC),,制裁リスト（財務省：コンゴ民主共和国(団体)）
+財務省,追加,トゥイルワネホ,,制裁リスト（財務省：コンゴ民主共和国(団体)）
+財務省,変更,Corneille Nangaa Yobeluo,制裁リスト（OFAC）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC）
+財務省,変更,"UWIMBABAZI, Sebastien",制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,Gilbert Kimenyi,制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,Nyembo Kimenyi,制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,"LUMISA, Muhammed",制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,Muhamad Lumisa,制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,L. Kato,制裁リスト（OFAC）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC）
+財務省,変更,Luminsa,制裁リスト（OFAC）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC）
+財務省,変更,Mukade,制裁リスト（OFAC）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC）
+財務省,変更,Mukake,制裁リスト（OFAC）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC）
+財務省,変更,"SEMATAMA, Charles",制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,Sebanyana,制裁リスト（OFAC）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC）
+財務省,変更,John Imani Nzenze,制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,Gustave Kubwayo,制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN）
+財務省,変更,Sirkoof,制裁リスト（OFAC）,制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC）
+財務省,変更,TWIRWANEHO,制裁リスト（OFAC：SDN）,制裁リスト（財務省：コンゴ民主共和国(団体)／OFAC：SDN）

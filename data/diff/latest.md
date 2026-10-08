@@ -1,26 +1,147 @@
 # 制裁リスト差分レポート
 
-## OFAC　追加 13 / 削除 0 / 変更 1
+## 財務省　追加 28 / 削除 0 / 変更 16
 
 ### 追加
-- `Maria HERNANDEZ PULIDO Elda` — 制裁リスト（OFAC：SDN）
-- `Francisco OROPEZA MEDRANO Javier` — 制裁リスト（OFAC：SDN）
-- `Sergio RAMIREZ AGUIRRE Humberto` — 制裁リスト（OFAC：SDN）
-- `Luis TOLEDO CARREJO Raul` — 制裁リスト（OFAC：SDN）
-- `Hector PALMA SALAZAR Luis` — 制裁リスト（OFAC：SDN）
-- `Jesus PALMA SALAZAR Hector` — 制裁リスト（OFAC：SDN）
-- `Eduardo ARELLANO FELIX` — 制裁リスト（OFAC：SDN）
-- `Francisco ARELLANO FELIX Javier` — 制裁リスト（OFAC：SDN）
-- `Beatriz LOPEZ POBLANO Raquel` — 制裁リスト（OFAC：SDN）
-- `Juan OLIVAS OJEDA Carlos` — 制裁リスト（OFAC：SDN）
-- `Juan MEJIA GONZALEZ Reyes` — 制裁リスト（OFAC：SDN）
-- `JAMES II` — 制裁リスト（OFAC：SDN）
-- `DA LI` — 制裁リスト（OFAC：SDN）
+- `コルネイユ・ナンガー・ヨブルオ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `コルネイユ・ナンガー` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `コルネイユ・ヨブルオ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `CORNEILLE NANGAA` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `CORNEILLE YOBELUO` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `セバスチャン・ウウィムババジ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ジルベール・キメンイ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ニェンボ・キメンイ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ムハンメド・ルミサ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ルミサ・ムハマド` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `L・カトー` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ルミンサ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ルムウィンサ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ムカデ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ムカケ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `LUMWINSA` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `シャルル・セマタマ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `セバンヤナ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ジョン・イマニ・ンゼンゼ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `ギュスタヴ・クブワヨ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `シルコーフ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `シュルクフ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `SURCOUF` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `シュルコフ` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `SURKOF` — 制裁リスト（財務省：コンゴ民主共和国(個人)）
+- `アリアンス・フルーヴ・コンゴ` — 制裁リスト（財務省：コンゴ民主共和国(団体)）
+- `ALLIANCE FLEUVE CONGO (AFC)` — 制裁リスト（財務省：コンゴ民主共和国(団体)）
+- `トゥイルワネホ` — 制裁リスト（財務省：コンゴ民主共和国(団体)）
 
 ### 変更
-#### `Abigail TAPIA ORTEGA`
+#### `Corneille Nangaa Yobeluo`
 | 項目 | 変更前 | 変更後 |
 | --- | --- | --- |
-| categories | — | OFAC:SDN |
-| remark | 制裁リスト（OFAC） | 制裁リスト（OFAC：SDN） |
+| sources | OFAC | OFAC;財務省 |
+| categories | — | 財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
+
+#### `UWIMBABAZI, Sebastien`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `Gilbert Kimenyi`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `Nyembo Kimenyi`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `LUMISA, Muhammed`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `Muhamad Lumisa`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `L. Kato`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | — | 財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
+
+#### `Luminsa`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | — | 財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
+
+#### `Mukade`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | — | 財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
+
+#### `Mukake`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | — | 財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
+
+#### `SEMATAMA, Charles`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `Sebanyana`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | — | 財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
+
+#### `John Imani Nzenze`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `Gustave Kubwayo`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC：SDN） |
+
+#### `Sirkoof`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | — | 財務省:コンゴ民主共和国(個人) |
+| remark | 制裁リスト（OFAC） | 制裁リスト（財務省：コンゴ民主共和国(個人)／OFAC） |
+
+#### `TWIRWANEHO`
+| 項目 | 変更前 | 変更後 |
+| --- | --- | --- |
+| sources | OFAC | OFAC;財務省 |
+| categories | OFAC:SDN | OFAC:SDN;財務省:コンゴ民主共和国(団体) |
+| remark | 制裁リスト（OFAC：SDN） | 制裁リスト（財務省：コンゴ民主共和国(団体)／OFAC：SDN） |
 
