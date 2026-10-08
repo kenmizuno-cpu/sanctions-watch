@@ -23,7 +23,7 @@
 | 取得失敗 | 履歴索引・ネットワーク確認を取得できない |
 | 未照会・上限/取得先停止 | 時間/要求上限や停止回路により未照会 |
 
-現在の履歴照会結果はlast_success、過去の検証済み取引証拠はlast_verifiedとして別々に保持する。現在の照会が取得不足・空の有限履歴になっても過去の取引証拠は消さず、旧証拠表示と証拠を検証した日時を併記する。今回失敗・期限超過・最終成功日時を併記する。成功は6時間、失敗/取得不足は1時間後に再照会。180秒/600要求、HTTP本文512KiB、JSON2MiB。TRON索引は1秒以上間隔、Blockscoutも1秒以上間隔、既存RPCの停止回路を継承する。時間上限で未処理となった対象は次の実行で追い、成功キャッシュの対象に再要求しない。
+現在の履歴照会結果はlast_success、過去の検証済み取引証拠はlast_verifiedとして別々に保持する。現在の照会が取得不足・空の有限履歴になっても過去の取引証拠は消さず、旧証拠表示と証拠を検証した日時を併記する。今回失敗・期限超過・最終成功日時を併記する。成功は6時間、失敗/取得不足は1時間後に再照会。300秒/600要求、HTTP本文512KiB、JSON2MiB。TRON索引は1秒以上間隔、Blockscoutも1秒以上間隔、既存RPCの停止回路を継承する。時間・要求上限で未処理となった対象は次の実行ですぐ再開し（API停止回路・通信失敗の1時間待ちと区別）、成功キャッシュの対象に再要求しない。
 
 ## ファイル構成
 
@@ -66,4 +66,22 @@ GitHub Actionsが収録成功後に実行し、`data/crypto/token_history.json`�
 
 ## 検証記録
 
-実装前の失敗テストから、偽契約・別住所・不正ABI・ゼロ金額・失敗receipt・未確定高さ・ブロックhash差異・取引未収録・API欠損・予算枯渇・キャッシュ失効・旧成功保持・公式JSONの保護を確認。GASは件数・原本SHA・掲載関係・契約・状態・証拠・正確な整数を検証する。独立レビューで欠損receiptの誤分類・取得不足時の証拠消失を再現し、失敗テスト→修正→成功テストで是正。GASの未照会候補を「証拠なし」と扱う不整合も拒否する。検証は公開RPCの応答を根拠とする。全体テスト444件・暗号資産GAS29件・既存GAS50件、offline213/e2e9、財務省diff/re-reviewが通過。本番JSONの確認はmain統合後に追記する。
+実装前の失敗テストから、偽契約・別住所・不正ABI・ゼロ金額・失敗receipt・未確定高さ・ブロックhash差異・取引未収録・API欠損・予算枯渇・キャッシュ失効・旧成功保持・公式JSONの保護を確認。GASは件数・原本SHA・掲載関係・契約・状態・証拠・正確な整数を検証する。独立レビューで欠損receiptの誤分類・取得不足時の証拠消失を再現し、失敗テスト→修正→成功テストで是正。GASの未照会候補を「証拠なし」と扱う不整合も拒否する。検証は公開RPCの応答を根拠とする。全体テスト445件・暗号資産GAS29件・既存GAS50件、offline213/e2e9、財務省diff/re-reviewが通過。本番JSONの確認はmain統合後に追記する。
+
+## 差し替え用の全文（同一版）
+
+共通コードのコミット：`10c6a78fade179da2739152f2f2678c14de39679`。PR #21：https://github.com/kenmizunokuro/sanctions-watch/pull/21 。
+
+- [TokenHistory.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/10c6a78fade179da2739152f2f2678c14de39679/apps_script/crypto_dashboard/TokenHistory.gs)
+- [Config.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/10c6a78fade179da2739152f2f2678c14de39679/apps_script/crypto_dashboard/Config.gs)
+- [Fetch.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/10c6a78fade179da2739152f2f2678c14de39679/apps_script/crypto_dashboard/Fetch.gs)
+- [View.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/10c6a78fade179da2739152f2f2678c14de39679/apps_script/crypto_dashboard/View.gs)
+- [Triggers.gs](https://raw.githubusercontent.com/kenmizunokuro/sanctions-watch/10c6a78fade179da2739152f2f2678c14de39679/apps_script/crypto_dashboard/Triggers.gs)
+
+既存の10ファイル設置済みなら、この5ファイルだけを適用し、保存後setupCryptoDashboardを実行する。追加の有料契約・APIキーは不要。会社側の設置結果は未確認。
+
+## 初回本番収集と予算調整
+
+PR #21をmain反映後、watch-crypto 37714927199が成功。2026-10-08 10:54:30 JSTの独立JSONは89関係中、検証済み55・取得範囲で証拠なし1・時間上限による未照会33、HTTP250要求。固化済みの成功receipt・ブロック収録・Transferまで確認できる実データを得た。同版の公式JSON・残高JSONとGAS検証/90行の表示を確認し、公式掲載関係ID・住所・first_seen・公式イベント・形式検証履歴の維持を確認。
+
+履歴索引だけでなく2取得先へのreceipt照会と固化ブロック収録の照合にも時間を使うため、上限を180→300秒へ調整。時間/要求上限で未処理になった対象は次実行で直ちに再開し、API停止回路・通信失敗の1時間待ちと区別する。成功55件のキャッシュは保持する。次回の収集結果を確認して追記する。

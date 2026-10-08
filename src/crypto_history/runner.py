@@ -25,7 +25,8 @@ def collect(snapshot,previous,now=None,*,http=None,observe=None):
             value=prev.get('last_success',{})
             partial=value.get('state')=='PARTIAL'
             cached=prev.get('status')=='SUCCESS' and not partial and 0<=age(value.get('checked_at'),now)<21600
-            waiting=(prev.get('status') in ('FAILED','DEFERRED') or partial) and 0<=age(prev.get('attempted_at'),now)<3600
+            budget_deferred=prev.get('status')=='DEFERRED' and prev.get('error','').startswith('request/time budget exhausted')
+            waiting=not budget_deferred and (prev.get('status') in ('FAILED','DEFERRED') or partial) and 0<=age(prev.get('attempted_at'),now)<3600
             if cached or waiting:
                 rows.append(dict(prev));continue
             r={**fields,'attempted_at':datetime.now(timezone.utc).isoformat().replace('+00:00','Z') if real else stamp}

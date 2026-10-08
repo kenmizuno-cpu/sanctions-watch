@@ -55,7 +55,7 @@ jobs:
         run: python -m src.crypto_chain_watch --seconds 360 --max-calls 1200
       - name: 過去のトークン履歴と確定取引の照合
         if: always() && !cancelled() && steps.extract.outcome == 'success'
-        run: python -m src.crypto_token_history_watch --seconds 180 --max-calls 600
+        run: python -m src.crypto_token_history_watch --seconds 300 --max-calls 600
       - name: 監視状態と台帳を保存
         if: always() && steps.extract.outcome != 'skipped'
         run: |
