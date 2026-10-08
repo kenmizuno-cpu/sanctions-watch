@@ -204,6 +204,16 @@ class HistoryRunnerTests(unittest.TestCase):
         self.assertEqual(p['rows'][0]['status'],'DEFERRED');self.assertEqual(self.snapshot,original)
         self.snapshot['rows'][0]['symbol']='ETH'
         self.assertEqual(self.collect(self.snapshot,{},self.now,observe=self.observe)['rows'],[])
+    def test_budget_deferral_resumes_next_run_but_provider_circuit_waits(self):
+        from datetime import timedelta
+        from src.crypto_chain.transport import Deferred
+        def exhausted(*args):raise Deferred('request/time budget exhausted')
+        p=self.collect(self.snapshot,{},self.now,observe=exhausted);self.calls.clear()
+        self.collect(self.snapshot,p,self.now+timedelta(minutes=1),observe=self.observe)
+        self.assertEqual(len(self.calls),1)
+        p['rows'][0]['error']='provider circuit open after 3 consecutive failures';self.calls.clear()
+        self.collect(self.snapshot,p,self.now+timedelta(minutes=1),observe=self.observe)
+        self.assertEqual(self.calls,[])
     def test_cli_skips_failed_extraction_and_atomically_writes_independent_json(self):
         import tempfile,json
         from pathlib import Path

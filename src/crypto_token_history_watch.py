@@ -6,7 +6,7 @@ from .crypto_history.runner import collect
 from .crypto_history.transport import HistoryTransport
 from .persistence import FileWrite,atomic_replace_many
 
-def run(root=Path('.'),*,seconds=180,max_calls=600):
+def run(root=Path('.'),*,seconds=300,max_calls=600):
     source=root/'data/crypto/dashboard.json';target=root/'data/crypto/token_history.json'
     snapshot=json.loads(source.read_text(encoding='utf-8'))
     if snapshot['status']!='SUCCESS':raise ValueError('official extraction failed; history scan skipped')
@@ -19,7 +19,7 @@ def run(root=Path('.'),*,seconds=180,max_calls=600):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,default=Path('.'))
-    p.add_argument('--seconds',type=int,default=180);p.add_argument('--max-calls',type=int,default=600)
+    p.add_argument('--seconds',type=int,default=300);p.add_argument('--max-calls',type=int,default=600)
     a=p.parse_args();result=run(a.root,seconds=a.seconds,max_calls=a.max_calls)
     print(json.dumps({'counts':result['counts'],'http_calls':result['http_calls']},ensure_ascii=False))
 
