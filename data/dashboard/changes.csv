@@ -1,4 +1,5 @@
 検知日時,出所,種別,受取人名,変更前,変更後
+2026-10-09 23:41:06,OFAC,掲載終了候補（要確認）,Htet Theint Win,制裁リスト（OFAC：SDN）; FixedRef=47354; event_id=30b254b6d89aff26aa1d2d941520f24192259c0e0cb17ecf371261cb11517b62; SHA256=df65bed201df2dc1f5fbccb581e7c683b5673aa7674066b6f99fef506db93662,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-10-09 02:51:09,OFAC,掲載終了候補（要確認）,Pinocchio,制裁リスト（OFAC：SDN）; FixedRef=54934; event_id=67775c4d26ce434dae542a758e3c052a59331d3b65c860631e564c31b2a5fb69; SHA256=3d43f641650e7c3cb11303784d6329e3a50d2df14a1497541ddeef5d69090695,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-10-09 02:51:09,OFAC,掲載終了候補（要確認）,Hakuna Matata,制裁リスト（OFAC：SDN）; FixedRef=54931; event_id=67775c4d26ce434dae542a758e3c052a59331d3b65c860631e564c31b2a5fb69; SHA256=3d43f641650e7c3cb11303784d6329e3a50d2df14a1497541ddeef5d69090695,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-10-06 07:43:35,OFAC,掲載終了候補（要確認）,ZULUAGA LINDO Francisco Javier,制裁リスト（OFAC：SDN）; FixedRef=10468; event_id=6a2a32654219ce7bc19903578c6adce2939ee87a91774d907bfb59b07f683918; SHA256=1919d7ccdad5a6a4542ca196b746613ae7cdf218b94192ab77cf04f06b9793dd,削除承認待ち（名簿は有効のまま・削除未反映）
@@ -131,6 +132,7 @@
 2026-10-01 04:27:02,OFAC,掲載終了候補（要確認）,Maraya,制裁リスト（OFAC：SDN）; FixedRef=28301; event_id=eef66c298c11ec747f6da9c0385d3c50d1d19117e57c5b8d3803059d8081c4c7; SHA256=5afe67d5b6709be142c09ddd3550b58593d7a706e82cbd68a8001ffc3c90e28b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Safari Club,制裁リスト（OFAC：SDN）; FixedRef=21264; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
 2026-09-23 23:32:21,OFAC,掲載終了候補（要確認）,Olenga Francois,制裁リスト（OFAC：SDN）; FixedRef=21263; event_id=51cd022b2b3bd6ed22e24f914240a2c1c1b97fd8588f94f006dfdec72d766556; SHA256=83553ea89120cba98271cd3724531dd3d603e27521c4b47be6548a3856ed068b,削除承認待ち（名簿は有効のまま・削除未反映）
+2026-10-09 23:41:10,OFAC,追加,International Criminal Court,,制裁リスト（OFAC：SDN）
 2026-10-09 02:51:13,OFAC,追加,Paritosh Shipping Inc.,,制裁リスト（OFAC：SDN）
 2026-10-09 02:51:13,OFAC,追加,Ornella Shipping Inc.,,制裁リスト（OFAC：SDN）
 2026-10-09 02:51:13,OFAC,追加,Hechuang International Group Limited,,制裁リスト（OFAC：SDN）
@@ -4997,5 +4999,3 @@
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KRIVORUCHKO Alexei,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KUZNETSOV Artem,,制裁リスト（OFAC：SDN）
 2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,KUZNETSOV Artyom,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,LOGUNOV Oleg,,制裁リスト（OFAC：SDN）
-2026-09-04 10:26:50,OFAC,初回同期（Advanced XML）,VILLARROEL RAMIREZ Vassyly Kotosky,,制裁リスト（OFAC：SDN）

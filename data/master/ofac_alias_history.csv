@@ -56982,8 +56982,8 @@ SDN,47351,Al-Khaleej Bank,al-khaleejbank,1788483946814,1788483946814,1,1,advance
 SDN,47351,Alkhaleej Bank Co Ltd,alkhaleejbankcoltd,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,47353,"KYAW, Win Paing",winpaingkyaw,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,47353,Kyaw Win Paing,kyawwinpaing,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
-SDN,47354,"HTET, Theint Win",theintwinhtet,1788483946814,1788483946814,1,1,classic_csv,0,0
-SDN,47354,Htet Theint Win,htettheintwin,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
+SDN,47354,"HTET, Theint Win",theintwinhtet,1788483946814,1791556866058,0,0,classic_csv,0,0
+SDN,47354,Htet Theint Win,htettheintwin,1788483946814,1791556866058,0,0,advanced_xml_v3,1,0
 SDN,47355,"FY INTERNATIONAL TRADING CO., LIMITED",limitedfyinternationaltradingco.,1788483946814,1788483946814,1,1,classic_csv,0,0
 SDN,47355,"FY International Trading Co., Limited",limitedfyinternationaltradingco.,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
 SDN,47355,伊國際貿易有限公司,伊國際貿易有限公司,1788483946814,1788483946814,1,1,advanced_xml_v3,1,0
@@ -77325,6 +77325,8 @@ SDN,58599,شركة كافاليير دايناميكس للتقنيات,شركة
 SDN,58600,CAVALIER DYNAMICS TEKNOLOJI TICARET ANONIM SIRKETI,cavalierdynamicsteknolojiticaretanonimsirketi,1790715150580,1790715150580,1,1,classic_csv,0,0
 SDN,58600,Cavalier Dynamics Teknoloji Ticaret Anonim Sirketi,cavalierdynamicsteknolojiticaretanonimsirketi,1790715150580,1790715150580,1,1,advanced_xml_v3,1,0
 SDN,58600,Cavalier Dynamics Teknoloji Ticaret Anonim Şirketi,cavalierdynamicsteknolojiticaretanonimşirketi,1790715150580,1790715150580,1,1,advanced_xml_v3,1,0
+SDN,58601,INTERNATIONAL CRIMINAL COURT,internationalcriminalcourt,1791556866058,1791556866058,1,1,classic_csv,0,0
+SDN,58601,International Criminal Court,internationalcriminalcourt,1791556866058,1791556866058,1,1,advanced_xml_v3,1,0
 SDN,58614,EMPRESA DE SERVICIOS DE COMPUTACION COMUNICACIONES Y ELECTRONICA DEL NIQUEL RAFAEL FAUSTO OREJON FORMENT,empresadeserviciosdecomputacioncomunicacionesyelectronicadelniquelrafaelfaustoorejonforment,1789694501137,1789694501137,1,1,classic_csv,0,0
 SDN,58614,EMPRESA DE SERVICIOS TECNICOS DE COMPUTACION COMUNICACIONES Y ELECTRONICA,empresadeserviciostecnicosdecomputacioncomunicacionesyelectronica,1789694501137,1789694501137,1,1,classic_csv,0,0
 SDN,58614,Empresa De Servicios Tecnicos De Computacion Comunicaciones Y Electronica,empresadeserviciostecnicosdecomputacioncomunicacionesyelectronica,1789694501137,1789694501137,1,1,advanced_xml_v3,1,0
